@@ -1,0 +1,10 @@
+{
+  "name": "@visiblehq/core",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "@types/jsdom": "^12.2.4",
+    "jsdom": "^15.2.1"
+  }
+}
