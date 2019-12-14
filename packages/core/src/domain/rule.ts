@@ -1,8 +1,4 @@
-import puppeteer from "puppeteer";
 import { Report } from "./report";
-
-export interface Context {
-  readonly page: puppeteer.Page;
-}
+import { Context } from './context';
 
 export type Rule = (context: Context) => Promise<(Report | undefined)[]>;
