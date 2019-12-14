@@ -1,8 +1,6 @@
 import { Rule } from "../../domain/rule";
 import { Report } from "../../domain/report";
 
-export const id = "button-id";
-
 export const buttonAlt: Rule = async ({ page }) => {
   const elements = await page.$$("button");
   const reports: Report[] = [];
@@ -10,10 +8,13 @@ export const buttonAlt: Rule = async ({ page }) => {
   for (const element of elements) {
     const hasTextContent = await element.evaluate(e => !!e.textContent);
     const hasTitle = await element.evaluate(e => !!e.getAttribute("title"));
+    const html = await element.evaluate(e => e.outerHTML);
 
     if (!hasTextContent && !hasTitle) {
       reports.push({
-        id
+        id: 'button-alt',
+        type: 'error',
+        html,
       });
     }
   }

@@ -1,8 +1,16 @@
-import { getLuminance, getContrast } from "polished";
+import { getLuminance, getContrast, parseToRgb } from "polished";
 import { Rule } from "../../domain/rule";
 import { Report } from "../../domain/report";
 
-const id = "color-contrast";
+const isTransparent = (color: string) => {
+  const rgba = parseToRgb(color);
+
+  if ('alpha' in rgba && rgba.alpha <= 0) {
+    return true;
+  }
+
+  return false;
+}
 
 // See resources for Contrast ratio:
 // https://www.w3.org/TR/WCAG20-TECHS/G18.html
@@ -15,10 +23,9 @@ export const colorContrast: Rule = async ({ page }) => {
     const bg = await element.evaluate(e => getComputedStyle(e).backgroundColor);
     const fg = await element.evaluate(e => getComputedStyle(e).color);
     const hasTextContent = await element.evaluate(e => !!e.textContent);
+    const html = await element.evaluate(e => e.outerHTML);
 
-    console.log(bg, fg, hasTextContent);
-
-    if (!bg || !fg || !hasTextContent) {
+    if (!bg || !fg || !hasTextContent || isTransparent(bg)) {
       continue;
     }
 
@@ -26,7 +33,9 @@ export const colorContrast: Rule = async ({ page }) => {
 
     if (contrastRatio <= 4.5) {
       reports.push({
-        id
+        id: 'color-contrast',
+        type: 'error',
+        html,
       });
     }
   }

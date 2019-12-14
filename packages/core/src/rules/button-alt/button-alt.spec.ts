@@ -7,7 +7,7 @@ describe("button-alt", () => {
 
     expect(report).toEqual(
       expect.objectContaining({
-        id: "button-id"
+        id: "button-alt"
       })
     );
   });

@@ -1,6 +1,5 @@
 import puppeteer from "puppeteer";
 import { rules } from "./rules";
-import { Report } from "./domain/report";
 
 const main = async () => {
   const [, , url] = process.argv;

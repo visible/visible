@@ -1,7 +1,13 @@
-export type ReportID = string;
+import { Fixer } from "./fixer";
+
+export type ReportType =
+  | 'info'
+  | 'warn'
+  | 'error';
 
 export interface Report {
-  readonly id: ReportID;
-  readonly element?: Element;
-  readonly fixer?: () => Element;
+  readonly id: string;
+  readonly type: ReportType;
+  readonly html?: string;
+  readonly fixer?: Fixer;
 }
