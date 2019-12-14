@@ -1,0 +1,28 @@
+import { imageAlt } from "./image-alt";
+
+describe("img-alt", () => {
+  it("returns report when the img element did not have an alt", async () => {
+    await page.setContent(`
+      <div>
+        <img src="https://example.com" alt="" />
+      </div>
+    `);
+    const [report] = await imageAlt({ page });
+
+    expect(report).toEqual(
+      expect.objectContaining({
+        id: "image-alt"
+      })
+    );
+  });
+
+  it("returns nothing when the img is accessible", async () => {
+    await page.setContent(`
+      <img src="https://example.com" alt="this is an image" />
+    `);
+
+    const reports = await imageAlt({ page });
+
+    expect(reports).toEqual([]);
+  });
+});

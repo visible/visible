@@ -7,5 +7,15 @@
   "license": "AGPL-3.0",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "test": "jest --config=jest.config.js"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@types/jest-environment-puppeteer": "^4.3.1",
+    "jest": "^24.9.0",
+    "jest-environment-puppeteer": "^4.3.0",
+    "ts-jest": "^24.2.0"
+  }
 }
