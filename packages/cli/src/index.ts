@@ -30,7 +30,12 @@ const print = (reportsInput: Report[], json: boolean, verbose: boolean) => {
   }
 
   const rows = [
-    [chalk.bold('Kind'), chalk.bold('Type'), chalk.bold('HTML')],
+    [
+      chalk.bold('Kind'),
+      chalk.bold('Type'),
+      chalk.bold('Message'),
+      chalk.bold('HTML'),
+    ],
     ...reports.map(report => {
       const type = {
         ok: chalk.green('ok'),
@@ -40,7 +45,7 @@ const print = (reportsInput: Report[], json: boolean, verbose: boolean) => {
 
       const html = report.html ? report.html.substr(0, 100) : '';
 
-      return [type, report.id, html];
+      return [type, report.id, report.message, html];
     }),
   ];
 

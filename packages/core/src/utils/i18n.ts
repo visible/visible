@@ -14,4 +14,4 @@ export const createI18n = async (language?: string) => {
   });
 
   return i18next;
-}
+};
