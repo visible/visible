@@ -5,12 +5,12 @@ import { Report } from "../../domain/report";
 const isTransparent = (color: string) => {
   const rgba = parseToRgb(color);
 
-  if ('alpha' in rgba && rgba.alpha <= 0) {
+  if ("alpha" in rgba && rgba.alpha <= 0) {
     return true;
   }
 
   return false;
-}
+};
 
 // See resources for Contrast ratio:
 // https://www.w3.org/TR/WCAG20-TECHS/G18.html
@@ -33,11 +33,19 @@ export const colorContrast: Rule = async ({ page }) => {
 
     if (contrastRatio <= 4.5) {
       reports.push({
-        id: 'color-contrast',
-        type: 'error',
-        html,
+        id: "color-contrast",
+        type: "error",
+        html
       });
+
+      continue;
     }
+
+    reports.push({
+      id: "color-contrast",
+      type: "ok",
+      html
+    });
   }
 
   return reports;

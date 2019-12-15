@@ -11,11 +11,19 @@ export const imageAlt: Rule = async ({ page }) => {
 
     if (!hasAlt) {
       reports.push({
-        id: 'image-alt',
-        type: 'error',
-        html,
+        id: "image-alt",
+        type: "error",
+        html
       });
+
+      continue;
     }
+
+    reports.push({
+      id: "image-alt",
+      type: "ok",
+      html
+    });
   }
 
   return reports;

@@ -12,11 +12,19 @@ export const buttonAlt: Rule = async ({ page }) => {
 
     if (!hasTextContent && !hasTitle) {
       reports.push({
-        id: 'button-alt',
-        type: 'error',
-        html,
+        id: "button-alt",
+        type: "error",
+        html
       });
+
+      continue;
     }
+
+    reports.push({
+      id: "button-alt",
+      type: "ok",
+      html
+    });
   }
 
   return reports;
