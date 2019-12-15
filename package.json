@@ -9,13 +9,23 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "jest --config=jest.config.js"
+    "test": "jest --config=jest.config.js",
+    "lint": "eslint -c .eslintrc.json ./packages/**/*.{ts,tsx}"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
     "@types/jest-environment-puppeteer": "^4.3.1",
     "jest": "^24.9.0",
     "jest-environment-puppeteer": "^4.3.0",
-    "ts-jest": "^24.2.0"
+    "ts-jest": "^24.2.0",
+    "@typescript-eslint/eslint-plugin": "^2.11.0",
+    "@typescript-eslint/parser": "^2.11.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "prettier": "^1.19.1"
   }
 }

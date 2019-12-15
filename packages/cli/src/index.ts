@@ -3,7 +3,7 @@ import yargs from "yargs";
 import { table, getBorderCharacters } from "table";
 import { Spinner } from "cli-spinner";
 import chalk from "chalk";
-import { visible } from "@vsbl/core";
+import { visible } from "@visi/core";
 
 yargs.command(
   "*",
