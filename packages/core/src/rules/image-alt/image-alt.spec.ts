@@ -1,7 +1,7 @@
-import { imageAlt } from "./image-alt";
+import { imageAlt } from './image-alt';
 
-describe("img-alt", () => {
-  it("returns report when the img element did not have an alt", async () => {
+describe('img-alt', () => {
+  it('returns report when the img element did not have an alt', async () => {
     await page.setContent(`
       <div>
         <img src="https://example.com" alt="" />
@@ -11,13 +11,13 @@ describe("img-alt", () => {
 
     expect(report).toEqual(
       expect.objectContaining({
-        id: "image-alt",
-        type: "error"
-      })
+        id: 'image-alt',
+        type: 'error',
+      }),
     );
   });
 
-  it("returns nothing when the img is accessible", async () => {
+  it('returns nothing when the img is accessible', async () => {
     await page.setContent(`
       <img src="https://example.com" alt="this is an image" />
     `);

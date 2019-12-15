@@ -1,7 +1,7 @@
-import puppeteer from "puppeteer";
-import { rules } from "./rules";
-import { Report } from "./domain/report";
-import { Fixers } from "./domain/fixers";
+import puppeteer from 'puppeteer';
+import { rules } from './rules';
+import { Report } from './domain/report';
+import { Fixers } from './domain/fixers';
 
 export interface VisibleParams {
   url?: string;

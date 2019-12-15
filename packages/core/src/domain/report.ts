@@ -1,7 +1,4 @@
-export type ReportType =
-  | 'ok'
-  | 'warn'
-  | 'error';
+export type ReportType = 'ok' | 'warn' | 'error';
 
 export interface Report {
   readonly id: string;

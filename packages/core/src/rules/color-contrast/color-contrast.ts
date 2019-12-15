@@ -1,11 +1,11 @@
-import { getLuminance, getContrast, parseToRgb } from "polished";
-import { Rule } from "../../domain/rule";
-import { Report } from "../../domain/report";
+import { getLuminance, getContrast, parseToRgb } from 'polished';
+import { Rule } from '../../domain/rule';
+import { Report } from '../../domain/report';
 
 const isTransparent = (color: string) => {
   const rgba = parseToRgb(color);
 
-  if ("alpha" in rgba && rgba.alpha <= 0) {
+  if ('alpha' in rgba && rgba.alpha <= 0) {
     return true;
   }
 
@@ -16,7 +16,7 @@ const isTransparent = (color: string) => {
 // https://www.w3.org/TR/WCAG20-TECHS/G18.html
 
 export const colorContrast: Rule = async ({ page }) => {
-  const elements = await page.$$("*");
+  const elements = await page.$$('*');
   const reports: Report[] = [];
 
   for (const element of elements) {
@@ -33,9 +33,9 @@ export const colorContrast: Rule = async ({ page }) => {
 
     if (contrastRatio <= 7 && contrastRatio > 4.5) {
       reports.push({
-        id: "color-contrast",
-        type: "error",
-        html
+        id: 'color-contrast',
+        type: 'error',
+        html,
       });
 
       continue;
@@ -44,17 +44,17 @@ export const colorContrast: Rule = async ({ page }) => {
     if (contrastRatio <= 7) {
       reports.push({
         id: 'color-contrast',
-        type: "warn",
-        html
+        type: 'warn',
+        html,
       });
 
       continue;
     }
 
     reports.push({
-      id: "color-contrast",
-      type: "ok",
-      html
+      id: 'color-contrast',
+      type: 'ok',
+      html,
     });
   }
 
