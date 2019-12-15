@@ -1,6 +1,12 @@
-name: Node CI
+name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
 
 jobs:
   build:
