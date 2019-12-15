@@ -12,7 +12,8 @@
     "test": "run-s test:*",
     "test:jest": "jest --config=jest.config.js",
     "test:eslint": "eslint -c .eslintrc.json ./packages/**/*.ts",
-    "test:stylelint": "stylelint 'packages/**/*.{ts,tsx}'"
+    "test:stylelint": "stylelint 'packages/**/*.{ts,tsx}'",
+    "build": "yarn workspace @visi/core run build && yarn workspace @visi/cli run build"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
