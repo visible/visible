@@ -2,11 +2,13 @@ import puppeteer from 'puppeteer';
 import { rules } from './rules';
 import { Report } from './domain/report';
 import { Fixers } from './domain/fixers';
+import { Rule } from './domain/rule';
 
 export interface VisibleParams {
-  url?: string;
-  html?: string;
-  fixers?: Fixers;
+  readonly url?: string;
+  readonly html?: string;
+  readonly rules?: Rule[];
+  readonly fixers?: Fixers;
 }
 
 export const visible = async (params: VisibleParams) => {
@@ -24,7 +26,7 @@ export const visible = async (params: VisibleParams) => {
   const reports: Report[] = [];
   const context = { page, fixers: params.fixers };
 
-  for (const rule of rules) {
+  for (const rule of rules.concat(params.rules || [])) {
     const newReports = await rule(context);
     reports.push(...newReports);
   }
