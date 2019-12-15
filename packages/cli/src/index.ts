@@ -27,7 +27,6 @@ yargs.command(
   async ({ url }) => {
     const loaded = loading('Fetching diagnosises...');
     const reports = await visible({ url });
-    loaded();
 
     const rows = [
       [chalk.bold('Kind'), chalk.bold('Type'), chalk.bold('HTML')],
@@ -42,7 +41,9 @@ yargs.command(
       }),
     ];
 
-    const output = table(rows, { columns: { 2: { width: 100 } } });
+    const output = table(rows, { columns: { 2: { truncate: 50, width: 50 } } });
+
+    loaded();
 
     // eslint-disable-next-line no-console
     console.log('\n' + output);
