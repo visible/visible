@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import yargs from 'yargs';
-import { table, getBorderCharacters } from 'table';
+import { table } from 'table';
 import { Spinner } from 'cli-spinner';
 import chalk from 'chalk';
 import { visible } from '@visi/core';
@@ -36,8 +36,9 @@ yargs.command(
     ];
 
     const output = table(rows);
-
     spinner.stop();
+
+    // eslint-disable-next-line no-console
     console.log('\n' + output);
   },
 ).argv;

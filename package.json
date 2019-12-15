@@ -9,15 +9,14 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "jest --config=jest.config.js",
-    "lint": "eslint -c .eslintrc.json ./packages/**/*.{ts,tsx}"
+    "test": "run-s test:*",
+    "test:jest": "jest --config=jest.config.js",
+    "test:eslint": "eslint -c .eslintrc.json ./packages/**/*.ts",
+    "test:stylelint": "stylelint 'packages/**/*.{ts,tsx}'"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
     "@types/jest-environment-puppeteer": "^4.3.1",
-    "jest": "^24.9.0",
-    "jest-environment-puppeteer": "^4.3.0",
-    "ts-jest": "^24.2.0",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
     "eslint": "^6.7.2",
@@ -26,6 +25,15 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
-    "prettier": "^1.19.1"
+    "jest": "^24.9.0",
+    "jest-environment-puppeteer": "^4.3.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "stylelint": "^12.0.0",
+    "stylelint-config-property-sort-order-smacss": "^5.2.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.9.0",
+    "ts-jest": "^24.2.0"
   }
 }

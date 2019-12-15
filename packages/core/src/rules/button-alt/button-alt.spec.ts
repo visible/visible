@@ -22,6 +22,11 @@ describe('button-alt', () => {
 
     const [report] = await buttonAlt({ page });
 
-    expect(report).toBeUndefined();
+    expect(report).toEqual(
+      expect.objectContaining({
+        id: 'button-alt',
+        type: 'ok',
+      }),
+    );
   });
 });

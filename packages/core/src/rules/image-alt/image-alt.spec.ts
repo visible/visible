@@ -22,8 +22,13 @@ describe('img-alt', () => {
       <img src="https://example.com" alt="this is an image" />
     `);
 
-    const reports = await imageAlt({ page });
+    const [report] = await imageAlt({ page });
 
-    expect(reports).toEqual([]);
+    expect(report).toEqual(
+      expect.objectContaining({
+        id: 'image-alt',
+        type: 'ok',
+      }),
+    );
   });
 });

@@ -1,4 +1,4 @@
-import { getLuminance, getContrast, parseToRgb } from 'polished';
+import { getContrast, parseToRgb } from 'polished';
 import { Rule } from '../../domain/rule';
 import { Report } from '../../domain/report';
 
@@ -34,7 +34,7 @@ export const colorContrast: Rule = async ({ page }) => {
     if (contrastRatio <= 7 && contrastRatio > 4.5) {
       reports.push({
         id: 'color-contrast',
-        type: 'error',
+        type: 'warn',
         html,
       });
 
@@ -44,7 +44,7 @@ export const colorContrast: Rule = async ({ page }) => {
     if (contrastRatio <= 7) {
       reports.push({
         id: 'color-contrast',
-        type: 'warn',
+        type: 'error',
         html,
       });
 
