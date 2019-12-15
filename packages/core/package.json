@@ -1,8 +1,14 @@
 {
-  "name": "@visiblehq/core",
+  "name": "@vsbl/core",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "license": "AGPL-3.0",
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "./dist"
+  ],
   "dependencies": {
     "@types/node": "^12.12.14",
     "@types/puppeteer": "^2.0.0",

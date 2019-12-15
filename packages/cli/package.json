@@ -1,0 +1,16 @@
+{
+  "name": "@vsbl/cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/cli-spinner": "^0.2.0",
+    "@types/table": "^4.0.7",
+    "@types/yargs": "^13.0.3",
+    "@vsbl/core": "^1.0.0",
+    "cli-spinner": "^0.2.10",
+    "table": "^5.4.6",
+    "typescript": "^3.7.3",
+    "yargs": "^15.0.2"
+  }
+}
