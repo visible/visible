@@ -40,5 +40,8 @@ yargs.command(
 
     // eslint-disable-next-line no-console
     console.log('\n' + output);
+
+    const hasError = reports.some(report => report.type === 'error');
+    process.exit(hasError ? 1 : 0);
   },
 ).argv;
