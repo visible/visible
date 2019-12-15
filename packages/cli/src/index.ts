@@ -16,25 +16,24 @@ yargs.command(
     }),
 
   async ({ url }) => {
-    const spinner = new Spinner("Fetching diagnosis...");
-    spinner.setSpinnerString(18);
-    spinner.start();
+    const spinner = new Spinner("Fetching diagnosis...")
+      .setSpinnerString(18)
+      .start();
 
     const reports = await visible({ url });
 
-    const rows = [[chalk.bold("Kind"), chalk.bold("Type"), chalk.bold("HTML")]];
+    const rows = [
+      [chalk.bold("Kind"), chalk.bold("Type"), chalk.bold("HTML")],
+      ...reports.map(report => {
+        const type = {
+          ok: chalk.green("ok"),
+          warn: chalk.yellow("warn"),
+          error: chalk.red("error")
+        }[report.type];
 
-    const body = reports.map(report => {
-      const type = {
-        ok: chalk.green("ok"),
-        warn: chalk.yellow("warn"),
-        error: chalk.red("error")
-      }[report.type];
-
-      return [type, report.id, report.html ? report.html : ""];
-    });
-
-    rows.push(...body);
+        return [type, report.id, report.html ? report.html : ""];
+      })
+    ];
 
     const output = table(rows);
 

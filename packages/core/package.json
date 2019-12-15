@@ -1,5 +1,5 @@
 {
-  "name": "@vsbl/core",
+  "name": "@visi/core",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "license": "AGPL-3.0",
