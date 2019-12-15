@@ -11,7 +11,8 @@ describe("img-alt", () => {
 
     expect(report).toEqual(
       expect.objectContaining({
-        id: "image-alt"
+        id: "image-alt",
+        type: "error"
       })
     );
   });

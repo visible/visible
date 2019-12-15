@@ -12,7 +12,8 @@ describe("color-contrast", () => {
 
     expect(report).toEqual(
       expect.objectContaining({
-        id: "color-contrast"
+        id: "color-contrast",
+        type: "error"
       })
     );
   });

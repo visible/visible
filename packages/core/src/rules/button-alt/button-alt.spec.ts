@@ -7,7 +7,8 @@ describe("button-alt", () => {
 
     expect(report).toEqual(
       expect.objectContaining({
-        id: "button-alt"
+        id: "button-alt",
+        type: "error"
       })
     );
   });

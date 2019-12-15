@@ -1,7 +1,7 @@
 import { Page } from 'puppeteer';
-// import { Fixer } from './fixer';
+import { Fixers } from './fixers';
 
 export interface Context {
   readonly page: Page;
-  // readonly fixer: Fixer;
+  readonly fixers?: Fixers;
 }

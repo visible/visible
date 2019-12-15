@@ -1,5 +1,3 @@
-import { Fixer } from "./fixer";
-
 export type ReportType =
   | 'ok'
   | 'warn'
