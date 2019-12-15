@@ -1,6 +1,12 @@
-name: Node CI
+name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
 
 jobs:
   build:
@@ -30,10 +36,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
       
-    - name: npm install, build, and test
+    - name: Yarn install, build, and test
       run: |
-        npm ci
-        npm run build --if-present
-        npm test
+        yarn install --frozen-lockfile
+        yarn run build
+        yarn run test
       env:
         CI: true
