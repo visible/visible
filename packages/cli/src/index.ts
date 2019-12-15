@@ -5,6 +5,15 @@ import { Spinner } from 'cli-spinner';
 import chalk from 'chalk';
 import { visible } from '@visi/core';
 
+const loading = (message: string) => {
+  const spinner = new Spinner(message).setSpinnerString(18).start();
+
+  return () => {
+    const stream = spinner.stop().stream;
+    spinner.clearLine(stream);
+  };
+};
+
 yargs.command(
   '*',
   'the default command',
@@ -16,11 +25,9 @@ yargs.command(
     }),
 
   async ({ url }) => {
-    const spinner = new Spinner('Fetching diagnosis...')
-      .setSpinnerString(18)
-      .start();
-
+    const loaded = loading('Fetching diagnosises...');
     const reports = await visible({ url });
+    loaded();
 
     const rows = [
       [chalk.bold('Kind'), chalk.bold('Type'), chalk.bold('HTML')],
@@ -35,8 +42,7 @@ yargs.command(
       }),
     ];
 
-    const output = table(rows);
-    spinner.stop();
+    const output = table(rows, { columns: { 2: { width: 100 } } });
 
     // eslint-disable-next-line no-console
     console.log('\n' + output);
