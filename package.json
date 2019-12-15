@@ -13,11 +13,13 @@
     "test:jest": "jest --config=jest.config.js",
     "test:eslint": "eslint -c .eslintrc.json ./packages/**/*.ts",
     "test:stylelint": "stylelint 'packages/**/*.{ts,tsx}'",
-    "build": "yarn workspace @visi/core run build && yarn workspace @visi/cli run build"
+    "build": "yarn workspace @visi/core run build && yarn workspace @visi/cli run build",
+    "manage:translations": "i18next-scanner 'packages/**/*.{ts,tsx}'"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
     "@types/jest-environment-puppeteer": "^4.3.1",
+    "@types/node": "^12.12.17",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
     "eslint": "^6.7.2",
@@ -26,6 +28,8 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "i18next-scanner": "^2.10.3",
+    "i18next-scanner-typescript": "^1.0.3",
     "jest": "^24.9.0",
     "jest-environment-puppeteer": "^4.3.0",
     "npm-run-all": "^4.1.5",

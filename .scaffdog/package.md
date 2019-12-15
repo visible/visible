@@ -9,7 +9,7 @@ ignore: []
 # {{ input | kebab }}/package.json
 ```json
 {
-  "name": "@visi/{{ input | kebab }",
+  "name": "@visi/{{ input | kebab }}",
   "version": "1.0.0",
   "repository": "https://github.com/neet/visible.git",
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
@@ -20,7 +20,7 @@ ignore: []
   ],
   "publishConfig": {
     "access": "public"
-  },
+  }
 }
 ```
 

@@ -3,10 +3,13 @@ import { rules } from './rules';
 import { Report } from './domain/report';
 import { Fixers } from './domain/fixers';
 import { Rule } from './domain/rule';
+import { createI18n } from './utils/i18n';
+import { Context } from './domain/context';
 
 export interface VisibleParams {
   readonly url?: string;
   readonly html?: string;
+  readonly lagunage?: string;
   readonly rules?: Rule[];
   readonly fixers?: Fixers;
 }
@@ -23,8 +26,9 @@ export const visible = async (params: VisibleParams) => {
     await page.setContent(params.html);
   }
 
+  const i18n = await createI18n(params.lagunage);
   const reports: Report[] = [];
-  const context = { page, fixers: params.fixers };
+  const context: Context = { page, i18n, fixers: params.fixers };
 
   for (const rule of rules.concat(params.rules || [])) {
     const newReports = await rule(context);

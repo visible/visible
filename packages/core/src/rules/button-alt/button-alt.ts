@@ -1,7 +1,7 @@
 import { Rule } from '../../domain/rule';
 import { Report } from '../../domain/report';
 
-export const buttonAlt: Rule = async ({ page }) => {
+export const buttonAlt: Rule = async ({ page, i18n }) => {
   const elements = await page.$$('button');
   const reports: Report[] = [];
 
@@ -15,6 +15,11 @@ export const buttonAlt: Rule = async ({ page }) => {
         id: 'button-alt',
         type: 'error',
         html,
+        message: i18n.t(
+          'button-alt.no-alt',
+          'button element must have title attribute or text content',
+          { ns: 'core' },
+        ),
       });
 
       continue;

@@ -4,4 +4,5 @@ export interface Report {
   readonly id: string;
   readonly type: ReportType;
   readonly html?: string;
+  readonly message?: string;
 }

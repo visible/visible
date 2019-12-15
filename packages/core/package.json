@@ -10,9 +10,12 @@
     "./dist"
   ],
   "dependencies": {
+    "@types/i18next": "^13.0.0",
     "@types/node": "^12.12.14",
     "@types/puppeteer": "^2.0.0",
+    "@visi/locale": "^1.0.0",
     "fp-ts": "^2.2.0",
+    "i18next": "^19.0.2",
     "polished": "^3.4.2",
     "puppeteer": "^2.0.0"
   }
