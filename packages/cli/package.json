@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "bin": {
+    "visible": "./dist/index.js"
+  },
+  "files": [
+    "./dist"
+  ],
   "dependencies": {
     "@types/cli-spinner": "^0.2.0",
     "@types/table": "^4.0.7",
