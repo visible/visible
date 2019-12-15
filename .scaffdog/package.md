@@ -11,11 +11,16 @@ ignore: []
 {
   "name": "@visi/{{ input | kebab }",
   "version": "1.0.0",
+  "repository": "https://github.com/neet/visible.git",
+  "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
   "main": "./dist/index.js",
   "files": [
     "./dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
 }
 ```
 
