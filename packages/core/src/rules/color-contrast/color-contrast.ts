@@ -31,10 +31,20 @@ export const colorContrast: Rule = async ({ page }) => {
 
     const contrastRatio = getContrast(bg, fg);
 
-    if (contrastRatio <= 4.5) {
+    if (contrastRatio <= 7 && contrastRatio > 4.5) {
       reports.push({
         id: "color-contrast",
         type: "error",
+        html
+      });
+
+      continue;
+    }
+
+    if (contrastRatio <= 7) {
+      reports.push({
+        id: 'color-contrast',
+        type: "warn",
         html
       });
 

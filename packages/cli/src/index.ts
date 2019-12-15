@@ -27,8 +27,7 @@ yargs.command(
     const body = reports.map(report => {
       const type = {
         ok: chalk.green("ok"),
-        info: chalk.yellow("info"),
-        warn: chalk.magenta("warn"),
+        warn: chalk.yellow("warn"),
         error: chalk.red("error")
       }[report.type];
 
