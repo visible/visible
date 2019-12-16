@@ -5,7 +5,7 @@
     "url": "URL to diagnose",
     "verbose": "Prints all reports including passed one"
   },
-  "table": {
+  "result": {
     "error": "Error",
     "html": "HTML",
     "kind": "Kind",

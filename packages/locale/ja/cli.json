@@ -5,7 +5,7 @@
     "url": "診断するURL",
     "verbose": "合格したレポートを含めた全てのレポートを表示する"
   },
-  "table": {
+  "result": {
     "error": "エラー",
     "html": "HTML",
     "kind": "カインド",
