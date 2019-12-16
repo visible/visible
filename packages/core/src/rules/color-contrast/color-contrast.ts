@@ -37,11 +37,8 @@ export const colorContrast: Rule = async ({ page, i18n }) => {
         type: 'warn',
         html,
         message: i18n.t(
-          'color-contrast.aa',
+          'core:color-contrast.aa',
           'Color contrast ratio should be greater than 7',
-          {
-            ns: 'core',
-          },
         ),
       });
 
@@ -54,11 +51,8 @@ export const colorContrast: Rule = async ({ page, i18n }) => {
         type: 'error',
         html,
         message: i18n.t(
-          'color-contrast.less-than-aa',
+          'core:color-contrast.less-than-aa',
           'Color contrast must be greater than 4.5',
-          {
-            ns: 'core',
-          },
         ),
       });
 

@@ -15,11 +15,8 @@ export const imageAlt: Rule = async ({ page, i18n }) => {
         type: 'error',
         html,
         message: i18n.t(
-          'img-alt.no-alt',
+          'core:img-alt.no-alt',
           'img element must have alt attribute',
-          {
-            ns: 'core',
-          },
         ),
       });
 
