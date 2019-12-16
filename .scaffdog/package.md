@@ -10,7 +10,7 @@ ignore: []
 ```json
 {
   "name": "@visi/{{ input | kebab }}",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "repository": "https://github.com/neet/visible.git",
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
