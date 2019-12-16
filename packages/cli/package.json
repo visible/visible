@@ -17,8 +17,10 @@
     "@types/table": "^4.0.7",
     "@types/yargs": "^13.0.3",
     "@visi/core": "^0.0.0",
+    "@visi/locale": "^0.0.0",
     "chalk": "^3.0.0",
     "cli-spinner": "^0.2.10",
+    "i18next": "^19.0.2",
     "table": "^5.4.6",
     "typescript": "^3.7.3",
     "yargs": "^15.0.2"

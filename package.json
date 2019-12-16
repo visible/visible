@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist",
+    "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
     "test": "run-s test:*",
     "test:jest": "jest --config=jest.config.js",

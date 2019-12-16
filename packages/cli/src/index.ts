@@ -5,6 +5,8 @@ import { Spinner } from 'cli-spinner';
 import chalk from 'chalk';
 import { visible } from '@visi/core';
 import { Report } from '@visi/core/dist/domain/report';
+import * as i18next from 'i18next';
+import { createI18n } from './i18n';
 
 const loading = (message: string) => {
   const spinner = new Spinner(message).setSpinnerString(18).start();
@@ -15,7 +17,12 @@ const loading = (message: string) => {
   };
 };
 
-const print = (reportsInput: Report[], json: boolean, verbose: boolean) => {
+const print = (
+  reportsInput: Report[],
+  json: boolean,
+  verbose: boolean,
+  i18n: i18next.i18n,
+) => {
   const reports = reportsInput.filter(report => {
     if (verbose) {
       return true;
@@ -31,16 +38,16 @@ const print = (reportsInput: Report[], json: boolean, verbose: boolean) => {
 
   const rows = [
     [
-      chalk.bold('Kind'),
-      chalk.bold('Type'),
-      chalk.bold('Message'),
-      chalk.bold('HTML'),
+      chalk.bold(i18n.t('cli:table.kind', 'Kind')),
+      chalk.bold(i18n.t('cli:table.type', 'Type')),
+      chalk.bold(i18n.t('cli:table.message', 'Message')),
+      chalk.bold(i18n.t('cli:table.html', 'HTML')),
     ],
     ...reports.map(report => {
       const type = {
-        ok: chalk.green('ok'),
-        warn: chalk.yellow('warn'),
-        error: chalk.red('error'),
+        ok: chalk.green(i18n.t('cli:table.ok', 'OK')),
+        warn: chalk.yellow(i18n.t('cli:table.warn', 'Warn')),
+        error: chalk.red(i18n.t('cli:table.error', 'Error')),
       }[report.type];
 
       const html = report.html ? report.html.substr(0, 100) : '';
@@ -60,40 +67,56 @@ const print = (reportsInput: Report[], json: boolean, verbose: boolean) => {
   return console.log(output);
 };
 
-yargs.command(
-  '*',
-  'the default command',
-  yargs =>
-    yargs
-      .option('url', {
-        description: 'URL to diagnosis',
-        type: 'string',
-        required: true,
-      })
-      .option('json', {
-        description: 'Output JSON instead of prettified table',
-        type: 'boolean',
-        default: false,
-      })
-      .option('verbose', {
-        description: 'Prints all reports including passed one',
-        type: 'boolean',
-        default: false,
-      }),
+const main = async () => {
+  const language = 'ja';
+  const i18n = await createI18n(language);
 
-  async ({ url, json, verbose }) => {
-    try {
-      const loaded = loading('Fetching diagnosises...');
-      const reports = await visible({ url });
-      loaded();
-      print(reports, json, verbose);
+  yargs.command(
+    '*',
+    'the default command',
+    yargs =>
+      yargs
+        .option('url', {
+          description: i18n.t('cli:options.url', 'URL to diagnose'),
+          type: 'string',
+          required: true,
+        })
+        .option('json', {
+          description: i18n.t(
+            'cli:options.json',
+            'Output JSON instead of prettified table',
+          ),
+          type: 'boolean',
+          default: false,
+        })
+        .option('verbose', {
+          description: i18n.t(
+            'cli:options.verbose',
+            'Prints all reports including passed one',
+          ),
+          type: 'boolean',
+          default: false,
+        }),
 
-      const hasError = reports.some(report => report.type === 'error');
-      process.exit(hasError ? 1 : 0);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-      process.exit(1);
-    }
-  },
-).argv;
+    async ({ url, json, verbose }) => {
+      try {
+        const loaded = loading(
+          i18n.t('cli:loading', 'Fetching diagnosises...'),
+        );
+        const reports = await visible({ url, language });
+
+        loaded();
+        print(reports, json, verbose, i18n);
+
+        const hasError = reports.some(report => report.type === 'error');
+        process.exit(hasError ? 1 : 0);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e);
+        process.exit(1);
+      }
+    },
+  ).argv;
+};
+
+main();

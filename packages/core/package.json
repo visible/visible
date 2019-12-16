@@ -10,7 +10,6 @@
     "./dist"
   ],
   "dependencies": {
-    "@types/i18next": "^13.0.0",
     "@types/node": "^12.12.14",
     "@types/puppeteer": "^2.0.0",
     "@visi/locale": "^0.0.0",

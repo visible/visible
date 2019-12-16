@@ -9,7 +9,7 @@ import { Context } from './domain/context';
 export interface VisibleParams {
   readonly url?: string;
   readonly html?: string;
-  readonly lagunage?: string;
+  readonly language?: string;
   readonly rules?: Rule[];
   readonly fixers?: Fixers;
 }
@@ -26,7 +26,7 @@ export const visible = async (params: VisibleParams) => {
     await page.setContent(params.html);
   }
 
-  const i18n = await createI18n(params.lagunage);
+  const i18n = await createI18n(params.language);
   const reports: Report[] = [];
   const context: Context = { page, i18n, fixers: params.fixers };
 

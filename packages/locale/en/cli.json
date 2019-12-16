@@ -1,0 +1,17 @@
+{
+  "loading": "Fetching diagnosises...",
+  "options": {
+    "json": "Output JSON instead of prettified table",
+    "url": "URL to diagnose",
+    "verbose": "Prints all reports including passed one"
+  },
+  "table": {
+    "error": "Error",
+    "html": "HTML",
+    "kind": "Kind",
+    "message": "Message",
+    "ok": "OK",
+    "type": "Type",
+    "warn": "Warn"
+  }
+}
