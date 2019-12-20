@@ -5,7 +5,9 @@ import en from '@visi/locale/en/cli.json';
 import ja from '@visi/locale/ja/cli.json';
 
 export const createI18n = async (language?: string) => {
-  const i18nextCustom = i18next.createInstance({
+  const i18nextCustom = i18next.createInstance();
+
+  const t = await i18nextCustom.use(I18nextCLILanguageDetector).init({
     lng: language,
     fallbackLng: 'en',
     resources: {
@@ -13,8 +15,6 @@ export const createI18n = async (language?: string) => {
       ja: { cli: ja },
     },
   });
-
-  const t = await i18nextCustom.use(I18nextCLILanguageDetector).init();
 
   return [i18nextCustom, t] as const;
 };

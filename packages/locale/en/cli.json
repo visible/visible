@@ -13,5 +13,8 @@
     "ok": "OK",
     "type": "Type",
     "warn": "Warn"
+  },
+  "visible": {
+    "description": "The default command"
   }
 }

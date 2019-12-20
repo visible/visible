@@ -16,10 +16,11 @@ const loading = (message: string) => {
 
 const main = async () => {
   const [i18next, t] = await createI18n();
+  const description = t('cli:visible.description', 'The default command');
 
   yargs.command(
     '*',
-    'the default command',
+    description,
     yargs =>
       yargs
         .option('url', {

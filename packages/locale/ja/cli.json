@@ -13,5 +13,8 @@
     "ok": "OK",
     "type": "種類",
     "warn": "警告"
+  },
+  "visible": {
+    "description": "デフォルトのコマンド"
   }
 }
