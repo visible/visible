@@ -10,7 +10,7 @@
     "./dist"
   ],
   "dependencies": {
-    "@types/node": "^12.12.14",
+    "@types/node": "^12.12.21",
     "@types/puppeteer": "^2.0.0",
     "@visi/locale": "^0.0.0",
     "fp-ts": "^2.2.0",
