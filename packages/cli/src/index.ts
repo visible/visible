@@ -15,7 +15,7 @@ const loading = (message: string) => {
 };
 
 const main = async () => {
-  const i18n = await createI18n();
+  const [i18next, t] = await createI18n();
 
   yargs.command(
     '*',
@@ -23,12 +23,12 @@ const main = async () => {
     yargs =>
       yargs
         .option('url', {
-          description: i18n.t('cli:options.url', 'URL to diagnose'),
+          description: t('cli:options.url', 'URL to diagnose'),
           type: 'string',
           required: true,
         })
         .option('json', {
-          description: i18n.t(
+          description: t(
             'cli:options.json',
             'Output JSON instead of prettified table',
           ),
@@ -36,7 +36,7 @@ const main = async () => {
           default: false,
         })
         .option('verbose', {
-          description: i18n.t(
+          description: t(
             'cli:options.verbose',
             'Prints all reports including passed one',
           ),
@@ -46,13 +46,11 @@ const main = async () => {
 
     async ({ url, json, verbose }) => {
       try {
-        const loaded = loading(
-          i18n.t('cli:loading', 'Fetching diagnosises...'),
-        );
-        const reports = await visible({ url, i18n });
+        const loaded = loading(t('cli:loading', 'Fetching diagnosises...'));
+        const reports = await visible({ url, language: i18next.language });
 
         loaded();
-        print(reports, json, verbose, i18n);
+        print(reports, json, verbose, t);
 
         const hasError = reports.some(report => report.type === 'error');
         process.exit(hasError ? 1 : 0);

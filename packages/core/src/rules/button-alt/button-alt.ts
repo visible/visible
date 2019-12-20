@@ -1,7 +1,7 @@
 import { Rule } from '../../domain/rule';
 import { Report } from '../../domain/report';
 
-export const buttonAlt: Rule = async ({ page, i18n }) => {
+export const buttonAlt: Rule = async ({ page, t }) => {
   const elements = await page.$$('button');
   const reports: Report[] = [];
 
@@ -15,7 +15,7 @@ export const buttonAlt: Rule = async ({ page, i18n }) => {
         id: 'button-alt',
         type: 'error',
         html,
-        message: i18n.t(
+        message: t(
           'core:button-alt.no-alt',
           'button element must have title attribute or text content',
         ),

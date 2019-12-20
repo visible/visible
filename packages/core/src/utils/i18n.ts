@@ -4,7 +4,7 @@ import en from '@visi/locale/en/core.json';
 import ja from '@visi/locale/ja/core.json';
 
 export const createI18n = async (language?: string) => {
-  await i18next.init({
+  const i18nextCustom = i18next.createInstance({
     lng: language,
     fallbackLng: 'en',
     resources: {
@@ -13,5 +13,7 @@ export const createI18n = async (language?: string) => {
     },
   });
 
-  return i18next;
+  const t = await i18nextCustom.init();
+
+  return [i18nextCustom, t] as const;
 };

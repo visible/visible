@@ -15,7 +15,7 @@ const isTransparent = (color: string) => {
 // See resources for Contrast ratio:
 // https://www.w3.org/TR/WCAG20-TECHS/G18.html
 
-export const colorContrast: Rule = async ({ page, i18n }) => {
+export const colorContrast: Rule = async ({ page, t }) => {
   const elements = await page.$$('*');
   const reports: Report[] = [];
 
@@ -36,7 +36,7 @@ export const colorContrast: Rule = async ({ page, i18n }) => {
         id: 'color-contrast',
         type: 'warn',
         html,
-        message: i18n.t(
+        message: t(
           'core:color-contrast.aa',
           'Color contrast ratio should be greater than 7',
         ),
@@ -50,7 +50,7 @@ export const colorContrast: Rule = async ({ page, i18n }) => {
         id: 'color-contrast',
         type: 'error',
         html,
-        message: i18n.t(
+        message: t(
           'core:color-contrast.less-than-aa',
           'Color contrast must be greater than 4.5',
         ),

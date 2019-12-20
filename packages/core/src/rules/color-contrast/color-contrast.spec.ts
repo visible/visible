@@ -1,4 +1,4 @@
-import { i18n } from '../../__fixture__/i18n';
+import { t } from '../../__fixture__/i18n';
 import { colorContrast } from './color-contrast';
 
 describe('color-contrast', () => {
@@ -9,7 +9,7 @@ describe('color-contrast', () => {
       </button>
     `);
 
-    const [report] = await colorContrast({ page, i18n });
+    const [report] = await colorContrast({ page, t });
 
     expect(report).toEqual(
       expect.objectContaining({
@@ -26,7 +26,7 @@ describe('color-contrast', () => {
       </button>
     `);
 
-    const [report] = await colorContrast({ page, i18n });
+    const [report] = await colorContrast({ page, t });
 
     expect(report).toEqual(
       expect.objectContaining({
@@ -43,7 +43,7 @@ describe('color-contrast', () => {
       </button>
     `);
 
-    const [report] = await colorContrast({ page, i18n });
+    const [report] = await colorContrast({ page, t });
 
     expect(report).toEqual(
       expect.objectContaining({

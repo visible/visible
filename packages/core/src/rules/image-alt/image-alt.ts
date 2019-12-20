@@ -1,7 +1,7 @@
 import { Rule } from '../../domain/rule';
 import { Report } from '../../domain/report';
 
-export const imageAlt: Rule = async ({ page, i18n }) => {
+export const imageAlt: Rule = async ({ page, t }) => {
   const elements = await page.$$('img');
   const reports: Report[] = [];
 
@@ -14,7 +14,7 @@ export const imageAlt: Rule = async ({ page, i18n }) => {
         id: 'image-alt',
         type: 'error',
         html,
-        message: i18n.t(
+        message: t(
           'core:img-alt.no-alt',
           'img element must have alt attribute',
         ),

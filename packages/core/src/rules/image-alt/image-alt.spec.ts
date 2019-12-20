@@ -1,4 +1,4 @@
-import { i18n } from '../../__fixture__/i18n';
+import { t } from '../../__fixture__/i18n';
 import { imageAlt } from './image-alt';
 
 describe('img-alt', () => {
@@ -8,7 +8,7 @@ describe('img-alt', () => {
         <img src="https://example.com" alt="" />
       </div>
     `);
-    const [report] = await imageAlt({ page, i18n });
+    const [report] = await imageAlt({ page, t });
 
     expect(report).toEqual(
       expect.objectContaining({
@@ -23,7 +23,7 @@ describe('img-alt', () => {
       <img src="https://example.com" alt="this is an image" />
     `);
 
-    const [report] = await imageAlt({ page, i18n });
+    const [report] = await imageAlt({ page, t });
 
     expect(report).toEqual(
       expect.objectContaining({

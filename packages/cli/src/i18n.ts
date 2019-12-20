@@ -1,20 +1,20 @@
 import i18next from 'i18next';
+import I18nextCLILanguageDetector from 'i18next-cli-language-detector';
 
-import enCore from '@visi/locale/en/core.json';
-import enCli from '@visi/locale/en/cli.json';
-
-import jaCore from '@visi/locale/ja/core.json';
-import jaCli from '@visi/locale/ja/cli.json';
+import en from '@visi/locale/en/cli.json';
+import ja from '@visi/locale/ja/cli.json';
 
 export const createI18n = async (language?: string) => {
-  await i18next.init({
+  const i18nextCustom = i18next.createInstance({
     lng: language,
     fallbackLng: 'en',
     resources: {
-      en: { cli: enCli, core: enCore },
-      ja: { cli: jaCli, core: jaCore },
+      en: { cli: en },
+      ja: { cli: ja },
     },
   });
 
-  return i18next;
+  const t = await i18nextCustom.use(I18nextCLILanguageDetector).init();
+
+  return [i18nextCustom, t] as const;
 };

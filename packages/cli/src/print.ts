@@ -1,13 +1,13 @@
 import { table } from 'table';
 import chalk from 'chalk';
 import { Report } from '@visi/core/dist/domain/report';
-import * as i18next from 'i18next';
+import { TFunction } from 'i18next';
 
 export const print = async (
   reportsInput: Report[],
   json: boolean,
   verbose: boolean,
-  i18n: i18next.i18n,
+  t: TFunction,
 ) => {
   const reports = reportsInput.filter(report => {
     if (verbose) {
@@ -24,16 +24,16 @@ export const print = async (
 
   const rows = [
     [
-      chalk.bold(i18n.t('cli:result.kind', 'Kind')),
-      chalk.bold(i18n.t('cli:result.type', 'Type')),
-      chalk.bold(i18n.t('cli:result.message', 'Message')),
-      chalk.bold(i18n.t('cli:result.html', 'HTML')),
+      chalk.bold(t('cli:result.kind', 'Kind')),
+      chalk.bold(t('cli:result.type', 'Type')),
+      chalk.bold(t('cli:result.message', 'Message')),
+      chalk.bold(t('cli:result.html', 'HTML')),
     ],
     ...reports.map(report => {
       const type = {
-        ok: chalk.green(i18n.t('cli:result.ok', 'OK')),
-        warn: chalk.yellow(i18n.t('cli:result.warn', 'Warn')),
-        error: chalk.red(i18n.t('cli:result.error', 'Error')),
+        ok: chalk.green(t('cli:result.ok', 'OK')),
+        warn: chalk.yellow(t('cli:result.warn', 'Warn')),
+        error: chalk.red(t('cli:result.error', 'Error')),
       }[report.type];
 
       const html = report.html ? report.html.substr(0, 100) : '';
