@@ -11,14 +11,15 @@ module.exports = {
       testMatch: ['<rootDir>/packages/core/**/?(*.)+(spec|test).ts?(x)'],
       testPathIgnorePatterns: ['/node_modules/'],
       moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-      collectCoverageFrom: ['<rootDir>/core/**/*.{ts,tsx}'],
-      coverageDirectory: '<rootDir>/coverage',
-      coveragePathIgnorePatterns: ['.*\\.d\\.ts'],
+      collectCoverage: false,
+      // collectCoverageFrom: ['<rootDir>/core/**/*.{ts,tsx}'],
+      // coverageDirectory: '<rootDir>/coverage',
+      // coveragePathIgnorePatterns: ['*'],
     },
     {
       globals: {
         'ts-jest': {
-          tsConfig: '<rootDir>/packages/core/tsconfig.json',
+          tsConfig: '<rootDir>/packages/ui/tsconfig.json',
         },
       },
       transform: { '^.+\\.tsx?$': 'ts-jest' },

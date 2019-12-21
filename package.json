@@ -38,12 +38,14 @@
     "lerna": "^3.19.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
+    "puppeteer": "^2.0.0",
     "scaffdog": "^0.2.0",
     "stylelint": "^12.0.0",
     "stylelint-config-property-sort-order-smacss": "^5.2.0",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.9.0",
-    "ts-jest": "^24.2.0"
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.4"
   }
 }
