@@ -24,8 +24,7 @@ import { createI18n } from './i18n';
   server.listen({ port: 3000 }, () => {
     // eslint-disable-next-line no-console
     console.log(
-      '🎉 GraphQL server is running at ' +
-        `http://localhost:${BIND_PORT}/graphql`,
+      '🎉 GraphQL server is running at ' + `http://localhost:${300}/graphql`,
     );
   });
 })();
