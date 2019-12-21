@@ -7,6 +7,8 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint"
   ],
@@ -14,6 +16,11 @@
   "parserOptions": {
     "ecmaVersion": 9,
     "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   },
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
