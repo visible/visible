@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input matches snapshot 1`] = `
+<input
+  class="sc-bdVaJa dLEKWA"
+/>
+`;

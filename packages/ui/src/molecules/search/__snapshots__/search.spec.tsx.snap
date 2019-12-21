@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search matches snapshot 1`] = `
+<form
+  class="sc-htpNat hmKYWA"
+  role="search"
+>
+  <input
+    class="sc-bdVaJa dLEKWA"
+    type="text"
+    value=""
+  />
+  <button
+    class="sc-bwzfXH iXQHXZ"
+    type="submit"
+  />
+</form>
+`;
