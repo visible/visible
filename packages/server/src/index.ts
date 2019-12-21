@@ -1,15 +1,19 @@
+import { promises as fs } from 'fs';
 import express from 'express';
 import cors from 'cors';
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer, gql } from 'apollo-server-express';
 import depthLimit from 'graphql-depth-limit';
 import i18nextMiddleware from 'i18next-express-middleware';
-
 import { createI18n } from './i18n';
 
 (async () => {
+  const typeDefs = await fs
+    .readFile(require.resolve('@ril/schema'), 'utf-8')
+    .then(gql);
+
   const apollo = new ApolloServer({
-    // typeDefs,
     // resolvers,
+    typeDefs,
     context: {},
     validationRules: [depthLimit(5)],
   });

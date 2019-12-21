@@ -1,0 +1,15 @@
+overwrite: true
+schema: ../../node_modules/@visi/schema/schema.gql
+documents: null
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+    config:
+      scalars:
+        Date: Date
+      contextType: ../context#Context
+      maybeValue: T | undefined
+      resolverTypeWrapperSignature: import('type-fest').PartialDeep<T> | Promise<import('type-fest').PartialDeep<T>>
+      useIndexSignature: true
