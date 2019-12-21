@@ -12,6 +12,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@types/cors": "^2.8.6",
     "@types/graphql": "^14.5.0",
     "@types/graphql-depth-limit": "^1.1.2",
     "@types/graphql-iso-date": "^3.3.3",
@@ -20,6 +21,7 @@
     "apollo-link": "^1.2.13",
     "apollo-link-http": "^1.5.16",
     "apollo-server-express": "^2.9.14",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^14.5.8",
