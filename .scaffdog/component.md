@@ -31,7 +31,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { {{ input | pascal }} } from '.';
 
-storiesOf('{{ input | pascal }}')
+storiesOf('{{ input | pascal }}', module)
   .add('Normal', () => <{{ input | pascal }} />);
 
 ```
@@ -40,12 +40,12 @@ storiesOf('{{ input | pascal }}')
 
 ```tsx
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { {{ input | pascal }} } from '.';
 
 describe('{{ input | pascal }}', () => {
   it('matches snapshot', () => {
-    const { container } = render({{ input | pascal }});
+    const { container } = render(<{{ input | pascal }} />);
     expect(container.firstChild).toMatchSnapshot();
   });
 });
