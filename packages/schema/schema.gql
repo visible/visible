@@ -1,0 +1,24 @@
+enum ReportType {
+  OK
+  WARN
+  ERROR
+}
+
+type Report {
+  id: ID!
+  type: ReportType!
+  html: String
+  message: String
+}
+
+type Query {
+}
+
+type Mutation {
+  diagnoseURL(url: String!): [Report!]!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
