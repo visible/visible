@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Progress matches snapshot 1`] = `
+<div
+  class="sc-bdVaJa EXKLM"
+>
+  <div
+    class="sc-htpNat eCUBbA"
+  />
+  <div
+    class="sc-bwzfXH iXiEnt"
+    style="width: 50%;"
+  />
+</div>
+`;
