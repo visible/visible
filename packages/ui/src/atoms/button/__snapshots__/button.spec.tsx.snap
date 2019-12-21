@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders primary button 1`] = `
+<button
+  class="sc-bdVaJa emtJEX"
+/>
+`;
+
+exports[`Button renders skeleton button 1`] = `
+<button
+  class="sc-bdVaJa hownKz"
+/>
+`;

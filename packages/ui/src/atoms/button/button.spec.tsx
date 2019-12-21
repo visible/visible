@@ -1,10 +1,26 @@
+import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { ThemeProvider } from '../../styled';
+import { theme } from '../../theme';
 import { Button } from '.';
 
 describe('Button', () => {
-  it('matches snapshot', () => {
-    const { container } = render(<Button />);
+  it('renders primary button', () => {
+    const { container } = render(
+      <ThemeProvider theme={theme}>
+        <Button appearance="primary" />
+      </ThemeProvider>,
+    );
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
+  it('renders skeleton button', () => {
+    const { container } = render(
+      <ThemeProvider theme={theme}>
+        <Button appearance="skeleton" />
+      </ThemeProvider>,
+    );
     expect(container.firstChild).toMatchSnapshot();
   });
 });

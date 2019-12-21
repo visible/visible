@@ -37,7 +37,6 @@
     ],
     "no-console": "error",
     "import/order": 2,
-    "import/no-unassigned-import": "error",
     "react/display-name": "off",
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
