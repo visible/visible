@@ -1,7 +1,7 @@
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
-import { theme } from '../src/theme';
+import { theme } from '../packages/ui/src/theme';
 
 export const withTheme: Parameters<typeof addDecorator>[0] = storyFn => {
   return (

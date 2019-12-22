@@ -6,9 +6,11 @@ module.exports = async ({ config, mode }) => {
     test: /\.tsx?$/,
     use: [
       {
-        loader: require.resolve('babel-loader')
+        loader: require.resolve('awesome-typescript-loader'),
       },
-      require.resolve('react-docgen-typescript-loader')
+      {
+        loader: require.resolve('react-docgen-typescript-loader'),
+      },
     ]
   });
 
