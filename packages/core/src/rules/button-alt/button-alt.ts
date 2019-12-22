@@ -6,9 +6,17 @@ export const buttonAlt: Rule = async ({ page, t }) => {
   const reports: Report[] = [];
 
   for (const element of elements) {
-    const hasTextContent = await element.evaluate(e => !!e.textContent);
-    const hasTitle = await element.evaluate(e => !!e.getAttribute('title'));
-    const html = await element.evaluate(e => e.outerHTML);
+    const hasTextContent = await element.evaluate(
+      /* istanbul ignore next */ e => !!e.textContent,
+    );
+
+    const hasTitle = await element.evaluate(
+      /* istanbul ignore next */ e => !!e.getAttribute('title'),
+    );
+
+    const html = await element.evaluate(
+      /* istanbul ignore next */ e => e.outerHTML,
+    );
 
     if (!hasTextContent && !hasTitle) {
       reports.push({

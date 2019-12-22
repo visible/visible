@@ -20,10 +20,18 @@ export const colorContrast: Rule = async ({ page, t }) => {
   const reports: Report[] = [];
 
   for (const element of elements) {
-    const bg = await element.evaluate(e => getComputedStyle(e).backgroundColor);
-    const fg = await element.evaluate(e => getComputedStyle(e).color);
-    const hasTextContent = await element.evaluate(e => !!e.textContent);
-    const html = await element.evaluate(e => e.outerHTML);
+    const bg = await element.evaluate(
+      /* istanbul ignore next */ e => getComputedStyle(e).backgroundColor,
+    );
+    const fg = await element.evaluate(
+      /* istanbul ignore next */ e => getComputedStyle(e).color,
+    );
+    const hasTextContent = await element.evaluate(
+      /* istanbul ignore next */ e => !!e.textContent,
+    );
+    const html = await element.evaluate(
+      /* istanbul ignore next */ e => e.outerHTML,
+    );
 
     if (!bg || !fg || !hasTextContent || isTransparent(bg)) {
       continue;

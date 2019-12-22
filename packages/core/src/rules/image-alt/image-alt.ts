@@ -6,8 +6,12 @@ export const imageAlt: Rule = async ({ page, t }) => {
   const reports: Report[] = [];
 
   for (const element of elements) {
-    const hasAlt = await element.evaluate(e => !!e.getAttribute('alt'));
-    const html = await element.evaluate(e => e.outerHTML);
+    const hasAlt = await element.evaluate(
+      /* istanbul ignore next */ e => !!e.getAttribute('alt'),
+    );
+    const html = await element.evaluate(
+      /* istanbul ignore next */ e => e.outerHTML,
+    );
 
     if (!hasAlt) {
       reports.push({

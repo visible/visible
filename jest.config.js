@@ -1,35 +1,41 @@
+/* eslint-disable */
+const { defaults } = require('jest-config');
+
+const shared = package => ({
+  globals: {
+    'ts-jest': {
+      tsConfig: `<rootDir>/packages/${package}/tsconfig.json`,
+    },
+  },
+  testMatch: [
+    `<rootDir>/packages/${package}/**/?(*.)spec.ts?(x)`
+  ],
+  coverageDirectory: '<rootDir>/coverage',
+  collectCoverageFrom: [
+    `<rootDir>/${package}/**/*.{ts,tsx}`
+  ],
+  transform: {
+    ...defaults.transform,
+    '^.+\\.tsx?$': 'ts-jest'
+  },
+  moduleFileExtensions: [
+    ...defaults.moduleFileExtensions,
+    'ts',
+    'tsx',
+  ]
+});
+
 module.exports = {
   projects: [
     {
+      ...shared('core'),
       preset: 'jest-puppeteer',
-      globals: {
-        'ts-jest': {
-          tsConfig: '<rootDir>/packages/core/tsconfig.json',
-        },
-      },
-      transform: { '^.+\\.tsx?$': 'ts-jest' },
-      testMatch: ['<rootDir>/packages/core/**/?(*.)+(spec|test).ts?(x)'],
-      testPathIgnorePatterns: ['/node_modules/'],
-      moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-      collectCoverage: false,
-      // collectCoverageFrom: ['<rootDir>/core/**/*.{ts,tsx}'],
-      // coverageDirectory: '<rootDir>/coverage',
-      // coveragePathIgnorePatterns: ['*'],
+      setupFilesAfterEnv: ['jest-puppeteer-istanbul/lib/setup'],
+      reporters: ['default', 'jest-puppeteer-istanbul/lib/reporter'],
     },
     {
-      globals: {
-        'ts-jest': {
-          tsConfig: '<rootDir>/packages/ui/tsconfig.json',
-        },
-      },
-      transform: { '^.+\\.tsx?$': 'ts-jest' },
+      ...shared('ui'),
       testEnvironment: 'jsdom',
-      testMatch: ['<rootDir>/packages/ui/**/?(*.)+(spec|test).ts?(x)'],
-      testPathIgnorePatterns: ['/node_modules/'],
-      moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-      collectCoverageFrom: ['<rootDir>/ui/**/*.{ts,tsx}'],
-      coverageDirectory: '<rootDir>/coverage',
-      coveragePathIgnorePatterns: ['.*\\.d\\.ts'],
     },
   ],
 };
