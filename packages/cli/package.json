@@ -23,7 +23,7 @@
     "i18next": "^19.0.2",
     "i18next-cli-language-detector": "^0.0.1",
     "table": "^5.4.6",
-    "typescript": "^3.7.3",
+    "typescript": "^3.7.4",
     "yargs": "^15.0.2"
   }
 }
