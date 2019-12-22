@@ -40,6 +40,11 @@ jobs:
       run: |
         yarn install --frozen-lockfile
         yarn run build
-        yarn run test
+        yarn run test --coverage
       env:
         CI: true
+        
+    - name: Codecov
+      uses: codecov/codecov-action@v1.0.5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
