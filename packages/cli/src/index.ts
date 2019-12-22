@@ -1,20 +1,11 @@
 #!/usr/bin/env node
 import yargs from 'yargs';
-import { Spinner } from 'cli-spinner';
 import { visible } from '@visi/core';
 import { print } from './print';
+import { loader } from './loader';
 import { createI18n } from './i18n';
 
-const loading = (message: string) => {
-  const spinner = new Spinner(message).setSpinnerString(18).start();
-
-  return () => {
-    const stream = spinner.stop().stream;
-    spinner.clearLine(stream);
-  };
-};
-
-const main = async () => {
+(async () => {
   const [i18next, t] = await createI18n();
   const description = t('cli:visible.description', 'The default command');
 
@@ -47,10 +38,11 @@ const main = async () => {
 
     async ({ url, json, verbose }) => {
       try {
-        const loaded = loading(t('cli:loading', 'Fetching diagnosises...'));
-        const reports = await visible({ url, language: i18next.language });
+        const reports = await loader(
+          t('cli:loading', 'Fetching diagnosises...'),
+          visible({ url, language: i18next.language }),
+        );
 
-        loaded();
         print(reports, json, verbose, t);
 
         const hasError = reports.some(report => report.type === 'error');
@@ -62,6 +54,4 @@ const main = async () => {
       }
     },
   ).argv;
-};
-
-main();
+})();
