@@ -12,7 +12,7 @@
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
     "test": "run-s test:*",
-    "test:jest": "jest --config=jest.config.js",
+    "test:jest": "jest --config=jest.config.js --coverage",
     "test:eslint": "eslint -c .eslintrc.json ./packages/**/*.ts",
     "test:stylelint": "stylelint 'packages/**/*.{ts,tsx}'",
     "manage:translations": "i18next-scanner 'packages/**/*.{ts,tsx}'"
