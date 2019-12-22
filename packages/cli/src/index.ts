@@ -27,6 +27,11 @@ import { createI18n } from './i18n';
           type: 'boolean',
           default: false,
         })
+        .option('fix', {
+          description: t('cli:options.fix', 'Prints fixers'),
+          type: 'boolean',
+          default: false,
+        })
         .option('verbose', {
           description: t(
             'cli:options.verbose',
@@ -36,14 +41,14 @@ import { createI18n } from './i18n';
           default: false,
         }),
 
-    async ({ url, json, verbose }) => {
+    async ({ url, json, verbose, fix }) => {
       try {
         const reports = await loader(
           t('cli:loading', 'Fetching diagnosises...'),
           visible({ url, language: i18next.language }),
         );
 
-        print(reports, json, verbose, t);
+        await print(reports, json, verbose, t, fix);
 
         const hasError = reports.some(report => report.type === 'error');
         process.exit(hasError ? 1 : 0);

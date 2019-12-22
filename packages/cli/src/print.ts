@@ -8,6 +8,7 @@ export const print = async (
   json: boolean,
   verbose: boolean,
   t: TFunction,
+  fix: boolean,
 ) => {
   const reports = reportsInput.filter(report => {
     if (verbose) {
@@ -17,9 +18,20 @@ export const print = async (
     return report.type !== 'ok';
   });
 
+  const fixtures = [];
+
+  if (fix) {
+    for (const report of reports) {
+      if (report.fix) {
+        const fixture = await report.fix();
+        fixtures.push(fixture);
+      }
+    }
+  }
+
   if (json) {
     // eslint-disable-next-line no-console
-    return console.log(JSON.stringify(reports));
+    return console.log(JSON.stringify([reports, fixtures]));
   }
 
   const rows = [
