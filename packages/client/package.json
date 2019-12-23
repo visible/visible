@@ -7,7 +7,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "watch": "parcel serve ./src/index.html",
-    "postinstall": "graphql-codegen --config codegen.yml"
+    "postinstall": "graphql-codegen --config codegen.js"
   },
   "files": [
     "./dist"

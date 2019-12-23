@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable */
 const glob = require('glob');
 const sort = require('gulp-sort');
 const vfs = require('vinyl-fs');

@@ -1,4 +1,3 @@
-/* eslint-disable */
 const { defaults } = require('jest-config');
 
 const shared = package => ({
@@ -7,22 +6,14 @@ const shared = package => ({
       tsConfig: `<rootDir>/packages/${package}/tsconfig.json`,
     },
   },
-  testMatch: [
-    `<rootDir>/packages/${package}/**/?(*.)spec.ts?(x)`
-  ],
+  testMatch: [`<rootDir>/packages/${package}/**/?(*.)spec.ts?(x)`],
   coverageDirectory: '<rootDir>/coverage',
-  collectCoverageFrom: [
-    `<rootDir>/${package}/**/*.{ts,tsx}`
-  ],
+  collectCoverageFrom: [`<rootDir>/${package}/**/*.{ts,tsx}`],
   transform: {
     ...defaults.transform,
-    '^.+\\.tsx?$': 'ts-jest'
+    '^.+\\.tsx?$': 'ts-jest',
   },
-  moduleFileExtensions: [
-    ...defaults.moduleFileExtensions,
-    'ts',
-    'tsx',
-  ]
+  moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
 });
 
 module.exports = {
