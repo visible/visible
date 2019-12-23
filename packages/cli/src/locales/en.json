@@ -1,6 +1,7 @@
 {
   "loading": "Fetching diagnosises...",
   "options": {
+    "fix": "Prints fixers",
     "json": "Output JSON instead of prettified table",
     "url": "URL to diagnose",
     "verbose": "Prints all reports including passed one"

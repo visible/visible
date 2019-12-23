@@ -7,7 +7,7 @@ import { createI18n } from './i18n';
 
 (async () => {
   const [i18next, t] = await createI18n();
-  const description = t('cli:visible.description', 'The default command');
+  const description = t('visible.description', 'The default command');
 
   yargs.command(
     '*',
@@ -15,26 +15,26 @@ import { createI18n } from './i18n';
     yargs =>
       yargs
         .option('url', {
-          description: t('cli:options.url', 'URL to diagnose'),
+          description: t('options.url', 'URL to diagnose'),
           type: 'string',
           required: true,
         })
         .option('json', {
           description: t(
-            'cli:options.json',
+            'options.json',
             'Output JSON instead of prettified table',
           ),
           type: 'boolean',
           default: false,
         })
         .option('fix', {
-          description: t('cli:options.fix', 'Prints fixers'),
+          description: t('options.fix', 'Prints fixers'),
           type: 'boolean',
           default: false,
         })
         .option('verbose', {
           description: t(
-            'cli:options.verbose',
+            'options.verbose',
             'Prints all reports including passed one',
           ),
           type: 'boolean',
@@ -44,7 +44,7 @@ import { createI18n } from './i18n';
     async ({ url, json, verbose, fix }) => {
       try {
         const reports = await loader(
-          t('cli:loading', 'Fetching diagnosises...'),
+          t('loading', 'Fetching diagnosises...'),
           visible({ url, language: i18next.language }),
         );
 

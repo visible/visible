@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 
-import en from '@visi/locale/en/core.json';
-import ja from '@visi/locale/ja/core.json';
+import en from '../locales/en.json';
+import ja from '../locales/ja.json';
 
 export const createI18n = async (language?: string) => {
   const i18nextCustom = i18next.createInstance();

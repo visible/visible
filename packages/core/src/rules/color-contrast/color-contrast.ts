@@ -57,7 +57,7 @@ export const colorContrast: Rule = async ({ page, t }) => {
         type: 'warn',
         html,
         message: t(
-          'core:color-contrast.aa',
+          'color-contrast.aa',
           'Color contrast ratio should be greater than 7',
         ),
         content: {

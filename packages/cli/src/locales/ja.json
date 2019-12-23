@@ -1,6 +1,7 @@
 {
   "loading": "診断を取得中...",
   "options": {
+    "fix": "Prints fixers",
     "json": "整形済みテーブルの代わりにJSONデータを出力します",
     "url": "診断するURL",
     "verbose": "合格したレポートを含めた全てのレポートを表示する"

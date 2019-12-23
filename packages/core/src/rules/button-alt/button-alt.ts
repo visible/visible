@@ -24,7 +24,7 @@ export const buttonAlt: Rule = async ({ page, t }) => {
         type: 'error',
         html,
         message: t(
-          'core:button-alt.no-alt',
+          'button-alt.no-alt',
           'button element must have title attribute or text content',
         ),
       });
