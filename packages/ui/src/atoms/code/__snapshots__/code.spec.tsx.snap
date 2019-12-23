@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Code matches snapshot 1`] = `
+<pre
+  style="color: black; background: rgb(245, 242, 240); text-shadow: 0 1px white; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; word-wrap: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: .5em 0px; overflow: auto;"
+  theme="[object Object]"
+>
+  <code
+    style="color: black; background: none; text-shadow: 0 1px white; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; word-wrap: normal; line-height: 1.5; tab-size: 4; hyphens: none;"
+  >
+    
+    
+    <span
+      class="token"
+      style="color: rgb(0, 119, 170);"
+    >
+      function
+    </span>
+     
+    <span
+      class="token"
+      style="color: rgb(221, 74, 104);"
+    >
+      main
+    </span>
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      (
+    </span>
+    <span
+      class="token parameter"
+    >
+      params 
+      <span
+        class="token"
+        style="color: rgb(154, 110, 58); background: hsla(0, 0%, 100%, 0.5);"
+      >
+        =
+      </span>
+       
+      <span
+        class="token"
+        style="color: rgb(153, 153, 153);"
+      >
+        {
+      </span>
+      <span
+        class="token"
+        style="color: rgb(153, 153, 153);"
+      >
+        }
+      </span>
+    </span>
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      )
+    </span>
+     
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      {
+    </span>
+    
+      
+    <span
+      class="token"
+      style="color: rgb(0, 119, 170);"
+    >
+      var
+    </span>
+     json 
+    <span
+      class="token"
+      style="color: rgb(154, 110, 58); background: hsla(0, 0%, 100%, 0.5);"
+    >
+      =
+    </span>
+     
+    <span
+      class="token known-class-name"
+      style="color: rgb(221, 74, 104);"
+    >
+      JSON
+    </span>
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      .
+    </span>
+    <span
+      class="token method property-access"
+      style="color: rgb(221, 74, 104);"
+    >
+      stringify
+    </span>
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      (
+    </span>
+    params
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      )
+    </span>
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      ;
+    </span>
+    
+      
+    <span
+      class="token console"
+      style="color: rgb(221, 74, 104);"
+    >
+      console
+    </span>
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      .
+    </span>
+    <span
+      class="token method property-access"
+      style="color: rgb(221, 74, 104);"
+    >
+      log
+    </span>
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      (
+    </span>
+    json
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      )
+    </span>
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      ;
+    </span>
+    
+    
+    <span
+      class="token"
+      style="color: rgb(153, 153, 153);"
+    >
+      }
+    </span>
+    
+    
+  </code>
+</pre>
+`;
