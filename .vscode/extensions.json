@@ -1,9 +1,9 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
     "esbenp.prettier-vscode",
     "jpoissonnier.vscode-styled-components",
-    "Orta.vscode-jest",
-    "shinnn.stylelint"
+    "orta.vscode-jest",
   ]
 }
