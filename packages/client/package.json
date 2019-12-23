@@ -17,10 +17,15 @@
   "dependencies": {
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
+    "@types/react-router": "^5.1.3",
+    "@types/react-router-dom": "^5.1.3",
     "@types/styled-components": "^4.4.1",
+    "@visi/schema": "^0.0.0",
     "@visi/ui": "^0.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
