@@ -1,0 +1,21 @@
+overwrite: true
+schema:
+  - ../../node_modules/@visi/schema/schema.gql
+documents: src/**/*.gql
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+      - typescript-resolvers
+    config:
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      # immutableTypes: true
+      maybeValue: T | undefined
+      useIndexSignature: true
+  src/generated/introspection-result.ts:
+      plugins:
+        - fragment-matcher

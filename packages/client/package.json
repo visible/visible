@@ -6,7 +6,8 @@
   "license": "AGPL-3.0",
   "main": "./dist/index.js",
   "scripts": {
-    "watch": "parcel serve ./src/index.html"
+    "watch": "parcel serve ./src/index.html",
+    "postinstall": "graphql-codegen --config codegen.yml"
   },
   "files": [
     "./dist"
@@ -15,6 +16,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.3",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/react-router": "^5.1.3",
@@ -22,8 +24,14 @@
     "@types/styled-components": "^4.4.1",
     "@visi/schema": "^0.0.0",
     "@visi/ui": "^0.0.0",
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link-http": "^1.5.16",
+    "graphql": "^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0",
+    "i18next": "^19.0.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-i18next": "^11.2.7",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "styled-components": "^4.4.1"
@@ -41,6 +49,11 @@
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
     "@babel/preset-typescript": "^7.7.7",
+    "@graphql-codegen/cli": "^1.9.1",
+    "@graphql-codegen/fragment-matcher": "^1.9.1",
+    "@graphql-codegen/typescript": "^1.9.1",
+    "@graphql-codegen/typescript-operations": "^1.9.1",
+    "@graphql-codegen/typescript-react-apollo": "^1.9.1",
     "parcel": "^1.12.4"
   }
 }

@@ -11,10 +11,15 @@ type Report {
   message: String
 }
 
+type Query {
+  histories: [Report!]!
+}
+
 type Mutation {
   diagnoseURL(url: String!): [Report!]!
 }
 
 schema {
+  query: Query
   mutation: Mutation
 }

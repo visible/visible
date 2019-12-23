@@ -1,0 +1,9 @@
+fragment ReportSmall on Report {
+	type
+}
+
+query FetchHistoriesSmall {
+	histories {
+		...ReportSmall
+	}
+}
