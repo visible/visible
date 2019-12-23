@@ -12,7 +12,7 @@ const shouldUsePlural = lng => {
   return !nonPluralLanguages.includes(lng);
 };
 
-const getConfig = workspace => {
+const createConfig = workspace => {
   const lngs = glob
     .sync(`./packages/${workspace}/src/locales/*.json`)
     .map(file => file.match(/.*\/(.+?).json$/)[1]);
@@ -48,7 +48,7 @@ const workspaces = glob
   .map(dir => dir.match(/.*\/(.+?)$/)[1]);
 
 for (const workspace of workspaces) {
-  const config = getConfig(workspace);
+  const config = createConfig(workspace);
 
   vfs
     .src(config.input)
