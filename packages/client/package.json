@@ -6,7 +6,8 @@
   "license": "AGPL-3.0",
   "main": "./dist/index.js",
   "scripts": {
-    "watch": "parcel serve ./src/index.html",
+    "build": "webpack --mode production",
+    "watch": "webpack-dev-server --mode development",
     "postinstall": "graphql-codegen --config codegen.js"
   },
   "files": [
@@ -15,28 +16,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@apollo/react-hooks": "^3.1.3",
-    "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.4",
-    "@types/react-router": "^5.1.3",
-    "@types/react-router-dom": "^5.1.3",
-    "@types/styled-components": "^4.4.1",
-    "@visi/schema": "^0.0.0",
-    "@visi/ui": "^0.0.0",
-    "apollo-cache-inmemory": "^1.6.5",
-    "apollo-client": "^2.6.8",
-    "apollo-link-http": "^1.5.16",
-    "graphql": "^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0",
-    "i18next": "^19.0.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-i18next": "^11.2.7",
-    "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2",
-    "styled-components": "^4.4.1"
-  },
   "devDependencies": {
+    "@apollo/react-hooks": "^3.1.3",
     "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-proposal-decorators": "^7.7.4",
@@ -54,6 +35,35 @@
     "@graphql-codegen/typescript": "^1.9.1",
     "@graphql-codegen/typescript-operations": "^1.9.1",
     "@graphql-codegen/typescript-react-apollo": "^1.9.1",
-    "parcel": "^1.12.4"
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-router": "^5.1.3",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/styled-components": "^4.4.1",
+    "@visi/schema": "^0.0.0",
+    "@visi/ui": "^0.0.0",
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link-http": "^1.5.16",
+    "babel-loader": "^8.0.6",
+    "core-js": "^3.6.0",
+    "css-loader": "^3.4.0",
+    "file-loader": "^5.0.2",
+    "graphql": "^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0",
+    "graphql-tag": "^2.10.1",
+    "html-webpack-harddisk-plugin": "^1.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "i18next": "^19.0.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-i18next": "^11.2.7",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "style-loader": "^1.1.1",
+    "styled-components": "^4.4.1",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1",
+    "webpack-manifest-plugin": "^2.2.0"
   }
 }
