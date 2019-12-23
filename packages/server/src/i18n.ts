@@ -1,8 +1,8 @@
 import i18next from 'i18next';
 import { LanguageDetector } from 'i18next-express-middleware';
 
-import en from '@visi/locale/en/server.json';
-import ja from '@visi/locale/ja/server.json';
+import en from './locales/en.json';
+import ja from './locales/ja.json';
 
 export const createI18n = async (language?: string) => {
   const i18nextCustom = i18next.createInstance();
@@ -11,8 +11,8 @@ export const createI18n = async (language?: string) => {
     lng: language,
     fallbackLng: 'en',
     resources: {
-      en: { cli: en },
-      ja: { cli: ja },
+      en: { server: en },
+      ja: { server: ja },
     },
   });
 
