@@ -7,13 +7,13 @@ interface ProgressProps {
 
 const pulse = keyframes`
   0% {
-    opacity: 0.5;
+    filter: brightness(100%);
   }
   50%{
-    opacity: 1;
+    filter: brightness(120%);
   }
   100% {
-    opacity: 0.5;
+    filter: brightness(100%);
   }
 `;
 
