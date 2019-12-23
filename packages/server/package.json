@@ -6,7 +6,7 @@
   "license": "AGPL-3.0",
   "main": "./dist/index.js",
   "scripts": {
-    "postinstall": "graphql-codegen --config codegen.yml"
+    "postinstall": "graphql-codegen --config codegen.js"
   },
   "files": [
     "./dist"
