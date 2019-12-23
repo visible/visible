@@ -1,4 +1,4 @@
-import styled from '../styled';
+import styled from 'styled-components';
 
 export const Badge = styled.span`
   padding: 6px 8px;

@@ -1,4 +1,10 @@
 export const theme = {
+  foreground: {
+    normal: '#333333',
+  },
+  background: {
+    normal: '#ffffff',
+  },
   highlight: {
     normal: '#ffaa01',
   },

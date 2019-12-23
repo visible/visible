@@ -1,5 +1,5 @@
 import { transparentize } from 'polished';
-import styled from '../styled';
+import styled from 'styled-components';
 
 export const Input = styled.input`
   box-sizing: border-box;

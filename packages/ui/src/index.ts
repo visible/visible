@@ -4,3 +4,6 @@ export * from './code';
 export * from './input';
 export * from './progress';
 export * from './search';
+
+export * from './theme';
+export * from './global';

@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import { Button } from '.';
 
-storiesOf('Atoms/Button', module)
+storiesOf('Button', module)
   .add('Primary', () => {
     const content = text('Content', 'Button');
     const disabled = boolean('Disabled', false);

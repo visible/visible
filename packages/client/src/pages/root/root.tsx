@@ -10,7 +10,7 @@ import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from 'styled-components';
 import typeDefs from '@visi/schema';
-import { theme } from '@visi/ui/dist/theme';
+import { theme, GlobalStyle } from '@visi/ui';
 import introspectionResult from '../../generated/introspection-result';
 
 const Home = React.lazy(() => import(/* webpackPrefetch: true */ '../home'));
@@ -42,6 +42,8 @@ export const Root = () => {
             </Switch>
           </Suspense>
         </BrowserRouter>
+
+        <GlobalStyle />
       </ThemeProvider>
     </ApolloProvider>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { Input } from '../input';
 import { Button } from '../button';
-import styled from '../styled';
 
 interface SearchProps {
   required?: boolean;

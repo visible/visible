@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean } from '@storybook/addon-knobs';
 import { Search } from '.';
 
-storiesOf('Molecules/Search', module).add('Normal', () => {
+storiesOf('Search', module).add('Normal', () => {
   const required = boolean('required', false);
   const disabled = boolean('disabled', false);
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search } from '@visi/ui/dist/molecules/search';
+import { Search } from '@visi/ui';
 
 export const Home = () => {
   return (
