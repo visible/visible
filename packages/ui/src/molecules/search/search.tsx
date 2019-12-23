@@ -21,6 +21,7 @@ const Wrapper = styled.form`
   }
 
   ${Input} {
+    border-right: none;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
