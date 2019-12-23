@@ -1,5 +1,6 @@
 import { Rule } from '../../domain/rule';
 import { Report } from '../../domain/report';
+import { createXPath } from '../../utils/create-xpath';
 
 export const buttonAlt: Rule = async ({ page, t }) => {
   const elements = await page.$$('button');
@@ -22,11 +23,14 @@ export const buttonAlt: Rule = async ({ page, t }) => {
       reports.push({
         id: 'button-alt',
         type: 'error',
-        html,
         message: t(
           'button-alt.no-alt',
           'button element must have title attribute or text content',
         ),
+        content: {
+          html,
+          xpath: await createXPath(element),
+        },
       });
 
       continue;
@@ -35,7 +39,10 @@ export const buttonAlt: Rule = async ({ page, t }) => {
     reports.push({
       id: 'button-alt',
       type: 'ok',
-      html,
+      content: {
+        html,
+        xpath: await createXPath(element),
+      },
     });
   }
 

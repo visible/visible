@@ -7,6 +7,7 @@ export const createI18n = async (language?: string) => {
   const i18nextCustom = i18next.createInstance();
   const t = await i18nextCustom.init({
     lng: language,
+    defaultNS: 'core',
     fallbackLng: 'en',
     resources: {
       en: { core: en },

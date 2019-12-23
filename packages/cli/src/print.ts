@@ -36,21 +36,26 @@ export const print = async (
 
   const rows = [
     [
-      chalk.bold(t('result.kind', 'Kind')),
       chalk.bold(t('result.type', 'Type')),
       chalk.bold(t('result.message', 'Message')),
+      chalk.bold(t('result.xpath', 'XPath')),
       chalk.bold(t('result.html', 'HTML')),
     ],
     ...reports.map(report => {
-      const type = {
-        ok: chalk.green(t('result.ok', 'OK')),
-        warn: chalk.yellow(t('result.warn', 'Warn')),
-        error: chalk.red(t('result.error', 'Error')),
+      const color = {
+        ok: chalk.green,
+        warn: chalk.yellow,
+        error: chalk.red,
       }[report.type];
 
-      const html = report.html ? report.html.substr(0, 100) : '';
+      const xpath = report.content && report.content.xpath;
 
-      return [type, report.id, report.message, html];
+      const html =
+        report.content && report.content.html
+          ? report.content.html.substr(0, 100)
+          : '';
+
+      return [color(report.id), report.message, xpath, html];
     }),
   ];
 

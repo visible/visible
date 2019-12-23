@@ -30,6 +30,8 @@ export const colorContrast: Rule = async ({ page, t }) => {
   const reports: Report[] = [];
 
   for (const element of elements) {
+    const xpath = await createXPath(element);
+
     const hasTextContent = await element.evaluate(
       /* istanbul ignore next */ e => !!e.textContent,
     );
@@ -56,7 +58,6 @@ export const colorContrast: Rule = async ({ page, t }) => {
       reports.push({
         id: 'color-contrast',
         type: 'warn',
-        html,
         message: t(
           'color-contrast.aa',
           'Color contrast ratio should be greater than 7',
@@ -64,7 +65,7 @@ export const colorContrast: Rule = async ({ page, t }) => {
         content: {
           html,
           style,
-          xpath: await createXPath(element),
+          xpath,
         },
         fix: async () => ({
           style: fixContrastRatio(fg, bg),
@@ -78,11 +79,14 @@ export const colorContrast: Rule = async ({ page, t }) => {
       reports.push({
         id: 'color-contrast',
         type: 'error',
-        html,
         message: t(
-          'core:color-contrast.less-than-aa',
+          'color-contrast.less-than-aa',
           'Color contrast must be greater than 4.5',
         ),
+        content: {
+          html,
+          xpath,
+        },
       });
 
       continue;
@@ -91,7 +95,10 @@ export const colorContrast: Rule = async ({ page, t }) => {
     reports.push({
       id: 'color-contrast',
       type: 'ok',
-      html,
+      content: {
+        html,
+        xpath,
+      },
     });
   }
 

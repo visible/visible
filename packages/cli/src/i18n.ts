@@ -9,6 +9,7 @@ export const createI18n = async (language?: string) => {
 
   const t = await i18nextCustom.use(I18nextCLILanguageDetector).init({
     lng: language,
+    defaultNS: 'cli',
     fallbackLng: 'en',
     resources: {
       en: { cli: en },
