@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Search } from '@visi/ui/dist/molecules/search';
 
 export const Home = () => {

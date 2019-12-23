@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Suspense } from 'react';
 import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient } from 'apollo-client';
@@ -11,8 +11,9 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from 'styled-components';
 import typeDefs from '@visi/schema';
 import { theme } from '@visi/ui/dist/theme';
-import { Home } from '../home';
 import introspectionResult from '../../generated/introspection-result';
+
+const Home = React.lazy(() => import(/* webpackPrefetch: true */ '../home'));
 
 export const Root = () => {
   const fragmentMatcher = new IntrospectionFragmentMatcher({
@@ -35,9 +36,11 @@ export const Root = () => {
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={Home} />
-          </Switch>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              <Route exact path="/" component={Home} />
+            </Switch>
+          </Suspense>
         </BrowserRouter>
       </ThemeProvider>
     </ApolloProvider>

@@ -18,6 +18,7 @@ module.exports = (command, argv) => {
 
     output: {
       filename: isProd ? '[name]-[hash].js' : '[name].js',
+      chunkFilename: isProd ? '[name]-[hash].js' : '[name].js',
       path: path.resolve(__dirname, './dist'),
       publicPath: '/dist/',
     },
