@@ -36,6 +36,7 @@ module.exports = {
     {
       ...shared('ui'),
       testEnvironment: 'jsdom',
+      setupFilesAfterEnv: ['<rootDir>/packages/ui/tests/setup.ts'],
     },
   ],
 };
