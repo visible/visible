@@ -1,5 +1,5 @@
 import { transparentize } from 'polished';
-import styled, { css } from '../../styled';
+import styled, { css } from '../styled';
 
 type ButtonAppearance = 'primary' | 'skeleton';
 

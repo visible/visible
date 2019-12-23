@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Input } from '../../atoms/input';
-import { Button } from '../../atoms/button';
-import styled from '../../styled';
+import { Input } from '../input';
+import { Button } from '../button';
+import styled from '../styled';
 
 interface SearchProps {
   required?: boolean;
