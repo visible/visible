@@ -1,6 +1,7 @@
 import { getContrast, parseToRgb, darken } from 'polished';
 import { Rule } from '../../domain/rule';
 import { Report } from '../../domain/report';
+import { createXPath } from '../../utils/create-xpath';
 
 const isTransparent = (color: string) => {
   const rgba = parseToRgb(color);
@@ -63,6 +64,7 @@ export const colorContrast: Rule = async ({ page, t }) => {
         content: {
           html,
           style,
+          xpath: await createXPath(element),
         },
         fix: async () => ({
           style: fixContrastRatio(fg, bg),

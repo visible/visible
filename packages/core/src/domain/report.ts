@@ -2,6 +2,7 @@ export type ReportType = 'ok' | 'warn' | 'error';
 
 export interface Content {
   html: string;
+  xpath: string;
   style: string;
 }
 
