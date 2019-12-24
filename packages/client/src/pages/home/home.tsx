@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Nav, NavItem } from '@visi/ui';
+import { Search, Nav, NavItem, List, ListItem } from '@visi/ui';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -36,10 +36,24 @@ const Wizard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 480px;
+  margin: auto;
 
   input {
-    width: 300px;
+    width: 400px;
   }
+`;
+
+const Description = styled.p`
+  color: #666666;
+  font-size: 12px;
+`;
+
+const ContentInfo = styled.footer`
+  width: 1080px;
+  margin: auto;
+  color: #666666;
+  font-size: 12px;
 `;
 
 export const Home = () => {
@@ -68,8 +82,24 @@ export const Home = () => {
         <Wizard>
           <h2>Diagnose your website</h2>
           <Search submitLabel="送信" placeholder="検索キーワードを入力" />
+          <Description>
+            URLを入力してサイトのアクセシビリティーを診断します。
+            <br />
+            診断結果はスコア付けられて、問題のある箇所のコードを指摘し、ソリューションを提案します。
+          </Description>
         </Wizard>
       </Content>
+
+      <ContentInfo>
+        <List>
+          <ListItem>
+            <a href="https://github.com/neet/visible">GitHub</a>
+          </ListItem>
+          <ListItem>
+            <a href="https://twitter.com/TheGodOfNeet">Twitter</a>
+          </ListItem>
+        </List>
+      </ContentInfo>
     </>
   );
 };
