@@ -4,6 +4,7 @@ export const theme = {
   },
   background: {
     normal: '#ffffff',
+    wash: '#f1f1f1',
   },
   highlight: {
     normal: '#ffaa01',

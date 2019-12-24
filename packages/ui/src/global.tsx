@@ -1,8 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
 html {
   width: 100%;
   height: 100%;
@@ -12,9 +10,9 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-  background-color: ${({ theme }) => theme.background.normal};
+  background-color: ${({ theme }) => theme.background.wash};
   color: ${({ theme }) => theme.foreground.normal};
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
@@ -26,29 +24,6 @@ img {
   display: block;
   max-width: 100%;
   max-height: 100%;
-}
-
-h1 {
-  margin-bottom: 4px;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-h2 {
-  margin-bottom: 4px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-h3 {
-  margin-bottom: 4px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-h4 {
-  font-size: 14px;
-  font-weight: bold;
 }
 
 a {

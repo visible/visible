@@ -7,6 +7,7 @@ declare module 'styled-components' {
     };
     background: {
       normal: string;
+      wash: string;
     };
     highlight: {
       normal: string;
