@@ -1,7 +1,7 @@
 module.exports = {
   overwrite: true,
   schema: [require.resolve('@visi/schema')],
-  documents: './src/**/*.gql',
+  documents: './src/**/*.graphql',
   generates: {
     './src/generated/graphql.tsx': {
       plugins: [
