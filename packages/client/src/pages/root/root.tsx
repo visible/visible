@@ -20,6 +20,9 @@ import { ContentInfo } from '../../components/content-info';
 
 const Home = React.lazy(() => import(/* webpackPrefetch: true */ '../home'));
 const Void = React.lazy(() => import(/* webpackPrefetch: true */ '../void'));
+const Diagnostics = React.lazy(() =>
+  import(/* webpackPrefetch: true */ '../diagnostics'),
+);
 
 type RootProps = {
   i18n: i18n;
@@ -38,7 +41,7 @@ export const Root = (props: RootProps) => {
   const client = new ApolloClient({
     cache,
     typeDefs,
-    link: new HttpLink({ uri: '/graphql' }),
+    link: new HttpLink({ uri: '/api/v1' }),
     ssrForceFetchDelay: 100,
   });
 
@@ -52,6 +55,7 @@ export const Root = (props: RootProps) => {
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
                 <Route exact path="/" component={Home} />
+                <Route path="/diagnostics/:id" component={Diagnostics} />
                 <Route component={Void} />
               </Switch>
             </Suspense>

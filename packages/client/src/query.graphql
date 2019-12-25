@@ -1,9 +1,29 @@
 fragment ReportSmall on Report {
+  id
 	type
+  message
+  content {
+    html
+    xpath
+    css
+  }
 }
 
-query FetchHistoriesSmall {
-	histories {
-		...ReportSmall
+fragment DiagnosticSmall on Diagnostic {
+  id
+  reports {
+    ...ReportSmall
+  }
+}
+
+query FetchDiagnosticSmall($id: ID!) {
+	diagnostic(id: $id) {
+		...DiagnosticSmall
 	}
+}
+
+mutation DiagnoseURL($url: String!) {
+  diagnoseURL(url: $url) {
+    ...DiagnosticSmall
+  }
 }

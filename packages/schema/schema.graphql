@@ -4,19 +4,30 @@ enum ReportType {
   ERROR
 }
 
+type Content {
+  html: String!
+  xpath: String!
+  css: String!
+}
+
 type Report {
   id: ID!
   type: ReportType!
-  html: String
   message: String
+  content: Content!
+}
+
+type Diagnostic {
+  id: ID!
+  reports: [Report!]!
 }
 
 type Query {
-  histories: [Report!]!
+  diagnostic(id: ID!): Diagnostic!
 }
 
 type Mutation {
-  diagnoseURL(url: String!): [Report!]!
+  diagnoseURL(url: String!): Diagnostic!
 }
 
 schema {

@@ -80,8 +80,8 @@ module.exports = (command, argv) => {
       proxy: [
         {
           // Proxy GraphQL endpoints
-          context: ['/graphql'],
-          target: `${process.env.PUBLIC_URL}/graphql`,
+          context: ['/api/v1'],
+          target: `http://localhost:3000`,
         },
       ],
     },

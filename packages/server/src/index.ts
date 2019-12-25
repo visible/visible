@@ -4,15 +4,16 @@ import cors from 'cors';
 import { ApolloServer, gql } from 'apollo-server-express';
 import depthLimit from 'graphql-depth-limit';
 import i18nextMiddleware from 'i18next-express-middleware';
+import { resolvers } from './resolvers/resolvers';
 import { createI18n } from './i18n';
 
 (async () => {
   const typeDefs = await fs
-    .readFile(require.resolve('@ril/schema'), 'utf-8')
+    .readFile(require.resolve('@visi/schema'), 'utf-8')
     .then(gql);
 
   const apollo = new ApolloServer({
-    // resolvers,
+    resolvers,
     typeDefs,
     context: {},
     validationRules: [depthLimit(5)],
@@ -28,7 +29,7 @@ import { createI18n } from './i18n';
   server.listen({ port: 3000 }, () => {
     // eslint-disable-next-line no-console
     console.log(
-      '🎉 GraphQL server is running at ' + `http://localhost:${300}/graphql`,
+      '🎉 GraphQL server is running at ' + `http://localhost:${3000}/api/v1`,
     );
   });
 })();

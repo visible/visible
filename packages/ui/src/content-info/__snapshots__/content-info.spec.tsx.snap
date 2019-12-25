@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentInfo matches snapshot 1`] = `
+.c0 {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+.c0 a {
+  color: #666666;
+}
+
+.c0 .c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-around;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: space-around;
+  justify-content: space-around;
+  width: 1080px;
+  margin: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.c0:hover,
+.c0:focus {
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+  opacity: 1;
+}
+
+<footer
+  class="c0"
+/>
+`;

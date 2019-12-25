@@ -11,15 +11,13 @@ exports[`Navigation matches snapshot 1`] = `
   list-style: none;
 }
 
-.c3 {
-  width: 100%;
-  height: 1.5px;
-  background-color: #ffaa01;
-}
-
 .c1 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   margin: 0 18px;
+  font-weight: bold;
 }
 
 .c1:last-child {
@@ -41,8 +39,8 @@ exports[`Navigation matches snapshot 1`] = `
   text-decoration: none;
 }
 
-.c1 .c2 {
-  display: none;
+.c1 > a. .c2 {
+  visibility: display;
 }
 
 <ul
@@ -52,9 +50,6 @@ exports[`Navigation matches snapshot 1`] = `
     class="c1"
   >
     test
-    <div
-      class="c2 c3"
-    />
   </li>
 </ul>
 `;

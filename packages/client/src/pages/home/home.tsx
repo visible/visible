@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as UI from '@visi/ui';
 import styled from 'styled-components';
 import { useTranslation, Trans } from 'react-i18next';
+import { useDiagnoseUrlMutation } from '../../generated/graphql';
+import Diagnostics from '../diagnostics';
 import diagnose from './diagnose.svg';
 
 const Wizard = styled.section`
@@ -32,6 +34,21 @@ const Description = styled.p`
 
 export const Home = () => {
   const { t } = useTranslation();
+  const [value, setValue] = useState('');
+
+  const [diagnoseURL, { data, loading }] = useDiagnoseUrlMutation({
+    variables: {
+      url: value,
+    },
+  });
+
+  // useEffect(() => {
+  //   if (data) history.push(`/diagnostics/${data.diagnoseURL.id}`);
+  // }, [data, history]);
+
+  if (data) {
+    return <Diagnostics diagnostic={data.diagnoseURL} />;
+  }
 
   return (
     <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
@@ -41,12 +58,15 @@ export const Home = () => {
           <UI.Search
             submitLabel={t('home.submit', 'Diagnose')}
             placeholder={t('home.placeholder', 'Type URL of the website')}
+            onChange={e => setValue(e.target.value)}
+            onSubmit={_ => diagnoseURL()}
           />
           <Description>
             <Trans i18nKey="home.description">
               Type URL of the website to inspect accessibility issues of it
             </Trans>
           </Description>
+          {loading && <UI.Progress progress={50} />}
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
