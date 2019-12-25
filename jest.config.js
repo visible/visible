@@ -16,6 +16,14 @@ const shared = package => ({
 
   testMatch: [`<rootDir>/packages/${package}/src/**/*.spec.{ts,tsx}`],
   testPathIgnorePatterns: [...defaults.testPathIgnorePatterns, '/dist/'],
+
+  coveragePathIgnorePatterns: [
+    ...defaults.coveragePathIgnorePatterns,
+    '/dist/',
+    '.*\\.spec\\.tsx?',
+    '.*\\.stories\\.tsx?',
+    '.*\\.d\\.ts',
+  ],
 });
 
 module.exports = {
@@ -51,11 +59,4 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/**/*.{ts,tsx}'],
   coverageDirectory: '<rootDir>/coverage',
-  coveragePathIgnorePatterns: [
-    ...defaults.coveragePathIgnorePatterns,
-    '/dist/',
-    '.*\\.spec\\.tsx?',
-    '.*\\.stories\\.tsx?',
-    '.*\\.d\\.ts',
-  ],
 };
