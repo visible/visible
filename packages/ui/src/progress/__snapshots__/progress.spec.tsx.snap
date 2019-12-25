@@ -12,8 +12,8 @@ exports[`Progress matches snapshot 1`] = `
   height: 8px;
   -webkit-transition: 0.15s ease-in;
   transition: 0.15s ease-in;
-  -webkit-animation: fHsvwi 1.5s ease-in infinite;
-  animation: fHsvwi 1.5s ease-in infinite;
+  -webkit-animation: hvVzOb 1.5s ease-in infinite;
+  animation: hvVzOb 1.5s ease-in infinite;
   border-radius: 99px;
   background-color: #ffaa01;
 }

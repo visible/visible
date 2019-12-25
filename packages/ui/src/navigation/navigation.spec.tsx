@@ -1,13 +1,17 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../theme';
 import { Nav, NavItem } from '.';
 
 describe('Navigation', () => {
   it('matches snapshot', () => {
     const { container } = render(
-      <Nav>
-        <NavItem>test</NavItem>
-      </Nav>,
+      <ThemeProvider theme={theme}>
+        <Nav>
+          <NavItem>test</NavItem>
+        </Nav>
+      </ThemeProvider>,
     );
     expect(container.firstChild).toMatchSnapshot();
   });
