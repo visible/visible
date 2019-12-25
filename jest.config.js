@@ -2,12 +2,20 @@ const { defaults } = require('jest-config');
 
 const shared = package => ({
   displayName: package,
+
+  transform: {
+    ...defaults.transform,
+    '^.+\\.tsx?$': 'ts-jest',
+  },
+
   globals: {
     'ts-jest': {
       tsConfig: `<rootDir>/packages/${package}/tsconfig.json`,
     },
   },
+
   testMatch: [`<rootDir>/packages/${package}/src/**/*.spec.{ts,tsx}`],
+  testPathIgnorePatterns: [...defaults.testPathIgnorePatterns, '/dist/'],
 });
 
 module.exports = {
@@ -38,15 +46,6 @@ module.exports = {
       testEnvironment: 'node',
     },
   ],
-
-  // Transform TypeScript
-  transform: {
-    ...defaults.transform,
-    '^.+\\.tsx?$': 'ts-jest',
-  },
-
-  // Ignore /node_modules/ and /dist/
-  testPathIgnorePatterns: [...defaults.testPathIgnorePatterns, '/dist/'],
 
   // Coverage configurations
   collectCoverage: true,
