@@ -7,13 +7,10 @@
     "verbose": "Prints all reports including passed one"
   },
   "result": {
-    "error": "Error",
     "html": "HTML",
-    "kind": "Kind",
     "message": "Message",
-    "ok": "OK",
     "type": "Type",
-    "warn": "Warn"
+    "xpath": "XPath"
   },
   "visible": {
     "description": "The default command"

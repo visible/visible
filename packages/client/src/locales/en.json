@@ -1,0 +1,8 @@
+{
+  "home": {
+    "description": "Type URL of the website to inspect accessibility issues of it",
+    "placeholder": "Type URL of the website",
+    "submit": "Diagnose",
+    "title": "Diagnose your website"
+  }
+}

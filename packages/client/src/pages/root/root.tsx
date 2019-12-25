@@ -9,13 +9,23 @@ import {
 import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from 'styled-components';
+import { i18n } from 'i18next';
+import { I18nextProvider } from 'react-i18next';
 import typeDefs from '@visi/schema';
 import { theme, GlobalStyle } from '@visi/ui';
 import introspectionResult from '../../generated/introspection-result';
 
-const Home = React.lazy(() => import(/* webpackPrefetch: true */ '../home'));
+import { Banner } from '../../components/banner';
+import { ContentInfo } from '../../components/content-info';
 
-export const Root = () => {
+const Home = React.lazy(() => import(/* webpackPrefetch: true */ '../home'));
+const Void = React.lazy(() => import(/* webpackPrefetch: true */ '../void'));
+
+type RootProps = {
+  i18n: i18n;
+};
+
+export const Root = (props: RootProps) => {
   const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData: introspectionResult,
   });
@@ -35,15 +45,22 @@ export const Root = () => {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Switch>
-              <Route exact path="/" component={Home} />
-            </Switch>
-          </Suspense>
-        </BrowserRouter>
+        <I18nextProvider i18n={props.i18n}>
+          <BrowserRouter>
+            <Banner role="banner" />
 
-        <GlobalStyle />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route component={Void} />
+              </Switch>
+            </Suspense>
+
+            <ContentInfo role="contentinfo" />
+          </BrowserRouter>
+
+          <GlobalStyle />
+        </I18nextProvider>
       </ThemeProvider>
     </ApolloProvider>
   );

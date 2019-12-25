@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 type NavAppearance = 'inverse' | 'default';
 
@@ -21,6 +21,7 @@ export const Nav = (props: NavProps) => {
 };
 
 const NavItemBorder = styled.div<NavItemWrapperProps>`
+  visibility: none;
   width: 100%;
   height: 1.5px;
   background-color: ${({ theme, appearance }) =>
@@ -31,13 +32,14 @@ const NavItemBorder = styled.div<NavItemWrapperProps>`
 `;
 
 interface NavItemWrapperProps {
-  active: boolean;
+  activeClassName: string;
   appearance: NavAppearance;
 }
 
 export const NavItemWrapper = styled.li<NavItemWrapperProps>`
-  display: block;
+  display: flex;
   margin: 0 18px;
+  font-weight: bold;
 
   &:last-child {
     margin-right: 0;
@@ -48,46 +50,57 @@ export const NavItemWrapper = styled.li<NavItemWrapperProps>`
     box-sizing: border-box;
     padding: 12px 0px;
     transition: 0.15s ease-out;
-    color: ${({ theme, appearance, active }) =>
+    color: ${({ theme, appearance }) =>
       ({
-        inverse: active ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.8)',
+        inverse: 'rgba(255, 255, 255, 0.6)',
         default: theme.foreground.normal,
       }[appearance])};
-    font-weight: ${({ active }) => active && 'bold'};
 
     &:hover {
       color: ${({ theme, appearance }) =>
         ({
-          inverse: 'rgba(255, 255, 255, 1)',
+          inverse: 'rgba(255, 255, 255, 0.4)',
           default: theme.highlight.normal,
         }[appearance])};
       text-decoration: none;
     }
-  }
 
-  ${NavItemBorder} {
-    display: ${({ active }) => (active ? 'block' : 'none')};
+    ${({ activeClassName, appearance }) => css`
+      &.${activeClassName} {
+        ${appearance === 'inverse' &&
+          css`
+            color: rgba(255, 255, 255, 1);
+          `}
+
+        ${NavItemBorder} {
+          visibility: display;
+        }
+      }
+    `}
   }
 `;
 
 interface NavItemProps {
   children: React.ReactNode;
-  active?: boolean;
+  activeClassName?: string;
   appearance: NavAppearance;
 }
 
 export const NavItem = (props: NavItemProps) => {
-  const { children, active = false, appearance } = props;
+  const { children, activeClassName = '', appearance } = props;
 
   return (
-    <NavItemWrapper active={active} appearance={appearance}>
+    <NavItemWrapper activeClassName={activeClassName} appearance={appearance}>
       {children}
-      <NavItemBorder active={active} appearance={appearance} />
+      {/* <NavItemBorder
+        activeClassName={activeClassName}
+        appearance={appearance}
+      /> */}
     </NavItemWrapper>
   );
 };
 
 NavItem.defaultProps = {
-  active: false,
+  activeClassName: '',
   appearance: 'default',
 };

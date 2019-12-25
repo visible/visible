@@ -20,12 +20,6 @@ body {
   font-feature-settings: "kern";
 }
 
-img {
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-}
-
 a {
   color: ${({ theme }) => theme.highlight.normal};
   text-decoration: none;

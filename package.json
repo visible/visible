@@ -11,6 +11,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
+    "watch": "lerna run watch --parallel",
     "test": "run-s test:*",
     "test:jest": "jest --config=jest.config.js --coverage",
     "test:eslint": "eslint -c .eslintrc.json ./packages/**/*.ts",

@@ -7,13 +7,10 @@
     "verbose": "合格したレポートを含めた全てのレポートを表示する"
   },
   "result": {
-    "error": "エラー",
     "html": "HTML",
-    "kind": "カインド",
     "message": "メッセージ",
-    "ok": "OK",
     "type": "種類",
-    "warn": "警告"
+    "xpath": "XPath"
   },
   "visible": {
     "description": "デフォルトのコマンド"

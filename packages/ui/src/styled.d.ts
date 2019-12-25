@@ -4,6 +4,7 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     foreground: {
       normal: string;
+      wash: string;
     };
     background: {
       normal: string;

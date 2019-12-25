@@ -1,105 +1,61 @@
 import React from 'react';
-import { Search, Nav, NavItem, List, ListItem } from '@visi/ui';
-import { NavLink } from 'react-router-dom';
+import * as UI from '@visi/ui';
 import styled from 'styled-components';
+import { useTranslation, Trans } from 'react-i18next';
+import diagnose from './diagnose.svg';
 
-const Banner = styled.header`
-  background-color: #ffaa01;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.16);
-`;
-
-const Inner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 1080px;
-  margin: auto;
+const Wizard = styled.section`
+  width: 100%;
+  background-image: url(${diagnose});
+  background-repeat: no-repeat;
+  background-size: cover;
   color: white;
-`;
-
-const Content = styled.main`
-  box-sizing: border-box;
-  width: 1080px;
-  margin: 24px auto;
-  padding: 12px 18px;
-  border-radius: 12px;
-  background-color: white;
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.05);
-`;
-
-const Title = styled.h1`
-  margin: 0;
-  font-size: 21px;
-`;
-
-const Wizard = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 480px;
-  margin: auto;
 
   input {
     width: 400px;
   }
 `;
 
-const Description = styled.p`
-  color: #666666;
-  font-size: 12px;
+const Inner = styled.div`
+  width: 400px;
+  padding: 68px 40px;
 `;
 
-const ContentInfo = styled.footer`
-  width: 1080px;
-  margin: auto;
-  color: #666666;
+const Title = styled.h2`
+  font-size: 28px;
+`;
+
+const Description = styled.p`
+  color: #f1f1f1;
   font-size: 12px;
 `;
 
 export const Home = () => {
-  const navs = [
-    { to: '/', text: 'Visible' },
-    { to: '/home', text: 'Home' },
-    { to: '/notifications', text: 'Notifications' },
-  ];
+  const { t } = useTranslation();
 
   return (
-    <>
-      <Banner>
+    <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
+      <Wizard>
         <Inner>
-          <Title>Visible</Title>
-          <Nav>
-            {navs.map((nav, i) => (
-              <NavItem key={nav.to} active={i === 1} appearance="inverse">
-                <NavLink to={nav.to}>{nav.text}</NavLink>
-              </NavItem>
-            ))}
-          </Nav>
-        </Inner>
-      </Banner>
-
-      <Content>
-        <Wizard>
-          <h2>Diagnose your website</h2>
-          <Search submitLabel="送信" placeholder="検索キーワードを入力" />
+          <Title>{t('home.title', 'Diagnose your website')}</Title>
+          <UI.Search
+            submitLabel={t('home.submit', 'Diagnose')}
+            placeholder={t('home.placeholder', 'Type URL of the website')}
+          />
           <Description>
-            URLを入力してサイトのアクセシビリティーを診断します。
-            <br />
-            診断結果はスコア付けられて、問題のある箇所のコードを指摘し、ソリューションを提案します。
+            <Trans i18nKey="home.description">
+              Type URL of the website to inspect accessibility issues of it
+            </Trans>
           </Description>
-        </Wizard>
-      </Content>
-
-      <ContentInfo>
-        <List>
-          <ListItem>
-            <a href="https://github.com/neet/visible">GitHub</a>
-          </ListItem>
-          <ListItem>
-            <a href="https://twitter.com/TheGodOfNeet">Twitter</a>
-          </ListItem>
-        </List>
-      </ContentInfo>
-    </>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </Inner>
+      </Wizard>
+    </UI.Content>
   );
 };

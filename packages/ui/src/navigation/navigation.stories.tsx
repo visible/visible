@@ -9,7 +9,7 @@ storiesOf('Navigation', module)
         <NavItem>
           <a href="#apple">Apple</a>
         </NavItem>
-        <NavItem active>
+        <NavItem>
           <a href="#facebook">Facebook</a>
         </NavItem>
         <NavItem>
@@ -25,7 +25,7 @@ storiesOf('Navigation', module)
           <NavItem appearance="inverse">
             <a href="#apple">Apple</a>
           </NavItem>
-          <NavItem active appearance="inverse">
+          <NavItem appearance="inverse">
             <a href="#facebook">Facebook</a>
           </NavItem>
           <NavItem appearance="inverse">

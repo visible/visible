@@ -1,6 +1,7 @@
 export const theme = {
   foreground: {
     normal: '#333333',
+    wash: '#666666',
   },
   background: {
     normal: '#ffffff',
