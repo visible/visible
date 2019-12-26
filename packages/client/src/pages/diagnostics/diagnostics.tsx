@@ -23,9 +23,9 @@ export const Diagnostics = (props: DiagnosticsProps) => {
         .filter(report => report.type !== ReportType.Ok)
         .map(report => (
           <div key={report.id}>
-            <h2>
-              {report.id}@{report.content.xpath}
-            </h2>
+            <h2>{report.type}</h2>
+            <span>@{report.content.xpath}</span>
+            <p>{report.message}</p>
             <UI.Code language="html">{report.content.html}</UI.Code>
             <UI.Code language="css">{report.content.css}</UI.Code>
           </div>

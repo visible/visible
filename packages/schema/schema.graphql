@@ -1,3 +1,28 @@
+interface Actor {
+  id: ID!
+  name: String!
+  websites: [Website!]
+}
+
+type Account implements Actor {
+  id: ID!
+  name: String!
+  websites: [Website!]
+}
+
+type Organization implements Actor {
+  id: ID!
+  name: String!
+  websites: [Website!]
+}
+
+type Credential implements Actor {
+  id: ID!
+  email: String!
+  name: String!
+  websites: [Website!]
+}
+
 enum ReportType {
   OK
   WARN
@@ -5,9 +30,9 @@ enum ReportType {
 }
 
 type Content {
-  html: String!
-  xpath: String!
-  css: String!
+  html: String
+  xpath: String
+  css: String
 }
 
 type Report {
@@ -17,13 +42,33 @@ type Report {
   content: Content!
 }
 
+type Website {
+  id: ID!
+  name: String!
+  description: String!
+  domain: String!
+  diagnostics: [Diagnostic!]
+}
+
+type Score {
+  error: Int!
+  warn: Int!
+  ok: Int!
+}
+
 type Diagnostic {
   id: ID!
+  score: Score!
+  website: Website!
+  screenshot: String!
   reports: [Report!]!
 }
 
 type Query {
   diagnostic(id: ID!): Diagnostic!
+  account(id: ID!): Account!
+  organization(id: ID!): Organization!
+  credential: Credential!
 }
 
 type Mutation {

@@ -4,7 +4,7 @@ import cors from 'cors';
 import { ApolloServer, gql } from 'apollo-server-express';
 import depthLimit from 'graphql-depth-limit';
 import i18nextMiddleware from 'i18next-express-middleware';
-import { resolvers } from './resolvers/resolvers';
+import { resolvers } from '../infrastructure/resolvers/resolvers';
 import { createI18n } from './i18n';
 
 (async () => {

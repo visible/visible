@@ -29,6 +29,7 @@
     "apollo-link-http": "^1.5.16",
     "apollo-server-express": "^2.9.14",
     "cors": "^2.8.5",
+    "dataloader": "^2.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^14.5.8",
@@ -36,7 +37,10 @@
     "graphql-iso-date": "^3.6.1",
     "i18next": "^19.0.2",
     "i18next-express-middleware": "^1.9.1",
-    "type-fest": "^0.8.1"
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13",
+    "type-fest": "^0.8.1",
+    "typeorm": "^0.2.22"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.9.1",
