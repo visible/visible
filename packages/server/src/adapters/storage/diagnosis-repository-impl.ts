@@ -2,18 +2,17 @@ import { Diagnosis } from '../../enterprise/entities/diagnosis';
 import { DiagnosisRepository } from '../../application/repositories/diagnosis-repository';
 import { DataMapper } from './data-mapper';
 
-export class DiagnosticsRepositoryImpl implements DiagnosisRepository {
+export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   constructor(private dataMapper: DataMapper<Diagnosis>) {}
 
-  async get(id: string) {
-    const result = await this.dataMapper.findOne(id);
-    if (!result) throw new Error('Entry not found');
-    return result;
-  }
+  async find(ids: string[]) {
+    const result = await this.dataMapper
+      .createQueryBuilder('diagnosis')
+      .whereInIds(ids)
+      .leftJoinAndSelect('diagnosis.reports', 'report')
+      .getMany();
 
-  async getAll(ids: string[]) {
-    const result = await this.dataMapper.findByIds(ids);
-    if (!result.length) throw new Error('Entity not found');
+    if (!result.length) throw new Error('Entry not found');
     return result;
   }
 

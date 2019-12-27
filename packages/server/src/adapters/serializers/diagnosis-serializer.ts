@@ -15,7 +15,7 @@ export class DiagnosisSerializer {
     };
   }
 
-  serialize(diagnosis: Diagnosis): PartialDeep<DiagnosisAPI> {
+  serializeOne(diagnosis: Diagnosis): DiagnosisAPI {
     return {
       id: diagnosis.id,
       screenshot: '',
@@ -23,5 +23,9 @@ export class DiagnosisSerializer {
       reports: new ReportSerializer().serialize(diagnosis.reports),
       // website: new WebsiteSerializer().serialize(diagnosis.website),
     };
+  }
+
+  serialize(diagnosises: Diagnosis[]): DiagnosisAPI[] {
+    return diagnosises.map(diagnosis => this.serializeOne(diagnosis));
   }
 }

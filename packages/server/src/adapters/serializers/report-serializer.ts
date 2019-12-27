@@ -5,34 +5,32 @@ import {
   ReportTypeAPI,
 } from '../../enterprise/entities/report';
 
-const serializeType = (type: ReportType): ReportTypeAPI => {
-  switch (type) {
-    case 'error':
-      return ReportTypeAPI.ERROR;
-    case 'warn':
-      return ReportTypeAPI.WARN;
-    case 'ok':
-    default:
-      return ReportTypeAPI.OK;
-  }
-};
+export class ReportSerializer {
+  private serializeType = (type: ReportType): ReportTypeAPI => {
+    switch (type) {
+      case 'error':
+        return ReportTypeAPI.ERROR;
+      case 'warn':
+        return ReportTypeAPI.WARN;
+      case 'ok':
+      default:
+        return ReportTypeAPI.OK;
+    }
+  };
 
-const serialize = (reports: Report[]): ReportAPI[] => {
-  return reports.map(report => ({
-    id: report.id,
-    name: report.name,
-    type: serializeType(report.type),
-    message: report.message,
-    content: {
+  serializeOne(report: Report): ReportAPI {
+    return {
+      id: report.id,
+      name: report.name,
+      type: this.serializeType(report.type),
+      message: report.message,
       html: report.html,
       xpath: report.xpath,
       css: report.css,
-    },
-  }));
-};
+    };
+  }
 
-export class ReportSerializer {
-  serialize(reports: Report[]) {
-    return serialize(reports);
+  serialize(reports: Report[]): ReportAPI[] {
+    return reports.map(report => this.serializeOne(report));
   }
 }

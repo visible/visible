@@ -1,9 +1,9 @@
 import { DiagnosisRepository } from '../repositories/diagnosis-repository';
 
-export class GetDiagnosis {
+export class FindDiagnosis {
   constructor(private diagnosisRepository: DiagnosisRepository) {}
 
-  run(id: string) {
-    return this.diagnosisRepository.get(id);
+  run(ids: readonly string[]) {
+    return this.diagnosisRepository.find(ids);
   }
 }

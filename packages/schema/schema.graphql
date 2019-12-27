@@ -29,18 +29,14 @@ enum ReportType {
   ERROR
 }
 
-type Content {
-  html: String
-  xpath: String
-  css: String
-}
-
 type Report {
   id: ID!
   type: ReportType!
   name: String!
   message: String
-  content: Content!
+  html: String
+  xpath: String
+  css: String
 }
 
 type Website {

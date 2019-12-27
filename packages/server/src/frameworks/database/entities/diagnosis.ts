@@ -22,7 +22,7 @@ export class Diagnosis {
   @OneToMany(
     () => Report,
     report => report.diagnosis,
-    { onDelete: 'SET NULL', eager: true },
+    { cascade: true, onDelete: 'SET NULL' },
   )
   @JoinColumn()
   reports: Report[];

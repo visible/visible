@@ -9,21 +9,21 @@ export class Report {
   @Column('varchar', { length: 255 })
   name: string;
 
-  @Column('varchar', { length: 4 })
+  @Column('varchar', { length: 255 })
   type: 'ok' | 'warn' | 'error';
 
-  @Column('varchar', { length: 255 })
-  message: string;
+  @Column('varchar', { length: 255, nullable: true })
+  message?: string;
 
   @ManyToOne(() => Diagnosis)
   diagnosis: Diagnosis;
 
-  @Column('text')
-  html: string;
+  @Column('varchar', { length: 255, nullable: true })
+  xpath?: string;
 
-  @Column('varchar', { length: 255 })
-  xpath: string;
+  @Column('text', { nullable: true })
+  html?: string;
 
-  @Column('text')
-  css: string;
+  @Column('text', { nullable: true })
+  css?: string;
 }

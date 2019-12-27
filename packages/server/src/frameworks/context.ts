@@ -7,7 +7,7 @@ import { DiagnosisAPI } from '../enterprise/entities/diagnosis';
 import { DiagnosisRepository } from '../application/repositories/diagnosis-repository';
 
 import { DiagnosisController } from '../adapters/controllers/diagnosis-controller';
-import { DiagnosticsRepositoryImpl } from '../adapters/storage/diagnostics-repository-impl';
+import { DiagnosisRepositoryImpl } from '../adapters/storage/diagnosis-repository-impl';
 
 import { Diagnosis } from './database/entities/diagnosis';
 
@@ -21,7 +21,7 @@ export interface Context {
 }
 
 export const createContext = (conncetion: Connection): Context => {
-  const diagnosisRepository = new DiagnosticsRepositoryImpl(
+  const diagnosisRepository = new DiagnosisRepositoryImpl(
     conncetion.getRepository(Diagnosis),
   );
 
@@ -31,7 +31,7 @@ export const createContext = (conncetion: Connection): Context => {
     },
     loaders: {
       diagnosis: new DataLoader((ids: readonly string[]) =>
-        new DiagnosisController(diagnosisRepository).getAll(ids),
+        new DiagnosisController(diagnosisRepository).find(ids),
       ),
     },
   };
