@@ -1,6 +1,8 @@
 import { PartialDeep } from 'type-fest';
+
 import { Diagnosis, DiagnosisAPI } from '../../domain/entities/diagnosis';
 import { Report } from '../../domain/entities/report';
+
 import { ReportSerializer } from './report-serializer';
 import { WebsiteSerializer } from './website-serializer';
 

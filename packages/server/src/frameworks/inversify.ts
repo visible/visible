@@ -9,7 +9,7 @@ export const injectDependencies = (connection: Connection) => {
   const container = new Container();
 
   container
-    .bind<Repository<Diagnosis>>(TYPES.DiagnosisORM)
+    .bind<Repository<Diagnosis>>(TYPES.DiagnosisDataMapper)
     .toConstantValue(connection.getRepository(Diagnosis));
 
   container

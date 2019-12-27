@@ -1,7 +1,3 @@
-const path = require('path');
-const dotenv = require('dotenv');
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
-
 module.exports = {
   type: 'postgres',
   host: process.env.DB_HOST,
@@ -11,12 +7,12 @@ module.exports = {
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: ['./src/entity/**/*.ts'],
-  migrations: ['./src/migration/**/*.ts'],
-  subscribers: ['./src/subscriber/**/*.ts'],
+  entities: ['./src/frameworks/database/entities/**/*.ts'],
+  migrations: ['./src/frameworks/database/migrations/**/*.ts'],
+  subscribers: ['./src/frameworks/database/subscribers/**/*.ts'],
   cli: {
-    entitiesDir: './src/entity',
-    migrationsDir: './src/migration',
-    subscribersDir: './src/subscriber',
+    entitiesDir: './src/frameworks/database/entities',
+    migrationsDir: './src/frameworks/database/migrations',
+    subscribersDir: './src/frameworks/database/subscribers',
   },
 };

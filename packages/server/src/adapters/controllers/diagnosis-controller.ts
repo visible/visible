@@ -5,9 +5,9 @@ import { Website } from '../../domain/entities/website';
 import { GetDiagnosis } from '../../application/use-cases/get-diagnosis';
 import { CreateDiagnosis } from '../../application/use-cases/create-diagnosis';
 import { DeleteDiagnosis } from '../../application/use-cases/delete-diagnosis';
+import { GetManyDiagnosis } from '../../application/use-cases/get-many-diagnosis';
 
 import { DiagnosisSerializer } from '../serializers/diagnosis-serializer';
-import { GetManyDiagnosis } from '../../application/use-cases/get-many-diagnosis';
 
 export class DiagnosisController {
   async get(id: string) {
