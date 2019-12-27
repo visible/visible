@@ -47,7 +47,7 @@ type Website {
   name: String!
   description: String!
   domain: String!
-  diagnostics: [Diagnostic!]
+  diagnosises: [Diagnosis!]
 }
 
 type Score {
@@ -56,7 +56,7 @@ type Score {
   ok: Int!
 }
 
-type Diagnostic {
+type Diagnosis {
   id: ID!
   score: Score!
   website: Website!
@@ -65,14 +65,15 @@ type Diagnostic {
 }
 
 type Query {
-  diagnostic(id: ID!): Diagnostic!
+  diagnosis(id: ID!): Diagnosis!
   account(id: ID!): Account!
   organization(id: ID!): Organization!
   credential: Credential!
 }
 
 type Mutation {
-  diagnoseURL(url: String!): Diagnostic!
+  createDiagnosis(url: String!): Diagnosis!
+  deleteDiagnosis(id: ID!): ID!
 }
 
 schema {

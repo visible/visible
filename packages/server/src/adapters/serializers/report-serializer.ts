@@ -1,37 +1,39 @@
 import {
-  Report as VisiReport,
-  ReportType as VisiReportType,
-} from '@visi/core/dist/domain/report';
-// FIXME
-import { Report, ReportType } from '../../infrastructure/generated/graphql';
+  ReportType,
+  Report,
+  ReportAPI,
+  ReportTypeAPI,
+} from '../../domain/entities/report';
 
-const serializeType = (type: VisiReportType): ReportType => {
+const serializeType = (type: ReportType): ReportTypeAPI => {
   switch (type) {
     case 'error':
-      return ReportType.Error;
+      return ReportTypeAPI.ERROR;
     case 'warn':
-      return ReportType.Warn;
+      return ReportTypeAPI.WARN;
     case 'ok':
     default:
-      return ReportType.Ok;
+      return ReportTypeAPI.OK;
   }
 };
 
-const serialize = (reports: VisiReport[]): Report[] => {
+const serialize = (reports: Report[]): ReportAPI[] => {
   return reports.map((report, i) => ({
+    __typename: 'Report',
     id: `${report.id}-${i}`,
     type: serializeType(report.type),
     message: report.message,
     content: {
+      __typename: 'Content',
       html: report.content && report.content.html,
       xpath: report.content && report.content.xpath,
-      css: report.content && report.content.style,
+      css: report.content && report.content.css,
     },
   }));
 };
 
 export class ReportSerializer {
-  async serialize(reports: VisiReport[]) {
+  serialize(reports: Report[]) {
     return serialize(reports);
   }
 }
