@@ -18,16 +18,15 @@ const serializeType = (type: ReportType): ReportTypeAPI => {
 };
 
 const serialize = (reports: Report[]): ReportAPI[] => {
-  return reports.map((report, i) => ({
-    __typename: 'Report',
-    id: `${report.id}-${i}`,
+  return reports.map(report => ({
+    id: report.id,
+    name: report.name,
     type: serializeType(report.type),
     message: report.message,
     content: {
-      __typename: 'Content',
-      html: report.content && report.content.html,
-      xpath: report.content && report.content.xpath,
-      css: report.content && report.content.css,
+      html: report.html,
+      xpath: report.xpath,
+      css: report.css,
     },
   }));
 };

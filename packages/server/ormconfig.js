@@ -1,3 +1,7 @@
+require('dotenv').config();
+const path = require('path');
+const context = './src/frameworks/database';
+
 module.exports = {
   type: 'postgres',
   host: process.env.DB_HOST,
@@ -7,12 +11,12 @@ module.exports = {
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: ['./src/frameworks/database/entities/**/*.ts'],
-  migrations: ['./src/frameworks/database/migrations/**/*.ts'],
-  subscribers: ['./src/frameworks/database/subscribers/**/*.ts'],
+  entities: [path.resolve(context, './entities/**/*.ts')],
+  migrations: [path.resolve(context, './migrations/**/*.ts')],
+  subscribers: [path.resolve(context, './subscribers/**/*.ts')],
   cli: {
-    entitiesDir: './src/frameworks/database/entities',
-    migrationsDir: './src/frameworks/database/migrations',
-    subscribersDir: './src/frameworks/database/subscribers',
+    entitiesDir: path.resolve(context, './entities'),
+    migrationsDir: path.resolve(context, './migrations'),
+    subscribersDir: path.resolve(context, './subscribers'),
   },
 };

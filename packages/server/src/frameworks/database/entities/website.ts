@@ -3,7 +3,7 @@ import {
   PrimaryColumn,
   Column,
   Index,
-  ManyToOne,
+  OneToMany,
   JoinColumn,
 } from 'typeorm';
 import { Diagnosis } from './diagnosis';
@@ -14,18 +14,22 @@ export class Website {
   id: string;
 
   @Index()
-  @Column('varchar')
+  @Column('varchar', { length: 255 })
   name: string;
 
   @Index()
-  @Column('varchar')
+  @Column('varchar', { length: 255 })
   description: string;
 
   @Index()
-  @Column('varchar')
+  @Column('varchar', { length: 255 })
   domain: string;
 
-  @ManyToOne(() => Diagnosis)
+  @OneToMany(
+    () => Diagnosis,
+    diagnosis => diagnosis.website,
+    { onDelete: 'SET NULL' },
+  )
   @JoinColumn()
   diagnosises: Diagnosis[];
 }

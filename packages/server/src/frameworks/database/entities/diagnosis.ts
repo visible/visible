@@ -1,16 +1,37 @@
-import { Entity, PrimaryColumn, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryColumn,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  CreateDateColumn,
+  Index,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Report } from './report';
 import { Website } from './website';
 
 @Entity()
 export class Diagnosis {
-  @PrimaryColumn('text')
+  @PrimaryColumn('uuid')
   id: string;
 
   @ManyToOne(() => Website)
   website: Website;
 
-  @ManyToOne(() => Report)
+  @OneToMany(
+    () => Report,
+    report => report.diagnosis,
+    { onDelete: 'SET NULL', eager: true },
+  )
   @JoinColumn()
   reports: Report[];
+
+  @Index()
+  @CreateDateColumn({ type: 'timestamp with time zone' })
+  readonly createdAt: Date;
+
+  @Index()
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  readonly updatedAt: Date;
 }

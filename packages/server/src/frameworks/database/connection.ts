@@ -12,7 +12,7 @@ export const createConnection = async () => {
   // the leaf's dir from `process.cwd()`
   // i.e `<your project dir>/packages/server` in this case.
   const cwd = process.cwd();
-  const context = './src/infrastructure/database';
+  const context = './src/frameworks/database';
 
   const connectionOptionsReader = new ConnectionOptionsReader({ root: cwd });
   const connectionOptions = await connectionOptionsReader.get('default');

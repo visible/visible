@@ -38,6 +38,7 @@ type Content {
 type Report {
   id: ID!
   type: ReportType!
+  name: String!
   message: String
   content: Content!
 }
@@ -59,9 +60,9 @@ type Score {
 type Diagnosis {
   id: ID!
   score: Score!
-  website: Website!
   screenshot: String!
   reports: [Report!]!
+  # website: Website!
 }
 
 type Query {

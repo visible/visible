@@ -15,4 +15,6 @@ export const injectDependencies = (connection: Connection) => {
   container
     .bind<DiagnosisRepository>(TYPES.DiagnosisRepository)
     .to(DiagnosticsRepositoryImpl);
+
+  return container;
 };

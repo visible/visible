@@ -13,15 +13,21 @@ export const rootDiagnosis: QueryResolvers['diagnosis'] = async (
 export const createDiagnosis: MutationResolvers['createDiagnosis'] = async (
   _,
   { url },
+  { repositories },
 ) => {
-  const diagnosis = await new DiagnosisController().create(url);
+  const diagnosis = await new DiagnosisController(
+    repositories.diagnosis,
+  ).create(url);
   return diagnosis;
 };
 
 export const deleteDiagnosis: MutationResolvers['deleteDiagnosis'] = async (
   _,
   { id },
+  { repositories },
 ) => {
-  const result = await new DiagnosisController().delete(id);
+  const result = await new DiagnosisController(repositories.diagnosis).delete(
+    id,
+  );
   return result;
 };

@@ -14,7 +14,7 @@ module.exports = {
           "import('type-fest').PartialDeep<T> | Promise<import('type-fest').PartialDeep<T>>",
         useIndexSignature: true,
         mappers: {
-          Diagnostic: '../../domain/entities#DiagnosticAPI',
+          Diagnostic: '../../domain/entities#DiagnosisAPI',
           Score: '../../domain/entities#ScoreAPI',
           Website: '../../domain/entities#WebsiteAPI',
           Report: '../../domain/entities#ReportAPI',
