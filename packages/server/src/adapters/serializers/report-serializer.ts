@@ -3,7 +3,7 @@ import {
   Report,
   ReportAPI,
   ReportTypeAPI,
-} from '../../domain/entities/report';
+} from '../../enterprise/entities/report';
 
 const serializeType = (type: ReportType): ReportTypeAPI => {
   switch (type) {

@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Diagnosis } from '../../domain/entities/diagnosis';
+import { Diagnosis } from '../../enterprise/entities/diagnosis';
 import { DiagnosisRepository } from '../../application/repositories/diagnosis-repository';
 
 export class DiagnosticsRepositoryImpl implements DiagnosisRepository {

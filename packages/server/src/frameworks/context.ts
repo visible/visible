@@ -2,7 +2,7 @@ import DataLoader from 'dataloader';
 import { PartialDeep } from 'type-fest';
 import { Connection } from 'typeorm';
 
-import { DiagnosisAPI } from '../domain/entities/diagnosis';
+import { DiagnosisAPI } from '../enterprise/entities/diagnosis';
 
 import { DiagnosisRepository } from '../application/repositories/diagnosis-repository';
 

@@ -1,5 +1,5 @@
 import { PartialDeep } from 'type-fest';
-import { Website, WebsiteAPI } from '../../domain/entities';
+import { Website, WebsiteAPI } from '../../enterprise/entities';
 import { DiagnosisSerializer } from './diagnosis-serializer';
 
 export class WebsiteSerializer {

@@ -1,4 +1,4 @@
-import { Diagnosis } from '../../domain/entities/diagnosis';
+import { Diagnosis } from '../../enterprise/entities/diagnosis';
 
 export interface DiagnosisRepository {
   get(id: string): Promise<Diagnosis>;

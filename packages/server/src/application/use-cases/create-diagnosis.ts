@@ -1,5 +1,5 @@
 import { DiagnosisRepository } from '../repositories/diagnosis-repository';
-import { Diagnosis } from '../../domain/entities/diagnosis';
+import { Diagnosis } from '../../enterprise/entities/diagnosis';
 
 export class CreateDiagnosis {
   constructor(private diagnosisRepository: DiagnosisRepository) {}
