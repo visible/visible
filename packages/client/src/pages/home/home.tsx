@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as UI from '@visi/ui';
 import styled from 'styled-components';
 import { useTranslation, Trans } from 'react-i18next';
-import { useDiagnoseUrlMutation } from '../../generated/graphql';
-import Diagnostics from '../diagnostics';
+import { useHistory } from 'react-router';
+import { useCreateDiagnosisMutation } from '../../generated/graphql';
+import Diagnostics from '../diagnosises';
 import diagnose from './diagnose.svg';
 
 const Wizard = styled.section`
@@ -35,20 +36,17 @@ const Description = styled.p`
 export const Home = () => {
   const { t } = useTranslation();
   const [value, setValue] = useState('');
+  const history = useHistory();
 
-  const [diagnoseURL, { data, loading }] = useDiagnoseUrlMutation({
+  const [createDiagnosis, { data, loading }] = useCreateDiagnosisMutation({
     variables: {
       url: value,
     },
   });
 
-  // useEffect(() => {
-  //   if (data) history.push(`/diagnostics/${data.diagnoseURL.id}`);
-  // }, [data, history]);
-
-  if (data) {
-    return <Diagnostics diagnostic={data.diagnoseURL} />;
-  }
+  useEffect(() => {
+    if (data) history.push(`/diagnosises/${data.createDiagnosis.id}`);
+  }, [data, history]);
 
   return (
     <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
@@ -59,7 +57,7 @@ export const Home = () => {
             submitLabel={t('home.submit', 'Diagnose')}
             placeholder={t('home.placeholder', 'Type URL of the website')}
             onChange={e => setValue(e.target.value)}
-            onSubmit={_ => diagnoseURL()}
+            onSubmit={_ => createDiagnosis()}
           />
           <Description>
             <Trans i18nKey="home.description">

@@ -20,8 +20,8 @@ import { ContentInfo } from '../../components/content-info';
 
 const Home = React.lazy(() => import(/* webpackPrefetch: true */ '../home'));
 const Void = React.lazy(() => import(/* webpackPrefetch: true */ '../void'));
-const Diagnostics = React.lazy(() =>
-  import(/* webpackPrefetch: true */ '../diagnostics'),
+const Diagnosises = React.lazy(() =>
+  import(/* webpackPrefetch: true */ '../diagnosises'),
 );
 
 type RootProps = {
@@ -55,7 +55,7 @@ export const Root = (props: RootProps) => {
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route path="/diagnostics/:id" component={Diagnostics} />
+                <Route path="/diagnosises/:id" component={Diagnosises} />
                 <Route component={Void} />
               </Switch>
             </Suspense>
