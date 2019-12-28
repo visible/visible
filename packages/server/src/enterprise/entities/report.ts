@@ -1,11 +1,17 @@
-export type ReportType = 'ok' | 'warn' | 'error';
+export enum ReportType {
+  OK = 'OK',
+  WARN = 'WARN',
+  ERROR = 'ERROR',
+}
 
-export interface Report {
-  id: string;
-  name: string;
-  type: ReportType;
-  message?: string;
-  xpath?: string;
-  css?: string;
-  html?: string;
+export class Report {
+  constructor(
+    readonly name: string,
+    readonly diagnosisId: string,
+    readonly type: ReportType,
+    readonly message?: string,
+    readonly xpath?: string,
+    readonly css?: string,
+    readonly html?: string,
+  ) {}
 }

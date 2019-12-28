@@ -1,15 +1,16 @@
 import { Repository } from 'typeorm';
 import { ReportsRepository } from '../../../application/repositories/reports-repository';
-import { Report } from '../entities/report';
+import { ReportORM } from '../entities/report';
 
 export class ReportsRepositoryImpl implements ReportsRepository {
-  constructor(private dataMapper: Repository<Report>) {}
+  constructor(private repository: Repository<ReportORM>) {}
 
   async findByDiagnosisId(id: string) {
-    return this.dataMapper
+    return this.repository
       .createQueryBuilder('report')
       .leftJoin('report.diagnosis', 'diagnosis')
       .where('diagnosis.id = :id', { id })
-      .getMany();
+      .getMany()
+      .then(reports => reports.map(report => report.toDomain()));
   }
 }

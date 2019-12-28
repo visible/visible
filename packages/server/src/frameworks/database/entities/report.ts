@@ -1,8 +1,21 @@
 import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm';
-import { Diagnosis } from './diagnosis';
+import { Report, ReportType } from '../../../enterprise/entities';
+import { DiagnosisORM } from './diagnosis';
 
-@Entity()
-export class Report {
+@Entity('Report')
+export class ReportORM {
+  toDomain = () => {
+    return new Report(
+      this.name,
+      this.diagnosis.id,
+      this.type,
+      this.message,
+      this.xpath,
+      this.css,
+      this.html,
+    );
+  };
+
   @PrimaryColumn('uuid')
   id: string;
 
@@ -10,13 +23,13 @@ export class Report {
   name: string;
 
   @Column('varchar', { length: 255 })
-  type: 'ok' | 'warn' | 'error';
+  type: ReportType;
 
   @Column('varchar', { length: 255, nullable: true })
   message?: string;
 
-  @ManyToOne(() => Diagnosis)
-  diagnosis: Diagnosis;
+  @ManyToOne(() => DiagnosisORM)
+  diagnosis: DiagnosisORM;
 
   @Column('varchar', { length: 255, nullable: true })
   xpath?: string;

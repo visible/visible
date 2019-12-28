@@ -1,9 +1,11 @@
 import { Diagnosis } from './diagnosis';
 
-export interface Website {
-  id: string;
-  name: string;
-  description: string;
-  domain: string;
-  diagnosises: Diagnosis[];
+export class Website {
+  constructor(
+    readonly id: string,
+    readonly name: string,
+    readonly description: string,
+    readonly domain: string,
+    readonly diagnosises: Diagnosis[],
+  ) {}
 }

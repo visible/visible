@@ -6,10 +6,10 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { Diagnosis } from './diagnosis';
+import { DiagnosisORM } from './diagnosis';
 
-@Entity()
-export class Website {
+@Entity('Website')
+export class WebsiteORM {
   @PrimaryColumn('uuid')
   id: string;
 
@@ -26,10 +26,10 @@ export class Website {
   domain: string;
 
   @OneToMany(
-    () => Diagnosis,
+    () => DiagnosisORM,
     diagnosis => diagnosis.website,
     { onDelete: 'SET NULL' },
   )
   @JoinColumn()
-  diagnosises: Diagnosis[];
+  diagnosises: DiagnosisORM[];
 }

@@ -4,34 +4,43 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  CreateDateColumn,
   Index,
-  UpdateDateColumn,
+  Column,
 } from 'typeorm';
-import { Report } from './report';
-import { Website } from './website';
+import { Diagnosis } from '../../../enterprise/entities';
+import { ReportORM } from './report';
+import { WebsiteORM } from './website';
 
-@Entity()
-export class Diagnosis {
+@Entity('Diagnosis')
+export class DiagnosisORM {
+  toDomain = () => {
+    return new Diagnosis(
+      this.id,
+      this.reports.map(report => report.toDomain()),
+      new Date(this.createdAt),
+      new Date(this.updatedAt),
+    );
+  };
+
   @PrimaryColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Website)
-  website: Website;
+  @ManyToOne(() => WebsiteORM)
+  website: WebsiteORM;
 
   @OneToMany(
-    () => Report,
+    () => ReportORM,
     report => report.diagnosis,
     { cascade: true, onDelete: 'SET NULL' },
   )
   @JoinColumn()
-  reports: Report[];
+  reports: ReportORM[];
 
   @Index()
-  @CreateDateColumn({ type: 'timestamp with time zone' })
-  readonly createdAt: Date;
+  @Column('timestamp')
+  createdAt: Date;
 
   @Index()
-  @UpdateDateColumn({ type: 'timestamp with time zone' })
-  readonly updatedAt: Date;
+  @Column('timestamp')
+  updatedAt: Date;
 }
