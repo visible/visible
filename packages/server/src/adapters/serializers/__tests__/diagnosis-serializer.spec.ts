@@ -12,7 +12,7 @@ describe('DiagnosisSerializer', () => {
     const diagnosis = new Diagnosis('123', [], new Date(), new Date());
     const result = diagnosisSerializer.transformOne(diagnosis);
 
-    expect(result).toBe({
+    expect(result).toEqual({
       id: '123',
       screenshot: '',
       score: diagnosis.getScore(),
