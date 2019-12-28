@@ -1,22 +1,18 @@
 import DataLoader from 'dataloader';
-import { PartialDeep } from 'type-fest';
 import { Connection } from 'typeorm';
 
-import { DiagnosisAPI } from '../enterprise/entities/diagnosis';
-
-import { DiagnosisRepository } from '../application/repositories/diagnosis-repository';
-
 import { DiagnosisController } from '../adapters/controllers/diagnosis-controller';
+import { DiagnosisAPI } from '../adapters/serializers/diagnosis-serializer';
 
 import { Diagnosis } from './database/entities/diagnosis';
 import { DiagnosisRepositoryImpl } from './database/repositories/diagnosis-repository-impl';
 
 export interface Context {
-  repositories: {
-    diagnosis: DiagnosisRepository;
+  controllers: {
+    diagnosis: DiagnosisController;
   };
   loaders: {
-    diagnosis: DataLoader<string, PartialDeep<DiagnosisAPI>>;
+    diagnosis: DataLoader<string, DiagnosisAPI>;
   };
 }
 
@@ -25,13 +21,15 @@ export const createContext = (conncetion: Connection): Context => {
     conncetion.getRepository(Diagnosis),
   );
 
+  const diagnosisController = new DiagnosisController(diagnosisRepository);
+
   return {
-    repositories: {
-      diagnosis: diagnosisRepository,
+    controllers: {
+      diagnosis: diagnosisController,
     },
     loaders: {
       diagnosis: new DataLoader((ids: readonly string[]) =>
-        new DiagnosisController(diagnosisRepository).find(ids),
+        diagnosisController.find(ids),
       ),
     },
   };
