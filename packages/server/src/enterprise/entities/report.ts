@@ -6,6 +6,7 @@ export enum ReportType {
 
 export class Report {
   constructor(
+    readonly id: string,
     readonly name: string,
     readonly diagnosisId: string,
     readonly type: ReportType,

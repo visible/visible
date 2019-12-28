@@ -8,26 +8,14 @@ describe('FindDiagnosis', () => {
   beforeAll(() => {
     const diagnosisRepository = new DiagnosisRepositoryInMemoryImpl(
       new Map<string, Diagnosis>([
-        [
-          '123',
-          {
-            id: '123',
-            reports: [
-              {
-                id: '345',
-                name: 'img-alt',
-                type: 'ok',
-              },
-            ],
-          },
-        ],
+        ['123', new Diagnosis('123', [], new Date('2020'), new Date('2020'))],
       ]),
     );
     findDiagnosis = new FindDiagnosis(diagnosisRepository);
   });
 
-  it('creates properly', async () => {
+  it('finds properly', async () => {
     const [result] = await findDiagnosis.run(['123']);
-    expect(result.reports[0].id).toBe('345');
+    expect(result.id).toBe('123');
   });
 });

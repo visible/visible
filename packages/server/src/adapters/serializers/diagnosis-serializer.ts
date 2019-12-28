@@ -1,7 +1,6 @@
 import { PartialDeep } from 'type-fest';
 
 import { Diagnosis } from '../../enterprise/entities/diagnosis';
-import { Report } from '../../enterprise/entities/report';
 
 import { ReportSerializer, ReportAPI } from './report-serializer';
 

@@ -1,4 +1,4 @@
-import { PartialDeep } from 'type-fest';
+// import { PartialDeep } from 'type-fest';
 import { ReportType, Report } from '../../enterprise/entities/report';
 
 export enum ReportTypeAPI {
@@ -7,7 +7,7 @@ export enum ReportTypeAPI {
   ERROR = 'ERROR',
 }
 
-export type ReportAPI = PartialDeep<{
+export type ReportAPI = {
   id: string;
   name: string;
   type: ReportTypeAPI;
@@ -15,16 +15,16 @@ export type ReportAPI = PartialDeep<{
   xpath?: string;
   css?: string;
   html?: string;
-}>;
+};
 
 export class ReportSerializer {
   private serializeType = (type: ReportType): ReportTypeAPI => {
     switch (type) {
-      case 'error':
+      case ReportType.ERROR:
         return ReportTypeAPI.ERROR;
-      case 'warn':
+      case ReportType.WARN:
         return ReportTypeAPI.WARN;
-      case 'ok':
+      case ReportType.OK:
       default:
         return ReportTypeAPI.OK;
     }

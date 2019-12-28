@@ -4,6 +4,6 @@ export class FindReportsByDiagnosisId {
   constructor(private reportsRepostiroy: ReportsRepository) {}
 
   run(id: string) {
-    this.reportsRepostiroy.findByDiagnosisId(id);
+    return this.reportsRepostiroy.findByDiagnosisId(id);
   }
 }

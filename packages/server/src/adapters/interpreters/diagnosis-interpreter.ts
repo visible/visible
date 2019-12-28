@@ -1,20 +1,43 @@
 import uuid from 'uuid';
-import { Report } from '@visi/core/dist/domain/report';
-import { Diagnosis } from '../../enterprise/entities';
+import {
+  Report as CoreReport,
+  ReportType as CoreReportType,
+} from '@visi/core/dist/domain/report';
+import { Diagnosis, Report, ReportType } from '../../enterprise/entities';
 
 export class DiagnosisInterpreter {
-  transform(reports: Report[]): Diagnosis {
-    return {
-      id: uuid(),
-      reports: reports.map(report => ({
-        id: uuid(),
-        name: report.id,
-        type: report.type,
-        message: report.message,
-        xpath: report.content && report.content.xpath,
-        html: report.content && report.content.html,
-        css: report.content && report.content.style,
-      })),
-    };
+  transformType = (type: CoreReportType) => {
+    switch (type) {
+      case 'ok':
+        return ReportType.OK;
+      case 'warn':
+        return ReportType.WARN;
+      case 'error':
+      default:
+        return ReportType.ERROR;
+    }
+  };
+
+  transform(reports: CoreReport[]): Diagnosis {
+    const id = uuid();
+
+    return new Diagnosis(
+      id,
+      reports.map(
+        report =>
+          new Report(
+            uuid(),
+            report.id,
+            id,
+            this.transformType(report.type),
+            report.message,
+            report.content?.xpath,
+            report.content?.style,
+            report.content?.html,
+          ),
+      ),
+      new Date(),
+      new Date(),
+    );
   }
 }

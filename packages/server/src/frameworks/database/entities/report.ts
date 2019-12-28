@@ -6,6 +6,7 @@ import { DiagnosisORM } from './diagnosis';
 export class ReportORM {
   toDomain = () => {
     return new Report(
+      this.id,
       this.name,
       this.diagnosis.id,
       this.type,

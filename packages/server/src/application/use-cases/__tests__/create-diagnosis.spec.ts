@@ -11,16 +11,12 @@ describe('CreateDiagnosis', () => {
   });
 
   it('creates properly', async () => {
-    const diagnosis: Diagnosis = {
-      id: '123',
-      reports: [
-        {
-          id: '345',
-          name: 'img-alt',
-          type: 'ok',
-        },
-      ],
-    };
+    const diagnosis = new Diagnosis(
+      '123',
+      [],
+      new Date('2020'),
+      new Date('2020'),
+    );
 
     const result = await createDiagnosis.run(diagnosis);
     expect(result).toBe(diagnosis);

@@ -8,19 +8,7 @@ describe('DeleteDiagnosis', () => {
   beforeAll(() => {
     const diagnosisRepository = new DiagnosisRepositoryInMemoryImpl(
       new Map<string, Diagnosis>([
-        [
-          '123',
-          {
-            id: '123',
-            reports: [
-              {
-                id: '345',
-                name: 'img-alt',
-                type: 'ok',
-              },
-            ],
-          },
-        ],
+        ['123', new Diagnosis('123', [], new Date('2020'), new Date('2020'))],
       ]),
     );
     deleteDiagnosis = new DeleteDiagnosis(diagnosisRepository);
