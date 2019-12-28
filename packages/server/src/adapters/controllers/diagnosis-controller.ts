@@ -1,33 +1,30 @@
 import { visible } from '@visi/core';
 
-// import { Website } from '../../domain/entities/website';
-
+import { DiagnosisRepository } from '../../application/repositories/diagnosis-repository';
 import { CreateDiagnosis } from '../../application/use-cases/create-diagnosis';
 import { DeleteDiagnosis } from '../../application/use-cases/delete-diagnosis';
 import { FindDiagnosis } from '../../application/use-cases/find-diagnosis';
 
-import { DiagnosisSerializer } from '../serializers/diagnosis-serializer';
-import { DiagnosisRepository } from '../../application/repositories/diagnosis-repository';
 import { DiagnosisInterpreter } from '../interpreters/diagnosis-interpreter';
+import { DiagnosisSerializer } from '../serializers/diagnosis-serializer';
 
 export class DiagnosisController {
   constructor(private diagnosisRepository: DiagnosisRepository) {}
 
   async find(ids: readonly string[]) {
-    return new FindDiagnosis(
-      this.diagnosisRepository,
-      new DiagnosisSerializer(),
-    ).run(ids);
+    const result = await new FindDiagnosis(this.diagnosisRepository).run(ids);
+    const output = new DiagnosisSerializer().transform(result);
+    return output;
   }
 
   async create(url: string) {
     const reports = await visible({ url });
-
-    return new CreateDiagnosis(
-      this.diagnosisRepository,
-      new DiagnosisSerializer(),
-      new DiagnosisInterpreter(),
-    ).run(reports);
+    const input = new DiagnosisInterpreter().transform(reports);
+    const result = await new CreateDiagnosis(this.diagnosisRepository).run(
+      input,
+    );
+    const output = new DiagnosisSerializer().transformOne(result);
+    return output;
   }
 
   async delete(id: string) {

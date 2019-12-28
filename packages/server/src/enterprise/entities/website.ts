@@ -1,4 +1,4 @@
-import { Diagnosis, DiagnosisAPI } from './diagnosis';
+import { Diagnosis } from './diagnosis';
 
 export interface Website {
   id: string;
@@ -6,12 +6,4 @@ export interface Website {
   description: string;
   domain: string;
   diagnosises: Diagnosis[];
-}
-
-export interface WebsiteAPI {
-  id: string;
-  name: string;
-  description: string;
-  domain: string;
-  diagnosises: DiagnosisAPI[];
 }

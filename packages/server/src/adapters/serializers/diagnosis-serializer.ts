@@ -1,12 +1,24 @@
-import { Diagnosis, DiagnosisAPI } from '../../enterprise/entities/diagnosis';
+import { PartialDeep } from 'type-fest';
+
+import { Diagnosis } from '../../enterprise/entities/diagnosis';
 import { Report } from '../../enterprise/entities/report';
 
-import { DiagnosisOutput } from '../../application/outputs/diagnosis-output';
+import { ReportSerializer, ReportAPI } from './report-serializer';
 
-import { ReportSerializer } from './report-serializer';
-// import { WebsiteSerializer } from './website-serializer';
+export type ScoreAPI = PartialDeep<{
+  error: number;
+  warn: number;
+  ok: number;
+}>;
 
-export class DiagnosisSerializer implements DiagnosisOutput<DiagnosisAPI> {
+export type DiagnosisAPI = PartialDeep<{
+  id: string;
+  score: ScoreAPI;
+  screenshot: string;
+  reports: ReportAPI[];
+}>;
+
+export class DiagnosisSerializer {
   private calculateScore(reports: Report[]) {
     return {
       ok: reports.filter(report => report.type === 'ok').length,

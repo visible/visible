@@ -1,3 +1,6 @@
+const path = require('path');
+const context = '../../adapters/serializers';
+
 module.exports = {
   overwrite: true,
   schema: [require.resolve('@visi/schema')],
@@ -14,15 +17,10 @@ module.exports = {
           "import('type-fest').PartialDeep<T> | Promise<import('type-fest').PartialDeep<T>>",
         useIndexSignature: true,
         mappers: {
-          Account: '../../enterprise/entities#AccountAPI',
-          Actor: '../../enterprise/entities#ActorAPI',
-          Credential: '../../enterprise/entities#CredentialAPI',
-          Diagnostic: '../../enterprise/entities#DiagnosisAPI',
-          Organization: '../../enterprise/entities#OrganizationAPI',
-          Report: '../../enterprise/entities#ReportAPI',
-          ReportType: '../../enterprise/entities#ReportTypeAPI',
-          Score: '../../enterprise/entities#ScoreAPI',
-          Website: '../../enterprise/entities#WebsiteAPI',
+          Diagnosis: path.join(context, './diagnosis-serializer#DiagnosisAPI'),
+          Report: path.join(context, './report-serializer#ReportAPI'),
+          ReportType: path.join(context, './report-serializer#ReportTypeAPI'),
+          Website: path.join(context, './website-serializer#WebsiteAPI'),
         },
       },
     },

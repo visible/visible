@@ -1,15 +1,13 @@
+import { Diagnosis } from '../../enterprise/entities';
 import { DiagnosisRepository } from '../repositories/diagnosis-repository';
-import { DiagnosisOutput } from '../outputs/diagnosis-output';
+
+type FindDiagnosisInput = readonly string[];
+type FindDiagnosisResult = Diagnosis[];
 
 export class FindDiagnosis {
-  constructor(
-    private diagnosisRepository: DiagnosisRepository,
-    private diagnosisOutput: DiagnosisOutput,
-  ) {}
+  constructor(private diagnosisRepository: DiagnosisRepository) {}
 
-  async run(ids: readonly string[]) {
-    const data = await this.diagnosisRepository.find(ids);
-    const output = this.diagnosisOutput.transform(data);
-    return output;
+  run(ids: FindDiagnosisInput): Promise<FindDiagnosisResult> {
+    return this.diagnosisRepository.find(ids);
   }
 }

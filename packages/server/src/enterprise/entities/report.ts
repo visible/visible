@@ -9,19 +9,3 @@ export interface Report {
   css?: string;
   html?: string;
 }
-
-export enum ReportTypeAPI {
-  OK = 'OK',
-  WARN = 'WARN',
-  ERROR = 'ERROR',
-}
-
-export interface ReportAPI {
-  id: string;
-  name: string;
-  type: ReportTypeAPI;
-  message?: string;
-  xpath?: string;
-  css?: string;
-  html?: string;
-}

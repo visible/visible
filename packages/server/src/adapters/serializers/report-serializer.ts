@@ -1,9 +1,21 @@
-import {
-  ReportType,
-  Report,
-  ReportAPI,
-  ReportTypeAPI,
-} from '../../enterprise/entities/report';
+import { PartialDeep } from 'type-fest';
+import { ReportType, Report } from '../../enterprise/entities/report';
+
+export enum ReportTypeAPI {
+  OK = 'OK',
+  WARN = 'WARN',
+  ERROR = 'ERROR',
+}
+
+export type ReportAPI = PartialDeep<{
+  id: string;
+  name: string;
+  type: ReportTypeAPI;
+  message?: string;
+  xpath?: string;
+  css?: string;
+  html?: string;
+}>;
 
 export class ReportSerializer {
   private serializeType = (type: ReportType): ReportTypeAPI => {
