@@ -7,9 +7,9 @@ import { DiagnosisAPI } from '../enterprise/entities/diagnosis';
 import { DiagnosisRepository } from '../application/repositories/diagnosis-repository';
 
 import { DiagnosisController } from '../adapters/controllers/diagnosis-controller';
-import { DiagnosisRepositoryImpl } from '../adapters/storage/diagnosis-repository-impl';
 
 import { Diagnosis } from './database/entities/diagnosis';
+import { DiagnosisRepositoryImpl } from './database/repositories/diagnosis-repository-impl';
 
 export interface Context {
   repositories: {
