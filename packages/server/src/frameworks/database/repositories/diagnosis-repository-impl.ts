@@ -1,9 +1,9 @@
-import { Repository } from 'typeorm';
+import { Repository as DataMapper } from 'typeorm';
 import { Diagnosis } from '../../../enterprise/entities/diagnosis';
 import { DiagnosisRepository } from '../../../application/repositories/diagnosis-repository';
 
 export class DiagnosisRepositoryImpl implements DiagnosisRepository {
-  constructor(private dataMapper: Repository<Diagnosis>) {}
+  constructor(private dataMapper: DataMapper<Diagnosis>) {}
 
   async find(ids: string[]) {
     const result = await this.dataMapper

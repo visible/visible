@@ -1,12 +1,12 @@
-import { PartialDeep } from 'type-fest';
-
 import { Diagnosis, DiagnosisAPI } from '../../enterprise/entities/diagnosis';
 import { Report } from '../../enterprise/entities/report';
+
+import { DiagnosisOutput } from '../../application/outputs/diagnosis-output';
 
 import { ReportSerializer } from './report-serializer';
 // import { WebsiteSerializer } from './website-serializer';
 
-export class DiagnosisSerializer {
+export class DiagnosisSerializer implements DiagnosisOutput<DiagnosisAPI> {
   private calculateScore(reports: Report[]) {
     return {
       ok: reports.filter(report => report.type === 'ok').length,
@@ -15,7 +15,7 @@ export class DiagnosisSerializer {
     };
   }
 
-  serializeOne(diagnosis: Diagnosis): DiagnosisAPI {
+  transformOne(diagnosis: Diagnosis): DiagnosisAPI {
     return {
       id: diagnosis.id,
       screenshot: '',
@@ -25,7 +25,7 @@ export class DiagnosisSerializer {
     };
   }
 
-  serialize(diagnosises: Diagnosis[]): DiagnosisAPI[] {
-    return diagnosises.map(diagnosis => this.serializeOne(diagnosis));
+  transform(diagnosises: Diagnosis[]): DiagnosisAPI[] {
+    return diagnosises.map(diagnosis => this.transformOne(diagnosis));
   }
 }

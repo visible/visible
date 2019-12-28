@@ -1,9 +1,15 @@
 import { DiagnosisRepository } from '../repositories/diagnosis-repository';
+import { DiagnosisOutput } from '../outputs/diagnosis-output';
 
 export class FindDiagnosis {
-  constructor(private diagnosisRepository: DiagnosisRepository) {}
+  constructor(
+    private diagnosisRepository: DiagnosisRepository,
+    private diagnosisOutput: DiagnosisOutput,
+  ) {}
 
-  run(ids: readonly string[]) {
-    return this.diagnosisRepository.find(ids);
+  async run(ids: readonly string[]) {
+    const data = await this.diagnosisRepository.find(ids);
+    const output = this.diagnosisOutput.transform(data);
+    return output;
   }
 }
