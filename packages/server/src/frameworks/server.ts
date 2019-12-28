@@ -10,6 +10,7 @@ import { resolvers } from './resolvers';
 import { createI18n } from './i18n';
 import { createConnection } from './database/connection';
 import { createContext } from './context';
+import { logger } from './logger';
 
 dotenv.config({ path: '../.env' });
 
@@ -38,8 +39,7 @@ export class Server {
   }
 
   handleListening() {
-    // eslint-disable-next-line no-console
-    console.log(
+    logger.info(
       '🎉 GraphQL server is running at ' +
         `http://localhost:${process.env.WEB_PORT}/api/v1`,
     );

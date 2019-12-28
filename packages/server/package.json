@@ -17,6 +17,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@types/bull": "^3.10.6",
     "@types/cors": "^2.8.6",
     "@types/dotenv": "^8.2.0",
     "@types/graphql": "^14.5.0",
@@ -31,6 +32,7 @@
     "apollo-link": "^1.2.13",
     "apollo-link-http": "^1.5.16",
     "apollo-server-express": "^2.9.14",
+    "bull": "^3.12.1",
     "cors": "^2.8.5",
     "dataloader": "^2.0.0",
     "dotenv": "^8.2.0",
@@ -41,6 +43,7 @@
     "i18next": "^19.0.2",
     "i18next-express-middleware": "^1.9.1",
     "inversify": "^5.0.1",
+    "log4js": "^6.1.0",
     "pg": "^7.16.0",
     "reflect-metadata": "^0.1.13",
     "type-fest": "^0.8.1",
