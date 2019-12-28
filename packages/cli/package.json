@@ -7,7 +7,7 @@
     "visible": "./dist/index.js"
   },
   "scripts": {
-    "build": "yarn run tsc"
+    "build": "tsc"
   },
   "files": [
     "./dist"
