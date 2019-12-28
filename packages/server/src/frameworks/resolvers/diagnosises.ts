@@ -2,6 +2,7 @@ import {
   QueryResolvers,
   MutationResolvers,
   DiagnosisResolvers,
+  SubscriptionResolvers,
 } from '../generated/graphql';
 
 export const rootDiagnosis: QueryResolvers['diagnosis'] = async (
@@ -41,4 +42,12 @@ export const deleteDiagnosis: MutationResolvers['deleteDiagnosis'] = async (
 ) => {
   const result = await controllers.diagnosis.delete(id);
   return result;
+};
+
+export const subscriptions: SubscriptionResolvers = {
+  diagnosisProgress: {
+    subscribe(_, { id: _id }) {
+      throw Error('undef');
+    },
+  },
 };

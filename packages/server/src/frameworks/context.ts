@@ -1,3 +1,4 @@
+import { PubSub } from 'apollo-server-express';
 import DataLoader from 'dataloader';
 import { Connection } from 'typeorm';
 
@@ -11,6 +12,7 @@ import { ReportsRepositoryImpl } from './database/repositories/reports-repositor
 import { Report } from './database/entities/report';
 
 export interface Context {
+  pubsub: PubSub;
   controllers: {
     diagnosis: DiagnosisController;
     reports: ReportsController;
@@ -22,6 +24,8 @@ export interface Context {
 
 // prettier-ignore
 export const makeCreateContext = (connection: Connection) => {
+  const pubsub = new PubSub();
+
   const diagnosisRepository = new DiagnosisRepositoryImpl(connection.getRepository(Diagnosis));
   const reportsRepository = new ReportsRepositoryImpl(connection.getRepository(Report));
 
@@ -29,6 +33,7 @@ export const makeCreateContext = (connection: Connection) => {
   const reportsController = new ReportsController(reportsRepository);
 
   return (): Context => ({
+    pubsub,
     controllers: {
       diagnosis: diagnosisController,
       reports: reportsController,
