@@ -6,10 +6,10 @@ import { DiagnosisController } from '../adapters/controllers/diagnosis-controlle
 import { DiagnosisAPI } from '../adapters/serializers/diagnosis-serializer';
 import { ReportsController } from '../adapters/controllers/reports-controller';
 
-import { Diagnosis } from './database/entities/diagnosis';
 import { DiagnosisRepositoryImpl } from './database/repositories/diagnosis-repository-impl';
 import { ReportsRepositoryImpl } from './database/repositories/reports-repository-impl';
-import { Report } from './database/entities/report';
+import { DiagnosisORM } from './database/entities/diagnosis';
+import { ReportORM } from './database/entities/report';
 
 export interface Context {
   pubsub: PubSub;
@@ -26,8 +26,8 @@ export interface Context {
 export const makeCreateContext = (connection: Connection) => {
   const pubsub = new PubSub();
 
-  const diagnosisRepository = new DiagnosisRepositoryImpl(connection.getRepository(Diagnosis));
-  const reportsRepository = new ReportsRepositoryImpl(connection.getRepository(Report));
+  const diagnosisRepository = new DiagnosisRepositoryImpl(connection.getRepository(DiagnosisORM));
+  const reportsRepository = new ReportsRepositoryImpl(connection.getRepository(ReportORM));
 
   const diagnosisController = new DiagnosisController(diagnosisRepository);
   const reportsController = new ReportsController(reportsRepository);
