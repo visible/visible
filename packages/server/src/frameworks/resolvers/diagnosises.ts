@@ -8,19 +8,19 @@ import {
 export const rootDiagnosis: QueryResolvers['diagnosis'] = async (
   _,
   { id },
-  { loaders },
+  { diagnosisLoader },
 ) => {
-  const diagnosis = await loaders.diagnosis.load(id);
+  const diagnosis = await diagnosisLoader.load(id);
   return diagnosis;
 };
 
 export const reports: DiagnosisResolvers['reports'] = (
   parent,
   _,
-  { controllers },
+  { reportsController },
 ) => {
   if (parent.id) {
-    return controllers.reports.findByDiagnosisId(parent.id);
+    return reportsController.findByDiagnosisId(parent.id);
   }
 
   throw new Error('Diagnosis should provide id');
@@ -29,18 +29,18 @@ export const reports: DiagnosisResolvers['reports'] = (
 export const createDiagnosis: MutationResolvers['createDiagnosis'] = async (
   _,
   { url },
-  { controllers },
+  { diagnosisContorller },
 ) => {
-  const diagnosis = await controllers.diagnosis.create(url);
+  const diagnosis = await diagnosisContorller.create(url);
   return diagnosis;
 };
 
 export const deleteDiagnosis: MutationResolvers['deleteDiagnosis'] = async (
   _,
   { id },
-  { controllers },
+  { diagnosisContorller },
 ) => {
-  const result = await controllers.diagnosis.delete(id);
+  const result = await diagnosisContorller.delete(id);
   return result;
 };
 

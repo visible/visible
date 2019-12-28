@@ -11,7 +11,7 @@ import { Diagnosis } from '../../../enterprise/entities';
 import { ReportORM } from './report';
 import { WebsiteORM } from './website';
 
-@Entity('Diagnosis')
+@Entity('diagnosis')
 export class DiagnosisORM {
   toDomain = () => {
     return new Diagnosis(

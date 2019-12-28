@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { DiagnosisORM } from './diagnosis';
 
-@Entity('Website')
+@Entity('website')
 export class WebsiteORM {
   @PrimaryColumn('uuid')
   id: string;

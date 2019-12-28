@@ -2,7 +2,7 @@ import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm';
 import { Report, ReportType } from '../../../enterprise/entities';
 import { DiagnosisORM } from './diagnosis';
 
-@Entity('Report')
+@Entity('report')
 export class ReportORM {
   toDomain = () => {
     return new Report(

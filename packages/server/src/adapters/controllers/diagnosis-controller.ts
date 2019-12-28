@@ -1,4 +1,5 @@
 import { visible } from '@visi/core';
+import { injectable, inject } from 'inversify';
 
 import { DiagnosisRepository } from '../../application/repositories/diagnosis-repository';
 import { CreateDiagnosis } from '../../application/use-cases/create-diagnosis';
@@ -7,9 +8,12 @@ import { FindDiagnosis } from '../../application/use-cases/find-diagnosis';
 
 import { DiagnosisInterpreter } from '../interpreters/diagnosis-interpreter';
 import { DiagnosisSerializer } from '../serializers/diagnosis-serializer';
+import { TYPES } from '../../types';
 
+@injectable()
 export class DiagnosisController {
-  constructor(private diagnosisRepository: DiagnosisRepository) {}
+  @inject(TYPES.DiagnosisRepository)
+  private diagnosisRepository: DiagnosisRepository;
 
   async find(ids: readonly string[]) {
     const result = await new FindDiagnosis(this.diagnosisRepository).run(ids);

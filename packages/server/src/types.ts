@@ -1,3 +1,11 @@
 export const TYPES = {
-  DiagnosisDataMapper: Symbol.for('DiagnosisDataMapper'),
+  Server: Symbol(),
+  Connection: Symbol(),
+  Context: Symbol(),
+
+  DiagnosisRepository: Symbol(),
+  DiagnosisController: Symbol(),
+
+  ReportsRepository: Symbol(),
+  ReportsController: Symbol(),
 };

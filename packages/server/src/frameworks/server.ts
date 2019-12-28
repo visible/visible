@@ -1,23 +1,22 @@
-import 'reflect-metadata';
 import { promises as fs } from 'fs';
-import dotenv from 'dotenv';
+import { injectable, inject } from 'inversify';
 import express from 'express';
 import cors from 'cors';
 import { ApolloServer, gql } from 'apollo-server-express';
 import depthLimit from 'graphql-depth-limit';
 import i18nextMiddleware from 'i18next-express-middleware';
+import { TYPES } from '../types';
 import { resolvers } from './resolvers';
 import { createI18n } from './i18n';
-import { createConnection } from './database/connection';
-import { makeCreateContext } from './context';
+import { Context } from './context';
 import { logger } from './logger';
 
-dotenv.config({ path: '../.env' });
-
+@injectable()
 export class Server {
-  async init() {
-    const connection = await createConnection();
+  @inject(TYPES.Context)
+  private context: Context;
 
+  async start() {
     const typeDefs = await fs
       .readFile(require.resolve('@visi/schema'), 'utf-8')
       .then(gql);
@@ -25,7 +24,7 @@ export class Server {
     const apollo = new ApolloServer({
       resolvers,
       typeDefs,
-      context: makeCreateContext(connection),
+      context: this.context,
       validationRules: [depthLimit(5)],
     });
 
@@ -38,7 +37,7 @@ export class Server {
       .listen({ port: Number(process.env.WEB_PORT) }, this.handleListening);
   }
 
-  handleListening() {
+  private handleListening() {
     logger.info(
       '🎉 GraphQL server is running at ' +
         `http://localhost:${process.env.WEB_PORT}/api/v1`,
