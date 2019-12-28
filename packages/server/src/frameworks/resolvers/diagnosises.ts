@@ -1,4 +1,8 @@
-import { QueryResolvers, MutationResolvers } from '../generated/graphql';
+import {
+  QueryResolvers,
+  MutationResolvers,
+  DiagnosisResolvers,
+} from '../generated/graphql';
 
 export const rootDiagnosis: QueryResolvers['diagnosis'] = async (
   _,
@@ -7,6 +11,18 @@ export const rootDiagnosis: QueryResolvers['diagnosis'] = async (
 ) => {
   const diagnosis = await loaders.diagnosis.load(id);
   return diagnosis;
+};
+
+export const reports: DiagnosisResolvers['reports'] = (
+  parent,
+  _,
+  { controllers },
+) => {
+  if (parent.id) {
+    return controllers.reports.findByDiagnosisId(parent.id);
+  }
+
+  throw new Error('Diagnosis should provide id');
 };
 
 export const createDiagnosis: MutationResolvers['createDiagnosis'] = async (

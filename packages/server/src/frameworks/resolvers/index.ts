@@ -1,5 +1,10 @@
 import { Resolvers } from '../generated/graphql';
-import { rootDiagnosis, createDiagnosis, deleteDiagnosis } from './diagnosises';
+import {
+  rootDiagnosis,
+  createDiagnosis,
+  deleteDiagnosis,
+  reports,
+} from './diagnosises';
 
 export const resolvers: Resolvers = {
   Query: {
@@ -8,5 +13,8 @@ export const resolvers: Resolvers = {
   Mutation: {
     createDiagnosis,
     deleteDiagnosis,
+  },
+  Diagnosis: {
+    reports,
   },
 };

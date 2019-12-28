@@ -9,7 +9,6 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
     const result = await this.dataMapper
       .createQueryBuilder('diagnosis')
       .whereInIds(ids)
-      .leftJoinAndSelect('diagnosis.reports', 'report')
       .getMany();
 
     if (!result.length) throw new Error('Entry not found');

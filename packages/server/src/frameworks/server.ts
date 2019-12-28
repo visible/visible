@@ -9,7 +9,7 @@ import i18nextMiddleware from 'i18next-express-middleware';
 import { resolvers } from './resolvers';
 import { createI18n } from './i18n';
 import { createConnection } from './database/connection';
-import { createContext } from './context';
+import { makeCreateContext } from './context';
 import { logger } from './logger';
 
 dotenv.config({ path: '../.env' });
@@ -25,7 +25,7 @@ export class Server {
     const apollo = new ApolloServer({
       resolvers,
       typeDefs,
-      context: () => createContext(connection),
+      context: makeCreateContext(connection),
       validationRules: [depthLimit(5)],
     });
 
