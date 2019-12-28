@@ -2,36 +2,34 @@
 ## Clean architecture
 `@visi/server` adopts Uncle bob's "Clean architecture" design pattern. Here's the directory structure
 
+![Clean architecture](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
+
 ### Directory structure
 ```
 - server/src
-  - domain         - Enterprise Bussiness rules
-  - application    - Application Bussiness rules
-  - adapters       - Interface Adapters
-  - infrastructure - Frameworks and Drivers
-  - locales        - i18n locale files
+  - enterprise     (Enterprise Bussiness rules)
+  - application    (Application Bussiness rules)
+  - adapters       (Interface Adapters)
+  - infrastructure (Frameworks and Drivers)
 ```
 
-#### `domain/entities`
-Enterprise entities
+- インターフェイスに `I` を付けずに、実装に `Impl` を付ける
+-
 
-#### `application/repositories`
-Interfaces of repositories
+#### `enterprise/entities`
+エンタープライズのドメインモデルです。
 
 #### `applciation/use-cases`
 Basically, classes which takes repository to call methods of it.
 
+#### `application/repositories`
+ユースケースが依存するデータのインターフェイスが定義されています。
+
 #### `adapters/controllers`
-Classes which calls repositories and usecases to return serialized data
+引数からユースケースを実行し、返り値をシリアライズするクラス。
 
 #### `adapters/serializers`
-Classes which converts DB entities to API entities.
-
-#### `adapters/entities`
-API entities
-
-#### `adapters/storage`
-Classes which implements `application/repostiores`
+ドメインモデルから用途に沿った形式へ変換するクラス
 
 #### `infrastructre/resolvers`
 GraphQL resolvers
