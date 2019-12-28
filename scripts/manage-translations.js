@@ -11,11 +11,20 @@ const shouldUsePlural = lng => {
   return !nonPluralLanguages.includes(lng);
 };
 
-const createConfig = workspace => {
-  const lngs = glob
-    .sync(`./packages/${workspace}/src/locales/*.json`)
-    .map(file => file.match(/.*\/(.+?).json$/)[1]);
+const lngs = glob
+  .sync(`./packages/core/src/locales/*.json`)
+  .map(file => file.match(/.*\/(.+?).json$/)[1]);
 
+const resourceMap = {
+  server: './packages/server/src/frameworks/locale/{{lng}}.json',
+  client: './packages/client/src/locale/{{lng}}.json',
+  cli: './packages/cli/src/locale/{{lng}}.json',
+  core: './packages/core/src/locale/{{lng}}.json',
+};
+
+const workspaces = Object.keys(resourceMap);
+
+const createConfig = workspace => {
   return {
     transform: typescriptTransform({ extensions: ['.tsx'] }),
     input: [`./packages/${workspace}/src/**/*.{ts,tsx}`],
@@ -30,8 +39,8 @@ const createConfig = workspace => {
         extensions: ['.tsx'],
       },
       resource: {
-        loadPath: `./packages/${workspace}/src/locales/{{lng}}.json`,
-        savePath: `./packages/${workspace}/src/locales/{{lng}}.json`,
+        loadPath: resourceMap[workspace],
+        savePath: resourceMap[workspace],
       },
       lngs,
       plural: shouldUsePlural,
@@ -41,10 +50,6 @@ const createConfig = workspace => {
     },
   };
 };
-
-const workspaces = glob
-  .sync('./packages/!(*.*)')
-  .map(dir => dir.match(/.*\/(.+?)$/)[1]);
 
 for (const workspace of workspaces) {
   const config = createConfig(workspace);
