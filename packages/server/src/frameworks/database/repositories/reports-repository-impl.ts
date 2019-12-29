@@ -14,7 +14,7 @@ export class ReportsRepositoryImpl implements ReportsRepository {
     return new Report(
       report.id,
       report.name,
-      report.diagnosis?.id || '',
+      report.diagnosis.id,
       report.type,
       report.message,
       report.xpath,
@@ -27,7 +27,7 @@ export class ReportsRepositoryImpl implements ReportsRepository {
     const reports = await this.connection
       .getRepository(ReportORM)
       .createQueryBuilder('report')
-      .leftJoin('report.diagnosis', 'diagnosis')
+      .leftJoinAndSelect('report.diagnosis', 'diagnosis')
       .where('diagnosis.id = :id', { id })
       .getMany();
 

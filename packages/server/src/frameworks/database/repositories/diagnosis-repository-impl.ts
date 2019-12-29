@@ -14,7 +14,7 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   private toDomain = (diagnosis: DiagnosisORM) => {
     return new Diagnosis(
       diagnosis.id,
-      (diagnosis.reports || []).map(
+      diagnosis.reports.map(
         report =>
           new Report(
             report.id,
@@ -35,7 +35,10 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   async find(ids: string[]) {
     const diagnosises = await this.connection
       .getRepository(DiagnosisORM)
-      .findByIds(ids);
+      .createQueryBuilder('diagnosis')
+      .leftJoinAndSelect('diagnosis.reports', 'report')
+      .whereInIds(ids)
+      .getMany();
 
     if (!diagnosises.length) throw new Error('Entry not found');
 
