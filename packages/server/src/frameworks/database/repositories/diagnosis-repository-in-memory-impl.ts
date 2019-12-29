@@ -1,8 +1,13 @@
+import { injectable, unmanaged } from 'inversify';
 import { DiagnosisRepository } from '../../../application/repositories/diagnosis-repository';
 import { Diagnosis } from '../../../enterprise/entities';
 
+@injectable()
 export class DiagnosisRepositoryInMemoryImpl implements DiagnosisRepository {
-  constructor(private diagnosis = new Map<string, Diagnosis>()) {}
+  constructor(
+    @unmanaged()
+    private diagnosis = new Map<string, Diagnosis>(),
+  ) {}
 
   async find(ids: string[]) {
     return ids

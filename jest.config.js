@@ -48,6 +48,7 @@ module.exports = {
     {
       ...shared('server'),
       testEnvironment: 'node',
+      setupFilesAfterEnv: ['<rootDir>/packages/server/tests/setup.ts'],
     },
     {
       ...shared('cli'),
