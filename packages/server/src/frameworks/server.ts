@@ -5,7 +5,6 @@ import cors from 'cors';
 import { ApolloServer, gql } from 'apollo-server-express';
 import depthLimit from 'graphql-depth-limit';
 import i18nextMiddleware from 'i18next-express-middleware';
-import { TYPES } from '../types';
 import { resolvers } from './resolvers';
 import { createI18n } from './i18n';
 import { Context } from './context';
@@ -13,7 +12,7 @@ import { logger } from './logger';
 
 @injectable()
 export class Server {
-  @inject(TYPES.Context)
+  @inject(Context)
   private context: Context;
 
   async start() {

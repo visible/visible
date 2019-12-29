@@ -1,18 +1,17 @@
-import DataLoader from 'dataloader';
 import { injectable, inject } from 'inversify';
 import { DiagnosisController } from '../adapters/controllers/diagnosis-controller';
 import { ReportsController } from '../adapters/controllers/reports-controller';
 import { TYPES } from '../types';
+import { DiagnosisLoader } from './database/loaders/diagnosis-loader';
 
 @injectable()
 export class Context {
-  @inject(TYPES.DiagnosisController)
+  @inject(DiagnosisController)
   diagnosisContorller: DiagnosisController;
 
-  @inject(TYPES.ReportsController)
+  @inject(ReportsController)
   reportsController: ReportsController;
 
-  diagnosisLoader = new DataLoader((ids: readonly string[]) =>
-    this.diagnosisContorller.find(ids),
-  );
+  @inject(TYPES.DiagnosisLoader)
+  diagnosisLoader: DiagnosisLoader;
 }

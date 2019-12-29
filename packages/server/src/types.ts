@@ -1,11 +1,8 @@
 export const TYPES = {
-  Server: Symbol(),
-  Connection: Symbol(),
-  Context: Symbol(),
+  Connection: Symbol.for('Connection'),
 
-  DiagnosisRepository: Symbol(),
-  DiagnosisController: Symbol(),
+  DiagnosisRepository: Symbol.for('DiagnosisRepository'),
+  ReportsRepository: Symbol.for('ReportsRepostiory'),
 
-  ReportsRepository: Symbol(),
-  ReportsController: Symbol(),
+  DiagnosisLoader: Symbol.for('DiagnosisLoader'),
 };

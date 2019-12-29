@@ -8,25 +8,40 @@ import { ReportsRepository } from './application/repositories/reports-repository
 
 import { DiagnosisController } from './adapters/controllers/diagnosis-controller';
 import { ReportsController } from './adapters/controllers/reports-controller';
+import { FindDiagnosis } from './application/use-cases/find-diagnosis';
+import { CreateDiagnosis } from './application/use-cases/create-diagnosis';
+import { DeleteDiagnosis } from './application/use-cases/delete-diagnosis';
+import { FindReportsByDiagnosisId } from './application/use-cases/find-reports-by-diagnosis-id';
 
 import { Server } from './frameworks/server';
 import { Context } from './frameworks/context';
 import { createConnection } from './frameworks/database/connection';
 import { DiagnosisRepositoryImpl } from './frameworks/database/repositories/diagnosis-repository-impl';
 import { ReportsRepositoryImpl } from './frameworks/database/repositories/reports-repository-impl';
+import {
+  DiagnosisLoader,
+  DiagnosisLoaderImpl,
+} from './frameworks/database/loaders/diagnosis-loader';
 
 // prettier-ignore
 (async () => {
   const container = new Container();
   const connection = await createConnection();
 
-  container.bind<Connection>(TYPES.Connection).toConstantValue(connection);
-  container.bind<Server>(TYPES.Server).to(Server);
-  container.bind<Context>(TYPES.Context).to(Context);
   container.bind<DiagnosisRepository>(TYPES.DiagnosisRepository).to(DiagnosisRepositoryImpl);
+  container.bind<DiagnosisLoader>(TYPES.DiagnosisLoader).to(DiagnosisLoaderImpl);
   container.bind<ReportsRepository>(TYPES.ReportsRepository).to(ReportsRepositoryImpl);
-  container.bind<DiagnosisController>(TYPES.DiagnosisController).to(DiagnosisController);
-  container.bind<ReportsController>(TYPES.ReportsController).to(ReportsController);
 
-  await container.get<Server>(TYPES.Server).start();
+  container.bind<FindDiagnosis>(FindDiagnosis).toSelf();
+  container.bind<CreateDiagnosis>(CreateDiagnosis).toSelf();
+  container.bind<DeleteDiagnosis>(DeleteDiagnosis).toSelf();
+  container.bind<FindReportsByDiagnosisId>(FindReportsByDiagnosisId).toSelf();
+  container.bind<DiagnosisController>(DiagnosisController).toSelf();
+  container.bind<ReportsController>(ReportsController).toSelf();
+
+  container.bind<Connection>(TYPES.Connection).toConstantValue(connection);
+  container.bind<Context>(Context).toSelf();
+  container.bind<Server>(Server).toSelf();
+
+  await container.get<Server>(Server).start();
 })();
