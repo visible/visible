@@ -1,19 +1,20 @@
 import {
   Entity,
-  PrimaryColumn,
   ManyToOne,
   OneToMany,
   Index,
-  Column,
   JoinColumn,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { ReportORM } from './report';
 import { WebsiteORM } from './website';
 
 @Entity('diagnosis')
 export class DiagnosisORM {
-  @PrimaryColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  readonly id: string;
 
   @ManyToOne(() => WebsiteORM)
   @JoinColumn()
@@ -27,10 +28,10 @@ export class DiagnosisORM {
   reports: ReportORM[];
 
   @Index()
-  @Column('timestamp')
-  createdAt: Date;
+  @CreateDateColumn({ type: 'timestamp with time zone' })
+  readonly createdAt: Date;
 
   @Index()
-  @Column('timestamp')
-  updatedAt: Date;
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  readonly updatedAt: Date;
 }

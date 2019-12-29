@@ -1,11 +1,17 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { ReportType } from '../../../enterprise/entities';
 import { DiagnosisORM } from './diagnosis';
 
 @Entity('report')
 export class ReportORM {
-  @PrimaryColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  readonly id: string;
 
   @Column('varchar', { length: 255 })
   name: string;

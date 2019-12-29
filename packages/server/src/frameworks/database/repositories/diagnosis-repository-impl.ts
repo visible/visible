@@ -47,13 +47,9 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
 
   async create(diagnosis: Diagnosis) {
     const diagnosisEntity = new DiagnosisORM();
-    diagnosisEntity.id = diagnosis.id;
-    diagnosisEntity.createdAt = diagnosis.createdAt;
-    diagnosisEntity.updatedAt = diagnosis.updatedAt;
 
     diagnosisEntity.reports = diagnosis.reports.map(report => {
       const reportEntity = new ReportORM();
-      reportEntity.id = report.id;
       reportEntity.name = report.name;
       reportEntity.type = report.type;
       reportEntity.message = report.message;
