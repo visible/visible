@@ -3,7 +3,8 @@ import {
   Report as CoreReport,
   ReportType as CoreReportType,
 } from '@visi/core/dist/domain/report';
-import { Diagnosis, Report, ReportType } from '../../enterprise/entities';
+import { Report, ReportType } from '../../enterprise/entities';
+import { CreateDiagnosisInput } from '../../application/use-cases/create-diagnosis';
 
 export class DiagnosisInterpreter {
   transformType = (type: CoreReportType) => {
@@ -18,12 +19,11 @@ export class DiagnosisInterpreter {
     }
   };
 
-  transform(reports: CoreReport[]): Diagnosis {
+  transform(reports: CoreReport[]): CreateDiagnosisInput {
     const id = uuid();
 
-    return new Diagnosis(
-      id,
-      reports.map(
+    return {
+      reports: reports.map(
         report =>
           new Report(
             uuid(),
@@ -36,8 +36,6 @@ export class DiagnosisInterpreter {
             report.content?.html,
           ),
       ),
-      new Date(),
-      new Date(),
-    );
+    };
   }
 }

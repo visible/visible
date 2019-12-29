@@ -1,10 +1,13 @@
 import { injectable, inject } from 'inversify';
-import { Diagnosis } from '../../enterprise/entities';
+import { Diagnosis, Report } from '../../enterprise/entities';
 import { DiagnosisRepository } from '../repositories/diagnosis-repository';
 import { TYPES } from '../../types';
 
-type CreateDiagnosisInput = Diagnosis;
-type CreateDiagnosisOutput = Diagnosis;
+export type CreateDiagnosisOutput = Diagnosis;
+
+export interface CreateDiagnosisInput {
+  reports: Report[];
+}
 
 @injectable()
 export class CreateDiagnosis {
