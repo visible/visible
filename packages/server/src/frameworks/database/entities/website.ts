@@ -1,11 +1,4 @@
-import {
-  Entity,
-  PrimaryColumn,
-  Column,
-  Index,
-  OneToMany,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, PrimaryColumn, Column, Index, OneToMany } from 'typeorm';
 import { DiagnosisORM } from './diagnosis';
 
 @Entity('website')
@@ -30,6 +23,5 @@ export class WebsiteORM {
     diagnosis => diagnosis.website,
     { onDelete: 'SET NULL' },
   )
-  @JoinColumn()
   diagnosises: DiagnosisORM[];
 }

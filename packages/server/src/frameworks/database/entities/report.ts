@@ -1,22 +1,9 @@
-import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm';
-import { Report, ReportType } from '../../../enterprise/entities';
+import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { ReportType } from '../../../enterprise/entities';
 import { DiagnosisORM } from './diagnosis';
 
 @Entity('report')
 export class ReportORM {
-  toDomain = () => {
-    return new Report(
-      this.id,
-      this.name,
-      this.diagnosis.id,
-      this.type,
-      this.message,
-      this.xpath,
-      this.css,
-      this.html,
-    );
-  };
-
   @PrimaryColumn('uuid')
   id: string;
 
@@ -30,6 +17,7 @@ export class ReportORM {
   message?: string;
 
   @ManyToOne(() => DiagnosisORM)
+  @JoinColumn()
   diagnosis: DiagnosisORM;
 
   @Column('varchar', { length: 255, nullable: true })
