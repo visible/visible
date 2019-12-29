@@ -15,7 +15,7 @@
     "test": "run-s test:*",
     "test:jest": "jest --config=jest.config.js --coverage",
     "test:eslint": "eslint -c .eslintrc.json ./packages/**/*.ts",
-    "test:stylelint": "stylelint 'packages/**/*.{ts,tsx}'",
+    "test:stylelint": "stylelint 'packages/{client,ui}/**/*.{ts,tsx}'",
     "manage:translations": "node ./scripts/manage-translations.js"
   },
   "devDependencies": {
