@@ -1,15 +1,26 @@
 import { t } from '../../__fixture__/i18n';
-import { buttonAlt } from './button-alt';
+import { ReportLevel } from '../../domain/report';
+import { ButtonAltRule } from './button-alt';
 
 describe('button-alt', () => {
-  it('returns report when button element did not have neither title nor text', async () => {
+  const buttonAltRule = new ButtonAltRule({ page, t });
+
+  it('counts button elements', async () => {
     await page.setContent(`<button></button>`);
-    const [report] = await buttonAlt({ page, t });
+    const count = await buttonAltRule.countAudits();
+    expect(count).toBe(1);
+  });
+
+  it('repots when button does not have neither textContent nor title', async () => {
+    await page.setContent(`<button></button>`);
+
+    const [report] = await buttonAltRule.audit();
 
     expect(report).toEqual(
       expect.objectContaining({
-        id: 'button-alt',
-        type: 'error',
+        rule: 'button-alt',
+        type: 'button-alt.no-alt',
+        level: ReportLevel.ERROR,
       }),
     );
   });
@@ -21,12 +32,13 @@ describe('button-alt', () => {
       </button>
     `);
 
-    const [report] = await buttonAlt({ page, t });
+    const [report] = await buttonAltRule.audit();
 
     expect(report).toEqual(
       expect.objectContaining({
-        id: 'button-alt',
-        type: 'ok',
+        rule: 'button-alt',
+        type: 'button-alt.ok',
+        level: ReportLevel.OK,
       }),
     );
   });

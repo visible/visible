@@ -1,7 +1,16 @@
 import { t } from '../../__fixture__/i18n';
-import { colorContrast } from './color-contrast';
+import { ReportLevel } from '../../domain/report';
+import { ColorContrastRule } from './color-contrast';
 
 describe('color-contrast', () => {
+  const colorContrast = new ColorContrastRule({ page, t });
+
+  it('counts elements', async () => {
+    await page.setContent(`<button></button>`);
+    const count = await colorContrast.countAudits();
+    expect(count).toBe(4); // 1 + html, body, head
+  });
+
   it('returns an error when color contrast does not satisfieis WCAG G18 AA', async () => {
     await page.setContent(`
       <button style="background-color: white; color: white;">
@@ -9,12 +18,13 @@ describe('color-contrast', () => {
       </button>
     `);
 
-    const [report] = await colorContrast({ page, t });
+    const [report] = await colorContrast.audit();
 
     expect(report).toEqual(
       expect.objectContaining({
-        id: 'color-contrast',
-        type: 'error',
+        type: 'color-contrast.wcag-aa',
+        rule: 'color-contrast',
+        level: ReportLevel.ERROR,
       }),
     );
   });
@@ -26,12 +36,13 @@ describe('color-contrast', () => {
       </button>
     `);
 
-    const [report] = await colorContrast({ page, t });
+    const [report] = await colorContrast.audit();
 
     expect(report).toEqual(
       expect.objectContaining({
-        id: 'color-contrast',
-        type: 'warn',
+        type: 'color-contrast.wcag-aaa',
+        rule: 'color-contrast',
+        level: ReportLevel.WARN,
       }),
     );
   });
@@ -43,12 +54,13 @@ describe('color-contrast', () => {
       </button>
     `);
 
-    const [report] = await colorContrast({ page, t });
+    const [report] = await colorContrast.audit();
 
     expect(report).toEqual(
       expect.objectContaining({
-        id: 'color-contrast',
-        type: 'ok',
+        type: 'color-contrast.ok',
+        rule: 'color-contrast',
+        level: ReportLevel.OK,
       }),
     );
   });

@@ -1,6 +1,6 @@
 import { table } from 'table';
 import chalk from 'chalk';
-import { Report } from '@visi/core/dist/domain/report';
+import { Report, ReportLevel } from '@visi/core';
 import { TFunction } from 'i18next';
 
 export const print = async (
@@ -42,11 +42,20 @@ export const print = async (
       chalk.bold(t('result.html', 'HTML')),
     ],
     ...reports.map(report => {
-      const color = {
-        ok: chalk.green,
-        warn: chalk.yellow,
-        error: chalk.red,
-      }[report.type];
+      let color;
+
+      switch (report.level) {
+        case ReportLevel.OK:
+          color = chalk.red;
+          break;
+        case ReportLevel.WARN:
+          color = chalk.yellow;
+          break;
+        case ReportLevel.ERROR:
+        default:
+          color = chalk.red;
+          break;
+      }
 
       const xpath = report.content && report.content.xpath;
 
@@ -55,7 +64,7 @@ export const print = async (
           ? report.content.html.substr(0, 100)
           : '';
 
-      return [color(report.id), report.message, xpath, html];
+      return [color(report.type), report.message, xpath, html];
     }),
   ];
 

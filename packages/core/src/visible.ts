@@ -1,10 +1,13 @@
 import puppeteer from 'puppeteer';
-import { rules } from './rules';
 import { Report } from './domain/report';
 import { Fixers } from './domain/fixers';
 import { Rule } from './domain/rule';
 import { createI18n } from './utils/i18n';
 import { Context } from './domain/context';
+
+import { ButtonAltRule } from './rules/button-alt';
+import { ImgAltRule } from './rules/image-alt';
+import { ColorContrastRule } from './rules/color-contrast';
 
 export interface VisibleParams {
   readonly url?: string;
@@ -35,9 +38,10 @@ export const visible = async (params: VisibleParams) => {
     fixers: params.fixers,
   };
 
-  for (const rule of rules.concat(params.rules || [])) {
-    const newReports = await rule(context);
-    reports.push(...newReports);
+  for (const Rule of [ButtonAltRule, ImgAltRule, ColorContrastRule]) {
+    const rule = new Rule(context);
+    const reports = await rule.audit();
+    reports.push(...reports);
   }
 
   await page.close();

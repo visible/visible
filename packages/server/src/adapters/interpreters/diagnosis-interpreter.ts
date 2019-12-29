@@ -1,19 +1,19 @@
 import uuid from 'uuid';
 import {
   Report as CoreReport,
-  ReportType as CoreReportType,
-} from '@visi/core/dist/domain/report';
+  ReportLevel as CoreReportLevel,
+} from '@visi/core';
 import { Report, ReportType } from '../../enterprise/entities';
 import { CreateDiagnosisInput } from '../../application/use-cases/create-diagnosis';
 
 export class DiagnosisInterpreter {
-  transformType = (type: CoreReportType) => {
-    switch (type) {
-      case 'ok':
+  transformType = (level: CoreReportLevel) => {
+    switch (level) {
+      case CoreReportLevel.OK:
         return ReportType.OK;
-      case 'warn':
+      case CoreReportLevel.WARN:
         return ReportType.WARN;
-      case 'error':
+      case CoreReportLevel.ERROR:
       default:
         return ReportType.ERROR;
     }
@@ -27,9 +27,9 @@ export class DiagnosisInterpreter {
         report =>
           new Report(
             uuid(),
-            report.id,
+            report.type,
             id,
-            this.transformType(report.type),
+            this.transformType(report.level),
             report.message,
             report.content?.xpath,
             report.content?.style,
