@@ -11,7 +11,7 @@ Visible plugin is an object resolved as a Node.js module, exporting following na
 
 ## `Rule`
 
-For reproducing the behaviour of browsers precisely, rules are executed on the real browser and then be reported to Node.js main process. And thus, they must be transpiled to work properly on the browser. Which ECMAScript version you should use, is depending on the version of Visible.
+For reproducing the behaviour of browsers precisely, and to allow rule developers to use DOM APIs without pain, rules are executed on the real browser and then be reported to Node.js main process. And thus, they needs be transpiled to work properly on the browser. Which ECMAScript version you should use, is depending on the version of Visible.
 
 Rule is a class that has following methods / properties.
 
