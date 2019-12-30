@@ -1,12 +1,10 @@
-export type ReportType = 'ok' | 'warn' | 'error';
-
 export enum ReportLevel {
   OK = 'OK',
   WARN = 'WARN',
   ERROR = 'ERROR',
 }
 
-export interface Content {
+export interface ReportContent {
   readonly html?: string;
   readonly xpath?: string;
   readonly style?: string;
@@ -22,7 +20,7 @@ export interface Report {
   /** User-readable message for the report */
   readonly message?: string;
   /** Web content which affected to the report */
-  readonly content?: Content;
+  readonly content?: ReportContent;
   /** Way to fix this report (WIP) */
-  readonly fix?: () => Promise<Partial<Content>>;
+  readonly fix?: () => Promise<Partial<ReportContent>>;
 }

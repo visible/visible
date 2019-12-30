@@ -1,16 +1,18 @@
-import { RuleProgressEmitter } from '../utils/rule-progress-emitter';
-import { Report } from './report';
-// import { Context } from './context';
-
-// export type Rule = (context: Context) => Promise<Report[]>;
+import { Report, ReportContent } from './report';
+import { Context } from './context';
 
 export interface RuleMetadata {
   readonly name: string;
+  readonly description?: string;
+  readonly url?: string;
+  readonly fixable?: boolean;
+  readonly deprecated?: boolean;
 }
 
 export interface Rule {
   meta: RuleMetadata;
-  progress: RuleProgressEmitter;
   audit(): Promise<Report[]>;
-  countAudits(): Promise<number>;
+  fix(content: ReportContent): Promise<ReportContent>;
 }
+
+export type RuleConstructor = (context: Context) => Rule;

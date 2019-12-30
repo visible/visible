@@ -2,12 +2,8 @@ import puppeteer from 'puppeteer';
 import { Report } from './domain/report';
 import { Fixers } from './domain/fixers';
 import { Rule } from './domain/rule';
-import { createI18n } from './utils/i18n';
-import { Context } from './domain/context';
-
-import { ButtonAltRule } from './rules/button-alt';
-import { ImgAltRule } from './rules/image-alt';
-import { ColorContrastRule } from './rules/color-contrast';
+// import { createI18n } from './utils/i18n';
+// import { Context } from './domain/context';
 
 export interface VisibleParams {
   readonly url?: string;
@@ -21,7 +17,7 @@ export interface VisibleParams {
 export const visible = async (params: VisibleParams) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  const [, t] = await createI18n(params.language);
+  // const [, t] = await createI18n(params.language);
 
   if (params.url) {
     await page.goto(params.url);
@@ -32,17 +28,17 @@ export const visible = async (params: VisibleParams) => {
   }
 
   const reports: Report[] = [];
-  const context: Context = {
-    page,
-    t,
-    fixers: params.fixers,
-  };
+  // const context: Context = {
+  //   page,
+  //   t,
+  //   fixers: params.fixers,
+  // };
 
-  for (const Rule of [ButtonAltRule, ImgAltRule, ColorContrastRule]) {
-    const rule = new Rule(context);
-    const reports = await rule.audit();
-    reports.push(...reports);
-  }
+  // for (const Rule of []) {
+  //   const rule = new Rule(context);
+  //   const reports = await rule.audit();
+  //   reports.push(...reports);
+  // }
 
   await page.close();
   await browser.close();

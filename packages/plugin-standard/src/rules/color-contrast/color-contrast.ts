@@ -1,39 +1,33 @@
+import { Report, ReportLevel, Context, Rule, ReportContent } from '@visi/core';
 import { getContrast, parseToRgb } from 'polished';
-import { ElementHandle } from 'puppeteer';
-import { Rule } from '../../domain/rule';
-import { Report, ReportLevel } from '../../domain/report';
-import { createXPath } from '../../utils/create-xpath';
-import { Context } from '../../domain/context';
-import { RuleProgressEmitter } from '../../utils/rule-progress-emitter';
+// import { createXPath } from '../../../../core/src/utils/create-xpath';
+// import { Context } from '../../../../core/src/domain/context';
+// import { RuleProgressEmitter } from '../../../../core/src/utils/rule-progress-emitter';
 
-// See resources for Contrast ratio:
-// https://www.w3.org/TR/WCAG20-TECHS/G18.html
 export class ColorContrastRule implements Rule {
   constructor(private readonly context: Context) {}
 
   meta = {
     name: 'color-contrast',
+    description: 'Checks color contrast ratio',
+    url: 'https://www.w3.org/TR/WCAG20-TECHS/G18.html',
+    fixable: true,
   };
 
-  progress = new RuleProgressEmitter();
-
-  async countAudits() {
-    const { page } = this.context;
-    const elements = await page.$$('*');
-    return elements.length;
-  }
-
   async audit() {
-    const elements = await page.$$('*');
+    const elements = Array.from(document.querySelectorAll('*'));
     const reports: Report[] = [];
 
     for (const element of elements) {
       const report = await this.createColorContrastReport(element);
       if (report) reports.push(report);
-      this.progress.emitProgress();
     }
 
     return reports;
+  }
+
+  async fix(content: ReportContent) {
+    return content;
   }
 
   private isTransparent = (color: string) => {
@@ -46,20 +40,17 @@ export class ColorContrastRule implements Rule {
     return false;
   };
 
-  /* istanbul ignore next */
   private async createColorContrastReport(
-    element: ElementHandle,
+    element: Element,
   ): Promise<Report | undefined> {
     const { t } = this.context;
 
-    const xpath = await createXPath(element);
-    const textContent = await element.evaluate(e => e.textContent);
-    const outerHTML = await element.evaluate(e => e.outerHTML);
-    const style = await element.evaluate(e => getComputedStyle(e).cssText);
-    const color = await element.evaluate(e => getComputedStyle(e).color);
-    const backgroundColor = await element.evaluate(
-      e => getComputedStyle(e).backgroundColor,
-    );
+    // const xpath = await createXPath(element);
+    const textContent = element.textContent;
+    const outerHTML = element.outerHTML;
+    const style = getComputedStyle(element).cssText;
+    const color = getComputedStyle(element).color;
+    const backgroundColor = getComputedStyle(element).backgroundColor;
 
     if (
       !backgroundColor ||
@@ -84,7 +75,7 @@ export class ColorContrastRule implements Rule {
         content: {
           html: outerHTML,
           style,
-          xpath,
+          xpath: '',
         },
       };
     }
@@ -101,7 +92,7 @@ export class ColorContrastRule implements Rule {
         content: {
           html: outerHTML,
           style,
-          xpath,
+          xpath: '',
         },
       };
     }
@@ -112,7 +103,7 @@ export class ColorContrastRule implements Rule {
       level: ReportLevel.OK,
       content: {
         html: outerHTML,
-        xpath,
+        xpath: '',
       },
     };
   }

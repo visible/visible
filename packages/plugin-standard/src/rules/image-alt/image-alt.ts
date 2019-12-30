@@ -1,28 +1,17 @@
-import { ElementHandle } from 'puppeteer';
-import { Rule } from '../../domain/rule';
-import { Report, ReportLevel } from '../../domain/report';
+import { Report, ReportLevel, Rule, Context, ReportContent } from '@visi/core';
 import { createXPath } from '../../utils/create-xpath';
-import { Context } from '../../domain/context';
-import { RuleProgressEmitter } from '../../utils/rule-progress-emitter';
+import { $$ } from '../../utils/$$';
 
 export class ImgAltRule implements Rule {
   constructor(private readonly context: Context) {}
 
   meta = {
     name: 'img-alt',
+    description: 'Checks img has alt',
   };
 
-  progress = new RuleProgressEmitter();
-
-  async countAudits() {
-    const { page } = this.context;
-    const elements = await page.$$('img');
-    return elements.length;
-  }
-
   async audit() {
-    const { page } = this.context;
-    const elements = await page.$$('img');
+    const elements = $$('img');
     const reports: Report[] = [];
 
     for (const element of elements) {
@@ -33,14 +22,15 @@ export class ImgAltRule implements Rule {
     return reports;
   }
 
-  /* istanbul ignore next */
-  private async createImgAltRuleReport(
-    element: ElementHandle,
-  ): Promise<Report> {
+  async fix(content: ReportContent) {
+    return content;
+  }
+
+  private async createImgAltRuleReport(element: Element): Promise<Report> {
     const { t } = this.context;
-    const xpath = await createXPath(element);
-    const alt = await element.evaluate(e => e.getAttribute('alt'));
-    const html = await element.evaluate(e => e.outerHTML);
+    const xpath = createXPath(element);
+    const alt = element.getAttribute('alt');
+    const html = element.outerHTML;
 
     if (!alt) {
       return {

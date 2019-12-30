@@ -36,6 +36,10 @@ module.exports = {
       reporters: ['default', 'jest-puppeteer-istanbul/lib/reporter'],
     },
     {
+      ...shared('plugin-standard'),
+      testEnvironment: 'jsdom',
+    },
+    {
       ...shared('ui'),
       testEnvironment: 'jsdom',
       setupFilesAfterEnv: ['<rootDir>/packages/ui/tests/setup.ts'],

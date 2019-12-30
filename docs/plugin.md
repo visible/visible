@@ -17,8 +17,6 @@ Rule is a class that has following methods / properties.
 
 - `static meta` - Metadata of the rule
 - `audit(context: Context): Promise<Report>` - Method to invoke aduit
-- `countAudits(): Promise<number>` - Method to count number of audits, used to estimate the progress.
-- ~~event emitter~~
 
 ### Code Example
 ```ts
@@ -29,16 +27,11 @@ class NoAlt implements Rule {
     name: 'no-alt',
     description: 'My first rule!',
     url: 'https://exmaple.com/my-rule',
+    fixable: true,
     deprecated: false,
   };
 
-  async countAudits() {
-    // NoAlt only check <img>s so the number of audit
-    // is equal to the number of <img>s
-    return document.getElemenyByTagName('IMG').length;
-  }
-
-  async audit(context: Context): Report {
+  async audit(context: Context): Promise<Report> {
     const elements = Array.from(document.getElementByTagName('IMG'));
 
     return elements.map(element => {
