@@ -15,11 +15,52 @@ For reproducing the behaviour of browsers precisely, rules are executed on the r
 
 Rule is a class that has following methods / properties.
 
-- `constructor(context: Context)` - Constructor of the class
 - `static meta` - Metadata of the rule
-- `audit(): Promise<Report>` - Method to invoke aduit
-- `countAudits(): Promise<number>` - Method to count number of audits, used for estimation of a progress.
+- `audit(context: Context): Promise<Report>` - Method to invoke aduit
+- `countAudits(): Promise<number>` - Method to count number of audits, used to estimate the progress.
 - ~~event emitter~~
+
+### Code Example
+```ts
+import { Rule, Context, Report } from '@visi/core';
+
+class NoAlt implements Rule {
+  static meta = {
+    name: 'no-alt',
+    description: 'My first rule!',
+    url: 'https://exmaple.com/my-rule',
+    deprecated: false,
+  };
+
+  async countAudits() {
+    // NoAlt only check <img>s so the number of audit
+    // is equal to the number of <img>s
+    return document.getElemenyByTagName('IMG').length;
+  }
+
+  async audit(context: Context): Report {
+    const elements = Array.from(document.getElementByTagName('IMG'));
+
+    return elements.map(element => {
+      if (element.getAttribute('alt')) {
+        return;
+      }
+
+      // Report
+      return {
+        rule: 'no-alt',
+        type: 'no-alt/no-alt',
+        level: 'ERROR',
+        message: 'IMG element must have alt attribute',
+        content: {
+          html: element.outerHTML,
+          xpath: createXPath(element),
+        }
+      }
+    }
+  }
+}
+```
 
 ## `Report`
 
