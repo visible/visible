@@ -1,4 +1,4 @@
-import { Report, ReportLevel, Rule, Context, ReportContent } from '@visi/core';
+import { Report, Rule, Context, ReportContent } from '@visi/core';
 import { createXPath } from '../../utils/create-xpath';
 import { $$ } from '../../utils/$$';
 
