@@ -1,6 +1,7 @@
 #!/usr/bin/env node
+import path from 'path';
 import yargs from 'yargs';
-import { visible } from '@visi/core';
+import { visible, Config } from '@visi/core';
 import { print } from './print';
 import { loader } from './loader';
 import { createI18n } from './i18n';
@@ -43,9 +44,14 @@ import { createI18n } from './i18n';
 
     async ({ url, json, verbose, fix }) => {
       try {
+        const config: Config = require(path.join(
+          process.cwd(),
+          '.visiblerc.json',
+        ));
+
         const reports = await loader(
           t('loading', 'Fetching diagnosises...'),
-          visible({ url, language: i18next.language }),
+          visible({ config, url, language: i18next.language }),
         );
 
         await print(reports, json, verbose, t, fix);

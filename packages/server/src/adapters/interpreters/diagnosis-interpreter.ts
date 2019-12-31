@@ -9,11 +9,11 @@ import { CreateDiagnosisInput } from '../../application/use-cases/create-diagnos
 export class DiagnosisInterpreter {
   transformType = (level: CoreReportLevel) => {
     switch (level) {
-      case CoreReportLevel.OK:
+      case 'ok':
         return ReportType.OK;
-      case CoreReportLevel.WARN:
+      case 'warn':
         return ReportType.WARN;
-      case CoreReportLevel.ERROR:
+      case 'error':
       default:
         return ReportType.ERROR;
     }

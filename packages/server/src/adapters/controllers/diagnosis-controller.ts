@@ -26,7 +26,15 @@ export class DiagnosisController {
   }
 
   async create(url: string) {
-    const reports = await visible({ url });
+    const reports = await visible({
+      config: {
+        extends: [],
+        plugins: ['@visi/plugin-standard'],
+        rules: {},
+      },
+      url,
+    });
+
     const input = new DiagnosisInterpreter().transform(reports);
     const result = await this.createDiagnosis.run(input);
     const output = new DiagnosisSerializer().transformOne(result);

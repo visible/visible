@@ -1,6 +1,6 @@
 import { table } from 'table';
 import chalk from 'chalk';
-import { Report, ReportLevel } from '@visi/core';
+import { Report } from '@visi/core';
 import { TFunction } from 'i18next';
 
 export const print = async (
@@ -45,13 +45,13 @@ export const print = async (
       let color;
 
       switch (report.level) {
-        case ReportLevel.OK:
+        case 'ok':
           color = chalk.red;
           break;
-        case ReportLevel.WARN:
+        case 'warn':
           color = chalk.yellow;
           break;
-        case ReportLevel.ERROR:
+        case 'error':
         default:
           color = chalk.red;
           break;
