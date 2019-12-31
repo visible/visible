@@ -1,8 +1,9 @@
-import puppeteer, { Page } from 'puppeteer';
 import { Fixers } from './domain/fixers';
 import { Plugin } from './domain/plugin';
 import { Rule } from './domain/rule';
 import { Config } from './domain/config';
+import { Browser } from './domain/browser';
+import { BrowserPuppeteerImpl } from './adapters/puppeteer-impl';
 
 export interface VisibleParams {
   readonly config: Config;
@@ -14,7 +15,10 @@ export interface VisibleParams {
 }
 
 export class Visible {
-  constructor(private readonly params: VisibleParams) {}
+  constructor(
+    private readonly params: VisibleParams,
+    private readonly browser: Browser,
+  ) {}
 
   /**
    * Takes config object and reoslve extends
@@ -34,36 +38,20 @@ export class Visible {
   }
 
   /**
-   *
-   * @param page Page instance
-   * @param path path to the plugin
-   * @param name name of the plugin
-   */
-  private registerPlugin(page: Page, path: string, name: string) {
-    page.addScriptTag({ path });
-
-    page.evaluate((name: string) => {
-      if (!(window as any).pluginNames) {
-        (window as any).pluginNames = [];
-      }
-
-      (window as any).pluginNames.push(name);
-    }, name);
-  }
-
-  /**
    * Find rules from window, and execute them
    *
    * TODO: Add config reader on the browser side...?
    * cuz we cant resolve the structure of a module on the Node.js side
    */
-  private runRules = (page: Page) =>
-    page.evaluate(() => {
-      // Find plugins
-      const { pluginNames } = window as any;
+  private async runRules() {
+    const pluginNames = await this.browser.getIIFE();
+
+    // prettier-ignore
+    return this.browser.run((pluginNames: string[]) => {
       const plugins: Plugin[] = [];
 
       for (const name of pluginNames) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         plugins.push((window as any)[name]);
       }
 
@@ -74,44 +62,41 @@ export class Visible {
       // Find rules
       const rules = flatten(plugins.map(plugin => plugin.rules));
 
-      return Promise.all(
-        rules.map(Rule => {
-          const rule = new Rule({
-            // We might can use `exposeFucntion` here?
-            // since we don't need an access to the DOM from that side...
-            t: (k: string) => k,
-          });
+      return Promise.all(rules.map(Rule => {
+        const rule = new Rule({
+          // We might can use `exposeFucntion` here?
+          // since we don't need an access to the DOM from that side...
+          t: (k: string) => k,
+        });
 
-          return rule.audit();
-        }),
-      ).then(reports => flatten(reports));
-    });
+        return rule.audit();
+      })).then(reports => flatten(reports));
+    }, [pluginNames]);
+  }
 
   /**
    * Diagnose the page
    */
   async diagnose() {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto(this.params.url ?? '');
+    await this.browser.setup();
+    await this.browser.openURL(this.params.url ?? '');
 
     const config = await this.mergeExtends(this.params.config);
 
     for (const plugin of config.plugins) {
-      this.registerPlugin(page, require.resolve(plugin), plugin);
+      this.browser.installIIFE(plugin, require.resolve(plugin));
     }
 
-    await page.waitFor(1000);
+    await this.browser.waitFor(1000);
 
-    const reports = await this.runRules(page);
-
-    await page.close();
-    await browser.close();
+    const reports = await this.runRules();
+    await this.browser.cleanup();
 
     return reports;
   }
 }
 
 export const visible = (params: VisibleParams) => {
-  return new Visible(params).diagnose();
+  const puppeteer = new BrowserPuppeteerImpl();
+  return new Visible(params, puppeteer).diagnose();
 };
