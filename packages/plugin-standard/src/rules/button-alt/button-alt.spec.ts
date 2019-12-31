@@ -1,4 +1,3 @@
-import { ReportLevel } from '@visi/core';
 import { t } from '../../__fixture__/i18n';
 import { ButtonAltRule } from './button-alt';
 
@@ -14,7 +13,7 @@ describe('button-alt', () => {
       expect.objectContaining({
         rule: 'button-alt',
         type: 'button-alt.no-alt',
-        level: ReportLevel.ERROR,
+        level: 'error',
       }),
     );
   });
@@ -32,7 +31,7 @@ describe('button-alt', () => {
       expect.objectContaining({
         rule: 'button-alt',
         type: 'button-alt.ok',
-        level: ReportLevel.OK,
+        level: 'ok',
       }),
     );
   });

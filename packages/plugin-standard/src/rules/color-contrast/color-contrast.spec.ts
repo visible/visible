@@ -1,4 +1,3 @@
-import { ReportLevel } from '@visi/core';
 import { t } from '../../__fixture__/i18n';
 import { ColorContrastRule } from './color-contrast';
 
@@ -18,7 +17,7 @@ describe('color-contrast', () => {
       expect.objectContaining({
         type: 'color-contrast.wcag-aa',
         rule: 'color-contrast',
-        level: ReportLevel.ERROR,
+        level: 'error',
       }),
     );
   });
@@ -36,7 +35,7 @@ describe('color-contrast', () => {
       expect.objectContaining({
         type: 'color-contrast.wcag-aaa',
         rule: 'color-contrast',
-        level: ReportLevel.WARN,
+        level: 'warn',
       }),
     );
   });
@@ -54,7 +53,7 @@ describe('color-contrast', () => {
       expect.objectContaining({
         type: 'color-contrast.ok',
         rule: 'color-contrast',
-        level: ReportLevel.OK,
+        level: 'ok',
       }),
     );
   });

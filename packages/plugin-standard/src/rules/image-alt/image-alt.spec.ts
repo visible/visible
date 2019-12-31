@@ -1,4 +1,3 @@
-import { ReportLevel } from '@visi/core';
 import { t } from '../../__fixture__/i18n';
 import { ImgAltRule } from './image-alt';
 
@@ -18,7 +17,7 @@ describe('img-alt', () => {
       expect.objectContaining({
         rule: 'img-alt',
         type: 'img-alt.no-alt',
-        level: ReportLevel.ERROR,
+        level: 'error',
       }),
     );
   });
@@ -34,7 +33,7 @@ describe('img-alt', () => {
       expect.objectContaining({
         rule: 'img-alt',
         type: 'img-alt.ok',
-        level: ReportLevel.OK,
+        level: 'ok',
       }),
     );
   });
