@@ -1,9 +1,9 @@
-import { Fixers } from './domain/fixers';
-import { Plugin } from './domain/plugin';
-import { Rule } from './domain/rule';
-import { Config } from './domain/config';
-import { Browser } from './domain/browser';
-import { BrowserPuppeteerImpl } from './adapters/puppeteer-impl';
+import { Browser } from '../domain/browser';
+import { Config } from '../domain/config';
+import { Fixers } from '../domain/fixers';
+import { Plugin } from '../domain/plugin';
+import { Rule } from '../domain/rule';
+import { mergeExtends } from '../utils/config';
 
 export interface VisibleParams {
   readonly config: Config;
@@ -21,20 +21,24 @@ export class Visible {
   ) {}
 
   /**
-   * Takes config object and reoslve extends
-   * @param baseConfig base configuration object
+   * Diagnose the page
    */
-  private async mergeExtends(baseConfig: Config): Promise<Config> {
-    const extendables: Config[] = [];
+  async diagnose() {
+    await this.browser.setup();
+    await this.browser.openURL(this.params.url ?? '');
 
-    for (const extendable of baseConfig.extends) {
-      const config = await import(require.resolve(extendable));
-      extendables.push(config);
+    const config = mergeExtends(this.params.config);
+
+    for (const plugin of config.plugins) {
+      this.browser.installIIFE(plugin, require.resolve(plugin));
     }
 
-    return [...extendables, baseConfig].reduce((result, config) => {
-      return { ...result, ...config };
-    }, {} as Config);
+    await this.browser.waitFor(1000);
+
+    const reports = await this.runRules();
+    await this.browser.cleanup();
+
+    return reports;
   }
 
   /**
@@ -73,30 +77,4 @@ export class Visible {
       })).then(reports => flatten(reports));
     }, [pluginNames]);
   }
-
-  /**
-   * Diagnose the page
-   */
-  async diagnose() {
-    await this.browser.setup();
-    await this.browser.openURL(this.params.url ?? '');
-
-    const config = await this.mergeExtends(this.params.config);
-
-    for (const plugin of config.plugins) {
-      this.browser.installIIFE(plugin, require.resolve(plugin));
-    }
-
-    await this.browser.waitFor(1000);
-
-    const reports = await this.runRules();
-    await this.browser.cleanup();
-
-    return reports;
-  }
 }
-
-export const visible = (params: VisibleParams) => {
-  const puppeteer = new BrowserPuppeteerImpl();
-  return new Visible(params, puppeteer).diagnose();
-};
