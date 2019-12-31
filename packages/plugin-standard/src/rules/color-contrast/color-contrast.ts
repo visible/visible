@@ -1,8 +1,5 @@
-import { Report, ReportLevel, Context, Rule, ReportContent } from '@visi/core';
+import { Report, Context, Rule, ReportContent } from '@visi/core';
 import { getContrast, parseToRgb } from 'polished';
-// import { createXPath } from '../../../../core/src/utils/create-xpath';
-// import { Context } from '../../../../core/src/domain/context';
-// import { RuleProgressEmitter } from '../../../../core/src/utils/rule-progress-emitter';
 
 export class ColorContrastRule implements Rule {
   constructor(private readonly context: Context) {}
@@ -67,7 +64,7 @@ export class ColorContrastRule implements Rule {
       return {
         type: 'color-contrast.wcag-aaa',
         rule: ColorContrastRule.meta.name,
-        level: ReportLevel.WARN,
+        level: 'warn',
         message: t(
           'color-contrast.aa',
           'Color contrast ratio should be greater than 7',
@@ -84,7 +81,7 @@ export class ColorContrastRule implements Rule {
       return {
         type: 'color-contrast.wcag-aa',
         rule: ColorContrastRule.meta.name,
-        level: ReportLevel.ERROR,
+        level: 'error',
         message: t(
           'color-contrast.less-than-aa',
           'Color contrast must be greater than 4.5',
@@ -100,7 +97,7 @@ export class ColorContrastRule implements Rule {
     return {
       type: 'color-contrast.ok',
       rule: ColorContrastRule.meta.name,
-      level: ReportLevel.OK,
+      level: 'ok',
       content: {
         html: outerHTML,
         xpath: '',

@@ -1,13 +1,8 @@
-// import { promises as fs } from 'fs';
 import puppeteer, { Page } from 'puppeteer';
-import { Context } from './domain/context';
 import { Fixers } from './domain/fixers';
 import { Plugin } from './domain/plugin';
-import { Rule, RuleConstructor } from './domain/rule';
+import { Rule } from './domain/rule';
 import { Config } from './domain/config';
-import { Report } from './domain/report';
-// import { createI18n } from './utils/i18n';
-import { runnable } from './utils/runnable';
 
 export interface VisibleParams {
   readonly config: Config;
@@ -21,7 +16,11 @@ export interface VisibleParams {
 export class Visible {
   constructor(private readonly params: VisibleParams) {}
 
-  private async getConfig(baseConfig: Config): Promise<Config> {
+  /**
+   * Takes config object and reoslve extends
+   * @param baseConfig base configuration object
+   */
+  private async mergeExtends(baseConfig: Config): Promise<Config> {
     const extendables: Config[] = [];
 
     for (const extendable of baseConfig.extends) {
@@ -34,58 +33,77 @@ export class Visible {
     }, {} as Config);
   }
 
-  private async loadPlugins(paths: Config['plugins']): Promise<Plugin[]> {
-    const plugins: Plugin[] = [];
+  /**
+   *
+   * @param page Page instance
+   * @param path path to the plugin
+   * @param name name of the plugin
+   */
+  private registerPlugin(page: Page, path: string, name: string) {
+    page.addScriptTag({ path });
 
-    for (const path of paths) {
-      const plugin = require(path).default;
-      plugins.push(plugin);
-    }
+    page.evaluate((name: string) => {
+      if (!(window as any).pluginNames) {
+        (window as any).pluginNames = [];
+      }
 
-    return plugins;
+      (window as any).pluginNames.push(name);
+    }, name);
   }
 
-  private async runRuleOnPage(
-    Rule: RuleConstructor,
-    page: Page,
-  ): Promise<Report[]> {
-    const reports = await await page.evaluate(
-      runnable((context: Context) => {
-        const rule = new Rule(context);
-        return rule.audit();
-      }),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      { t: (a: string) => a },
-    );
-    return reports as Report[];
-  }
+  /**
+   * Find rules from window, and execute them
+   *
+   * TODO: Add config reader on the browser side...?
+   * cuz we cant resolve the structure of a module on the Node.js side
+   */
+  private runRules = (page: Page) =>
+    page.evaluate(() => {
+      // Find plugins
+      const { pluginNames } = window as any;
+      const plugins: Plugin[] = [];
 
+      for (const name of pluginNames) {
+        plugins.push((window as any)[name]);
+      }
+
+      // macro
+      const flatten = <T>(ar: T[][]) =>
+        ar.reduce<T[]>((a, c) => [...a, ...c], []);
+
+      // Find rules
+      const rules = flatten(plugins.map(plugin => plugin.rules));
+
+      return Promise.all(
+        rules.map(Rule => {
+          const rule = new Rule({
+            // We might can use `exposeFucntion` here?
+            // since we don't need an access to the DOM from that side...
+            t: (k: string) => k,
+          });
+
+          return rule.audit();
+        }),
+      ).then(reports => flatten(reports));
+    });
+
+  /**
+   * Diagnose the page
+   */
   async diagnose() {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    await page.goto(this.params.url ?? '');
 
-    // const [, _t] = await createI18n();
-    const config = await this.getConfig(this.params.config);
-    const plugins = await this.loadPlugins(config.plugins);
+    const config = await this.mergeExtends(this.params.config);
 
-    // // inject everything
-    // for (const plugin of plugins) {
-    //   page.addScriptTag({ content: plugin });
-    // }
-
-    const rules = plugins
-      .map(plugin => plugin.rules)
-      .reduce<RuleConstructor[]>((acc, cur) => [...acc, ...cur], [])
-      .filter(rule => Object.keys(config.rules).includes(rule.meta.name));
-
-    const reports: Report[] = [];
-
-    for (const rule of rules) {
-      // console.log(report);
-      const report = await this.runRuleOnPage(rule, page);
-      reports.push(...report);
+    for (const plugin of config.plugins) {
+      this.registerPlugin(page, require.resolve(plugin), plugin);
     }
+
+    await page.waitFor(1000);
+
+    const reports = await this.runRules(page);
 
     await page.close();
     await browser.close();

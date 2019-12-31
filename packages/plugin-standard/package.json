@@ -8,10 +8,18 @@
   "files": [
     "./dist"
   ],
+  "scripts": {
+    "build": "rollup -c rollup.config.js"
+  },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@visi/core": "^0.0.0"
+  },
+  "devDependencies": {
+    "rollup": "^1.27.14",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.25.3"
   }
 }

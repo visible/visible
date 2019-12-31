@@ -1,8 +1,4 @@
-export enum ReportLevel {
-  OK = 'OK',
-  WARN = 'WARN',
-  ERROR = 'ERROR',
-}
+export type ReportLevel = 'ok' | 'warn' | 'error';
 
 export interface ReportContent {
   readonly html?: string;

@@ -1,24 +1,9 @@
 # Plugins (Draft)
+
 Guid for developing a Visible plugin.
 
-## `Plugin`
+### TL;DR
 
-Visible plugin is an object resolved as a Node.js module, exporting following names as `default`. The identity of the plugin is determined by the `name` field of `package.json` at its root.
-
-| Property | Type     | Description        |
-| :------- | :------- | :----------------- |
-| `rules`  | `Rule[]` | Rules              |
-
-## `Rule`
-
-For reproducing the behaviour of browsers precisely, and to allow rule developers to use DOM APIs without pain, rules are executed on the real browser and then be reported to Node.js main process. And thus, they needs be transpiled to work properly on the browser. Which ECMAScript version you should use, is depending on the version of Visible.
-
-Rule is a class that has following methods / properties.
-
-- `static meta` - Metadata of the rule
-- `audit(context: Context): Promise<Report>` - Method to invoke aduit
-
-### Code Example
 ```ts
 import { Rule, Context, Report } from '@visi/core';
 
@@ -33,27 +18,49 @@ class NoAlt implements Rule {
 
   async audit(context: Context): Promise<Report> {
     const elements = Array.from(document.getElementByTagName('IMG'));
+    return elements.map(element => this.reportNoAlt(element));
+  }
 
-    return elements.map(element => {
-      if (element.getAttribute('alt')) {
-        return;
-      }
+  private reportNoAlt(element: Element) {
+    if (element.getAttribute('alt')) {
+      return;
+    }
 
-      // Report
-      return {
-        rule: 'no-alt',
-        type: 'no-alt/no-alt',
-        level: 'ERROR',
-        message: 'IMG element must have alt attribute',
-        content: {
-          html: element.outerHTML,
-          xpath: createXPath(element),
-        }
+    // Report
+    return {
+      rule: 'no-alt',
+      type: 'no-alt/no-alt',
+      level: 'ERROR',
+      message: 'IMG element must have alt attribute',
+      content: {
+        html: element.outerHTML,
+        xpath: createXPath(element),
       }
     }
   }
 }
+
+export default {
+  rules: [NoAlt],
+}
 ```
+
+## `Plugin`
+
+Visible plugin is an object resolved as a Node.js module, exporting following names as `default`. The identity of the plugin is determined by the `name` field of `package.json` at its root.
+
+| Property | Type     | Description |
+| :------- | :------- | :---------- |
+| `rules`  | `Rule[]` | Rules       |
+
+## `Rule`
+
+For reproducing the behaviour of browsers precisely, and to allow rule developers to use DOM APIs without pain, rules are executed on the real browser and then be reported to Node.js main process. And thus, they needs be transpiled to work properly on the browser. Which ECMAScript version you should use, is depending on the version of Visible.
+
+Rule is a class that has following methods / properties.
+
+- `static meta` - Metadata of the rule
+- `audit(context: Context): Promise<Report>` - Method to invoke aduit
 
 ## `Report`
 

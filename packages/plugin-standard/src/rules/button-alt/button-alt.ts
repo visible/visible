@@ -1,4 +1,4 @@
-import { Rule, Report, ReportLevel, Context, ReportContent } from '@visi/core';
+import { Rule, Report, Context, ReportContent } from '@visi/core';
 import { createXPath } from '../../utils/create-xpath';
 
 export class ButtonAltRule implements Rule {
@@ -36,7 +36,7 @@ export class ButtonAltRule implements Rule {
       return {
         type: 'button-alt.no-alt',
         rule: ButtonAltRule.meta.name,
-        level: ReportLevel.ERROR,
+        level: 'error',
         message: t(
           'button-alt.no-alt',
           'button element must have title attribute or text content',
@@ -51,7 +51,7 @@ export class ButtonAltRule implements Rule {
     return {
       type: 'button-alt.ok',
       rule: ButtonAltRule.meta.name,
-      level: ReportLevel.OK,
+      level: 'ok',
       content: {
         html: outerHTML,
         xpath: createXPath(element),

@@ -36,7 +36,7 @@ export class ImgAltRule implements Rule {
       return {
         type: 'img-alt.no-alt',
         rule: ImgAltRule.meta.name,
-        level: ReportLevel.ERROR,
+        level: 'error',
         message: t('img-alt.no-alt', 'img element must have alt attribute'),
         content: {
           xpath,
@@ -48,7 +48,7 @@ export class ImgAltRule implements Rule {
     return {
       type: 'img-alt.ok',
       rule: ImgAltRule.meta.name,
-      level: ReportLevel.OK,
+      level: 'ok',
       content: {
         xpath,
         html,
