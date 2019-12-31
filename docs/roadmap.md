@@ -1,3 +1,51 @@
+# i18nの解決方法
+- プラグイン側にi18nのラッパーを用いるように強いる？
+
+```ts
+import { I18nProvider, Rule } from '@visi/core';
+
+export class MyRule implements Rule extends I18nProvider {
+  constructor() {
+    // Register i18n keys
+    this.registerI18n({...});
+  }
+
+  audit() {
+    // `t` is available
+    this.t;
+  }
+}
+```
+
+- でもCLIとかだとラッパーになってる意味がわからなそう
+- と思ったけどlanguage detectorを時前実装しなくていいから楽？
+- i18nproviderだとクラス以外から使えないからシングルトンな関数をexportするとか
+- 引数はi18nextのリソースの構造そのまま使う？
+- namespaceはどうなる？？
+
+受け取る側:
+
+```ts
+const registerI18n = () => {
+  i18n.addResource({...});
+  return i18n.createInstance({ defaultNs: '...' });
+}
+```
+
+- ついでに `getResources` みたいなのをcoreからexportしてserverでも読めるようにするのが良いかと思ってたけど
+- ブラウザにインスタンス引き回すの超だるそう (シリアライズできないから)
+- `exposeFunction` するとか...?
+
+```ts
+// Server (アクセスのあった言語でインスタンス化)
+new Visible({ t });
+// Core (オプションが付いてたらそれを使う)
+page.exposeFunction('t', t);
+// DOM (exposedな関数を使う) (でもwindowをオーバーロードする)
+// exposeFunctionしたあとにそれへの参照を new Rule() に渡せばいい？
+t('mykey');
+```
+
 # A11y の問題とソリューションのグループ化
 
 Axe-core がサポートしている問題を、その修正方法でグループ化した。
