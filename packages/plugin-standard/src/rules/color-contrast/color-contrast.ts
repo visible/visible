@@ -7,7 +7,7 @@ import { getContrast, parseToRgb } from 'polished';
 export class ColorContrastRule implements Rule {
   constructor(private readonly context: Context) {}
 
-  meta = {
+  static meta = {
     name: 'color-contrast',
     description: 'Checks color contrast ratio',
     url: 'https://www.w3.org/TR/WCAG20-TECHS/G18.html',
@@ -66,7 +66,7 @@ export class ColorContrastRule implements Rule {
     if (4.5 < contrastRatio && contrastRatio <= 7) {
       return {
         type: 'color-contrast.wcag-aaa',
-        rule: this.meta.name,
+        rule: ColorContrastRule.meta.name,
         level: ReportLevel.WARN,
         message: t(
           'color-contrast.aa',
@@ -83,7 +83,7 @@ export class ColorContrastRule implements Rule {
     if (contrastRatio <= 4.5) {
       return {
         type: 'color-contrast.wcag-aa',
-        rule: this.meta.name,
+        rule: ColorContrastRule.meta.name,
         level: ReportLevel.ERROR,
         message: t(
           'color-contrast.less-than-aa',
@@ -99,7 +99,7 @@ export class ColorContrastRule implements Rule {
 
     return {
       type: 'color-contrast.ok',
-      rule: this.meta.name,
+      rule: ColorContrastRule.meta.name,
       level: ReportLevel.OK,
       content: {
         html: outerHTML,

@@ -5,7 +5,7 @@ import { $$ } from '../../utils/$$';
 export class ImgAltRule implements Rule {
   constructor(private readonly context: Context) {}
 
-  meta = {
+  static meta = {
     name: 'img-alt',
     description: 'Checks img has alt',
   };
@@ -35,7 +35,7 @@ export class ImgAltRule implements Rule {
     if (!alt) {
       return {
         type: 'img-alt.no-alt',
-        rule: this.meta.name,
+        rule: ImgAltRule.meta.name,
         level: ReportLevel.ERROR,
         message: t('img-alt.no-alt', 'img element must have alt attribute'),
         content: {
@@ -47,7 +47,7 @@ export class ImgAltRule implements Rule {
 
     return {
       type: 'img-alt.ok',
-      rule: this.meta.name,
+      rule: ImgAltRule.meta.name,
       level: ReportLevel.OK,
       content: {
         xpath,

@@ -10,9 +10,11 @@ export interface RuleMetadata {
 }
 
 export interface Rule {
-  meta: RuleMetadata;
   audit(): Promise<Report[]>;
   fix(content: ReportContent): Promise<ReportContent>;
 }
 
-export type RuleConstructor = (context: Context) => Rule;
+export interface RuleConstructor {
+  meta: RuleMetadata;
+  new (context: Context): Rule;
+}

@@ -2,7 +2,7 @@ import { Rule, Report, ReportLevel, Context, ReportContent } from '@visi/core';
 import { createXPath } from '../../utils/create-xpath';
 
 export class ButtonAltRule implements Rule {
-  meta = {
+  static meta = {
     name: 'button-alt',
     description: 'Checks button has textContent yor title attribute',
     fixable: true,
@@ -35,7 +35,7 @@ export class ButtonAltRule implements Rule {
     if (!textContent && !title) {
       return {
         type: 'button-alt.no-alt',
-        rule: this.meta.name,
+        rule: ButtonAltRule.meta.name,
         level: ReportLevel.ERROR,
         message: t(
           'button-alt.no-alt',
@@ -50,7 +50,7 @@ export class ButtonAltRule implements Rule {
 
     return {
       type: 'button-alt.ok',
-      rule: this.meta.name,
+      rule: ButtonAltRule.meta.name,
       level: ReportLevel.OK,
       content: {
         html: outerHTML,
