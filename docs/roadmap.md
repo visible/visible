@@ -46,6 +46,50 @@ page.exposeFunction('t', t);
 t('mykey');
 ```
 
+- VSCodeみたいにグローバルにAPIをエクスポートしまくるとか
+
+```ts
+// Node.js で受け取りたいのでこれはアリ
+page.exposeFunction('report', report);
+// これもアリかもしれん。 fixerとかtとか
+page.exposeFunction('getContext', registerPlugin);
+// これは微妙かもしれん
+page.evaluate(() => {
+  window.registerPlugin = () => {...};
+  window.initialize     = () => {...};
+  window.initialize();
+});
+
+// ---------------------
+// DOM世界
+// ---------------------
+registerPlugin({
+  config: MyRecommendedConfig,
+  rules: [ImgAlt],
+});
+
+class ImgAlt {
+  construtor() {
+    this.context = window.getContext();
+  }
+
+  audit() {
+    for (const img of $$('img')) {
+      if (img) continue;
+
+      report({
+        rule: 'img-alt',
+        level: 'error',
+        message: 'img must have alt attribute',
+        content: { html: img.outerHTML, xpath: img.xpath },
+      });
+    }
+  }
+}
+```
+
+- でもDOMからしか使えないのでconfigとかが解決ダルそう (configをnode.jsから見れないのは地獄)
+
 # A11y の問題とソリューションのグループ化
 
 Axe-core がサポートしている問題を、その修正方法でグループ化した。
