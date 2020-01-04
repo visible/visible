@@ -4,7 +4,8 @@
   "main": "./dist/index.js",
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "tsc"
+    "build:main": "tsc",
+    "build:renderer": "webpack --mode=production"
   },
   "files": [
     "./dist"
@@ -19,5 +20,21 @@
     "polished": "^3.4.2",
     "puppeteer": "^2.0.0",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-decorators": "^7.7.4",
+    "@babel/plugin-proposal-json-strings": "^7.7.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
+    "@babel/plugin-proposal-numeric-separator": "^7.7.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/plugin-syntax-import-meta": "^7.7.4",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   }
 }

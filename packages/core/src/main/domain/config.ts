@@ -8,6 +8,7 @@ export interface Settings {
   language?: string;
   width?: number;
   height?: number;
+  headless?: boolean;
 }
 
 export interface Config {

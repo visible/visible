@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import { Browser, SetupParams } from '../domain/browser';
+import { Browser, SetupParams, ScriptTagParams } from '../domain/browser';
 
 export class BrowserPuppeteerImpl implements Browser {
   private browser!: puppeteer.Browser;
@@ -16,7 +16,7 @@ export class BrowserPuppeteerImpl implements Browser {
       args.push(`--window-size=${params.width},${params.height}`);
     }
 
-    this.browser = await puppeteer.launch({ headless: false, args });
+    this.browser = await puppeteer.launch({ headless: params.headless, args });
     this.page = await this.browser.newPage();
   }
 
@@ -33,9 +33,12 @@ export class BrowserPuppeteerImpl implements Browser {
     await this.page.goto(url);
   }
 
-  run<T, U extends unknown[]>(fn: (...args: U) => T, args: U) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this.page.evaluate(fn as any, ...(args as any)) as Promise<T>;
+  run<T>(code: string) {
+    return this.page.evaluate(code) as Promise<T>;
+  }
+
+  async addScriptTag(options: ScriptTagParams) {
+    await this.page.addScriptTag(options);
   }
 
   async registerResolver(

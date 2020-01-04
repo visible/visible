@@ -40,6 +40,7 @@ export class Visible {
     });
 
     await this.browser.openURL(this.params.url ?? '');
+    await this.injectRuntimeScripts();
     await this.browser.waitFor(1000);
 
     const reports = await this.runRules();
@@ -55,27 +56,15 @@ export class Visible {
   private async runRules() {
     const pluginNames = this.config.plugins ?? [];
 
-    // prettier-ignore
-    return this.browser.run(`(async () => {
-      const plugins = [];
+    return this.browser.run(
+      `runRule(JSON.parse('${JSON.stringify(pluginNames)}'))`,
+    );
+  }
 
-      for (const name of JSON.parse('${JSON.stringify(pluginNames)}')) {
-        const plugin = await import('./main_process/' + name);
-        plugins.push(plugin.default);
-      }
-
-      const flatten = ar => ar.reduce((a, c) => [...a, ...c], []);
-      const rules = flatten(plugins.map(plugin => plugin.rules));
-
-      const reports = await Promise.all(rules.map(Rule => {
-        const rule = new Rule({
-          t: (k) => k,
-        });
-
-        return rule.audit();
-      }));
-
-      return flatten(reports);
-    })()` as any, []);
+  private async injectRuntimeScripts() {
+    await this.browser.addScriptTag({
+      path: './dist/renderer/run-rule.js',
+    });
+    return;
   }
 }
