@@ -1,4 +1,4 @@
-import { t } from '../../__fixture__/i18n';
+import { t } from '../../../__fixture__/i18n';
 import { ImgAltRule } from './image-alt';
 
 describe('img-alt', () => {

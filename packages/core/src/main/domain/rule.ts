@@ -9,12 +9,14 @@ export interface RuleMetadata {
   readonly deprecated?: boolean;
 }
 
-export interface Rule {
+export interface RuleClass {
   audit(): Promise<Report[]>;
   fix(content: ReportContent): Promise<ReportContent>;
 }
 
 export interface RuleConstructor {
   meta: RuleMetadata;
-  new (context: Context): Rule;
+  new (context: Context): RuleClass;
 }
+
+export type Rule = RuleConstructor;

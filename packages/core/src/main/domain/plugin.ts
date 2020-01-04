@@ -1,5 +1,10 @@
-import { RuleConstructor } from './rule';
+import { Rule } from './rule';
+import { Config } from './config';
 
-export interface Plugin {
-  rules: RuleConstructor[];
+export interface PluginMain {
+  config: Config;
+}
+
+export interface PluginBrowser {
+  rules: Rule[];
 }

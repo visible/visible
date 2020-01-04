@@ -1,4 +1,4 @@
-import { t } from '../../__fixture__/i18n';
+import { t } from '../../../__fixture__/i18n';
 import { ButtonAltRule } from './button-alt';
 
 describe('button-alt', () => {

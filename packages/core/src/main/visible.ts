@@ -1,9 +1,8 @@
-import { Browser } from '../domain/browser';
-import { Config } from '../domain/config';
-import { Fixers } from '../domain/fixers';
-import { Plugin } from '../domain/plugin';
-import { Rule } from '../domain/rule';
-import { mergeExtends } from '../utils/config';
+import { Browser } from './domain/browser';
+import { Config } from './domain/config';
+import { PluginBrowser } from './domain/plugin';
+import { Rule } from './domain/rule';
+import { mergeExtends } from './utils/config';
 
 export interface VisibleParams {
   readonly config: Config;
@@ -11,7 +10,6 @@ export interface VisibleParams {
   readonly html?: string;
   readonly language?: string;
   readonly rules?: Rule[];
-  readonly fixers?: Fixers;
 }
 
 export class Visible {
@@ -52,7 +50,7 @@ export class Visible {
 
     // prettier-ignore
     return this.browser.run((pluginNames: string[]) => {
-      const plugins: Plugin[] = [];
+      const plugins: PluginBrowser[] = [];
 
       for (const name of pluginNames) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
