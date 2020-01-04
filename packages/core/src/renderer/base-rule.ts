@@ -1,17 +1,36 @@
-import { Config } from '../main/domain/config';
+import { TFunction } from 'i18next';
+import { Config, RuleOption } from '../main/domain/config';
 
-declare global {
-  interface Window {
-    __VISIBLE__: {
-      config: Config;
-    };
-  }
+export interface Context {
+  t: TFunction;
+  config: Config;
+  options: <T extends unknown>(key: string) => RuleOption<T> | undefined;
 }
 
 export abstract class BaseRule {
-  protected config: Config;
+  protected context: Context;
 
   constructor() {
-    this.config = window.__VISIBLE__.config;
+    this.context = {
+      t: (key: string) => key,
+      config: window.__VISIBLE__.config,
+      options: this.getOptions,
+    };
+  }
+
+  protected getOptions<T extends unknown>(rule: string) {
+    const { rules } = this.context.config;
+
+    if (!rules) {
+      throw new Error('No rule config provided');
+    }
+
+    // prettier-ignore
+    const entry = Object
+      .entries(rules)
+      .find(([key]) => key === rule);
+
+    if (!entry) return;
+    return entry[1] as RuleOption<T>;
   }
 }

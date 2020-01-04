@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { Browser } from './domain/browser';
 import { Config } from './domain/config';
-import { resolveExtends } from './utils/config';
+import { resolveExtends } from './config';
+import { Report } from './domain/report';
 
 export interface VisibleParams {
   readonly config: Config;
@@ -25,6 +26,7 @@ export class Visible {
     const { config: baseConfig } = this.params;
 
     this.config = resolveExtends(baseConfig);
+    console.log(resolveExtends(baseConfig));
 
     await this.browser.setup({
       language: this.config.settings?.language,
@@ -50,21 +52,26 @@ export class Visible {
     return reports;
   }
 
+  private async injectRuntimeScripts() {
+    await this.browser.addScriptTag({
+      path: './embed/run-rule.js',
+    });
+    await this.browser.addScriptTag({
+      content: `
+      window.__VISIBLE__.config = JSON.parse('${JSON.stringify(this.config)}');
+    `,
+    });
+    return;
+  }
+
   /**
    * Find rules from window, and execute them
    */
   private async runRules() {
     const pluginNames = this.config.plugins ?? [];
 
-    return this.browser.run(
+    return this.browser.run<Report[]>(
       `runRule(JSON.parse('${JSON.stringify(pluginNames)}'))`,
     );
-  }
-
-  private async injectRuntimeScripts() {
-    await this.browser.addScriptTag({
-      path: './dist/renderer/run-rule.js',
-    });
-    return;
   }
 }

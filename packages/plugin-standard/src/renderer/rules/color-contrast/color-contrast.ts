@@ -1,9 +1,8 @@
-import { Report, Context, Rule, ReportContent } from '@visi/core';
+import { Report, ReportContent, BaseRule, Rule } from '@visi/core';
 import { getContrast, parseToRgb } from 'polished';
+import { createXPath } from '../../utils/create-xpath';
 
-export class ColorContrastRule implements Rule {
-  constructor(private readonly context: Context) {}
-
+export class ColorContrastRule extends BaseRule implements Rule {
   static meta = {
     name: 'color-contrast',
     description: 'Checks color contrast ratio',
@@ -16,7 +15,7 @@ export class ColorContrastRule implements Rule {
     const reports: Report[] = [];
 
     for (const element of elements) {
-      const report = await this.createColorContrastReport(element);
+      const report = await this.createReport(element);
       if (report) reports.push(report);
     }
 
@@ -37,12 +36,10 @@ export class ColorContrastRule implements Rule {
     return false;
   };
 
-  private async createColorContrastReport(
-    element: Element,
-  ): Promise<Report | undefined> {
+  private async createReport(element: Element): Promise<Report | undefined> {
     const { t } = this.context;
 
-    // const xpath = await createXPath(element);
+    const xpath = createXPath(element);
     const textContent = element.textContent;
     const outerHTML = element.outerHTML;
     const style = getComputedStyle(element).cssText;
@@ -72,7 +69,7 @@ export class ColorContrastRule implements Rule {
         content: {
           html: outerHTML,
           style,
-          xpath: '',
+          xpath,
         },
       };
     }
@@ -89,7 +86,7 @@ export class ColorContrastRule implements Rule {
         content: {
           html: outerHTML,
           style,
-          xpath: '',
+          xpath,
         },
       };
     }
@@ -100,7 +97,7 @@ export class ColorContrastRule implements Rule {
       level: 'ok',
       content: {
         html: outerHTML,
-        xpath: '',
+        xpath,
       },
     };
   }

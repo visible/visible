@@ -7,15 +7,13 @@ module.exports = () => {
     stats: 'errors-only',
 
     entry: {
-      localize: './renderer/localize.ts',
-      'base-rule': './renderer/base-rule.ts',
       'run-rule': './renderer/run-rule.ts',
     },
 
     output: {
       filename: '[name].js',
       chunkFilename: '[name].js',
-      path: path.resolve(__dirname, './dist/renderer'),
+      path: path.resolve(__dirname, './embed'),
     },
 
     module: {

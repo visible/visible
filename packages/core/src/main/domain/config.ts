@@ -1,4 +1,4 @@
-interface RuleOption<T = unknown> {
+export interface RuleOption<T = unknown> {
   use: boolean;
   level: 'ok' | 'warn' | 'error';
   options: T;

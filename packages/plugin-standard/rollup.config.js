@@ -1,5 +1,8 @@
 import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
+import json from 'rollup-plugin-json';
+import builtins from 'rollup-plugin-node-builtins';
 import packageJSON from './package.json';
 
 export default [
@@ -18,6 +21,14 @@ export default [
       name: packageJSON.name,
       file: packageJSON.browser,
     },
-    plugins: [resolve(), typescript()],
+    plugins: [
+      resolve({
+        preferBuiltins: true,
+      }),
+      builtins(),
+      json(),
+      commonjs(),
+      typescript(),
+    ],
   },
 ];

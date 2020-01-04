@@ -10,16 +10,7 @@ const runRule = async (pluginNames: string[]) => {
   }
 
   const rules = plugins.map(plugin => plugin.rules).flat();
-
-  const reports = await Promise.all(
-    rules.map(Rule => {
-      const rule = new Rule({
-        t: (k: string) => k,
-      });
-
-      return rule.audit();
-    }),
-  );
+  const reports = await Promise.all(rules.map(Rule => new Rule().audit()));
 
   return reports.flat();
 };

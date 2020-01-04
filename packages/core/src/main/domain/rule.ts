@@ -1,5 +1,4 @@
 import { Report, ReportContent } from './report';
-import { Context } from './context';
 
 export interface RuleMetadata {
   readonly name: string;
@@ -9,14 +8,12 @@ export interface RuleMetadata {
   readonly deprecated?: boolean;
 }
 
-export interface RuleClass {
+export interface Rule {
   audit(): Promise<Report[]>;
   fix(content: ReportContent): Promise<ReportContent>;
 }
 
 export interface RuleConstructor {
   meta: RuleMetadata;
-  new (context: Context): RuleClass;
+  new (): Rule;
 }
-
-export type Rule = RuleConstructor;

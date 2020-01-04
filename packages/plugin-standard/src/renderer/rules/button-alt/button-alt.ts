@@ -1,21 +1,20 @@
-import { Rule, Report, Context, ReportContent } from '@visi/core';
+import { BaseRule, Report, ReportContent, Rule } from '@visi/core';
+import { $$ } from '../../utils/$$';
 import { createXPath } from '../../utils/create-xpath';
 
-export class ButtonAltRule implements Rule {
+export class ButtonAltRule extends BaseRule implements Rule {
   static meta = {
     name: 'button-alt',
     description: 'Checks button has textContent yor title attribute',
     fixable: true,
   };
 
-  constructor(private context: Context) {}
-
   async audit() {
-    const elements = Array.from(document.getElementsByTagName('button'));
+    const elements = $$('button');
     const reports: Report[] = [];
 
     for (const element of elements) {
-      const report = await this.createNoAltReport(element);
+      const report = await this.createReport(element);
       reports.push(report);
     }
 
@@ -26,8 +25,7 @@ export class ButtonAltRule implements Rule {
     return content;
   }
 
-  private async createNoAltReport(element: Element): Promise<Report> {
-    const { t } = this.context;
+  private async createReport(element: Element): Promise<Report> {
     const textContent = element.textContent;
     const title = element.getAttribute('title');
     const outerHTML = element.outerHTML;
@@ -37,7 +35,7 @@ export class ButtonAltRule implements Rule {
         type: 'button-alt.no-alt',
         rule: ButtonAltRule.meta.name,
         level: 'error',
-        message: t(
+        message: this.context.t(
           'button-alt.no-alt',
           'button element must have title attribute or text content',
         ),

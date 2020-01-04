@@ -3,15 +3,9 @@ const { visible } = require('./dist/main/index.js');
 const reuslt = visible({
   url: 'https://fsn4x.csb.app/',
   config: {
-    extends: [],
-    plugins: ['@visi/plugin-standard'],
-    rules: {
-      'img-alt': {
-        use: true,
-      },
-      'button-alt': {
-        use: true,
-      },
+    extends: ['@visi/plugin-standard'],
+    settings: {
+      headless: false,
     },
   },
 });

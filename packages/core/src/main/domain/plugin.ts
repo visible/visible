@@ -1,4 +1,4 @@
-import { Rule } from './rule';
+import { RuleConstructor } from './rule';
 import { Config } from './config';
 
 export interface PluginMain {
@@ -6,5 +6,5 @@ export interface PluginMain {
 }
 
 export interface PluginBrowser {
-  rules: Rule[];
+  rules: RuleConstructor[];
 }

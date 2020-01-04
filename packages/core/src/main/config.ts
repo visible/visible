@@ -1,4 +1,4 @@
-import { Config } from '../domain/config';
+import { Config } from './domain/config';
 
 /**
  * Takes config object and reoslve extends

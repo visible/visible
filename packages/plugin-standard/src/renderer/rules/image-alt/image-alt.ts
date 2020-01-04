@@ -1,10 +1,8 @@
-import { Report, Rule, Context, ReportContent } from '@visi/core';
+import { Report, ReportContent, BaseRule, Rule } from '@visi/core';
 import { createXPath } from '../../utils/create-xpath';
 import { $$ } from '../../utils/$$';
 
-export class ImgAltRule implements Rule {
-  constructor(private readonly context: Context) {}
-
+export class ImgAltRule extends BaseRule implements Rule {
   static meta = {
     name: 'img-alt',
     description: 'Checks img has alt',
@@ -15,7 +13,7 @@ export class ImgAltRule implements Rule {
     const reports: Report[] = [];
 
     for (const element of elements) {
-      const report = await this.createImgAltRuleReport(element);
+      const report = await this.createReport(element);
       reports.push(report);
     }
 
@@ -26,7 +24,7 @@ export class ImgAltRule implements Rule {
     return content;
   }
 
-  private async createImgAltRuleReport(element: Element): Promise<Report> {
+  private async createReport(element: Element): Promise<Report> {
     const { t } = this.context;
     const xpath = createXPath(element);
     const alt = element.getAttribute('alt');
