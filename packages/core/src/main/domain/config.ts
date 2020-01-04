@@ -4,8 +4,15 @@ interface RuleOption<T = unknown> {
   options: T;
 }
 
+export interface Settings {
+  language?: string;
+  width?: number;
+  height?: number;
+}
+
 export interface Config {
-  extends: string[];
-  plugins: string[];
-  rules: Record<string, RuleOption>;
+  extends?: string[];
+  plugins?: string[];
+  settings?: Settings;
+  rules?: Record<string, RuleOption>;
 }

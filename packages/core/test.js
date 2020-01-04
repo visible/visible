@@ -1,4 +1,4 @@
-const { visible } = require('./dist/visible.js');
+const { visible } = require('./dist/index.js');
 
 const reuslt = visible({
   url: 'https://fsn4x.csb.app/',

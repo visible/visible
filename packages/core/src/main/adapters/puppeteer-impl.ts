@@ -1,18 +1,22 @@
 import puppeteer from 'puppeteer';
-import { Browser } from '../domain/browser';
-
-declare global {
-  interface Window {
-    visibleCoreIifeStore?: string[];
-  }
-}
+import { Browser, SetupParams } from '../domain/browser';
 
 export class BrowserPuppeteerImpl implements Browser {
   private browser!: puppeteer.Browser;
   private page!: puppeteer.Page;
 
-  async setup() {
-    this.browser = await puppeteer.launch();
+  async setup(params: SetupParams) {
+    const args: string[] = [];
+
+    if (params.language) {
+      args.push(`--lang=${params.language}`);
+    }
+
+    if (params.height && params.height) {
+      args.push(`--window-size=${params.width},${params.height}`);
+    }
+
+    this.browser = await puppeteer.launch({ headless: false, args });
     this.page = await this.browser.newPage();
   }
 
@@ -29,21 +33,28 @@ export class BrowserPuppeteerImpl implements Browser {
     await this.page.goto(url);
   }
 
-  async installIIFE(name: string, path: string) {
-    await this.page.addScriptTag({ path });
-    await this.page.evaluate((name: string) => {
-      if (!window.visibleCoreIifeStore) window.visibleCoreIifeStore = [];
-      window.visibleCoreIifeStore.push(name);
-    }, name);
-  }
-
-  async getIIFE() {
-    const list = await this.page.evaluate(() => window.visibleCoreIifeStore);
-    return list ?? [];
-  }
-
   run<T, U extends unknown[]>(fn: (...args: U) => T, args: U) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this.page.evaluate(fn as any, ...(args as any)) as Promise<T>;
+  }
+
+  async registerResolver(
+    namespace: RegExp,
+    resolver: (path: string) => string,
+  ) {
+    await this.page.setRequestInterception(true);
+
+    this.page.on('request', req => {
+      if (!namespace.test(req.url())) {
+        return req.continue();
+      }
+
+      const [, path] = req.url().match(namespace) ?? [];
+
+      return req.respond({
+        contentType: 'text/javascript',
+        body: resolver(path),
+      });
+    });
   }
 }

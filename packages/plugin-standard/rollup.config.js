@@ -14,7 +14,7 @@ export default [
   {
     input: './src/renderer/index.ts',
     output: {
-      format: 'umd',
+      format: 'esm',
       name: packageJSON.name,
       file: packageJSON.browser,
     },
