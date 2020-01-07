@@ -1,5 +1,8 @@
+import { Report } from '../shared';
+
 const runRule = async (paths: string[]) => {
   const plugins = [];
+  const reports: Report[] = [];
 
   for (const path of paths) {
     const plugin = await import(/* webpackIgnore: true */ path);
@@ -7,7 +10,12 @@ const runRule = async (paths: string[]) => {
   }
 
   const rules = plugins.map(plugin => plugin.rules).flat();
-  const reports = await Promise.all(rules.map(Rule => new Rule().audit()));
+
+  for (const Rule of rules) {
+    const rule = new Rule();
+    const report = await rule.audit();
+    reports.push(report);
+  }
 
   return reports.flat();
 };
