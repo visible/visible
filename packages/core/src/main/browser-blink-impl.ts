@@ -7,19 +7,14 @@ export class BrowserBlinkImpl implements Browser {
   private page!: puppeteer.Page;
 
   async setup(settings: Settings = {}) {
-    const args: string[] = [
-      '--disable-web-security',
-      '--allow-file-access-from-files',
-    ];
-
-    if (settings.language) {
-      args.push(`--lang=${settings.language}`);
-    }
-
     const options: LaunchOptions = {
-      args,
+      args: [],
       headless: settings.headless,
     };
+
+    if (settings.language) {
+      options.args?.push(`--lang=${settings.language}`);
+    }
 
     if (settings.height && settings.width) {
       options.defaultViewport = {
