@@ -1,4 +1,4 @@
-import { Config } from '../main/domain/config';
+import { Config } from '../shared/config';
 
 declare global {
   interface Window {

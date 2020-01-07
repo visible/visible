@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
-import { Browser, SetupParams, ScriptTagParams } from '../domain/browser';
+import { Browser, SetupParams, ScriptTagParams } from './browser';
 
-export class BrowserPuppeteerImpl implements Browser {
+export class BrowserBlinkImpl implements Browser {
   private browser!: puppeteer.Browser;
   private page!: puppeteer.Page;
 

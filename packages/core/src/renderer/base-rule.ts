@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { Config, RuleOption } from '../main/domain/config';
+import { Config, RuleOption } from '../shared/config';
 
 export interface Context {
   t: TFunction;

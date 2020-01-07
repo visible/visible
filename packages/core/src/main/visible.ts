@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { Browser } from './domain/browser';
-import { Config } from './domain/config';
+import { Config } from '../shared/config';
+import { Report } from '../shared/report';
+import { Browser } from './browser';
 import { resolveExtends } from './config';
-import { Report } from './domain/report';
 
 export interface VisibleParams {
   readonly config: Config;
