@@ -13,7 +13,7 @@ export abstract class BaseRule {
   constructor() {
     this.context = {
       t: (key: string) => key,
-      config: window.__VISIBLE__.config,
+      config: window.__VISIBLE_CONFIG__,
       options: this.getOptions,
     };
   }

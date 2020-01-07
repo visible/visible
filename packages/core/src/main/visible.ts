@@ -26,12 +26,7 @@ export class Visible {
     const { config: baseConfig } = this.params;
 
     this.config = resolveExtends(baseConfig);
-
-    await this.browser.setup({
-      language: this.config.settings?.language,
-      width: this.config.settings?.width,
-      height: this.config.settings?.height,
-    });
+    await this.browser.setup(this.config.settings);
 
     // prettier-ignore
     this.browser.registerResolver(/plugins_browser\/(.+?)$/, moduleName => {
@@ -53,11 +48,13 @@ export class Visible {
 
   private async embed() {
     await this.browser.addScriptTag({
-      path: '../embed/run-rule.js',
+      type: 'module',
+      path: path.resolve(__dirname, '../embed/run-rule.js'),
     });
     await this.browser.addScriptTag({
+      type: 'module',
       content: `
-      window.__VISIBLE__.config = JSON.parse('${JSON.stringify(this.config)}');
+      window.__VISIBLE_CONFIG__ = JSON.parse('${JSON.stringify(this.config)}');
     `,
     });
     return;

@@ -1,9 +1,4 @@
-export interface SetupParams {
-  language?: string;
-  width?: number;
-  height?: number;
-  headless?: boolean;
-}
+import { Settings } from '../shared';
 
 export interface ScriptTagParams {
   url?: string;
@@ -17,7 +12,7 @@ export interface Browser {
   run<T>(code: string): Promise<T>;
   openURL(url: string): Promise<void>;
   waitFor(ms: number): Promise<void>;
-  setup(params: SetupParams): Promise<void>;
+  setup(settings?: Settings): Promise<void>;
   cleanup(): Promise<void>;
   registerResolver(match: RegExp, fn: (path: string) => string): Promise<void>;
 }

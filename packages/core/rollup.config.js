@@ -1,7 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
-import builtins from 'rollup-plugin-node-builtins';
 import typescript from 'rollup-plugin-typescript2';
 
 export default [
@@ -13,7 +12,6 @@ export default [
     },
     plugins: [
       commonjs(),
-      builtins(),
       json(),
       typescript({
         useTsconfigDeclarationDir: true,
@@ -28,7 +26,6 @@ export default [
     },
     plugins: [
       commonjs(),
-      builtins(),
       json(),
       typescript({
         useTsconfigDeclarationDir: true,
@@ -42,9 +39,8 @@ export default [
       format: 'esm',
     },
     plugins: [
-      resolve({ preferBuiltins: true }),
+      resolve(),
       commonjs(),
-      builtins(),
       json(),
       typescript({
         useTsconfigDeclarationDir: true,

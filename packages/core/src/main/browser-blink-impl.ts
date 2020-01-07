@@ -1,22 +1,27 @@
 import puppeteer from 'puppeteer';
-import { Browser, SetupParams, ScriptTagParams } from './browser';
+import { Settings } from '../shared';
+import { Browser, ScriptTagParams } from './browser';
 
 export class BrowserBlinkImpl implements Browser {
   private browser!: puppeteer.Browser;
   private page!: puppeteer.Page;
 
-  async setup(params: SetupParams) {
+  async setup(settings: Settings = {}) {
     const args: string[] = [];
 
-    if (params.language) {
-      args.push(`--lang=${params.language}`);
+    if (settings.language) {
+      args.push(`--lang=${settings.language}`);
     }
 
-    if (params.height && params.height) {
-      args.push(`--window-size=${params.width},${params.height}`);
+    if (settings.height && settings.width) {
+      args.push(`--window-size=${settings.width},${settings.height}`);
     }
 
-    this.browser = await puppeteer.launch({ headless: params.headless, args });
+    this.browser = await puppeteer.launch({
+      headless: settings.headless,
+      args,
+    });
+
     this.page = await this.browser.newPage();
   }
 
