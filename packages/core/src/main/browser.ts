@@ -14,5 +14,4 @@ export interface Browser {
   waitFor(ms: number): Promise<void>;
   setup(settings?: Settings): Promise<void>;
   cleanup(): Promise<void>;
-  registerResolver(match: RegExp, fn: (path: string) => string): Promise<void>;
 }

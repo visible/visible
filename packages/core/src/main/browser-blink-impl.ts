@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import puppeteer, { LaunchOptions } from 'puppeteer';
 import { Settings } from '../shared';
 import { Browser, ScriptTagParams } from './browser';
 
@@ -7,21 +7,28 @@ export class BrowserBlinkImpl implements Browser {
   private page!: puppeteer.Page;
 
   async setup(settings: Settings = {}) {
-    const args: string[] = [];
+    const args: string[] = [
+      '--disable-web-security',
+      '--allow-file-access-from-files',
+    ];
 
     if (settings.language) {
       args.push(`--lang=${settings.language}`);
     }
 
+    const options: LaunchOptions = {
+      args,
+      headless: settings.headless,
+    };
+
     if (settings.height && settings.width) {
-      args.push(`--window-size=${settings.width},${settings.height}`);
+      options.defaultViewport = {
+        width: settings.width,
+        height: settings.height,
+      };
     }
 
-    this.browser = await puppeteer.launch({
-      headless: settings.headless,
-      args,
-    });
-
+    this.browser = await puppeteer.launch(options);
     this.page = await this.browser.newPage();
   }
 
@@ -44,25 +51,5 @@ export class BrowserBlinkImpl implements Browser {
 
   async addScriptTag(options: ScriptTagParams) {
     await this.page.addScriptTag(options);
-  }
-
-  async registerResolver(
-    namespace: RegExp,
-    resolver: (path: string) => string,
-  ) {
-    await this.page.setRequestInterception(true);
-
-    this.page.on('request', req => {
-      if (!namespace.test(req.url())) {
-        return req.continue();
-      }
-
-      const [, path] = req.url().match(namespace) ?? [];
-
-      return req.respond({
-        contentType: 'text/javascript',
-        body: resolver(path),
-      });
-    });
   }
 }

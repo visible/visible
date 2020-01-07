@@ -1,11 +1,8 @@
-const runRule = async (pluginNames: string[]) => {
+const runRule = async (paths: string[]) => {
   const plugins = [];
 
-  for (const name of pluginNames) {
-    const plugin = await import(
-      /* webpackIgnore: true */ './plugins_browser/' + name
-    );
-
+  for (const path of paths) {
+    const plugin = await import(/* webpackIgnore: true */ path);
     plugins.push(plugin.default);
   }
 
