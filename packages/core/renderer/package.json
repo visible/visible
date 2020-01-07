@@ -1,0 +1,4 @@
+{
+  "name": "@visi/core/renderer",
+  "main": "../dist/renderer"
+}
