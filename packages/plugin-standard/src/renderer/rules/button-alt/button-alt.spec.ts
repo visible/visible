@@ -1,8 +1,7 @@
-import { t } from '../../../__fixture__/i18n';
 import { ButtonAltRule } from './button-alt';
 
 describe('button-alt', () => {
-  const buttonAltRule = new ButtonAltRule({ t });
+  const buttonAltRule = new ButtonAltRule();
 
   it('repots when button does not have neither textContent nor title', async () => {
     document.body.innerHTML = `<button></button>`;

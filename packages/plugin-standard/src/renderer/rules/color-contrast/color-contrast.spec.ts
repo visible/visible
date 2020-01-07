@@ -1,8 +1,7 @@
-import { t } from '../../../__fixture__/i18n';
 import { ColorContrastRule } from './color-contrast';
 
 describe('color-contrast', () => {
-  const colorContrast = new ColorContrastRule({ t });
+  const colorContrast = new ColorContrastRule();
 
   it('returns an error when color contrast does not satisfieis WCAG G18 AA', async () => {
     document.body.innerHTML = `

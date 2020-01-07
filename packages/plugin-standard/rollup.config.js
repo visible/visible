@@ -1,8 +1,8 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import typescript from 'rollup-plugin-typescript2';
-import json from 'rollup-plugin-json';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
 import builtins from 'rollup-plugin-node-builtins';
+import typescript from 'rollup-plugin-typescript2';
 import packageJSON from './package.json';
 
 export default [
@@ -12,23 +12,29 @@ export default [
       format: 'cjs',
       file: packageJSON.main,
     },
-    plugins: [typescript()],
+    plugins: [
+      commonjs(),
+      builtins(),
+      json(),
+      typescript({
+        useTsconfigDeclarationDir: true,
+      }),
+    ],
   },
   {
     input: './src/renderer/index.ts',
     output: {
       format: 'esm',
-      name: packageJSON.name,
       file: packageJSON.browser,
     },
     plugins: [
-      resolve({
-        preferBuiltins: true,
-      }),
+      resolve(),
       builtins(),
       json(),
       commonjs(),
-      typescript(),
+      typescript({
+        useTsconfigDeclarationDir: true,
+      }),
     ],
   },
 ];

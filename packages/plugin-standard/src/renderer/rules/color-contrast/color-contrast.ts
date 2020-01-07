@@ -1,4 +1,9 @@
-import { Report, ReportContent, BaseRule, Rule } from '@visi/core';
+import {
+  Report,
+  ReportContent,
+  BaseRule,
+  Rule,
+} from '@visi/core/dist/renderer';
 import { getContrast, parseToRgb } from 'polished';
 import { createXPath } from '../../utils/create-xpath';
 

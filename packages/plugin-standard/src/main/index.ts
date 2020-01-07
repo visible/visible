@@ -1,4 +1,4 @@
-import { PluginMain } from '@visi/core';
+import { PluginMain } from '@visi/core/dist/main';
 
 const plugin: PluginMain = {
   config: {

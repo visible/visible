@@ -1,8 +1,7 @@
-import { t } from '../../../__fixture__/i18n';
 import { ImgAltRule } from './image-alt';
 
 describe('img-alt', () => {
-  const imgAltRule = new ImgAltRule({ t });
+  const imgAltRule = new ImgAltRule();
 
   it('returns report when the img element did not have an alt', async () => {
     document.body.innerHTML = `

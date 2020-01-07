@@ -1,4 +1,4 @@
-import { PluginBrowser } from '@visi/core';
+import { PluginBrowser } from '@visi/core/dist/renderer';
 import { ImgAltRule } from './rules/image-alt';
 import { ButtonAltRule } from './rules/button-alt';
 import { ColorContrastRule } from './rules/color-contrast';
