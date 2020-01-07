@@ -26,7 +26,6 @@ export class Visible {
     const { config: baseConfig } = this.params;
 
     this.config = resolveExtends(baseConfig);
-    console.log(resolveExtends(baseConfig));
 
     await this.browser.setup({
       language: this.config.settings?.language,
@@ -42,7 +41,7 @@ export class Visible {
     });
 
     await this.browser.openURL(this.params.url ?? '');
-    await this.injectRuntimeScripts();
+    await this.embed();
     await this.browser.waitFor(1000);
 
     const reports = await this.runRules();
@@ -52,9 +51,9 @@ export class Visible {
     return reports;
   }
 
-  private async injectRuntimeScripts() {
+  private async embed() {
     await this.browser.addScriptTag({
-      path: './embed/run-rule.js',
+      path: '../embed/run-rule.js',
     });
     await this.browser.addScriptTag({
       content: `
