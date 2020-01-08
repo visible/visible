@@ -2,11 +2,16 @@ import path from 'path';
 import express from 'express';
 
 export interface ModuleResolver {
+  getHost(): string;
   start(): Promise<void>;
 }
 
 export class ModuleResolverImpl implements ModuleResolver {
   constructor(private readonly port: number, private readonly field = 'main') {}
+
+  getHost() {
+    return `http://localhost:${this.port}`;
+  }
 
   start() {
     return new Promise<void>(resolve =>

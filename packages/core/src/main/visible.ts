@@ -18,17 +18,15 @@ export class Visible {
     private readonly params: VisibleParams,
     private readonly browser: Browser,
     private readonly moduleResolver: ModuleResolver,
-  ) {}
+  ) {
+    this.config = resolveExtends(this.params.config);
+  }
 
   /**
    * Diagnose the page
    */
   async diagnose() {
-    const { config: baseConfig } = this.params;
-
-    this.config = resolveExtends(baseConfig);
-    this.moduleResolver.start();
-
+    await this.moduleResolver.start();
     await this.browser.setup(this.config.settings);
     await this.browser.openURL(this.params.url ?? '');
     await this.embed();
@@ -58,12 +56,15 @@ export class Visible {
    * Find rules from window, and execute them
    */
   private async runRules() {
-    const paths = (this.config.plugins ?? []).map(
-      name => 'http://localhost:8080/' + name,
-    );
+    const pluginNames = this.config.plugins ?? [];
+    const moduleResolverHost = this.moduleResolver.getHost();
 
+    // prettier-ignore
     return this.browser.run<Report[]>(
-      `runRule(JSON.parse('${JSON.stringify(paths)}'))`,
+      `runRule(
+        JSON.parse('${JSON.stringify(pluginNames)}'),
+        JSON.parse('${JSON.stringify({ moduleResolverHost })}')
+      )`,
     );
   }
 }

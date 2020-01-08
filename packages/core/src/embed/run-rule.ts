@@ -1,11 +1,20 @@
 import { Report } from '../shared';
 
-const runRule = async (paths: string[]) => {
+interface RunRuleParams {
+  moduleResolverHost: string;
+}
+
+const runRule = async (pluginNames: string[], params: RunRuleParams) => {
   const plugins = [];
   const reports: Report[] = [];
+  const paths = pluginNames.map(name => {
+    const url = new URL(params.moduleResolverHost);
+    url.pathname = name;
+    return url.href;
+  });
 
   for (const path of paths) {
-    const plugin = await import(/* webpackIgnore: true */ path);
+    const plugin = await import(path);
     plugins.push(plugin.default);
   }
 
