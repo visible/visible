@@ -2,22 +2,26 @@
 name: 'rule'
 description: 'Generates rule on @visi/core'
 message: 'Type the name for your rule e.g. `image-alt`'
-root: './packages/core/src/rules'
+root: './packages/'
 ignore: []
 ---
 
 # `{{ input | kebab }}/{{ input | kebab }}.ts`
 
 ```ts
-import { Rule } from '../../domain/rule';
-import { Report } from '../../domain/report';
+import { BaseRule, Rule } from '@visi/core/main';
 
-export const {{ input | camel }}: Rule = async ({ page }) => {
-  const elements = page.$('*');
-  const reports: Report[] = [];
-  return reports;
+export class {{ input | camel }} extends BaseRule implements Rule {
+  static meta = {
+    name: '{{ input | kebab }}',
+    description: '',
+  };
+
+  async audit() {
+    const reports: Report[] = [];
+    return reports;
+  };
 }
-
 ```
 
 # `{{ input | kebab }}/{{ input | kebab }}.spec.ts`
@@ -25,9 +29,11 @@ export const {{ input | camel }}: Rule = async ({ page }) => {
 ```ts
 import { {{ input | camel }} } from './{{ input | kebab }}';
 
-describe('{{ input | kebab }}', () => {
+describe('{{ input | camel }}', () => {
+  const {{ input | pascal }} = new {{ input | camel }}();
+
   it('works ok', async () => {
-    const [report] = await {{ input | camel }}({ page });
+    const [report] = await {{ input | pascal }}.audit();
     expect(report).toEqual({});
   });
 });
