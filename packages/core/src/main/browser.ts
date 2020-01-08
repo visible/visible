@@ -9,6 +9,7 @@ export interface ScriptTagParams {
 
 export interface Browser {
   addScriptTag(params: ScriptTagParams): Promise<void>;
+  exposeFunction(name: string, fn: (...args: any[]) => unknown): Promise<void>;
   run<T>(code: string): Promise<T>;
   openURL(url: string): Promise<void>;
   waitFor(ms: number): Promise<void>;

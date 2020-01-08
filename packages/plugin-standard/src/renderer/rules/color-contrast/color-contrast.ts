@@ -1,4 +1,4 @@
-import { Report, ReportContent, BaseRule, Rule } from '@visi/core/renderer';
+import { Report, ReportContent, BaseRule, Rule, t } from '@visi/core/renderer';
 import { getContrast, parseToRgb } from 'polished';
 import { createXPath } from '../../utils/create-xpath';
 
@@ -37,8 +37,6 @@ export class ColorContrastRule extends BaseRule implements Rule {
   };
 
   private async createReport(element: Element): Promise<Report | undefined> {
-    const { t } = this.context;
-
     const xpath = createXPath(element);
     const textContent = element.textContent;
     const outerHTML = element.outerHTML;

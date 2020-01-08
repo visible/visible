@@ -5,7 +5,9 @@ export interface RuleOption<T = unknown> {
 }
 
 export interface Settings {
+  browser?: 'chromium' | 'firefox';
   language?: string;
+  userAgent?: string;
   width?: number;
   height?: number;
   headless?: boolean;

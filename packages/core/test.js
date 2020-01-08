@@ -5,6 +5,7 @@ const reuslt = visible({
   config: {
     extends: ['@visi/plugin-standard'],
     settings: {
+      browser: 'firefox',
       headless: false,
     },
   },

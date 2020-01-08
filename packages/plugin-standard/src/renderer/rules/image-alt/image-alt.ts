@@ -1,4 +1,4 @@
-import { Report, ReportContent, BaseRule, Rule } from '@visi/core/renderer';
+import { Report, ReportContent, BaseRule, Rule, t } from '@visi/core/renderer';
 import { createXPath } from '../../utils/create-xpath';
 import { $$ } from '../../utils/$$';
 
@@ -25,7 +25,6 @@ export class ImgAltRule extends BaseRule implements Rule {
   }
 
   private async createReport(element: Element): Promise<Report> {
-    const { t } = this.context;
     const xpath = createXPath(element);
     const alt = element.getAttribute('alt');
     const html = element.outerHTML;

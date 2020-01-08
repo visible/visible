@@ -1,11 +1,9 @@
-import i18next from 'i18next';
-
 export const addTranslations = (
   lng: string,
   ns: string,
   resources: unknown,
 ) => {
-  i18next.addResources(lng, ns, resources);
+  window.__VISIBLE_I18NEXT_ADD_RESOURCES__(lng, ns, resources);
 };
 
-export const localize = i18next.init();
+export const t = window.__VISIBLE_I18NEXT_T__;

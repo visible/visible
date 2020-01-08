@@ -1,8 +1,8 @@
-import puppeteer, { LaunchOptions } from 'puppeteer';
+import puppeteer, { LaunchOptions } from 'puppeteer-firefox';
 import { Settings } from '../shared';
 import { Browser, ScriptTagParams } from './browser';
 
-export class BrowserBlinkImpl implements Browser {
+export class BrowserFirefoxImpl implements Browser {
   private browser!: puppeteer.Browser;
   private page!: puppeteer.Page;
 
@@ -46,5 +46,9 @@ export class BrowserBlinkImpl implements Browser {
 
   async addScriptTag(options: ScriptTagParams) {
     await this.page.addScriptTag(options);
+  }
+
+  async exposeFunction(name: string, fn: (...args: unknown[]) => unknown) {
+    await this.page.exposeFunction(name, fn);
   }
 }

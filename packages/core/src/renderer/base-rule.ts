@@ -1,8 +1,6 @@
-import { TFunction } from 'i18next';
 import { Config, RuleOption } from '../shared/config';
 
 export interface Context {
-  t: TFunction;
   config: Config;
   options: <T extends unknown>(key: string) => RuleOption<T> | undefined;
 }
@@ -12,7 +10,6 @@ export abstract class BaseRule {
 
   constructor() {
     this.context = {
-      t: (key: string) => key,
       config: window.__VISIBLE_CONFIG__,
       options: this.getOptions,
     };

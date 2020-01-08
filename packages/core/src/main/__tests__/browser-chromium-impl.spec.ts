@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import { BrowserBlinkImpl } from '../browser-blink-impl';
+import { BrowserChromiumImpl } from '../browser-chromium-impl';
 
 const newPage = jest.fn();
 
@@ -7,10 +7,10 @@ jest.mock('puppeteer');
 (puppeteer.launch as jest.Mock).mockResolvedValue({ newPage });
 
 describe('BrowserBlinkImpl', () => {
-  let blink: BrowserBlinkImpl;
+  let chromium: BrowserChromiumImpl;
 
   beforeAll(() => {
-    blink = new BrowserBlinkImpl();
+    chromium = new BrowserChromiumImpl();
   });
 
   it('maps settings to launch option', async () => {
@@ -21,7 +21,7 @@ describe('BrowserBlinkImpl', () => {
       headless: false,
     };
 
-    await blink.setup(settings);
+    await chromium.setup(settings);
 
     expect(puppeteer.launch).toBeCalledWith(
       expect.objectContaining({
