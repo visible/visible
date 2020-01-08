@@ -1,20 +1,17 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
-import builtins from 'rollup-plugin-node-builtins';
 import typescript from 'rollup-plugin-typescript2';
-import packageJSON from './package.json';
 
 export default [
   {
     input: './src/main/index.ts',
     output: {
+      file: './dist/main/index.js',
       format: 'cjs',
-      file: packageJSON.main,
     },
     plugins: [
       commonjs(),
-      builtins(),
       json(),
       typescript({
         useTsconfigDeclarationDir: true,
@@ -24,14 +21,28 @@ export default [
   {
     input: './src/renderer/index.ts',
     output: {
-      format: 'esm',
-      file: packageJSON.browser,
+      file: './dist/renderer/index.js',
+      format: 'cjs',
+    },
+    plugins: [
+      commonjs(),
+      json(),
+      typescript({
+        useTsconfigDeclarationDir: true,
+      }),
+    ],
+  },
+  {
+    input: ['./src/embed/index.ts'],
+    output: {
+      file: './dist/embed/index.js',
+      name: '__VISIBLE_EMBED__',
+      format: 'iife',
     },
     plugins: [
       resolve(),
-      builtins(),
-      json(),
       commonjs(),
+      json(),
       typescript({
         useTsconfigDeclarationDir: true,
       }),

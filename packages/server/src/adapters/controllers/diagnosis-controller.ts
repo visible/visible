@@ -1,4 +1,4 @@
-import { visible } from '@visi/core';
+import { visible } from '@visi/core/main';
 import { injectable, inject } from 'inversify';
 
 import { CreateDiagnosis } from '../../application/use-cases/create-diagnosis';
