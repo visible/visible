@@ -1,6 +1,5 @@
 import { Visible } from '../visible';
 import { Browser } from '../browser';
-import { ModuleResolver } from '../module-resolver';
 
 const addScriptTag = jest.fn();
 const run = jest.fn();
@@ -8,6 +7,8 @@ const openURL = jest.fn();
 const waitFor = jest.fn();
 const setup = jest.fn();
 const cleanup = jest.fn();
+const exposeFunction = jest.fn();
+const serveModule = jest.fn();
 
 class MockBrowser implements Browser {
   addScriptTag = addScriptTag;
@@ -16,12 +17,8 @@ class MockBrowser implements Browser {
   waitFor = waitFor;
   setup = setup;
   cleanup = cleanup;
-}
-
-const start = jest.fn();
-
-class MockModuleResolver implements ModuleResolver {
-  start = start;
+  exposeFunction = exposeFunction;
+  serveModule = serveModule;
 }
 
 const params = {
@@ -34,8 +31,8 @@ const params = {
 describe('Visible', () => {
   let visible: Visible;
 
-  beforeAll(() => {
-    visible = new Visible(params, new MockBrowser(), new MockModuleResolver());
+  beforeAll(async () => {
+    visible = await Visible.init(params, new MockBrowser());
   });
 
   it('diagnose', async () => {
@@ -43,7 +40,6 @@ describe('Visible', () => {
 
     const result = await visible.diagnose();
 
-    expect(start).toBeCalled();
     expect(setup).toBeCalledWith(params.config.settings);
     expect(openURL).toBeCalledWith(params.url);
     expect(addScriptTag).toBeCalledWith(
