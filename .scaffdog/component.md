@@ -2,18 +2,18 @@
 name: 'component'
 description: 'Generates @visi/ui component'
 message: 'Type the name of your component'
-root: './packages/ui/src'
+root: './packages/'
 ignore: []
 ---
 
-# {{ input | kebab }}/index.tsx
+# `{{ input | kebab }}/index.tsx`
 
 ```tsx
 export * from './{{ input | kebab }}';
 
 ```
 
-# {{ input | kebab }}/{{ input | kebab }}.tsx
+# `{{ input | kebab }}/{{ input | kebab }}.tsx`
 
 ```tsx
 import React from 'react';
@@ -24,7 +24,7 @@ export const {{ input | pascal }} = () => {
 
 ```
 
-# {{ input | kebab }}/{{ input | kebab }}.stories.tsx
+# `{{ input | kebab }}/{{ input | kebab }}.stories.tsx`
 
 ```tsx
 import React from 'react';
@@ -36,7 +36,7 @@ storiesOf('{{ input | pascal }}', module)
 
 ```
 
-# {{ input | kebab }}/{{ input | kebab }}.spec.tsx
+# `{{ input | kebab }}/{{ input | kebab }}.spec.tsx`
 
 ```tsx
 import React from 'react';
