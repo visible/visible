@@ -31,9 +31,8 @@ module.exports = {
   projects: [
     {
       ...shared('core'),
-      preset: 'jest-puppeteer',
-      setupFilesAfterEnv: ['jest-puppeteer-istanbul/lib/setup'],
-      reporters: ['default', 'jest-puppeteer-istanbul/lib/reporter'],
+      testEnvironment: 'jsdom',
+      setupFiles: ['core-js'],
     },
     {
       ...shared('plugin-standard'),

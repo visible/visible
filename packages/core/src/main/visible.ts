@@ -12,7 +12,7 @@ export interface VisibleParams {
 }
 
 export class Visible {
-  protected config!: Config;
+  protected config: Config;
 
   constructor(
     private readonly params: VisibleParams,
@@ -55,13 +55,11 @@ export class Visible {
    */
   private async runRules() {
     const pluginNames = this.config.plugins ?? [];
-    const moduleResolverHost = this.moduleResolver.getHost();
 
     // prettier-ignore
     return this.browser.run<Report[]>(
       `__VISIBLE_EMBED__.runRule(
         JSON.parse('${JSON.stringify(pluginNames)}'),
-        JSON.parse('${JSON.stringify({ moduleResolverHost })}')
       )`,
     );
   }
