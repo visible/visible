@@ -6,7 +6,7 @@ root: './packages/'
 ignore: []
 ---
 
-# {{ input | kebab }}/package.json
+# `{{ input | kebab }}/package.json`
 ```json
 {
   "name": "@visi/{{ input | kebab }}",
@@ -24,7 +24,7 @@ ignore: []
 }
 ```
 
-# {{ input | kebab }}/tsconfig.json
+# `{{ input | kebab }}/tsconfig.json`
 ```json
 {
   "extends": "../../tsconfig.json",
@@ -35,7 +35,7 @@ ignore: []
 }
 ```
 
-# {{ input | kebab }}/src/index.ts
+# `{{ input | kebab }}/src/index.ts`
 ```ts
 
 ```
