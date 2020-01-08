@@ -1,7 +1,6 @@
 {
   "name": "@visi/core",
   "version": "0.0.0",
-  "main": "./dist/index.js",
   "license": "AGPL-3.0",
   "scripts": {
     "build": "rollup -c rollup.config.js"
