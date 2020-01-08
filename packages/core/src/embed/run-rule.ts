@@ -4,7 +4,7 @@ interface RunRuleParams {
   moduleResolverHost: string;
 }
 
-const runRule = async (pluginNames: string[], params: RunRuleParams) => {
+export const runRule = async (pluginNames: string[], params: RunRuleParams) => {
   const plugins = [];
   const reports: Report[] = [];
   const paths = pluginNames.map(name => {
@@ -28,7 +28,3 @@ const runRule = async (pluginNames: string[], params: RunRuleParams) => {
 
   return reports.flat();
 };
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-window['runRule'] = runRule;

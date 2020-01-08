@@ -8,7 +8,7 @@ export class BrowserBlinkImpl implements Browser {
 
   async setup(settings: Settings = {}) {
     const options: LaunchOptions = {
-      args: [],
+      args: ['--disable-web-security'],
       headless: settings.headless,
     };
 

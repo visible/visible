@@ -40,14 +40,12 @@ export class Visible {
 
   private async embed() {
     await this.browser.addScriptTag({
-      type: 'module',
-      path: path.resolve(__dirname, '../embed/run-rule.js'),
+      path: path.resolve(__dirname, '../embed/index.js'),
     });
     await this.browser.addScriptTag({
-      type: 'module',
-      content: `
-      window.__VISIBLE_CONFIG__ = JSON.parse('${JSON.stringify(this.config)}');
-    `,
+      content: `window.__VISIBLE_CONFIG__ = JSON.parse('${JSON.stringify(
+        this.config,
+      )}');`,
     });
     return;
   }
@@ -61,7 +59,7 @@ export class Visible {
 
     // prettier-ignore
     return this.browser.run<Report[]>(
-      `runRule(
+      `__VISIBLE_EMBED__.runRule(
         JSON.parse('${JSON.stringify(pluginNames)}'),
         JSON.parse('${JSON.stringify({ moduleResolverHost })}')
       )`,
