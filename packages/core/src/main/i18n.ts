@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 
-export const createI18n = async (language?: string) => {
+export const createI18n = async (language = 'en') => {
   const i18nextCustom = i18next.createInstance();
 
   const t = await i18nextCustom.init({

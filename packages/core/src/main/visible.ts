@@ -44,7 +44,7 @@ export class Visible {
     await this.browser.waitFor(1000);
     const reports = await this.runRules();
     await this.browser.waitFor(1000);
-    await this.browser.cleanup();
+    // await this.browser.cleanup();
 
     return reports;
   }

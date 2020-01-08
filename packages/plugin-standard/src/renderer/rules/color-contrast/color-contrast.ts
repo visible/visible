@@ -60,8 +60,8 @@ export class ColorContrastRule extends BaseRule implements Rule {
         type: 'color-contrast.wcag-aaa',
         rule: ColorContrastRule.meta.name,
         level: 'warn',
-        message: t(
-          'color-contrast.aa',
+        message: await t(
+          'plugin-standard:color-contrast.aa',
           'Color contrast ratio should be greater than 7',
         ),
         content: {
@@ -77,8 +77,8 @@ export class ColorContrastRule extends BaseRule implements Rule {
         type: 'color-contrast.wcag-aa',
         rule: ColorContrastRule.meta.name,
         level: 'error',
-        message: t(
-          'color-contrast.less-than-aa',
+        message: await t(
+          'plugin-standard:color-contrast.less-than-aa',
           'Color contrast must be greater than 4.5',
         ),
         content: {

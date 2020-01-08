@@ -34,7 +34,10 @@ export class ImgAltRule extends BaseRule implements Rule {
         type: 'img-alt.no-alt',
         rule: ImgAltRule.meta.name,
         level: 'error',
-        message: t('img-alt.no-alt', 'img element must have alt attribute'),
+        message: await t(
+          'plugin-standard:img-alt.no-alt',
+          'img element must have alt attribute',
+        ),
         content: {
           xpath,
           html,

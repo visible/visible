@@ -35,8 +35,8 @@ export class ButtonAltRule extends BaseRule implements Rule {
         type: 'button-alt.no-alt',
         rule: ButtonAltRule.meta.name,
         level: 'error',
-        message: t(
-          'button-alt.no-alt',
+        message: await t(
+          'plugin-standard:button-alt.no-alt',
           'button element must have title attribute or text content',
         ),
         content: {
