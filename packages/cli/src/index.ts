@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import path from 'path';
 import yargs from 'yargs';
-import { visible, Config } from '@visi/core';
+import { visible, Config } from '@visi/core/main';
 import { print } from './print';
 import { loader } from './loader';
 import { createI18n } from './i18n';
 
 (async () => {
-  const [i18next, t] = await createI18n();
+  const [, t] = await createI18n();
   const description = t('visible.description', 'The default command');
 
   yargs.command(
@@ -51,7 +51,7 @@ import { createI18n } from './i18n';
 
         const reports = await loader(
           t('loading', 'Fetching diagnosises...'),
-          visible({ config, url, language: i18next.language }),
+          visible({ config, url }),
         );
 
         await print(reports, json, verbose, t, fix);

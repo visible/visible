@@ -1,10 +1,9 @@
 {
   "name": "@visi/core",
   "version": "0.0.0",
-  "main": "./dist/index.js",
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "tsc"
+    "build": "rollup -c rollup.config.js"
   },
   "files": [
     "./dist"
@@ -13,11 +12,20 @@
     "@types/node": "^12.12.21",
     "@types/puppeteer": "^2.0.0",
     "@types/uuid": "^3.4.6",
+    "deepmerge": "^4.2.2",
     "eventemitter3": "^4.0.0",
     "fp-ts": "^2.2.0",
     "i18next": "^19.0.2",
     "polished": "^3.4.2",
     "puppeteer": "^2.0.0",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-json": "^4.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "rollup": "^1.28.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-typescript2": "^0.25.3"
   }
 }

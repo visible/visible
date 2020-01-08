@@ -1,6 +1,6 @@
 import { table } from 'table';
 import chalk from 'chalk';
-import { Report } from '@visi/core';
+import { Report } from '@visi/core/main';
 import { TFunction } from 'i18next';
 
 export const print = async (
