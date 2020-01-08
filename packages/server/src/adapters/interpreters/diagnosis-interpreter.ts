@@ -2,7 +2,7 @@ import uuid from 'uuid';
 import {
   Report as CoreReport,
   ReportLevel as CoreReportLevel,
-} from '@visi/core';
+} from '@visi/core/main';
 import { Report, ReportType } from '../../enterprise/entities';
 import { CreateDiagnosisInput } from '../../application/use-cases/create-diagnosis';
 
