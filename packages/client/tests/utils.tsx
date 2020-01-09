@@ -2,6 +2,7 @@ import React from 'react';
 import { theme } from '@visi/ui';
 import { render, RenderOptions } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
+import { MemoryRouter } from 'react-router';
 // import { I18nextProvider } from 'react-i18next';
 
 const AllTheProviders: React.FC = ({ children }) => {
@@ -28,3 +29,7 @@ const customRender = (
 
 export * from '@testing-library/react';
 export { customRender as render };
+
+export const makeRouteWrapper = (path: string): React.FC => ({ children }) => (
+  <MemoryRouter initialEntries={[path]}>{children}</MemoryRouter>
+);

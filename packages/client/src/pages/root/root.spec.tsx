@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
-import { render } from '../../../tests/utils';
+import { render, makeRouteWrapper } from '../../../tests/utils';
 import { Root } from './root';
 
 jest.mock('./lazy', () => ({
@@ -9,10 +8,6 @@ jest.mock('./lazy', () => ({
   Diagnoses: () => 'Diagnoses',
   Void: () => 'Void',
 }));
-
-const makeRouteWrapper = (path: string): React.FC => ({ children }) => (
-  <MemoryRouter initialEntries={[path]}>{children}</MemoryRouter>
-);
 
 describe('Root', () => {
   it('routes /', () => {

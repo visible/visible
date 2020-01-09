@@ -9,15 +9,15 @@ import {
 export const Diagnoses = () => {
   const match = useRouteMatch<{ id: string }>();
 
-  const { data, loading, error } = useFetchDiagnosisSmallQuery({
+  const { data, error } = useFetchDiagnosisSmallQuery({
     variables: {
       id: match.params.id,
     },
   });
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading...</p>;
+  // }
 
   if (error || !data) {
     return <p>Error occurred...</p>;
