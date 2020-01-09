@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Diagnoses fetches data 1`] = `
+.c0 {
+  box-sizing: border-box;
+  width: 1080px;
+  margin: 24px auto;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 0 24px rgba(0,0,0,0.05);
+}
+
+<div>
+  <main
+    class="c0"
+  >
+    <h1>
+      Diagnostics Result: 
+      123
+    </h1>
+  </main>
+</div>
+`;
+
+exports[`Diagnoses shows a loading indicator 1`] = `
+<div>
+  <p>
+    Loading...
+  </p>
+</div>
+`;
+
+exports[`Diagnoses throws an error 1`] = `
+<div>
+  <p>
+    Error occurred...
+  </p>
+</div>
+`;

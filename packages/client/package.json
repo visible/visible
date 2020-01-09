@@ -7,7 +7,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "test": "exit 0",
+    "test": "jest --coverage",
     "watch": "webpack-dev-server --mode development",
     "postinstall": "graphql-codegen --config codegen.js"
   },
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@apollo/react-hooks": "^3.1.3",
+    "@apollo/react-testing": "^3.1.3",
     "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-proposal-decorators": "^7.7.4",
@@ -36,6 +37,7 @@
     "@graphql-codegen/typescript": "^1.9.1",
     "@graphql-codegen/typescript-operations": "^1.9.1",
     "@graphql-codegen/typescript-react-apollo": "^1.9.1",
+    "@testing-library/jest-dom": "^4.2.4",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/react-router": "^5.1.3",

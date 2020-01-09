@@ -21,22 +21,21 @@ export const Banner = (props: BannerProps) => {
 
   return (
     <UI.Banner {...props}>
-      <>
-        <Title>Visible</Title>
-        <UI.Nav>
-          {navItems.map(nav => (
-            <UI.NavItem
-              key={nav.to}
-              activeClassName={activeClassName}
-              appearance="inverse"
-            >
-              <NavLink exact to={nav.to} activeClassName={activeClassName}>
-                {nav.text}
-              </NavLink>
-            </UI.NavItem>
-          ))}
-        </UI.Nav>
-      </>
+      <Title>Visible</Title>
+
+      <UI.Nav>
+        {navItems.map(nav => (
+          <UI.NavItem
+            key={nav.to}
+            activeClassName={activeClassName}
+            appearance="inverse"
+          >
+            <NavLink exact to={nav.to} activeClassName={activeClassName}>
+              {nav.text}
+            </NavLink>
+          </UI.NavItem>
+        ))}
+      </UI.Nav>
     </UI.Banner>
   );
 };
