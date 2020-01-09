@@ -1,5 +1,4 @@
 {
-  "loading": "診断を取得中...",
   "options": {
     "fix": "Prints fixers",
     "json": "整形済みテーブルの代わりにJSONデータを出力します",
@@ -13,6 +12,8 @@
     "xpath": "XPath"
   },
   "visible": {
-    "description": "デフォルトのコマンド"
+    "description": "デフォルトのコマンド",
+    "loading": "診断を取得中...",
+    "no-rc": "visiblercファイルが見つかりませんでした。"
   }
 }
