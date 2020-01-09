@@ -1,8 +1,8 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
-import { MockedProvider, MockedResponse, wait } from '@apollo/react-testing';
-import { act } from '@testing-library/react';
-import { render, makeRouteWrapper } from '../../../tests/utils';
+import '@testing-library/jest-dom/extend-expect';
+import { Route } from 'react-router';
+import { wait, cleanup } from '@testing-library/react';
+import { render } from '../../../tests/utils';
 import {
   FetchDiagnosisSmallDocument,
   Diagnosis,
@@ -10,7 +10,7 @@ import {
 } from '../../generated/graphql';
 import { Diagnoses } from './diagnoses';
 
-const mock: MockedResponse[] = [
+const mocks = [
   {
     request: {
       query: FetchDiagnosisSmallDocument,
@@ -48,7 +48,7 @@ const mock: MockedResponse[] = [
   },
 ];
 
-const errorMock: MockedResponse[] = [
+const errorMock = [
   {
     request: {
       query: FetchDiagnosisSmallDocument,
@@ -61,31 +61,42 @@ const errorMock: MockedResponse[] = [
 ];
 
 describe('Diagnoses', () => {
-  it('fetches data', async () => {
-    const { container } = render(
-      <MockedProvider mocks={mock} addTypename={true}>
-        <Switch>
-          <Route path="/diagnoses/:id" component={Diagnoses} />
-        </Switch>
-      </MockedProvider>,
-      { wrapper: makeRouteWrapper('/diagnoses/123') },
-    );
-
-    await wait(0);
-
-    expect(container.firstChild).toMatchSnapshot();
+  afterEach(() => {
+    cleanup();
   });
 
-  it('throws an error', () => {
+  it('shows a loading indicator', async () => {
     const { container } = render(
-      <MockedProvider mocks={errorMock} addTypename={true}>
-        <Switch>
-          <Route path="/diagnoses/:id" component={Diagnoses} />
-        </Switch>
-      </MockedProvider>,
-      { wrapper: makeRouteWrapper('/diagnoses/123') },
+      <Route path="/diagnoses/:id" component={Diagnoses} />,
+      { paths: ['/diagnoses/123'], mocks: [] },
     );
 
-    expect(container.firstChild).toMatchSnapshot();
+    expect(container).toHaveTextContent(/Loading/);
+    expect(container).toMatchSnapshot();
+    await wait();
+  });
+
+  it('fetches data', async () => {
+    const { container } = render(
+      <Route path="/diagnoses/:id" component={Diagnoses} />,
+      { paths: ['/diagnoses/123'], mocks },
+    );
+
+    await wait(() => {
+      expect(container).toHaveTextContent(/Diagnostics Result/);
+      expect(container).toMatchSnapshot();
+    });
+  });
+
+  it('throws an error', async () => {
+    const { container } = render(
+      <Route path="/diagnoses/:id" component={Diagnoses} />,
+      { paths: ['/diagnoses/123'], mocks: errorMock },
+    );
+
+    await wait(() => {
+      expect(container).toHaveTextContent(/Error/);
+      expect(container).toMatchSnapshot();
+    });
   });
 });

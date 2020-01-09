@@ -1,35 +1,51 @@
 import React from 'react';
-import { theme } from '@visi/ui';
-import { render, RenderOptions } from '@testing-library/react';
+import { theme as uiTheme } from '@visi/ui';
+import { render as defaultRender, RenderOptions } from '@testing-library/react';
+import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
 import { MemoryRouter } from 'react-router';
-// import { I18nextProvider } from 'react-i18next';
 
-const AllTheProviders: React.FC = ({ children }) => {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+export interface TestProvidersProps {
+  children?: React.ReactNode;
+  paths: string[];
+  theme: typeof uiTheme;
+  mocks: MockedResponse[];
+}
+
+export const TestProviders = (props: TestProvidersProps) => {
+  const { children, paths, theme, mocks } = props;
+
+  return (
+    <MockedProvider mocks={mocks}>
+      <ThemeProvider theme={theme}>
+        <MemoryRouter initialEntries={paths}>{children}</MemoryRouter>
+      </ThemeProvider>
+    </MockedProvider>
+  );
 };
+
+export interface RenderProps extends Omit<RenderOptions, 'queries'> {
+  paths?: string[];
+  theme?: typeof uiTheme;
+  mocks?: MockedResponse[];
+}
 
 // See: https://testing-library.com/docs/react-testing-library/setup#custom-render
-const customRender = (
-  ui: React.ReactElement,
-  {
-    wrapper: AdditionalWrapper = React.Fragment,
-    ...options
-  }: Omit<RenderOptions, 'queries'>,
-) => {
-  return render(ui, {
+export const render = (ui: React.ReactElement, options: RenderProps = {}) => {
+  const {
+    wrapper: Wrapper = React.Fragment,
+    paths = ['/'],
+    mocks = [],
+    theme = uiTheme,
+    ...rest
+  } = options;
+
+  return defaultRender(ui, {
     wrapper: ({ children }) => (
-      <AllTheProviders>
-        <AdditionalWrapper>{children}</AdditionalWrapper>
-      </AllTheProviders>
+      <TestProviders paths={paths} theme={theme} mocks={mocks}>
+        <Wrapper>{children}</Wrapper>
+      </TestProviders>
     ),
-    ...options,
+    ...rest,
   });
 };
-
-export * from '@testing-library/react';
-export { customRender as render };
-
-export const makeRouteWrapper = (path: string): React.FC => ({ children }) => (
-  <MemoryRouter initialEntries={[path]}>{children}</MemoryRouter>
-);

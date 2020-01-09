@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Diagnoses fetches data 1`] = `
+exports[`Void matches to the snapshot 1`] = `
 .c0 {
   box-sizing: border-box;
   width: 1080px;
@@ -16,25 +16,8 @@ exports[`Diagnoses fetches data 1`] = `
     class="c0"
   >
     <h1>
-      Diagnostics Result: 
-      123
+      You hit the void!
     </h1>
   </main>
-</div>
-`;
-
-exports[`Diagnoses shows a loading indicator 1`] = `
-<div>
-  <p>
-    Loading...
-  </p>
-</div>
-`;
-
-exports[`Diagnoses throws an error 1`] = `
-<div>
-  <p>
-    Error occurred...
-  </p>
 </div>
 `;
