@@ -40,6 +40,7 @@ jobs:
       run: |
         yarn install --frozen-lockfile
         yarn run build
+        yarn run lint
         yarn run test
       env:
         CI: true

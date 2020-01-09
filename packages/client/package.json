@@ -7,6 +7,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "webpack --mode production",
+    "test": "exit 0",
     "watch": "webpack-dev-server --mode development",
     "postinstall": "graphql-codegen --config codegen.js"
   },

@@ -10,7 +10,8 @@
     "./dist"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "test": "jest --coverage"
   },
   "publishConfig": {
     "access": "public"
