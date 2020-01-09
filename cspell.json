@@ -1,0 +1,28 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/generated/**"],
+  "words": [
+    "antialiased",
+    "appenders",
+    "builtins",
+    "dataloader",
+    "deepmerge",
+    "devtool",
+    "harddisk",
+    "iife",
+    "inmemory",
+    "inversify",
+    "languagedetector",
+    "postgres",
+    "prefetch",
+    "transparentize",
+    "typeorm",
+    "unmanaged",
+    "varchar",
+    "visi",
+    "visiblerc",
+    "WCAG",
+    "woff"
+  ]
+}
