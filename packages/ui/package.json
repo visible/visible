@@ -8,6 +8,7 @@
   "scripts": {
     "storybook": "start-storybook",
     "build": "tsc",
+    "test": "jest --coverage",
     "watch": "tsc -w"
   },
   "files": [

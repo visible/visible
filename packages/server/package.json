@@ -8,6 +8,7 @@
   "scripts": {
     "start": "ts-node --project ./tsconfig.json ./src/index.ts",
     "build": "tsc",
+    "test": "jest --coverage",
     "postinstall": "graphql-codegen --config codegen.js"
   },
   "files": [
