@@ -6,7 +6,7 @@ import {
   useFetchDiagnosisSmallQuery,
 } from '../../generated/graphql';
 
-export const Diagnosises = () => {
+export const Diagnoses = () => {
   const match = useRouteMatch<{ id: string }>();
 
   const { data, loading, error } = useFetchDiagnosisSmallQuery({

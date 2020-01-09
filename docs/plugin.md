@@ -60,11 +60,11 @@ For reproducing the behaviour of browsers precisely, and to allow rule developer
 Rule is a class that has following methods / properties.
 
 - `static meta` - Metadata of the rule
-- `audit(context: Context): Promise<Report>` - Method to invoke aduit
+- `audit(context: Context): Promise<Report>` - Method to invoke audit
 
 ## `Report`
 
-`Report` is an object to tell main process about a result of the rule, containing an information such as whether the website satisfitied the rule or not. More concrete, following properties should be provided.
+`Report` is an object to tell main process about a result of the rule, containing an information such as whether the website satisfied the rule or not. More concrete, following properties should be provided.
 
 | Property  | Type                | Description                                 |
 | :-------- | :------------------ | :------------------------------------------ |

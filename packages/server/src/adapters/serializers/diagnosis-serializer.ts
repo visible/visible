@@ -28,7 +28,7 @@ export class DiagnosisSerializer {
     };
   }
 
-  transform(diagnosises: Diagnosis[]): DiagnosisAPI[] {
-    return diagnosises.map(diagnosis => this.transformOne(diagnosis));
+  transform(diagnoses: Diagnosis[]): DiagnosisAPI[] {
+    return diagnoses.map(diagnosis => this.transformOne(diagnosis));
   }
 }

@@ -3,7 +3,7 @@ import { ColorContrastRule } from './color-contrast';
 describe('color-contrast', () => {
   const colorContrast = new ColorContrastRule();
 
-  it('returns an error when color contrast does not satisfieis WCAG G18 AA', async () => {
+  it('returns an error when color contrast does not satisfies WCAG G18 AA', async () => {
     document.body.innerHTML = `
       <button style="background-color: white; color: white;">
         click me!
