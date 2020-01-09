@@ -12,7 +12,7 @@ const shouldUsePlural = lng => {
 };
 
 const lngs = glob
-  .sync(`./packages/core/src/locales/*.json`)
+  .sync(`./packages/cli/src/locale/*.json`)
   .map(file => file.match(/.*\/(.+?).json$/)[1]);
 
 const resourceMap = {

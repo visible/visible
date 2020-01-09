@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import path from 'path';
 import yargs from 'yargs';
-import { visible, Config } from '@visi/core/main';
+import { cosmiconfig } from 'cosmiconfig';
+import { visible } from '@visi/core/main';
 import { print } from './print';
 import { loader } from './loader';
 import { createI18n } from './i18n';
@@ -44,19 +44,22 @@ import { createI18n } from './i18n';
 
     async ({ url, json, verbose, fix }) => {
       try {
-        const config: Config = require(path.join(
-          process.cwd(),
-          '.visiblerc.json',
-        ));
+        const cosmiconfigResult = await cosmiconfig('visible').search();
+
+        if (!cosmiconfigResult?.config) {
+          throw new Error(t('visible.no-rc', 'No visiblerc file found'));
+        }
+
+        const { config } = cosmiconfigResult;
 
         const reports = await loader(
-          t('loading', 'Fetching diagnoses...'),
+          t('visible.loading', 'Fetching diagnoses...'),
           visible({ config, url }),
         );
 
         await print(reports, json, verbose, t, fix);
 
-        const hasError = reports.some(report => report.type === 'error');
+        const hasError = reports.some(report => report.level === 'error');
         process.exit(hasError ? 1 : 0);
       } catch (e) {
         // eslint-disable-next-line no-console
