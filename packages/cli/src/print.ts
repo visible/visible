@@ -15,7 +15,7 @@ export const print = async (
       return true;
     }
 
-    return report.type !== 'ok';
+    return report.level !== 'ok';
   });
 
   const fixtures = [];
@@ -46,7 +46,7 @@ export const print = async (
 
       switch (report.level) {
         case 'ok':
-          color = chalk.red;
+          color = chalk.green;
           break;
         case 'warn':
           color = chalk.yellow;

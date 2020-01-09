@@ -8,6 +8,7 @@
     "appenders",
     "builtins",
     "codegen",
+    "cosmiconfig",
     "dataloader",
     "deepmerge",
     "dequelabs",
