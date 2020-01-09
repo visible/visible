@@ -9,15 +9,15 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "postinstall": "lerna bootstrap",
     "build": "lerna run build --stream",
     "watch": "lerna run watch --parallel",
-    "test": "run-s test:*",
-    "test:jest": "jest --config=jest.config.js --coverage",
-    "test:eslint": "eslint -c .eslintrc.json ./packages/**/*.ts",
-    "test:stylelint": "stylelint 'packages/{client,ui}/**/*.{ts,tsx}'",
-    "test:spellcheck": "cspell '{packages,docs,scripts}/**/*{ts,tsx,md,js,json,graphql}'",
-    "manage:translations": "node ./scripts/manage-translations.js"
+    "test": "lerna run test --concurrency 1",
+    "lint": "run-s test:*",
+    "lint:eslint": "eslint -c .eslintrc.json ./packages/**/*.{ts,tsx}",
+    "lint:stylelint": "stylelint 'packages/{client,ui}/**/*.{ts,tsx}'",
+    "lint:spellcheck": "cspell '{packages,docs,scripts}/**/*{ts,tsx,md,js,json,graphql}'",
+    "manage-translations": "node ./scripts/manage-translations.js"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

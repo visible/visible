@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "test": "jest --coverage"
   },
   "files": [
     "./dist"
