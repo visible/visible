@@ -4,13 +4,13 @@ import { Config } from '../shared/config';
 const loadConfig = (path: string) => require(path).config;
 
 /**
- * Takes config object and reoslve extends
+ * Takes config object and resolve extends
  * @param baseConfig base configuration object
  */
 export function resolveExtends(baseConfig: Config, configLoader = loadConfig) {
-  const extendables = baseConfig.extends ?? [];
+  const extendConfigs = baseConfig.extends ?? [];
 
-  return extendables.reduce((result, extendable) => {
-    return merge(result, configLoader(extendable));
+  return extendConfigs.reduce((result, extendConfig) => {
+    return merge(result, configLoader(extendConfig));
   }, baseConfig);
 }

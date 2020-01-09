@@ -7,7 +7,7 @@ import { DiagnosisLoader } from './database/loaders/diagnosis-loader';
 @injectable()
 export class Context {
   @inject(DiagnosisController)
-  diagnosisContorller: DiagnosisController;
+  diagnosisController: DiagnosisController;
 
   @inject(ReportsController)
   reportsController: ReportsController;

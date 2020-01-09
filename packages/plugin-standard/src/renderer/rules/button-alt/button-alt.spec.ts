@@ -3,7 +3,7 @@ import { ButtonAltRule } from './button-alt';
 describe('button-alt', () => {
   const buttonAltRule = new ButtonAltRule();
 
-  it('repots when button does not have neither textContent nor title', async () => {
+  it('reports when button does not have neither textContent nor title', async () => {
     document.body.innerHTML = `<button></button>`;
 
     const [report] = await buttonAltRule.audit();

@@ -16,7 +16,7 @@
     "test:jest": "jest --config=jest.config.js --coverage",
     "test:eslint": "eslint -c .eslintrc.json ./packages/**/*.ts",
     "test:stylelint": "stylelint 'packages/{client,ui}/**/*.{ts,tsx}'",
-    "test:spellcheck": "cspell 'packages/**/*.{ts,tsx,md,js}'",
+    "test:spellcheck": "cspell '{packages,docs,scripts}/**/*{ts,tsx,md,js,json,graphql}'",
     "manage:translations": "node ./scripts/manage-translations.js"
   },
   "devDependencies": {

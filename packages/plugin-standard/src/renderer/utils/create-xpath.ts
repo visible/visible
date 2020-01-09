@@ -12,11 +12,11 @@ const getSelfXPath = (node: Node) => {
   return tagName + suffix;
 };
 
-export const createXPath = (node: Node, decendantPaths = '/'): string => {
-  if (!node.parentNode) return '/' + decendantPaths;
+export const createXPath = (node: Node, descendants = '/'): string => {
+  if (!node.parentNode) return '/' + descendants;
 
   return createXPath(
     node.parentNode,
-    [getSelfXPath(node), decendantPaths].join('/'),
+    [getSelfXPath(node), descendants].join('/'),
   );
 };

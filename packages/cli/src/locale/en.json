@@ -1,5 +1,5 @@
 {
-  "loading": "Fetching diagnosises...",
+  "loading": "Fetching diagnoses...",
   "options": {
     "fix": "Prints fixers",
     "json": "Output JSON instead of prettified table",

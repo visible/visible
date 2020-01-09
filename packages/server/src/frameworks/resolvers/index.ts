@@ -4,7 +4,7 @@ import {
   createDiagnosis,
   deleteDiagnosis,
   reports,
-} from './diagnosises';
+} from './diagnoses';
 
 export const resolvers: Resolvers = {
   Query: {

@@ -50,7 +50,7 @@ import { createI18n } from './i18n';
         ));
 
         const reports = await loader(
-          t('loading', 'Fetching diagnosises...'),
+          t('loading', 'Fetching diagnoses...'),
           visible({ config, url }),
         );
 

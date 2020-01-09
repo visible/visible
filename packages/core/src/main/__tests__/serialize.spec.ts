@@ -1,16 +1,16 @@
 import { serialize } from '../serialize';
 
 it('serializes values by JSON', () => {
-  const result = serialize`const myobj = ${{ 1: 'Jan', 2: 'Feb', 3: 'Mar' }}`;
+  const result = serialize`const myObj = ${{ 1: 'Jan', 2: 'Feb', 3: 'Mar' }}`;
   expect(result).toBe(
-    `const myobj = JSON.parse('{"1":"Jan","2":"Feb","3":"Mar"}')`,
+    `const myObj = JSON.parse('{"1":"Jan","2":"Feb","3":"Mar"}')`,
   );
 });
 
 it('serializes values by JSON (end with string)', () => {
-  const result = serialize`const myobj = ${{ 1: 'Jan', 2: 'Feb', 3: 'Mar' }};`;
+  const result = serialize`const myObj = ${{ 1: 'Jan', 2: 'Feb', 3: 'Mar' }};`;
   expect(result).toBe(
-    `const myobj = JSON.parse('{"1":"Jan","2":"Feb","3":"Mar"}');`,
+    `const myObj = JSON.parse('{"1":"Jan","2":"Feb","3":"Mar"}');`,
   );
 });
 

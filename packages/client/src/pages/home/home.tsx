@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useTranslation, Trans } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { useCreateDiagnosisMutation } from '../../generated/graphql';
-import Diagnostics from '../diagnosises';
 import diagnose from './diagnose.svg';
 
 const Wizard = styled.section`
@@ -45,7 +44,7 @@ export const Home = () => {
   });
 
   useEffect(() => {
-    if (data) history.push(`/diagnosises/${data.createDiagnosis.id}`);
+    if (data) history.push(`/diagnoses/${data.createDiagnosis.id}`);
   }, [data, history]);
 
   return (
