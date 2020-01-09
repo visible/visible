@@ -1,3 +1,5 @@
+const { defaults } = require('jest-config');
+
 module.exports = {
   testEnvironment: 'jsdom',
   transform: {
@@ -6,4 +8,9 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/tests/setup.tsx'],
   testMatch: ['<rootDir>/src/**/*.spec.{ts,tsx}'],
   collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
+
+  coveragePathIgnorePatterns: [
+    ...defaults.coveragePathIgnorePatterns,
+    'generated',
+  ],
 };
