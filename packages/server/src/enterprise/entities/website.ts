@@ -6,6 +6,6 @@ export class Website {
     readonly name: string,
     readonly description: string,
     readonly domain: string,
-    readonly diagnosises: Diagnosis[],
+    readonly diagnoses: Diagnosis[],
   ) {}
 }

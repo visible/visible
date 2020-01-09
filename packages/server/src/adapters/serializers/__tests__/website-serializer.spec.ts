@@ -24,7 +24,7 @@ describe('WebsiteSerializer', () => {
       name: 'My website',
       description: 'My first personal website',
       domain: 'my-website.com',
-      diagnosises: [],
+      diagnoses: [],
     });
   });
 });

@@ -33,16 +33,16 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   };
 
   async find(ids: string[]) {
-    const diagnosises = await this.connection
+    const diagnoses = await this.connection
       .getRepository(DiagnosisORM)
       .createQueryBuilder('diagnosis')
       .leftJoinAndSelect('diagnosis.reports', 'report')
       .whereInIds(ids)
       .getMany();
 
-    if (!diagnosises.length) throw new Error('Entry not found');
+    if (!diagnoses.length) throw new Error('Entry not found');
 
-    return diagnosises.map(diagnosis => this.toDomain(diagnosis));
+    return diagnoses.map(diagnosis => this.toDomain(diagnosis));
   }
 
   async create(diagnosis: Diagnosis) {

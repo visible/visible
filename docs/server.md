@@ -7,8 +7,8 @@
 ### Directory structure
 ```
 - server/src
-  - enterprise     (Enterprise Bussiness rules)
-  - application    (Application Bussiness rules)
+  - enterprise     (Enterprise Business rules)
+  - application    (Application Business rules)
   - adapters       (Interface Adapters)
   - infrastructure (Frameworks and Drivers)
 ```
@@ -19,7 +19,7 @@
 #### `enterprise/entities`
 エンタープライズのドメインモデルです。
 
-#### `applciation/use-cases`
+#### `application/use-cases`
 Basically, classes which takes repository to call methods of it.
 
 #### `application/repositories`
@@ -31,10 +31,10 @@ Basically, classes which takes repository to call methods of it.
 #### `adapters/serializers`
 ドメインモデルから用途に沿った形式へ変換するクラス
 
-#### `infrastructre/resolvers`
+#### `frameworks/resolvers`
 GraphQL resolvers
 
-#### `infrastructre/database`
+#### `frameworks/database`
 TypeORM entities
 
 

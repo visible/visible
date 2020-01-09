@@ -16,6 +16,7 @@
     "test:jest": "jest --config=jest.config.js --coverage",
     "test:eslint": "eslint -c .eslintrc.json ./packages/**/*.ts",
     "test:stylelint": "stylelint 'packages/{client,ui}/**/*.{ts,tsx}'",
+    "test:spellcheck": "cspell '{packages,docs,scripts}/**/*{ts,tsx,md,js,json,graphql}'",
     "manage:translations": "node ./scripts/manage-translations.js"
   },
   "devDependencies": {
@@ -34,6 +35,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "core-js": "^3.6.2",
+    "cspell": "^4.0.44",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-import": "^2.19.1",

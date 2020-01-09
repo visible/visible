@@ -5,7 +5,7 @@ const vfs = require('vinyl-fs');
 const scanner = require('i18next-scanner');
 const typescriptTransform = require('i18next-scanner-typescript');
 
-// Retruns false for non-plural using languages
+// Returns false for non-plural using languages
 const shouldUsePlural = lng => {
   const nonPluralLanguages = ['ja'];
   return !nonPluralLanguages.includes(lng);

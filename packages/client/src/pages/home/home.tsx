@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useTranslation, Trans } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { useCreateDiagnosisMutation } from '../../generated/graphql';
-import Diagnostics from '../diagnosises';
 import diagnose from './diagnose.svg';
 
 const Wizard = styled.section`
@@ -45,7 +44,7 @@ export const Home = () => {
   });
 
   useEffect(() => {
-    if (data) history.push(`/diagnosises/${data.createDiagnosis.id}`);
+    if (data) history.push(`/diagnoses/${data.createDiagnosis.id}`);
   }, [data, history]);
 
   return (
@@ -65,13 +64,7 @@ export const Home = () => {
             </Trans>
           </Description>
           {loading && <UI.Progress progress={50} />}
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          blah blah blah
         </Inner>
       </Wizard>
     </UI.Content>

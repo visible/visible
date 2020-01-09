@@ -29,18 +29,18 @@ export const reports: DiagnosisResolvers['reports'] = (
 export const createDiagnosis: MutationResolvers['createDiagnosis'] = async (
   _,
   { url },
-  { diagnosisContorller },
+  { diagnosisController },
 ) => {
-  const diagnosis = await diagnosisContorller.create(url);
+  const diagnosis = await diagnosisController.create(url);
   return diagnosis;
 };
 
 export const deleteDiagnosis: MutationResolvers['deleteDiagnosis'] = async (
   _,
   { id },
-  { diagnosisContorller },
+  { diagnosisController },
 ) => {
-  const result = await diagnosisContorller.delete(id);
+  const result = await diagnosisController.delete(id);
   return result;
 };
 

@@ -18,7 +18,7 @@ storiesOf('Navigation', module)
       </Nav>
     );
   })
-  .add('Inversed', () => {
+  .add('inverse', () => {
     return (
       <div style={{ backgroundColor: 'black' }}>
         <Nav>

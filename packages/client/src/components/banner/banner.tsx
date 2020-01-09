@@ -13,7 +13,7 @@ type BannerProps = JSX.IntrinsicElements['header'];
 const activeClassName = 'active';
 
 export const Banner = (props: BannerProps) => {
-  const navs = [
+  const navItems = [
     { to: '/', text: 'Visible' },
     { to: '/home', text: 'Home' },
     { to: '/notifications', text: 'Notifications' },
@@ -24,7 +24,7 @@ export const Banner = (props: BannerProps) => {
       <>
         <Title>Visible</Title>
         <UI.Nav>
-          {navs.map(nav => (
+          {navItems.map(nav => (
             <UI.NavItem
               key={nav.to}
               activeClassName={activeClassName}

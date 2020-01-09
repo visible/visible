@@ -23,5 +23,5 @@ export class WebsiteORM {
     diagnosis => diagnosis.website,
     { onDelete: 'SET NULL' },
   )
-  diagnosises: DiagnosisORM[];
+  diagnoses: DiagnosisORM[];
 }

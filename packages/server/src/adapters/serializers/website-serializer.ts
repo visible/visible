@@ -8,7 +8,7 @@ export type WebsiteAPI = PartialDeep<{
   name: string;
   description: string;
   domain: string;
-  diagnosises: DiagnosisAPI[];
+  diagnoses: DiagnosisAPI[];
 }>;
 
 export class WebsiteSerializer {
@@ -18,7 +18,7 @@ export class WebsiteSerializer {
       name: website.name,
       description: website.description,
       domain: website.domain,
-      diagnosises: new DiagnosisSerializer().transform(website.diagnosises),
+      diagnoses: new DiagnosisSerializer().transform(website.diagnoses),
     };
   }
 }
