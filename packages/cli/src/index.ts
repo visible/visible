@@ -53,11 +53,7 @@ import { createI18n } from './i18n';
         const { config } = cosmiconfigResult;
 
         const reports = await loader(
-<<<<<<< HEAD
-          t('loading', 'Fetching diagnoses...'),
-=======
           t('visible.loading', 'Fetching diagnoses...'),
->>>>>>> ab40e0e6a77b0704ce30b3bb20286ff74a9da79c
           visible({ config, url }),
         );
 
