@@ -11,17 +11,10 @@ import { HttpLink } from 'apollo-link-http';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
-  NormalizedCacheObject,
 } from 'apollo-cache-inmemory';
 import introspectionResult from './generated/introspection-result';
 import { createI18n } from './utils/i18n';
 import { Root } from './pages/root';
-
-declare global {
-  export interface Window {
-    __APOLLO_STATE__: NormalizedCacheObject;
-  }
-}
 
 const main = async () => {
   const mountNode = document.getElementById('root');
