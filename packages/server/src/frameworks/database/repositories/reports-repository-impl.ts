@@ -15,7 +15,7 @@ export class ReportsRepositoryImpl implements ReportsRepository {
       report.id,
       report.name,
       report.diagnosis.id,
-      report.type,
+      report.level,
       report.message,
       report.xpath,
       report.css,

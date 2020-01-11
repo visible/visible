@@ -45,7 +45,7 @@ export const deleteDiagnosis: MutationResolvers['deleteDiagnosis'] = async (
 };
 
 export const subscriptions: SubscriptionResolvers = {
-  diagnosisProgress: {
+  diagnosis: {
     subscribe(_, { id: _id }) {
       throw Error('undef');
     },

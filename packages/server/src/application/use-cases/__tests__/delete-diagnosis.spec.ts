@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 import { DiagnosisRepositoryInMemoryImpl } from '../../../frameworks/database/repositories/diagnosis-repository-in-memory-impl';
-import { Diagnosis } from '../../../enterprise/entities';
+import { Diagnosis, DiagnosisStatus } from '../../../enterprise/entities';
 import { DeleteDiagnosis } from '../delete-diagnosis';
 import { TYPES } from '../../../types';
 import { DiagnosisRepository } from '../../repositories/diagnosis-repository';
@@ -11,7 +11,18 @@ describe('DeleteDiagnosis', () => {
   beforeAll(() => {
     const container = new Container();
     const seed = new Map<string, Diagnosis>([
-      ['123', new Diagnosis('123', [], new Date('2020'), new Date('2020'))],
+      [
+        '123',
+        new Diagnosis(
+          '123',
+          DiagnosisStatus.STARTED,
+          [],
+          0,
+          12,
+          new Date('2020'),
+          new Date('2020'),
+        ),
+      ],
     ]);
 
     container

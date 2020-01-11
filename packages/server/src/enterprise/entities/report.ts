@@ -1,4 +1,4 @@
-export enum ReportType {
+export enum ReportLevel {
   OK = 'OK',
   WARN = 'WARN',
   ERROR = 'ERROR',
@@ -9,7 +9,7 @@ export class Report {
     readonly id: string,
     readonly name: string,
     readonly diagnosisId: string,
-    readonly type: ReportType,
+    readonly level: ReportLevel,
     readonly message?: string,
     readonly xpath?: string,
     readonly css?: string,

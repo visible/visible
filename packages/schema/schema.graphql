@@ -1,37 +1,37 @@
 interface Actor {
   id: ID!
   name: String!
-  websites: [Website!]
+  subjects: [Subject!]
 }
 
 type Account implements Actor {
   id: ID!
   name: String!
-  websites: [Website!]
+  subjects: [Subject!]
 }
 
 type Organization implements Actor {
   id: ID!
   name: String!
-  websites: [Website!]
+  subjects: [Subject!]
 }
 
 type Credential implements Actor {
   id: ID!
   email: String!
   name: String!
-  websites: [Website!]
+  subjects: [Subject!]
 }
 
-enum ReportType {
-  OK
-  WARN
-  ERROR
+enum ReportLevel {
+  PASSED
+  FAILED
+  INAPPLICABLE
 }
 
 type Report {
   id: ID!
-  type: ReportType!
+  level: ReportLevel!
   name: String!
   message: String
   html: String
@@ -39,7 +39,7 @@ type Report {
   css: String
 }
 
-type Website {
+type Subject {
   id: ID!
   name: String!
   description: String!
@@ -53,25 +53,22 @@ type Score {
   ok: Int!
 }
 
-type Diagnosis {
-  id: ID!
-  score: Score!
-  screenshot: String!
-  reports: [Report!]!
-  # website: Website!
-}
-
-enum DiagnosisProgressStatus {
+enum DiagnosisStatus {
   STARTED
-  PROCESSING
+  RUNNING
   DONE
   FAILED
 }
 
-type DiagnosisProgress {
+type Diagnosis {
   id: ID!
-  status: DiagnosisProgressStatus!
-  progress: Int!
+  score: Score!
+  screenshot: String!
+  status: DiagnosisStatus!
+  reports: [Report!]!
+  subject: Subject!
+  doneRulesCount: Int!
+  totalRulesCount: Int!
 }
 
 type Query {
@@ -87,7 +84,7 @@ type Mutation {
 }
 
 type Subscription {
-  diagnosisProgress(id: ID!): DiagnosisProgress!
+  diagnosis(id: ID!): Diagnosis!
 }
 
 schema {

@@ -7,7 +7,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  Column,
 } from 'typeorm';
+import { DiagnosisStatus } from '../../../enterprise/entities';
 import { ReportORM } from './report';
 import { WebsiteORM } from './website';
 
@@ -26,6 +28,15 @@ export class DiagnosisORM {
     { onDelete: 'SET NULL' },
   )
   reports: ReportORM[];
+
+  @Column('varchar', { length: 225 })
+  status: DiagnosisStatus;
+
+  @Column('int')
+  doneRulesCount: number;
+
+  @Column('int')
+  totalRulesCount: number;
 
   @Index()
   @CreateDateColumn({ type: 'timestamp with time zone' })

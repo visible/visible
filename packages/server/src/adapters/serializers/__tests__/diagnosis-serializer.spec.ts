@@ -1,5 +1,8 @@
-import { DiagnosisSerializer } from '../diagnosis-serializer';
-import { Diagnosis } from '../../../enterprise/entities';
+import {
+  DiagnosisSerializer,
+  DiagnosisStatusAPI,
+} from '../diagnosis-serializer';
+import { Diagnosis, DiagnosisStatus } from '../../../enterprise/entities';
 
 describe('DiagnosisSerializer', () => {
   let diagnosisSerializer: DiagnosisSerializer;
@@ -9,13 +12,25 @@ describe('DiagnosisSerializer', () => {
   });
 
   it('serializes properly', () => {
-    const diagnosis = new Diagnosis('123', [], new Date(), new Date());
+    const diagnosis = new Diagnosis(
+      '123',
+      DiagnosisStatus.DONE,
+      [],
+      0,
+      2,
+      new Date(),
+      new Date(),
+    );
+
     const result = diagnosisSerializer.transformOne(diagnosis);
 
     expect(result).toEqual({
       id: '123',
       screenshot: '',
       score: diagnosis.getScore(),
+      status: DiagnosisStatusAPI.DONE,
+      totalRulesCount: 2,
+      doneRulesCount: 0,
       reports: [],
     });
   });

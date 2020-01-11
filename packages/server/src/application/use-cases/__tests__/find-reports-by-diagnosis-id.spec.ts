@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 import { FindReportsByDiagnosisId } from '../find-reports-by-diagnosis-id';
 import { ReportsRepositoryInMemoryImpl } from '../../../frameworks/database/repositories/reports-repository-in-memory-impl';
-import { Report, ReportType } from '../../../enterprise/entities';
+import { Report, ReportLevel } from '../../../enterprise/entities';
 import { TYPES } from '../../../types';
 import { ReportsRepository } from '../../repositories/reports-repository';
 
@@ -11,7 +11,7 @@ describe('FindReportsByDiagnosisId', () => {
   beforeAll(() => {
     const container = new Container();
     const seed = new Map<string, Report>([
-      ['123', new Report('123', 'img-alt', '345', ReportType.OK)],
+      ['123', new Report('123', 'img-alt', '345', ReportLevel.PASSED)],
     ]);
 
     container

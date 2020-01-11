@@ -17,7 +17,7 @@ export class DiagnosisRepositoryInMemoryImpl implements DiagnosisRepository {
 
   async create(diagnosis: Diagnosis) {
     this.diagnosis.set(diagnosis.id, diagnosis);
-    const result = this.diagnosis.get(diagnosis.id);
+    const [result] = await this.find([diagnosis.id]);
     if (!result) throw new Error('No entry found');
     return result;
   }
@@ -25,5 +25,13 @@ export class DiagnosisRepositoryInMemoryImpl implements DiagnosisRepository {
   async delete(id: string) {
     this.diagnosis.delete(id);
     return id;
+  }
+
+  async update(diagnosis: Diagnosis) {
+    this.delete(diagnosis.id);
+    this.create(diagnosis);
+    const [result] = await this.find([diagnosis.id]);
+    if (!result) throw new Error('No entry found');
+    return result;
   }
 }

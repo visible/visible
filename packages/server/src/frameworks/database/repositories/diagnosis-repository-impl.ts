@@ -14,22 +14,47 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   private toDomain = (diagnosis: DiagnosisORM) => {
     return new Diagnosis(
       diagnosis.id,
+      diagnosis.status,
       diagnosis.reports.map(
         report =>
           new Report(
             report.id,
             report.name,
             diagnosis.id,
-            report.type,
+            report.level,
             report.message,
             report.xpath,
             report.css,
             report.html,
           ),
       ),
+      diagnosis.doneRulesCount,
+      diagnosis.totalRulesCount,
       diagnosis.createdAt,
       diagnosis.updatedAt,
     );
+  };
+
+  private fromDomain = (diagnosis: Diagnosis) => {
+    const diagnosisEntity = new DiagnosisORM();
+
+    diagnosisEntity.status = diagnosis.status;
+    diagnosisEntity.doneRulesCount = diagnosis.doneRulesCount;
+    diagnosisEntity.totalRulesCount = diagnosis.totalRulesCount;
+
+    diagnosisEntity.reports = diagnosis.reports.map(report => {
+      const reportEntity = new ReportORM();
+      reportEntity.name = report.name;
+      reportEntity.level = report.level;
+      reportEntity.message = report.message;
+      reportEntity.html = report.html;
+      reportEntity.css = report.css;
+      reportEntity.xpath = report.xpath;
+      reportEntity.diagnosis = diagnosisEntity;
+      return reportEntity;
+    });
+
+    return diagnosisEntity;
   };
 
   async find(ids: string[]) {
@@ -46,19 +71,7 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   }
 
   async create(diagnosis: Diagnosis) {
-    const diagnosisEntity = new DiagnosisORM();
-
-    diagnosisEntity.reports = diagnosis.reports.map(report => {
-      const reportEntity = new ReportORM();
-      reportEntity.name = report.name;
-      reportEntity.type = report.type;
-      reportEntity.message = report.message;
-      reportEntity.html = report.html;
-      reportEntity.css = report.css;
-      reportEntity.xpath = report.xpath;
-      reportEntity.diagnosis = diagnosisEntity;
-      return reportEntity;
-    });
+    const diagnosisEntity = this.fromDomain(diagnosis);
 
     await this.connection
       .getRepository(ReportORM)
@@ -74,5 +87,14 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   async delete(id: string) {
     await this.connection.getRepository(DiagnosisORM).delete(id);
     return id;
+  }
+
+  async update(diagnosis: Diagnosis) {
+    await this.connection
+      .getRepository(DiagnosisORM)
+      .update(diagnosis.id, this.fromDomain(diagnosis));
+
+    const [result] = await this.find([diagnosis.id]);
+    return result;
   }
 }

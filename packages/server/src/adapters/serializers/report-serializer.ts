@@ -1,7 +1,7 @@
 // import { PartialDeep } from 'type-fest';
-import { ReportType, Report } from '../../enterprise/entities/report';
+import { ReportLevel, Report } from '../../enterprise/entities/report';
 
-export enum ReportTypeAPI {
+export enum ReportLevelAPI {
   OK = 'OK',
   WARN = 'WARN',
   ERROR = 'ERROR',
@@ -10,7 +10,7 @@ export enum ReportTypeAPI {
 export type ReportAPI = {
   id: string;
   name: string;
-  type: ReportTypeAPI;
+  level: ReportLevelAPI;
   message?: string;
   xpath?: string;
   css?: string;
@@ -18,15 +18,15 @@ export type ReportAPI = {
 };
 
 export class ReportSerializer {
-  private serializeType = (type: ReportType): ReportTypeAPI => {
+  private serializeType = (type: ReportLevel): ReportLevelAPI => {
     switch (type) {
-      case ReportType.ERROR:
-        return ReportTypeAPI.ERROR;
-      case ReportType.WARN:
-        return ReportTypeAPI.WARN;
-      case ReportType.OK:
+      case ReportLevel.ERROR:
+        return ReportLevelAPI.ERROR;
+      case ReportLevel.WARN:
+        return ReportLevelAPI.WARN;
+      case ReportLevel.OK:
       default:
-        return ReportTypeAPI.OK;
+        return ReportLevelAPI.OK;
     }
   };
 
@@ -34,7 +34,7 @@ export class ReportSerializer {
     return {
       id: report.id,
       name: report.name,
-      type: this.serializeType(report.type),
+      level: this.serializeType(report.level),
       message: report.message,
       html: report.html,
       xpath: report.xpath,

@@ -3,19 +3,19 @@ import {
   Report as CoreReport,
   ReportLevel as CoreReportLevel,
 } from '@visi/core/main';
-import { Report, ReportType } from '../../enterprise/entities';
+import { Report, ReportLevel } from '../../enterprise/entities';
 import { CreateDiagnosisInput } from '../../application/use-cases/create-diagnosis';
 
 export class DiagnosisInterpreter {
   transformType = (level: CoreReportLevel) => {
     switch (level) {
       case 'ok':
-        return ReportType.OK;
+        return ReportLevel.OK;
       case 'warn':
-        return ReportType.WARN;
+        return ReportLevel.WARN;
       case 'error':
       default:
-        return ReportType.ERROR;
+        return ReportLevel.ERROR;
     }
   };
 

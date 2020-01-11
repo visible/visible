@@ -5,7 +5,7 @@ import {
   JoinColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ReportType } from '../../../enterprise/entities';
+import { ReportLevel } from '../../../enterprise/entities';
 import { DiagnosisORM } from './diagnosis';
 
 @Entity('report')
@@ -17,7 +17,7 @@ export class ReportORM {
   name: string;
 
   @Column('varchar', { length: 255 })
-  type: ReportType;
+  level: ReportLevel;
 
   @Column('varchar', { length: 255, nullable: true })
   message?: string;
