@@ -9,7 +9,7 @@ export type UpdateDiagnosisOutput = Diagnosis;
 @injectable()
 export class UpdateDiagnosis {
   @inject(TYPES.DiagnosisRepository)
-  private diagnosisRepository: DiagnosisRepository;
+  private readonly diagnosisRepository: DiagnosisRepository;
 
   run(input: UpdateDiagnosisInput): Promise<UpdateDiagnosisOutput> {
     return this.diagnosisRepository.update(input);

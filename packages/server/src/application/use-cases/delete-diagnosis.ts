@@ -5,7 +5,7 @@ import { TYPES } from '../../types';
 @injectable()
 export class DeleteDiagnosis {
   @inject(TYPES.DiagnosisRepository)
-  private diagnosisRepository: DiagnosisRepository;
+  private readonly diagnosisRepository: DiagnosisRepository;
 
   run(id: string) {
     return this.diagnosisRepository.delete(id);

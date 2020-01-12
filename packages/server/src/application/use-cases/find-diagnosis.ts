@@ -9,7 +9,7 @@ type FindDiagnosisResult = Diagnosis[];
 @injectable()
 export class FindDiagnosis {
   @inject(TYPES.DiagnosisRepository)
-  private diagnosisRepository: DiagnosisRepository;
+  private readonly diagnosisRepository: DiagnosisRepository;
 
   run(ids: FindDiagnosisInput): Promise<FindDiagnosisResult> {
     return this.diagnosisRepository.find(ids);

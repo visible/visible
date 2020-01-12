@@ -5,7 +5,7 @@ import { TYPES } from '../../types';
 @injectable()
 export class FindReportsByDiagnosisId {
   @inject(TYPES.ReportsRepository)
-  private reportsRepository: ReportsRepository;
+  private readonly reportsRepository: ReportsRepository;
 
   run(id: string) {
     return this.reportsRepository.findByDiagnosisId(id);

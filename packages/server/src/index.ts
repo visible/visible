@@ -5,6 +5,7 @@ import { TYPES } from './types';
 
 import { DiagnosisRepository } from './application/repositories/diagnosis-repository';
 import { ReportsRepository } from './application/repositories/reports-repository';
+import { DiagnosisWorker } from './application/workers/diagnosis-worker';
 
 import { DiagnosisController } from './adapters/controllers/diagnosis-controller';
 import { ReportsController } from './adapters/controllers/reports-controller';
@@ -22,6 +23,7 @@ import {
   DiagnosisLoader,
   DiagnosisLoaderImpl,
 } from './frameworks/database/loaders/diagnosis-loader';
+import { DiagnosisWorkerImpl } from './frameworks/workers/diagnosis-worker-impl';
 
 // prettier-ignore
 (async () => {
@@ -31,6 +33,7 @@ import {
   container.bind<DiagnosisRepository>(TYPES.DiagnosisRepository).to(DiagnosisRepositoryImpl);
   container.bind<DiagnosisLoader>(TYPES.DiagnosisLoader).to(DiagnosisLoaderImpl);
   container.bind<ReportsRepository>(TYPES.ReportsRepository).to(ReportsRepositoryImpl);
+  container.bind<DiagnosisWorker>(TYPES.DiagnosisWorker).to(DiagnosisWorkerImpl);
 
   container.bind<FindDiagnosis>(FindDiagnosis).toSelf();
   container.bind<CreateDiagnosis>(CreateDiagnosis).toSelf();
@@ -38,6 +41,7 @@ import {
   container.bind<FindReportsByDiagnosisId>(FindReportsByDiagnosisId).toSelf();
   container.bind<DiagnosisController>(DiagnosisController).toSelf();
   container.bind<ReportsController>(ReportsController).toSelf();
+
 
   container.bind<Connection>(TYPES.Connection).toConstantValue(connection);
   container.bind<Context>(Context).toSelf();
