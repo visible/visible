@@ -1,6 +1,6 @@
 import { visible } from '@visi/core/main';
 import Bull, { Job } from 'bull';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import uuid from 'uuid';
 import { Diagnosis, DiagnosisStatus, Report } from '../../enterprise/entities';
 import { DiagnosisWorker } from '../../application/workers/diagnosis-worker';
@@ -14,6 +14,7 @@ interface QueueInput {
 
 const MAX_CHILD = 10;
 
+@injectable()
 export class DiagnosisWorkerImpl implements DiagnosisWorker {
   private queue: Bull.Queue<QueueInput>;
 
@@ -21,7 +22,7 @@ export class DiagnosisWorkerImpl implements DiagnosisWorker {
   private diagnosisRepository: DiagnosisRepository;
 
   constructor() {
-    this.queue = new Bull<QueueInput>(name, {
+    this.queue = new Bull<QueueInput>('diagnosis', {
       redis: {
         host: process.env.REDIS_HOST,
         port: Number(process.env.REDIS_PORT),
@@ -32,7 +33,7 @@ export class DiagnosisWorkerImpl implements DiagnosisWorker {
   }
 
   async append(diagnosis: Diagnosis) {
-    this.queue.add({ diagnosis });
+    await this.queue.add({ diagnosis });
     return;
   }
 
@@ -68,6 +69,6 @@ export class DiagnosisWorkerImpl implements DiagnosisWorker {
       new Date(),
     );
 
-    this.diagnosisRepository.update(diagnosis);
+    return this.diagnosisRepository.update(diagnosis);
   }
 }

@@ -99,7 +99,7 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
       .update(diagnosis.id, this.fromDomain(diagnosis));
 
     const [result] = await this.find([diagnosis.id]);
-    this.pubSub.publish('DIAGNOSIS', result);
+    await this.pubSub.publish('DIAGNOSIS', result);
     return result;
   }
 }

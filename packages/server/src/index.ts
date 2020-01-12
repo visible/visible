@@ -29,9 +29,11 @@ import { DiagnosisWorkerImpl } from './frameworks/workers/diagnosis-worker-impl'
 // prettier-ignore
 (async () => {
   const container = new Container();
-  const connection = await createConnection();
 
-  container.bind<PubSub>(TYPES.PubSub).to(PubSub);
+  const connection = await createConnection();
+  const pubSub = new PubSub();
+
+  container.bind<PubSub>(TYPES.PubSub).toConstantValue(pubSub);
   container.bind<DiagnosisRepository>(TYPES.DiagnosisRepository).to(DiagnosisRepositoryImpl);
   container.bind<DiagnosisLoader>(TYPES.DiagnosisLoader).to(DiagnosisLoaderImpl);
   container.bind<ReportsRepository>(TYPES.ReportsRepository).to(ReportsRepositoryImpl);
