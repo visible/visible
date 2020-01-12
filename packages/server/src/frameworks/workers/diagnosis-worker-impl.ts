@@ -4,8 +4,9 @@ import { inject } from 'inversify';
 import uuid from 'uuid';
 import { Diagnosis, DiagnosisStatus, Report } from '../../enterprise/entities';
 import { DiagnosisWorker } from '../../application/workers/diagnosis-worker';
-import { TYPES } from '../../types';
 import { DiagnosisRepository } from '../../application/repositories/diagnosis-repository';
+import { DiagnosisInterpreter } from '../../adapters/interpreters/diagnosis-interpreter';
+import { TYPES } from '../../types';
 
 interface QueueInput {
   diagnosis: Diagnosis;
@@ -54,7 +55,7 @@ export class DiagnosisWorkerImpl implements DiagnosisWorker {
             uuid(),
             report.type,
             job.data.diagnosis.id,
-            report.level,
+            new DiagnosisInterpreter().transformType(report.level),
             report.message,
             report.content?.xpath,
             report.content?.style,

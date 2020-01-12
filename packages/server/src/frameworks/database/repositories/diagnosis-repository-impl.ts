@@ -1,5 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { Connection } from 'typeorm';
+import { PubSub } from 'apollo-server-express';
 import { DiagnosisRepository } from '../../../application/repositories/diagnosis-repository';
 import { DiagnosisORM } from '../entities/diagnosis';
 import { Diagnosis, Report } from '../../../enterprise/entities';
@@ -10,6 +11,9 @@ import { ReportORM } from '../entities/report';
 export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   @inject(TYPES.Connection)
   private connection: Connection;
+
+  @inject(TYPES.PubSub)
+  private pubSub: PubSub;
 
   private toDomain = (diagnosis: DiagnosisORM) => {
     return new Diagnosis(
@@ -95,6 +99,7 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
       .update(diagnosis.id, this.fromDomain(diagnosis));
 
     const [result] = await this.find([diagnosis.id]);
+    this.pubSub.publish('DIAGNOSIS', result);
     return result;
   }
 }

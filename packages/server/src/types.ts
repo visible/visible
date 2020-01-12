@@ -1,5 +1,6 @@
 export const TYPES = {
   Connection: Symbol.for('Connection'),
+  PubSub: Symbol.for('PubSub'),
 
   DiagnosisRepository: Symbol.for('DiagnosisRepository'),
   ReportsRepository: Symbol.for('ReportsRepository'),

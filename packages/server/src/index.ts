@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
 import { Connection } from 'typeorm';
+import { PubSub } from 'apollo-server-express';
 import { TYPES } from './types';
 
 import { DiagnosisRepository } from './application/repositories/diagnosis-repository';
@@ -30,6 +31,7 @@ import { DiagnosisWorkerImpl } from './frameworks/workers/diagnosis-worker-impl'
   const container = new Container();
   const connection = await createConnection();
 
+  container.bind<PubSub>(TYPES.PubSub).to(PubSub);
   container.bind<DiagnosisRepository>(TYPES.DiagnosisRepository).to(DiagnosisRepositoryImpl);
   container.bind<DiagnosisLoader>(TYPES.DiagnosisLoader).to(DiagnosisLoaderImpl);
   container.bind<ReportsRepository>(TYPES.ReportsRepository).to(ReportsRepositoryImpl);

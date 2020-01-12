@@ -46,8 +46,8 @@ export const deleteDiagnosis: MutationResolvers['deleteDiagnosis'] = async (
 
 export const subscriptions: SubscriptionResolvers = {
   diagnosis: {
-    subscribe(_, { id: _id }) {
-      throw Error('undef');
+    subscribe(_, { id: _id }, { pubSub }) {
+      return pubSub.asyncIterator(['DIAGNOSIS']);
     },
   },
 };
