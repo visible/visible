@@ -6,7 +6,6 @@
   "license": "AGPL-3.0",
   "main": "./dist/index.js",
   "scripts": {
-    "storybook": "start-storybook",
     "build": "tsc",
     "test": "jest --coverage",
     "watch": "tsc -w"

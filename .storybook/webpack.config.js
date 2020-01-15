@@ -1,7 +1,7 @@
 const path = require('path');
 
 // https://storybook.js.org/docs/configurations/typescript-config/#setting-up-typescript-to-work-with-storybook
-module.exports = async ({ config, mode }) => {
+module.exports = ({ config, mode }) => {
   config.module.rules.push({
     test: /\.tsx?$/,
     use: [
