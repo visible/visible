@@ -1,37 +1,41 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { NavItem, Nav } from '.';
 
-storiesOf('Navigation', module)
-  .add('Normal', () => {
-    return (
+export default {
+  title: 'Navigation',
+  component: Nav,
+};
+
+export const normal = () => {
+  return (
+    <Nav>
+      <NavItem>
+        <a href="#apple">Apple</a>
+      </NavItem>
+      <NavItem>
+        <a href="#facebook">Facebook</a>
+      </NavItem>
+      <NavItem>
+        <a href="#microsoft">Microsoft</a>
+      </NavItem>
+    </Nav>
+  );
+};
+
+export const inverse = () => {
+  return (
+    <div style={{ backgroundColor: 'black' }}>
       <Nav>
-        <NavItem>
+        <NavItem appearance="inverse">
           <a href="#apple">Apple</a>
         </NavItem>
-        <NavItem>
+        <NavItem appearance="inverse">
           <a href="#facebook">Facebook</a>
         </NavItem>
-        <NavItem>
+        <NavItem appearance="inverse">
           <a href="#microsoft">Microsoft</a>
         </NavItem>
       </Nav>
-    );
-  })
-  .add('inverse', () => {
-    return (
-      <div style={{ backgroundColor: 'black' }}>
-        <Nav>
-          <NavItem appearance="inverse">
-            <a href="#apple">Apple</a>
-          </NavItem>
-          <NavItem appearance="inverse">
-            <a href="#facebook">Facebook</a>
-          </NavItem>
-          <NavItem appearance="inverse">
-            <a href="#microsoft">Microsoft</a>
-          </NavItem>
-        </Nav>
-      </div>
-    );
-  });
+    </div>
+  );
+};

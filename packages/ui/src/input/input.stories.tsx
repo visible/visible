@@ -1,11 +1,17 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import { Input } from '.';
 
-storiesOf('Input', module).add('Normal', () => {
-  const placeholder = text('Placeholder', 'Type your message');
-  const disabled = boolean('Disabled', false);
+export default {
+  title: 'Input',
+  component: Input,
+};
 
-  return <Input placeholder={placeholder} disabled={disabled} />;
-});
+export const normal = () => {
+  return (
+    <Input
+      placeholder={text('Placeholder', 'Type your message')}
+      disabled={boolean('Disabled', false)}
+    />
+  );
+};

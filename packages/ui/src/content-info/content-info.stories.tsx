@@ -1,9 +1,13 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { List, ListItem } from '../list';
 import { ContentInfo } from '.';
 
-storiesOf('ContentInfo', module).add('Normal', () => {
+export default {
+  title: 'ContentInfo',
+  component: ContentInfo,
+}
+
+export const normal = () => {
   return (
     <ContentInfo>
       <nav>

@@ -1,9 +1,9 @@
 import { transparentize } from 'polished';
 import styled, { css } from 'styled-components';
 
-type ButtonAppearance = 'primary' | 'skeleton';
+export type ButtonAppearance = 'primary' | 'skeleton';
 
-interface ButtonProps {
+export interface ButtonProps {
   /** Appearance of the button */
   appearance: ButtonAppearance;
 }

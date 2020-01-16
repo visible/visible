@@ -4,7 +4,12 @@ import { action } from '@storybook/addon-actions';
 import { boolean } from '@storybook/addon-knobs';
 import { Search } from '.';
 
-storiesOf('Search', module).add('Normal', () => {
+export default {
+  title: 'Search',
+  component: Search,
+};
+
+export const normal = () => {
   const required = boolean('required', false);
   const disabled = boolean('disabled', false);
 
