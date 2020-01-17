@@ -15,7 +15,6 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es6",
-    "strictPropertyInitialization": false
+    "target": "es6"
   }
 }
