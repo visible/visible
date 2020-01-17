@@ -12,7 +12,7 @@ exports[`ContentInfo matches snapshot 1`] = `
   color: #666666;
 }
 
-.c0 .c1 {
+.c0 .sc-AykKC {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

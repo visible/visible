@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Input } from '../input';
 import { Button } from '../button';
 
-interface SearchProps {
+export interface SearchProps {
   required?: boolean;
   disabled?: boolean;
   placeholder?: string;

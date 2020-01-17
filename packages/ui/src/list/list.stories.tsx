@@ -1,8 +1,12 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { List, ListItem } from '.';
 
-storiesOf('List', module).add('Normal', () => {
+export default {
+  title: 'List',
+  component: List,
+};
+
+export const normal = () => {
   return (
     <List>
       <ListItem>Apple</ListItem>
@@ -10,4 +14,4 @@ storiesOf('List', module).add('Normal', () => {
       <ListItem>Microsoft</ListItem>
     </List>
   );
-});
+};

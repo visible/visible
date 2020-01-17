@@ -1,8 +1,14 @@
 {
   "version": "0.1",
   "language": "en,en-GB",
-  "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/generated/**"],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/generated/**",
+    "**/coverage/**"
+  ],
   "words": [
+    "Affero",
     "AGPL",
     "antialiased",
     "appenders",
@@ -32,6 +38,7 @@
     "serializers",
     "SMACSS",
     "stylelint",
+    "theming",
     "transparentize",
     "transpiled",
     "typeorm",

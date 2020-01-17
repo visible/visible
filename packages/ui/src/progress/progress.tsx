@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-interface ProgressProps {
+export interface ProgressProps {
   progress: number;
 }
 

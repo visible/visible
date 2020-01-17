@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-type NavAppearance = 'inverse' | 'default';
+export type NavAppearance = 'inverse' | 'default';
 
 const NavWrapper = styled.ul`
   display: flex;
@@ -10,7 +10,7 @@ const NavWrapper = styled.ul`
   list-style: none;
 `;
 
-interface NavProps {
+export interface NavProps {
   children: React.ReactNode;
 }
 
@@ -31,7 +31,7 @@ const NavItemBorder = styled.div<NavItemWrapperProps>`
     }[appearance])};
 `;
 
-interface NavItemWrapperProps {
+export interface NavItemWrapperProps {
   activeClassName: string;
   appearance: NavAppearance;
 }

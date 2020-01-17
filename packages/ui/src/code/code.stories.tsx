@@ -1,12 +1,15 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { Code } from '.';
 
-storiesOf('Code', module).add('Normal', () => {
-  const code = `function main(params = {}) {
-  var json = JSON.stringify(params);
-  console.log(json);
-}`;
+export default {
+  title: 'Code',
+  component: Code,
+};
 
-  return <Code language="javascript">{code}</Code>;
-});
+export const normal = () => (
+  <Code language="javascript">{`
+  function main(params = {}) {
+    var json = JSON.stringify(params);
+    console.log(json);
+  }`}</Code>
+);
