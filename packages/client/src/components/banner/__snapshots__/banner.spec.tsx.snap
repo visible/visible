@@ -66,7 +66,7 @@ exports[`Banner matches to the snapshot 1`] = `
   color: rgba(255,255,255,1);
 }
 
-.c4 > a.active .c5 {
+.c4 > a.active .sc-fzXfLP {
   visibility: display;
 }
 
