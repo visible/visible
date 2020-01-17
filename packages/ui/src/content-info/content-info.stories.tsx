@@ -5,7 +5,7 @@ import { ContentInfo } from '.';
 export default {
   title: 'ContentInfo',
   component: ContentInfo,
-}
+};
 
 export const normal = () => {
   return (
@@ -19,4 +19,4 @@ export const normal = () => {
       </nav>
     </ContentInfo>
   );
-});
+};

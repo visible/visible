@@ -1,7 +1,8 @@
-import React from 'react';
 import { DecoratorFn } from '@storybook/react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { theme, GlobalStyle } from '../packages/ui/src';
+import { theme } from './theme';
+import { GlobalStyle } from './global';
 
 export const withTheme: DecoratorFn = storyFn => {
   return (
