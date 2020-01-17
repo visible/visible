@@ -7,24 +7,14 @@ export default {
   component: Button,
 };
 
-export const primary = () => {
-  const content = text('Content', 'Button');
-  const disabled = boolean('Disabled', false);
+export const primary = () => (
+  <Button appearance="primary" disabled={boolean('Disabled', false)}>
+    {text('Content', 'Button')}
+  </Button>
+);
 
-  return (
-    <Button appearance="primary" disabled={disabled}>
-      {content}
-    </Button>
-  );
-};
-
-export const skeleton = () => {
-  const content = text('Content', 'Button');
-  const disabled = boolean('Disabled', false);
-
-  return (
-    <Button appearance="skeleton" disabled={disabled}>
-      {content}
-    </Button>
-  );
-};
+export const skeleton = () => (
+  <Button appearance="skeleton" disabled={boolean('Disabled', false)}>
+    {text('Content', 'Button')}
+  </Button>
+);

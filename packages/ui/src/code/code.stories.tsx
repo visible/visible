@@ -6,11 +6,10 @@ export default {
   component: Code,
 };
 
-export const normal = () => {
-  const code = `function main(params = {}) {
-  var json = JSON.stringify(params);
-  console.log(json);
-}`;
-
-  return <Code language="javascript">{code}</Code>;
-};
+export const normal = () => (
+  <Code language="javascript">{`
+  function main(params = {}) {
+    var json = JSON.stringify(params);
+    console.log(json);
+  }`}</Code>
+);

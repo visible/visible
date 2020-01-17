@@ -8,18 +8,13 @@ export default {
   component: Search,
 };
 
-export const normal = () => {
-  const required = boolean('required', false);
-  const disabled = boolean('disabled', false);
-
-  return (
-    <Search
-      placeholder="Type some keyword"
-      submitLabel="Search"
-      required={required}
-      disabled={disabled}
-      onSubmit={action('onSubmit')}
-      onChange={action('onChange')}
-    />
-  );
-};
+export const normal = () => (
+  <Search
+    placeholder="Type some keyword"
+    submitLabel="Search"
+    required={boolean('required', false)}
+    disabled={boolean('disabled', false)}
+    onSubmit={action('onSubmit')}
+    onChange={action('onChange')}
+  />
+);

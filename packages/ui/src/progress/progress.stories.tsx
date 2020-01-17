@@ -7,7 +7,8 @@ export default {
   component: Progress,
 };
 
-export const normal = () => {
-  const progress = number('Progress', 50, { range: true, min: 0, max: 100 });
-  return <Progress progress={progress} />;
-};
+export const normal = () => (
+  <Progress
+    progress={number('Progress', 50, { range: true, min: 0, max: 100 })}
+  />
+);
