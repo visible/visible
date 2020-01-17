@@ -28,11 +28,14 @@ export const {{ input | pascal }} = () => {
 
 ```tsx
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { {{ input | pascal }} } from '.';
 
-storiesOf('{{ input | pascal }}', module)
-  .add('Normal', () => <{{ input | pascal }} />);
+export default {
+  title: '{{ input | pascal }}',
+  component: {{ input | pascal }},
+};
+
+export const normal = () => <{{ input | pascal }} />);
 
 ```
 
