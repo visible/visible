@@ -1,11 +1,10 @@
 import React from 'react';
-import Prism from 'react-syntax-highlighter/dist/esm/prism';
+import Prism from 'react-syntax-highlighter';
 
 // Type declaration for CJS is not supported
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
-
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { dark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 export interface CodeProps {
   children: string;

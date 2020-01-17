@@ -43,12 +43,6 @@ exports[`Button renders primary button 1`] = `
 `;
 
 exports[`Button renders skeleton button 1`] = `
-.c2:hover.c0:not(:disabled) {
-  -webkit-transition: 0.15s ease-out;
-  transition: 0.15s ease-out;
-  opacity: 0.8;
-}
-
 .c1 {
   box-sizing: border-box;
   padding: 8px 14px;
