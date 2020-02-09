@@ -1,7 +1,9 @@
 import path from 'path';
+import { Observable } from 'rxjs';
 import { TFunction, i18n } from 'i18next';
 import { Config } from '../shared/config';
 import { Report } from '../shared/report';
+import { Diagnosis } from '../shared/diagnosis';
 import { Browser } from './browser';
 import { resolveExtends } from './config';
 import { createI18n } from './i18n';
@@ -19,9 +21,14 @@ export class Visible {
     private readonly browser: Browser,
     private readonly i18next: i18n,
     private readonly t: TFunction,
+    private readonly progressReporter: Observable<Diagnosis>,
   ) {}
 
-  static async init(params: VisibleParams, browser: Browser) {
+  static async init(
+    params: VisibleParams,
+    browser: Browser,
+    progressReporter: Observable<Diagnosis>,
+  ) {
     const [i18next, t] = await createI18n();
 
     return new Visible(
@@ -30,6 +37,7 @@ export class Visible {
       browser,
       i18next,
       t,
+      progressReporter,
     );
   }
 
@@ -55,6 +63,7 @@ export class Visible {
     await this.browser.addScriptTag({ content: serialize`__VISIBLE_CONFIG__ = ${this.config};`});
     await this.browser.exposeFunction('__VISIBLE_I18NEXT_ADD_RESOURCES__', this.i18next.addResources);
     await this.browser.exposeFunction('__VISIBLE_I18NEXT_T__', this.t);
+    await this.browser.exposeFunction('__VISIBLE_PROGRESS_REPORTER__', this.progressReporter.emit);
   }
 
   /**

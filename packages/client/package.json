@@ -6,10 +6,9 @@
   "license": "AGPL-3.0",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "graphql-codegen --config codegen.js & webpack --mode production",
     "test": "jest --coverage",
-    "watch": "webpack-dev-server --mode development",
-    "postinstall": "graphql-codegen --config codegen.js"
+    "watch": "webpack-dev-server --mode development"
   },
   "files": [
     "./dist"

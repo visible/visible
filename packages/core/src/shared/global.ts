@@ -23,11 +23,14 @@ export interface TFunctionPromise {
   ): Promise<TResult>;
 }
 
+export type ProgressReporter = (num: number) => Promise<void>;
+
 declare global {
   export interface Window {
     __VISIBLE_CONFIG__: Config;
     __VISIBLE_EMBED__: unknown;
     __VISIBLE_I18NEXT_T__: TFunctionPromise;
+    __VISIBLE_PROGRESS_REPORTER__: ProgressReporter;
     __VISIBLE_I18NEXT_ADD_RESOURCES__: (
       lng: string,
       ns: string,

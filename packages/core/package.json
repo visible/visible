@@ -19,6 +19,7 @@
     "i18next": "^19.0.3",
     "polished": "^3.4.2",
     "puppeteer": "^2.0.0",
+    "rxjs": "^6.5.4",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
