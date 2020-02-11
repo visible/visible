@@ -1,4 +1,4 @@
-# Visible
+# Visible (WIP)
 
 > Visible makes the web better in a perspective of accessibility
 
