@@ -1,6 +1,6 @@
-# Visible (WIP)
+# <img alt="Visible" src="https://i.imgur.com/sI6MqTF.png" width="240px" />
 
-> Visible makes the web better in a perspective of accessibility
+Visible makes the web better in a perspective of accessibility
 
 [![ci](https://github.com/neet/masto.js/workflows/CI/badge.svg)](https://github.com/neet/visible/actions)
 [![codecov](https://codecov.io/gh/neet/visible/branch/master/graph/badge.svg?token=vhlxlIJpAg)](https://codecov.io/gh/neet/visible)
