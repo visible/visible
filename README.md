@@ -1,4 +1,4 @@
-# <img alt="Visible" src="https://i.imgur.com/sI6MqTF.png" width="240px" />
+# <img alt="Visible" src="https://i.imgur.com/0CfRzj5.png" width="280px" />
 
 Visible makes the web better in a perspective of accessibility
 
