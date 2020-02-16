@@ -1,5 +1,6 @@
 import React from 'react';
-import { GlobalStyle } from '@visi/ui';
+import Helmet from 'react-helmet';
+import { theme, GlobalStyle } from '@visi/ui';
 import { Switch, Route } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
 import { Banner } from '../../components/banner';
@@ -23,8 +24,19 @@ export const renderVoid = (props: RouteComponentProps) => {
 };
 
 export const Root = () => {
+  const publicURL = process.env.PUBLIC_URL;
+
   return (
     <>
+      <Helmet>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="mask-icon" href="/logo.svg" color={theme.highlight.normal} />
+        <meta name="theme-color" content={theme.highlight.normal} />
+        <meta property="og:url" content={publicURL} />
+        <meta property="og:image" content={`${publicURL}/thumbnail.png`} />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
+
       <GlobalStyle />
       <Banner role="banner" />
 

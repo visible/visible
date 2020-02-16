@@ -114,7 +114,14 @@ const main = (command, argv) => {
       ],
     },
 
-    plugins: [],
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          PUBLIC_URL: JSON.stringify(process.env.PUBLIC_URL),
+          BIND_PORT: JSON.stringify(process.env.BIND_PORT),
+        },
+      }),
+    ],
   };
 
   if (!isProd) {
