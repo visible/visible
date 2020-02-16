@@ -1,4 +1,9 @@
 {
+  "banner": {
+    "home": "ホーム",
+    "index": "Visible",
+    "notifications": "通知"
+  },
   "diagnoses": {
     "error": "エラーが発生しました",
     "loading": "読み込み中...",
