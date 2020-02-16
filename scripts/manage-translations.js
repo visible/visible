@@ -19,7 +19,7 @@ const resourceMap = {
   server: './packages/server/src/frameworks/locale/{{lng}}.json',
   client: './packages/client/src/locale/{{lng}}.json',
   cli: './packages/cli/src/locale/{{lng}}.json',
-  core: './packages/core/src/locale/{{lng}}.json',
+  'plugin-standard': './packages/plugin-standard/src/locale/{{lng}}.json',
 };
 
 const workspaces = Object.keys(resourceMap);
