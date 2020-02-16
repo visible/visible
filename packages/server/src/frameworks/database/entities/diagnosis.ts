@@ -23,7 +23,7 @@ export class DiagnosisORM {
   @OneToMany(
     () => ReportORM,
     report => report.diagnosis,
-    { cascade: true, onDelete: 'SET NULL' },
+    { onDelete: 'SET NULL' },
   )
   reports: ReportORM[];
 

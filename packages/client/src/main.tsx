@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import typeDefs from '@visi/schema';
-import { theme, GlobalStyle } from '@visi/ui';
+import { theme } from '@visi/ui';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient } from 'apollo-client';
 import { ThemeProvider } from 'styled-components';
@@ -44,8 +44,6 @@ const main = async () => {
           <BrowserRouter>
             <Root />
           </BrowserRouter>
-
-          <GlobalStyle />
         </I18nextProvider>
       </ThemeProvider>
     </ApolloProvider>,

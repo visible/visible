@@ -3,10 +3,24 @@ import React from 'react';
 import { render } from '../../../tests/utils';
 import { Root } from './root';
 
-jest.mock('./lazy', () => ({
-  Home: () => 'Home',
-  Diagnoses: () => 'Diagnoses',
-  Void: () => 'Void',
+jest.mock('../home', () => ({
+  __esModule: true,
+  default: () => 'Home',
+}));
+
+jest.mock('../diagnoses', () => ({
+  __esModule: true,
+  default: () => 'Diagnoses',
+}));
+
+jest.mock('../void', () => ({
+  __esModule: true,
+  default: () => 'Void',
+}));
+
+jest.mock('@visi/art/logo-white.png', () => ({
+  __esModule: true,
+  default: '',
 }));
 
 describe('Root', () => {

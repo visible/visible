@@ -16,8 +16,7 @@ exports[`Diagnoses fetches data 1`] = `
     class="c0"
   >
     <h1>
-      Diagnostics Result: 
-      123
+      Diagnostics Result: {{id}}
     </h1>
   </main>
 </div>
@@ -34,7 +33,7 @@ exports[`Diagnoses shows a loading indicator 1`] = `
 exports[`Diagnoses throws an error 1`] = `
 <div>
   <p>
-    Error occurred...
+    Error occurred
   </p>
 </div>
 `;

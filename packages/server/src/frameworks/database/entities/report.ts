@@ -22,7 +22,7 @@ export class ReportORM {
   @Column('varchar', { length: 255, nullable: true })
   message?: string;
 
-  @ManyToOne(() => DiagnosisORM)
+  @ManyToOne(() => DiagnosisORM, { cascade: true })
   @JoinColumn()
   diagnosis: DiagnosisORM;
 

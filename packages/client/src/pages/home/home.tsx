@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Helmet from 'react-helmet';
 import * as UI from '@visi/ui';
 import styled from 'styled-components';
 import { useTranslation, Trans } from 'react-i18next';
 import { useHistory } from 'react-router';
+import diagnose from '@visi/art/diagnose.svg';
 import { useCreateDiagnosisMutation } from '../../generated/graphql';
-import diagnose from './diagnose.svg';
 
 const Wizard = styled.section`
   width: 100%;
@@ -48,25 +49,31 @@ export const Home = () => {
   }, [data, history]);
 
   return (
-    <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
-      <Wizard>
-        <Inner>
-          <Title>{t('home.title', 'Diagnose your website')}</Title>
-          <UI.Search
-            submitLabel={t('home.submit', 'Diagnose')}
-            placeholder={t('home.placeholder', 'Type URL of the website')}
-            onChange={e => setValue(e.target.value)}
-            onSubmit={_ => createDiagnosis()}
-          />
-          <Description>
-            <Trans i18nKey="home.description">
-              Type URL of the website to inspect accessibility issues of it
-            </Trans>
-          </Description>
-          {loading && <UI.Progress progress={50} />}
-          blah blah blah
-        </Inner>
-      </Wizard>
-    </UI.Content>
+    <>
+      <Helmet>
+        <title>{t('home.title', 'Diagnose your website')}</title>
+      </Helmet>
+
+      <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
+        <Wizard>
+          <Inner>
+            <Title>{t('home.title', 'Diagnose your website')}</Title>
+            <UI.Search
+              submitLabel={t('home.submit', 'Diagnose')}
+              placeholder={t('home.placeholder', 'Type URL of the website')}
+              onChange={e => setValue(e.target.value)}
+              onSubmit={_ => createDiagnosis()}
+            />
+            <Description>
+              <Trans i18nKey="home.description">
+                Type URL of the website to inspect accessibility issues of it
+              </Trans>
+            </Description>
+            {loading && <UI.Progress progress={50} />}
+            blah blah blah
+          </Inner>
+        </Wizard>
+      </UI.Content>
+    </>
   );
 };

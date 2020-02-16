@@ -27,6 +27,7 @@
     "@types/node": "^13.1.7",
     "@types/pg": "^7.14.1",
     "@types/uuid": "^3.4.6",
+    "@visi/client": "^0.0.0",
     "@visi/core": "^0.0.0",
     "@visi/schema": "^0.0.0",
     "apollo": "^2.21.3",

@@ -4,7 +4,8 @@
   "repository": "https://github.com/neet/visible.git",
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
-  "main": "./dist/index.js",
+  "main": "./dist/ssr.js",
+  "type": "./index.d.ts",
   "scripts": {
     "build": "webpack --mode production",
     "test": "jest --coverage",
@@ -12,13 +13,15 @@
     "postinstall": "graphql-codegen --config codegen.js"
   },
   "files": [
-    "./dist"
+    "./dist",
+    "index.d.ts"
   ],
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
     "@apollo/react-hooks": "^3.1.3",
+    "@apollo/react-ssr": "^3.1.3",
     "@apollo/react-testing": "^3.1.3",
     "@babel/core": "^7.8.3",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -40,9 +43,11 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
+    "@types/react-helmet": "^5.0.15",
     "@types/react-router": "^5.1.4",
     "@types/react-router-dom": "^5.1.3",
     "@types/styled-components": "^4.4.2",
+    "@visi/art": "^0.0.0",
     "@visi/schema": "^0.0.0",
     "@visi/ui": "^0.0.0",
     "apollo-cache-inmemory": "^1.6.5",
@@ -51,6 +56,7 @@
     "babel-loader": "^8.0.6",
     "core-js": "^3.6.4",
     "css-loader": "^3.4.2",
+    "dotenv": "^8.2.0",
     "file-loader": "^5.0.2",
     "graphql": "^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0",
     "graphql-tag": "^2.10.1",
@@ -61,6 +67,7 @@
     "jest-styled-components": "^7.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-helmet": "^5.2.1",
     "react-i18next": "^11.3.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
@@ -69,6 +76,7 @@
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1",
-    "webpack-manifest-plugin": "^2.2.0"
+    "webpack-manifest-plugin": "^2.2.0",
+    "webpack-merge": "^4.2.2"
   }
 }
