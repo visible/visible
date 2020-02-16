@@ -1,6 +1,7 @@
 import React from 'react';
 import { GlobalStyle } from '@visi/ui';
 import { Switch, Route } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
 import { Banner } from '../../components/banner';
 import { ContentInfo } from '../../components/content-info';
 
@@ -11,6 +12,16 @@ import Void from '../void';
 // SuspenseがSSRで使えなかった...
 // import { Home, Void, Diagnoses } from './lazy';
 
+export const renderVoid = (props: RouteComponentProps) => {
+  const { staticContext } = props;
+
+  if (staticContext) {
+    staticContext.statusCode = 404;
+  }
+
+  return <Void />;
+};
+
 export const Root = () => {
   return (
     <>
@@ -20,7 +31,7 @@ export const Root = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/diagnoses/:id" component={Diagnoses} />
-        <Route component={Void} />
+        <Route render={renderVoid} />
       </Switch>
 
       <ContentInfo role="contentinfo" />
