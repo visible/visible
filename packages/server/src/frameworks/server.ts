@@ -6,6 +6,7 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import depthLimit from 'graphql-depth-limit';
 import i18nextMiddleware from 'i18next-express-middleware';
 import { resolvers } from './resolvers';
+import { routes } from './routes';
 import { createI18n } from './i18n';
 import { Context } from './context';
 import { logger } from './logger';
@@ -33,6 +34,7 @@ export class Server {
       .use(cors())
       .use(i18nextMiddleware.handle(i18n))
       .use(apollo.getMiddleware({ path: '/api/v1' }))
+      .use(routes)
       .listen({ port: Number(process.env.WEB_PORT) }, this.handleListened);
   }
 
