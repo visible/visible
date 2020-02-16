@@ -113,6 +113,8 @@ const main = (command, argv) => {
         },
       ],
     },
+
+    plugins: [],
   };
 
   if (!isProd) {
