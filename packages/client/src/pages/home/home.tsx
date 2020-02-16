@@ -3,8 +3,8 @@ import * as UI from '@visi/ui';
 import styled from 'styled-components';
 import { useTranslation, Trans } from 'react-i18next';
 import { useHistory } from 'react-router';
+import diagnose from '@visi/art/diagnose.svg';
 import { useCreateDiagnosisMutation } from '../../generated/graphql';
-import diagnose from './diagnose.svg';
 
 const Wizard = styled.section`
   width: 100%;
