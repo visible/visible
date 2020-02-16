@@ -10,7 +10,7 @@ import {
 } from '../../generated/graphql';
 import { Home } from './home';
 
-jest.mock('./diagnose.svg', () => ({
+jest.mock('@visi/art/diagnose.svg', () => ({
   __esModule: true,
   default: '',
 }));
