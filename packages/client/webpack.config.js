@@ -64,12 +64,17 @@ const shared = (command, argv) => {
 
 const ssr = (command, argv) => {
   const config = {
+    target: 'node',
+
     entry: {
       ssr: './ssr.tsx',
     },
 
     output: {
       filename: '[name].js',
+      library: '@visi/client',
+      libraryTarget: 'umd',
+      libraryExport: 'default',
     },
   };
 
