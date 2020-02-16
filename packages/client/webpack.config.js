@@ -1,20 +1,17 @@
 const path = require('path');
 const webpack = require('webpack');
+const merge = require('webpack-merge');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
-module.exports = (command, argv) => {
+const shared = (command, argv) => {
   const isProd = argv && argv.mode === 'production';
 
   const config = {
     context: path.resolve(__dirname, './src'),
     devtool: isProd ? false : 'source-map',
     stats: 'errors-only',
-
-    entry: {
-      main: './main.tsx',
-    },
 
     output: {
       filename: isProd ? '[name]-[hash].js' : '[name].js',
@@ -60,6 +57,32 @@ module.exports = (command, argv) => {
     },
 
     plugins: [new webpack.NamedModulesPlugin(), new ManifestPlugin()],
+  };
+
+  return config;
+};
+
+const ssr = (command, argv) => {
+  const config = {
+    entry: {
+      ssr: './ssr.tsx',
+    },
+
+    output: {
+      filename: '[name].js',
+    },
+  };
+
+  return merge(shared(command, argv), config);
+};
+
+const main = (command, argv) => {
+  const isProd = argv && argv.mode === 'production';
+
+  const config = {
+    entry: {
+      main: './main.tsx',
+    },
 
     devServer: {
       compress: true,
@@ -87,17 +110,18 @@ module.exports = (command, argv) => {
     },
   };
 
-  // Development-only plugins
   if (!isProd) {
     config.plugins.push(
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, './src/index.html'),
+        template: path.resolve(__dirname, './src/debug.html'),
         alwaysWriteToDisk: true,
       }),
       new HtmlWebpackHarddiskPlugin(),
     );
   }
 
-  return config;
+  return merge(shared(command, argv), config);
 };
+
+module.exports = [main, ssr];
