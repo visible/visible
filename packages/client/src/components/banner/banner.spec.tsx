@@ -3,6 +3,11 @@ import { cleanup } from '@testing-library/react';
 import { render } from '../../../tests/utils';
 import { Banner } from './banner';
 
+jest.mock('@visi/art/logo-white.png', () => ({
+  __esModule: true,
+  default: '',
+}));
+
 describe('Banner', () => {
   afterEach(() => {
     cleanup();

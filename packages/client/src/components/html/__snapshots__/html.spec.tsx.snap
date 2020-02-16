@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Html matches snapshot 1`] = `
+<html
+  lang="en"
+>
+  <head>
+    <meta
+      charset="UTF-8"
+    />
+    <meta
+      content="width=device-width, initial-scale=1.0"
+      name="viewport"
+    />
+    <meta
+      content="ie=edge"
+      http-equiv="X-UA-Compatible"
+    />
+  </head>
+  <body>
+    <div
+      id="root"
+      role="application"
+    >
+      hello
+    </div>
+    <script>
+      window.__APOLLO_STATE__={};
+    </script>
+    <script
+      type="text/javascript"
+    />
+  </body>
+</html>
+`;

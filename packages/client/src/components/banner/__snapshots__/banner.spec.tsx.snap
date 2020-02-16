@@ -75,6 +75,23 @@ exports[`Banner matches to the snapshot 1`] = `
   font-size: 21px;
 }
 
+.c2 img {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 1.5em;
+  place-content: center;
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+}
+
+.c2 a:hover > img {
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+  opacity: 0.8;
+}
+
 <div>
   <header
     class="c0"
@@ -85,7 +102,14 @@ exports[`Banner matches to the snapshot 1`] = `
       <h1
         class="c2"
       >
-        Visible
+        <a
+          href="/"
+        >
+          <img
+            alt="Visible"
+            src=""
+          />
+        </a>
       </h1>
       <ul
         class="c3"
