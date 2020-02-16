@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '../../.env' });
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -118,7 +119,6 @@ const main = (command, argv) => {
       new webpack.DefinePlugin({
         'process.env': {
           PUBLIC_URL: JSON.stringify(process.env.PUBLIC_URL),
-          BIND_PORT: JSON.stringify(process.env.BIND_PORT),
         },
       }),
     ],
