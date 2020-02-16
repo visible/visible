@@ -1,4 +1,5 @@
 import React from 'react';
+import { GlobalStyle } from '@visi/ui';
 import { Switch, Route } from 'react-router';
 import { Banner } from '../../components/banner';
 import { ContentInfo } from '../../components/content-info';
@@ -13,6 +14,7 @@ import Void from '../void';
 export const Root = () => {
   return (
     <>
+      <GlobalStyle />
       <Banner role="banner" />
 
       <Switch>
