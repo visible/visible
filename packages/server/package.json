@@ -30,6 +30,7 @@
     "@visi/client": "^0.0.0",
     "@visi/core": "^0.0.0",
     "@visi/schema": "^0.0.0",
+    "@visi/ui": "^0.0.0",
     "apollo": "^2.21.3",
     "apollo-link": "^1.2.13",
     "apollo-link-http": "^1.5.16",
