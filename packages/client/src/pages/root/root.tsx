@@ -40,7 +40,7 @@ export const Root = () => {
   return (
     <>
       <Helmet
-        htmlAttributes={{ lang: i18n.language }}
+        htmlAttributes={{ lang: i18n.language.split('-')[0] }}
         defaultTitle={title}
         titleTemplate={`%s - ${title}`}
       >
