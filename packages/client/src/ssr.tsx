@@ -7,6 +7,7 @@ import { HttpLink } from 'apollo-link-http';
 import { i18n } from 'i18next';
 import fetch from 'node-fetch';
 import React from 'react';
+import Helmet from 'react-helmet';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactDOMServer from 'react-dom/server';
@@ -17,7 +18,6 @@ import {
   StyleSheetManager,
   ThemeProvider,
 } from 'styled-components';
-import { Helmet } from 'react-helmet';
 import { theme } from '@visi/ui';
 import { Html } from './components/html';
 import introspectionResult from './generated/introspection-result';
@@ -75,18 +75,13 @@ const render = async (params: RenderParams): Promise<RenderResult> => {
   const additionalElements = sheet.getStyleElement();
 
   const staticMarkup = ReactDOMServer.renderToStaticMarkup(
-    // To use i18next/styled-components inside the Html component, we need to wrap it with providers
-    <I18nextProvider i18n={params.i18n}>
-      <ThemeProvider theme={theme}>
-        <Html
-          helmet={helmet}
-          state={client.extract()}
-          manifest={params.manifest}
-          content={content}
-          elements={additionalElements}
-        />
-      </ThemeProvider>
-    </I18nextProvider>,
+    <Html
+      helmet={helmet}
+      state={client.extract()}
+      manifest={params.manifest}
+      content={content}
+      elements={additionalElements}
+    />,
   );
 
   return {
