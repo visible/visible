@@ -18,6 +18,9 @@ exports[`Void matches to the snapshot 1`] = `
     <h1>
       You hit the void!
     </h1>
+    <p>
+      The page you were looking for was not found
+    </p>
   </main>
 </div>
 `;

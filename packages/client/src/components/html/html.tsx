@@ -1,6 +1,5 @@
 import React from 'react';
 import { HelmetData } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
 
 export interface HtmlProps {
   state: unknown;
@@ -10,12 +9,18 @@ export interface HtmlProps {
   helmet?: HelmetData;
 }
 
+const encodeState = (state: unknown) =>
+  `window.__APOLLO_STATE__=${JSON.stringify(state).replace(/</g, '\\u003c')};`;
+
 export const Html = (props: HtmlProps) => {
   const { helmet, state, content, elements, manifest } = props;
-  const { i18n } = useTranslation();
+
+  const htmlAttrs = helmet?.htmlAttributes.toComponent();
+  const bodyAttrs = helmet?.bodyAttributes.toComponent();
 
   return (
-    <html lang={i18n.language}>
+    // eslint-disable-next-line jsx-a11y/html-has-lang
+    <html {...htmlAttrs}>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,20 +31,13 @@ export const Html = (props: HtmlProps) => {
         {elements}
       </head>
 
-      <body>
+      <body {...bodyAttrs}>
         <div
           id="root"
           role="application"
           dangerouslySetInnerHTML={{ __html: content }}
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.__APOLLO_STATE__=${JSON.stringify(state).replace(
-              /</g,
-              '\\u003c',
-            )};`,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: encodeState(state) }} />
         <script type="text/javascript" src={manifest['main.js']} />
       </body>
     </html>

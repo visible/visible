@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
 import * as UI from '@visi/ui';
 import styled from 'styled-components';
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import diagnose from '@visi/art/diagnose.svg';
 import { useCreateDiagnosisMutation } from '../../generated/graphql';
@@ -48,32 +48,35 @@ export const Home = () => {
     if (data) history.push(`/diagnoses/${data.createDiagnosis.id}`);
   }, [data, history]);
 
+  const title = t('home.title', 'Diagnose your website');
+  const description = t(
+    'home.description',
+    'Type URL of the website to inspect accessibility issues of it',
+  );
+
   return (
-    <>
+    <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
       <Helmet>
-        <title>{t('home.title', 'Diagnose your website')}</title>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
       </Helmet>
 
-      <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
-        <Wizard>
-          <Inner>
-            <Title>{t('home.title', 'Diagnose your website')}</Title>
-            <UI.Search
-              submitLabel={t('home.submit', 'Diagnose')}
-              placeholder={t('home.placeholder', 'Type URL of the website')}
-              onChange={e => setValue(e.target.value)}
-              onSubmit={_ => createDiagnosis()}
-            />
-            <Description>
-              <Trans i18nKey="home.description">
-                Type URL of the website to inspect accessibility issues of it
-              </Trans>
-            </Description>
-            {loading && <UI.Progress progress={50} />}
-            blah blah blah
-          </Inner>
-        </Wizard>
-      </UI.Content>
-    </>
+      <Wizard>
+        <Inner>
+          <Title>{title}</Title>
+          <UI.Search
+            submitLabel={t('home.submit', 'Diagnose')}
+            placeholder={t('home.placeholder', 'Type URL of the website')}
+            onChange={e => setValue(e.target.value)}
+            onSubmit={_ => createDiagnosis()}
+          />
+          <Description>{description}</Description>
+          {loading && <UI.Progress progress={50} />}
+          blah blah blah
+        </Inner>
+      </Wizard>
+    </UI.Content>
   );
 };

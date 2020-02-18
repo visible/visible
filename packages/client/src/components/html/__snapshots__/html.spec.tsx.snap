@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Html matches snapshot 1`] = `
-<html
-  lang="en"
->
+<html>
   <head>
     <meta
       charset="UTF-8"
@@ -16,6 +14,9 @@ exports[`Html matches snapshot 1`] = `
       content="ie=edge"
       http-equiv="X-UA-Compatible"
     />
+    <meta
+      content="test"
+    />
   </head>
   <body>
     <div
@@ -25,9 +26,10 @@ exports[`Html matches snapshot 1`] = `
       hello
     </div>
     <script>
-      window.__APOLLO_STATE__={};
+      window.__APOLLO_STATE__={"foo":"bar"};
     </script>
     <script
+      src="/dist/foobar.js"
       type="text/javascript"
     />
   </body>
