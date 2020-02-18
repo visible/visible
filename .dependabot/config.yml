@@ -1,0 +1,13 @@
+version: 1
+update_configs:
+  - package_manager: 'javascript'
+    directory: '/'
+    update_schedule: 'monthly'
+    version_requirement_updates: 'increase_versions'
+    ignored_updates:
+      - match:
+          dependency_name: '@babel/*'
+      - match:
+          dependency_name: '@types/*'
+      - match:
+          dependency_name: 'react-dom'
