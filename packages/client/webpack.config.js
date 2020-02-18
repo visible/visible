@@ -57,7 +57,7 @@ const shared = (command, argv) => {
       extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     },
 
-    plugins: [new webpack.NamedModulesPlugin(), new ManifestPlugin()],
+    plugins: [new webpack.NamedModulesPlugin()],
   };
 
   return config;
@@ -121,6 +121,7 @@ const main = (command, argv) => {
           PUBLIC_URL: JSON.stringify(process.env.PUBLIC_URL),
         },
       }),
+      new ManifestPlugin(),
     ],
   };
 
