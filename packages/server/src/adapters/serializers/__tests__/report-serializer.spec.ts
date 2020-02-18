@@ -1,5 +1,5 @@
-import { ReportSerializer, ReportTypeAPI } from '../report-serializer';
 import { Report, ReportType } from '../../../enterprise/entities';
+import { ReportSerializer, ReportTypeAPI } from '../report-serializer';
 
 describe('ReportSerializer', () => {
   let reportSerializer: ReportSerializer;

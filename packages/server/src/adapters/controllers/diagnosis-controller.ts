@@ -1,10 +1,9 @@
 import { visible } from '@visi/core/main';
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 import { CreateDiagnosis } from '../../application/use-cases/create-diagnosis';
 import { DeleteDiagnosis } from '../../application/use-cases/delete-diagnosis';
 import { FindDiagnosis } from '../../application/use-cases/find-diagnosis';
-
 import { DiagnosisInterpreter } from '../interpreters/diagnosis-interpreter';
 import { DiagnosisSerializer } from '../serializers/diagnosis-serializer';
 

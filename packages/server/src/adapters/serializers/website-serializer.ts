@@ -1,7 +1,7 @@
 import { PartialDeep } from 'type-fest';
 
 import { Website } from '../../enterprise/entities';
-import { DiagnosisSerializer, DiagnosisAPI } from './diagnosis-serializer';
+import { DiagnosisAPI, DiagnosisSerializer } from './diagnosis-serializer';
 
 export type WebsiteAPI = PartialDeep<{
   id: string;

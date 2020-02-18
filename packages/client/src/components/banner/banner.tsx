@@ -1,9 +1,9 @@
-import React from 'react';
-import * as UI from '@visi/ui';
-import { Link, NavLink } from 'react-router-dom';
 import logo from '@visi/art/logo-white.png';
-import styled from 'styled-components';
+import * as UI from '@visi/ui';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link, NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Title = styled.h1`
   margin: 0;

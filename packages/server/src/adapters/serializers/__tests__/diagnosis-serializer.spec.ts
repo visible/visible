@@ -1,5 +1,5 @@
-import { DiagnosisSerializer } from '../diagnosis-serializer';
 import { Diagnosis } from '../../../enterprise/entities';
+import { DiagnosisSerializer } from '../diagnosis-serializer';
 
 describe('DiagnosisSerializer', () => {
   let diagnosisSerializer: DiagnosisSerializer;

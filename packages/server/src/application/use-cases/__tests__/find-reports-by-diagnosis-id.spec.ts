@@ -1,9 +1,10 @@
 import { Container } from 'inversify';
-import { FindReportsByDiagnosisId } from '../find-reports-by-diagnosis-id';
-import { ReportsRepositoryInMemoryImpl } from '../../../frameworks/database/repositories/reports-repository-in-memory-impl';
+
 import { Report, ReportType } from '../../../enterprise/entities';
+import { ReportsRepositoryInMemoryImpl } from '../../../frameworks/database/repositories/reports-repository-in-memory-impl';
 import { TYPES } from '../../../types';
 import { ReportsRepository } from '../../repositories/reports-repository';
+import { FindReportsByDiagnosisId } from '../find-reports-by-diagnosis-id';
 
 describe('FindReportsByDiagnosisId', () => {
   let findReportsByDiagnosisId: FindReportsByDiagnosisId;

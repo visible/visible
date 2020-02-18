@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-import yargs from 'yargs';
-import { cosmiconfig } from 'cosmiconfig';
 import { visible } from '@visi/core/main';
-import { print } from './print';
-import { loader } from './loader';
+import { cosmiconfig } from 'cosmiconfig';
+import yargs from 'yargs';
+
 import { createI18n } from './i18n';
+import { loader } from './loader';
+import { print } from './print';
 
 (async () => {
   const [, t] = await createI18n();

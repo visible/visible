@@ -1,5 +1,6 @@
+import { i18n, TFunction } from 'i18next';
 import path from 'path';
-import { TFunction, i18n } from 'i18next';
+
 import { Config } from '../shared/config';
 import { Report } from '../shared/report';
 import { Browser } from './browser';

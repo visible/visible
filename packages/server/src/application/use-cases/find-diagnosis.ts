@@ -1,7 +1,8 @@
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
+
 import { Diagnosis } from '../../enterprise/entities';
-import { DiagnosisRepository } from '../repositories/diagnosis-repository';
 import { TYPES } from '../../types';
+import { DiagnosisRepository } from '../repositories/diagnosis-repository';
 
 type FindDiagnosisInput = readonly string[];
 type FindDiagnosisResult = Diagnosis[];

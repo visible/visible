@@ -1,10 +1,11 @@
-import uuid from 'uuid';
 import {
   Report as CoreReport,
   ReportLevel as CoreReportLevel,
 } from '@visi/core/main';
-import { Report, ReportType } from '../../enterprise/entities';
+import uuid from 'uuid';
+
 import { CreateDiagnosisInput } from '../../application/use-cases/create-diagnosis';
+import { Report, ReportType } from '../../enterprise/entities';
 
 export class DiagnosisInterpreter {
   transformType = (level: CoreReportLevel) => {

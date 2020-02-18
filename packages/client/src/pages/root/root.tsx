@@ -1,14 +1,14 @@
+import { GlobalStyle, theme } from '@visi/ui';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { theme, GlobalStyle } from '@visi/ui';
-import { Switch, Route, useLocation } from 'react-router';
-import { RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Route, Switch, useLocation } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
+
 import { Banner } from '../../components/banner';
 import { ContentInfo } from '../../components/content-info';
-
-import Home from '../home';
 import Diagnoses from '../diagnoses';
+import Home from '../home';
 import Void from '../void';
 
 // SuspenseがSSRで使えなかった...

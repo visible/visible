@@ -1,5 +1,6 @@
 import React from 'react';
-import { NavItem, Nav } from '.';
+
+import { Nav, NavItem } from '.';
 
 export default {
   title: 'Navigation',

@@ -1,5 +1,6 @@
-import React from 'react';
 import { number } from '@storybook/addon-knobs';
+import React from 'react';
+
 import { Progress } from '.';
 
 export default {

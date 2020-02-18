@@ -1,4 +1,5 @@
 import { BaseRule, Report, ReportContent, Rule, t } from '@visi/core/renderer';
+
 import { $$ } from '../../utils/$$';
 import { createXPath } from '../../utils/create-xpath';
 

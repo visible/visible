@@ -1,10 +1,11 @@
 import {
-  Entity,
   Column,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { ReportType } from '../../../enterprise/entities';
 import { DiagnosisORM } from './diagnosis';
 

@@ -1,6 +1,6 @@
+import * as UI from '@visi/ui';
 import React from 'react';
 import Helmet from 'react-helmet';
-import * as UI from '@visi/ui';
 import { useTranslation } from 'react-i18next';
 
 export const Void = () => {

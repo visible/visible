@@ -1,6 +1,5 @@
 import React from 'react';
 import Prism from 'react-syntax-highlighter';
-
 // Type declaration for CJS is not supported
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore

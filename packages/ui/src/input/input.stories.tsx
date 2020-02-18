@@ -1,5 +1,6 @@
+import { boolean, text } from '@storybook/addon-knobs';
 import React from 'react';
-import { text, boolean } from '@storybook/addon-knobs';
+
 import { Input } from '.';
 
 export default {

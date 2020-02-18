@@ -1,9 +1,9 @@
-import React from 'react';
-import { theme as uiTheme } from '@visi/ui';
-import { render as defaultRender, RenderOptions } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
-import { ThemeProvider } from 'styled-components';
+import { render as defaultRender, RenderOptions } from '@testing-library/react';
+import { theme as uiTheme } from '@visi/ui';
+import React from 'react';
 import { MemoryRouter } from 'react-router';
+import { ThemeProvider } from 'styled-components';
 
 export interface TestProvidersProps {
   children?: React.ReactNode;

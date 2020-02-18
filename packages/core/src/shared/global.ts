@@ -1,4 +1,5 @@
-import { TFunctionResult, TFunctionKeys, TOptions, StringMap } from 'i18next';
+import { StringMap, TFunctionKeys, TFunctionResult, TOptions } from 'i18next';
+
 import { Config } from './config';
 
 export interface TFunctionPromise {
