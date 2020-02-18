@@ -1,15 +1,16 @@
-import { promises as fs } from 'fs';
-import { injectable, inject } from 'inversify';
-import express from 'express';
-import cors from 'cors';
 import { ApolloServer, gql } from 'apollo-server-express';
+import cors from 'cors';
+import express from 'express';
+import { promises as fs } from 'fs';
 import depthLimit from 'graphql-depth-limit';
 import i18nextMiddleware from 'i18next-express-middleware';
+import { inject, injectable } from 'inversify';
+
+import { Context } from './context';
+import { createI18n } from './i18n';
+import { logger } from './logger';
 import { resolvers } from './resolvers';
 import { routes } from './routes';
-import { createI18n } from './i18n';
-import { Context } from './context';
-import { logger } from './logger';
 
 @injectable()
 export class Server {

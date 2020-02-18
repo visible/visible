@@ -1,5 +1,5 @@
-import { Actor } from './actor';
 import { Account } from './account';
+import { Actor } from './actor';
 import { Website } from './website';
 
 export class Organization extends Actor {

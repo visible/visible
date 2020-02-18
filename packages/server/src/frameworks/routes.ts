@@ -1,8 +1,8 @@
-import path from 'path';
-import express from 'express';
-import { theme } from '@visi/ui';
 import render from '@visi/client';
 import manifest from '@visi/client/dist/manifest.json';
+import { theme } from '@visi/ui';
+import express from 'express';
+import path from 'path';
 
 const router = express.Router();
 

@@ -1,5 +1,6 @@
-import { Report, ReportContent, BaseRule, Rule, t } from '@visi/core/renderer';
+import { BaseRule, Report, ReportContent, Rule, t } from '@visi/core/renderer';
 import { getContrast, parseToRgb } from 'polished';
+
 import { createXPath } from '../../utils/create-xpath';
 
 export class ColorContrastRule extends BaseRule implements Rule {

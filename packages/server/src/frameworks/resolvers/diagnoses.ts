@@ -1,7 +1,7 @@
 import {
-  QueryResolvers,
-  MutationResolvers,
   DiagnosisResolvers,
+  MutationResolvers,
+  QueryResolvers,
   SubscriptionResolvers,
 } from '../generated/graphql';
 

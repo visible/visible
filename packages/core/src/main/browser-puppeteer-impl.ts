@@ -1,6 +1,7 @@
-import path from 'path';
 import { promises as fs } from 'fs';
+import path from 'path';
 import puppeteer, { LaunchOptions } from 'puppeteer';
+
 import { Settings } from '../shared';
 import { Browser, ScriptTagParams } from './browser';
 

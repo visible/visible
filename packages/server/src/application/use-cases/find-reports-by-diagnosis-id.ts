@@ -1,6 +1,7 @@
 import { inject, injectable } from 'inversify';
-import { ReportsRepository } from '../repositories/reports-repository';
+
 import { TYPES } from '../../types';
+import { ReportsRepository } from '../repositories/reports-repository';
 
 @injectable()
 export class FindReportsByDiagnosisId {

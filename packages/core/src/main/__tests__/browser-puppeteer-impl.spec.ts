@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+
 import { BrowserPuppeteerImpl } from '../browser-puppeteer-impl';
 
 const newPage = jest.fn();

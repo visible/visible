@@ -1,4 +1,5 @@
 import { injectable, unmanaged } from 'inversify';
+
 import { ReportsRepository } from '../../../application/repositories/reports-repository';
 import { Report } from '../../../enterprise/entities';
 

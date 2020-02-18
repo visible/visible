@@ -1,9 +1,9 @@
 import { Resolvers } from '../generated/graphql';
 import {
-  rootDiagnosis,
   createDiagnosis,
   deleteDiagnosis,
   reports,
+  rootDiagnosis,
 } from './diagnoses';
 
 export const resolvers: Resolvers = {

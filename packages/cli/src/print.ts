@@ -1,7 +1,7 @@
-import { table } from 'table';
-import chalk from 'chalk';
 import { Report } from '@visi/core/main';
+import chalk from 'chalk';
 import { TFunction } from 'i18next';
+import { table } from 'table';
 
 export const print = async (
   reportsInput: Report[],

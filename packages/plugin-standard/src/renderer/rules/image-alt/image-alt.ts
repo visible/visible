@@ -1,6 +1,7 @@
-import { Report, ReportContent, BaseRule, Rule, t } from '@visi/core/renderer';
-import { createXPath } from '../../utils/create-xpath';
+import { BaseRule, Report, ReportContent, Rule, t } from '@visi/core/renderer';
+
 import { $$ } from '../../utils/$$';
+import { createXPath } from '../../utils/create-xpath';
 
 export class ImgAltRule extends BaseRule implements Rule {
   static meta = {

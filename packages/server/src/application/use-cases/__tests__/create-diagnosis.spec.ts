@@ -1,9 +1,10 @@
 import { Container } from 'inversify';
-import { DiagnosisRepositoryInMemoryImpl } from '../../../frameworks/database/repositories/diagnosis-repository-in-memory-impl';
-import { CreateDiagnosis } from '../create-diagnosis';
+
 import { Diagnosis } from '../../../enterprise/entities';
+import { DiagnosisRepositoryInMemoryImpl } from '../../../frameworks/database/repositories/diagnosis-repository-in-memory-impl';
 import { TYPES } from '../../../types';
 import { DiagnosisRepository } from '../../repositories/diagnosis-repository';
+import { CreateDiagnosis } from '../create-diagnosis';
 
 describe('CreateDiagnosis', () => {
   let createDiagnosis: CreateDiagnosis;

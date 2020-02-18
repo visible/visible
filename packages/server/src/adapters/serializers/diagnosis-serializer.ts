@@ -1,8 +1,7 @@
 import { PartialDeep } from 'type-fest';
 
 import { Diagnosis } from '../../enterprise/entities/diagnosis';
-
-import { ReportSerializer, ReportAPI } from './report-serializer';
+import { ReportAPI, ReportSerializer } from './report-serializer';
 
 export type ScoreAPI = PartialDeep<{
   error: number;

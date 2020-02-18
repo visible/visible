@@ -1,4 +1,5 @@
 import merge from 'deepmerge';
+
 import { Config } from '../shared/config';
 
 const loadConfig = (path: string) => require(path).config;

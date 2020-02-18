@@ -1,4 +1,5 @@
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
+
 import { DiagnosisController } from '../adapters/controllers/diagnosis-controller';
 import { ReportsController } from '../adapters/controllers/reports-controller';
 import { TYPES } from '../types';

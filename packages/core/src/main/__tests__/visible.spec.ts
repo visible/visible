@@ -1,5 +1,5 @@
-import { Visible } from '../visible';
 import { Browser } from '../browser';
+import { Visible } from '../visible';
 
 const addScriptTag = jest.fn();
 const run = jest.fn();

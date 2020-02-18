@@ -1,5 +1,5 @@
-import { WebsiteSerializer } from '../website-serializer';
 import { Website } from '../../../enterprise/entities';
+import { WebsiteSerializer } from '../website-serializer';
 
 describe('WebsiteSerializer', () => {
   let websiteSerializer: WebsiteSerializer;
