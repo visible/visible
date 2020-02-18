@@ -1,8 +1,9 @@
+import * as UI from '@visi/ui';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { useRouteMatch } from 'react-router';
-import * as UI from '@visi/ui';
 import { useTranslation } from 'react-i18next';
+import { useRouteMatch } from 'react-router';
+
 import {
   ReportType,
   useFetchDiagnosisSmallQuery,

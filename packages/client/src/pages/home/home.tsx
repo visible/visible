@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Helmet from 'react-helmet';
+import diagnose from '@visi/art/diagnose.svg';
 import * as UI from '@visi/ui';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import Helmet from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
-import diagnose from '@visi/art/diagnose.svg';
+import styled from 'styled-components';
+
 import { useCreateDiagnosisMutation } from '../../generated/graphql';
 
 const Wizard = styled.section`

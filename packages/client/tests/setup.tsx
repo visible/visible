@@ -1,5 +1,6 @@
-import React from 'react';
 import 'jest-styled-components';
+
+import React from 'react';
 
 // react-i18next
 // See: https://react.i18next.com/misc/testing

@@ -1,5 +1,5 @@
-import React from 'react';
 import * as UI from '@visi/ui';
+import React from 'react';
 
 type ContentInfoProps = JSX.IntrinsicElements['footer'];
 

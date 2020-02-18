@@ -1,20 +1,21 @@
-import React from 'react';
-import { render } from 'react-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
 import typeDefs from '@visi/schema';
 import { theme } from '@visi/ui';
-import { BrowserRouter } from 'react-router-dom';
-import { ApolloClient } from 'apollo-client';
-import { ThemeProvider } from 'styled-components';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { I18nextProvider } from 'react-i18next';
-import { HttpLink } from 'apollo-link-http';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory';
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import React from 'react';
+import { render } from 'react-dom';
+import { I18nextProvider } from 'react-i18next';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+
 import introspectionResult from './generated/introspection-result';
-import { createI18n } from './utils/i18n';
 import { Root } from './pages/root';
+import { createI18n } from './utils/i18n';
 
 const main = async () => {
   const mountNode = document.getElementById('root');

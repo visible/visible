@@ -1,5 +1,6 @@
 // import React from 'react';
 import styled from 'styled-components';
+
 import { List } from '../list';
 
 export const ContentInfo = styled.footer`

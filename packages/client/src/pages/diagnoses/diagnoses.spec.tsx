@@ -1,11 +1,13 @@
-import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
+
+import { cleanup, wait } from '@testing-library/react';
+import React from 'react';
 import { Route } from 'react-router';
-import { wait, cleanup } from '@testing-library/react';
+
 import { render } from '../../../tests/utils';
 import {
-  FetchDiagnosisSmallDocument,
   Diagnosis,
+  FetchDiagnosisSmallDocument,
   ReportType,
 } from '../../generated/graphql';
 import { Diagnoses } from './diagnoses';

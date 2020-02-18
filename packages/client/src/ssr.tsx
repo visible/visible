@@ -1,3 +1,6 @@
+import { ApolloProvider } from '@apollo/react-hooks';
+import { getDataFromTree } from '@apollo/react-ssr';
+import { theme } from '@visi/ui';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
@@ -6,10 +9,8 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import fetch from 'node-fetch';
 import React from 'react';
-import Helmet from 'react-helmet';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { getDataFromTree } from '@apollo/react-ssr';
 import ReactDOMServer from 'react-dom/server';
+import Helmet from 'react-helmet';
 import { I18nextProvider } from 'react-i18next';
 import { StaticRouter } from 'react-router-dom';
 import {
@@ -17,7 +18,7 @@ import {
   StyleSheetManager,
   ThemeProvider,
 } from 'styled-components';
-import { theme } from '@visi/ui';
+
 import { Html } from './components/html';
 import introspectionResult from './generated/introspection-result';
 import { Root } from './pages/root';

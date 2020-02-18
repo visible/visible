@@ -12,7 +12,7 @@
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint"
   ],
-  "plugins": ["import", "react-hooks"],
+  "plugins": ["import", "simple-import-sort", "react-hooks"],
   "parserOptions": {
     "ecmaVersion": 9,
     "sourceType": "module"
@@ -42,7 +42,7 @@
       }
     ],
     "no-console": "error",
-    "import/order": 2,
+    "simple-import-sort/sort": "error",
     "react/display-name": "off",
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
