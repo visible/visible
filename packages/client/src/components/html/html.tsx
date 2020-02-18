@@ -15,9 +15,12 @@ const encodeState = (state: unknown) =>
 export const Html = (props: HtmlProps) => {
   const { helmet, state, content, elements, manifest } = props;
 
+  const htmlAttrs = helmet?.htmlAttributes.toComponent();
+  const bodyAttrs = helmet?.bodyAttributes.toComponent();
+
   return (
     // eslint-disable-next-line jsx-a11y/html-has-lang
-    <html {...helmet?.htmlAttributes.toString()}>
+    <html {...htmlAttrs}>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,7 +31,7 @@ export const Html = (props: HtmlProps) => {
         {elements}
       </head>
 
-      <body {...helmet?.bodyAttributes.toString()}>
+      <body {...bodyAttrs}>
         <div
           id="root"
           role="application"
