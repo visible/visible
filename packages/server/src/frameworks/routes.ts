@@ -38,11 +38,11 @@ router.use('/manifest.json', ({ i18n }, res) => {
   });
 });
 
-router.use(async (req, res) => {
+router.use(async ({ i18n, url }, res) => {
   const result = await render({
     manifest,
-    i18n: req.i18n,
-    location: req.url,
+    location: url,
+    language: i18n.language,
   });
 
   res.status(result.statusCode).send(`<!DOCTYPE html>\n${result.staticMarkup}`);
