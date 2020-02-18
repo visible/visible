@@ -28,35 +28,36 @@ export const Diagnoses = () => {
 
   const { diagnosis } = data;
 
+  const title = t('diagnoses.title', 'Diagnostics Result: {{id}}', {
+    id: diagnosis.id,
+  });
+  const description = t(
+    'diagnoses.description',
+    'You diagnostics result of Visible',
+  );
+
   return (
-    <>
+    <UI.Content>
       <Helmet>
-        <title>
-          {t('diagnoses.title', 'Diagnostics Result: {{id}}', {
-            id: diagnosis.id,
-          })}
-        </title>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
       </Helmet>
 
-      <UI.Content>
-        <h1>
-          {t('diagnoses.title', 'Diagnostics Result: {{id}}', {
-            id: diagnosis.id,
-          })}
-        </h1>
+      <h1>{title}</h1>
 
-        {diagnosis.reports
-          .filter(report => report.type !== ReportType.Ok)
-          .map(report => (
-            <div key={report.id}>
-              <h2>{report.type}</h2>
-              <span>@{report.xpath}</span>
-              <p>{report.message}</p>
-              <UI.Code language="html">{report.html || ''}</UI.Code>
-              <UI.Code language="css">{report.css || ''}</UI.Code>
-            </div>
-          ))}
-      </UI.Content>
-    </>
+      {diagnosis.reports
+        .filter(report => report.type !== ReportType.Ok)
+        .map(report => (
+          <div key={report.id}>
+            <h2>{report.type}</h2>
+            <span>@{report.xpath}</span>
+            <p>{report.message}</p>
+            <UI.Code language="html">{report.html || ''}</UI.Code>
+            <UI.Code language="css">{report.css || ''}</UI.Code>
+          </div>
+        ))}
+    </UI.Content>
   );
 };

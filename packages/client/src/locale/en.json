@@ -5,6 +5,7 @@
     "notifications": "Notifications"
   },
   "diagnoses": {
+    "description": "You diagnostics result of Visible",
     "error": "Error occurred",
     "loading": "Loading...",
     "title": "Diagnostics Result: {{id}}"
@@ -15,7 +16,12 @@
     "submit": "Diagnose",
     "title": "Diagnose your website"
   },
+  "meta": {
+    "description": "🦉 Visible is an open-source accessibility testing tool works on Node.js and CI",
+    "title": "Visible"
+  },
   "void": {
+    "description": "The page you were looking for was not found",
     "title": "You hit the void!"
   }
 }
