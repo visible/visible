@@ -11,6 +11,7 @@ export interface Settings {
   width?: number;
   height?: number;
   headless?: boolean;
+  noSandbox?: boolean;
 }
 
 export interface Config {
