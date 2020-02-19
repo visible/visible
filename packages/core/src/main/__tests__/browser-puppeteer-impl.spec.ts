@@ -36,4 +36,23 @@ describe('BrowserBlinkImpl', () => {
     );
     expect(newPage).toBeCalled();
   });
+
+  it('disables sandbox when `noSandbox` provided', async () => {
+    const settings = {
+      noSandbox: true,
+    };
+
+    await chromium.setup(settings);
+
+    expect(puppeteer.launch).toBeCalledWith(
+      expect.objectContaining({
+        args: [
+          '--disable-web-security',
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+        ],
+      }),
+    );
+    expect(newPage).toBeCalled();
+  });
 });

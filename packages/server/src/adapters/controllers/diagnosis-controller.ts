@@ -29,6 +29,9 @@ export class DiagnosisController {
       config: {
         extends: [],
         plugins: ['@visi/plugin-standard'],
+        settings: {
+          noSandbox: true,
+        },
         rules: {},
       },
       url,
