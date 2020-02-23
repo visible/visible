@@ -9,7 +9,7 @@
     "build": "tsc"
   },
   "files": [
-    "./dist"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"

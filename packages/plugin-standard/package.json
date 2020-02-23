@@ -7,7 +7,7 @@
   "main": "./dist/main/index.js",
   "browser": "./dist/renderer/index.js",
   "files": [
-    "./dist"
+    "dist"
   ],
   "scripts": {
     "build": "rollup -c rollup.config.js",

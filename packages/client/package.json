@@ -13,7 +13,7 @@
     "postinstall": "graphql-codegen --config codegen.js"
   },
   "files": [
-    "./dist",
+    "dist",
     "index.d.ts"
   ],
   "publishConfig": {

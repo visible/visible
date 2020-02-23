@@ -12,7 +12,7 @@
     "postinstall": "graphql-codegen --config codegen.js"
   },
   "files": [
-    "./dist"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"

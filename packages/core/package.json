@@ -8,7 +8,7 @@
     "test": "jest --coverage"
   },
   "files": [
-    "./dist"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"

@@ -11,7 +11,7 @@
     "watch": "tsc -w"
   },
   "files": [
-    "./dist"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
