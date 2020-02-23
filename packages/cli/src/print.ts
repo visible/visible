@@ -1,7 +1,7 @@
-import { table } from 'table';
+import { Report } from '@visi/core/main';
 import chalk from 'chalk';
-import { Report } from '@visi/core';
 import { TFunction } from 'i18next';
+import { table } from 'table';
 
 export const print = async (
   reportsInput: Report[],
@@ -15,7 +15,7 @@ export const print = async (
       return true;
     }
 
-    return report.type !== 'ok';
+    return report.level !== 'ok';
   });
 
   const fixtures = [];
@@ -46,7 +46,7 @@ export const print = async (
 
       switch (report.level) {
         case 'ok':
-          color = chalk.red;
+          color = chalk.green;
           break;
         case 'warn':
           color = chalk.yellow;

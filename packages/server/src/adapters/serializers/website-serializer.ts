@@ -1,14 +1,14 @@
 import { PartialDeep } from 'type-fest';
 
 import { Website } from '../../enterprise/entities';
-import { DiagnosisSerializer, DiagnosisAPI } from './diagnosis-serializer';
+import { DiagnosisAPI, DiagnosisSerializer } from './diagnosis-serializer';
 
 export type WebsiteAPI = PartialDeep<{
   id: string;
   name: string;
   description: string;
   domain: string;
-  diagnosises: DiagnosisAPI[];
+  diagnoses: DiagnosisAPI[];
 }>;
 
 export class WebsiteSerializer {
@@ -18,7 +18,7 @@ export class WebsiteSerializer {
       name: website.name,
       description: website.description,
       domain: website.domain,
-      diagnosises: new DiagnosisSerializer().transform(website.diagnosises),
+      diagnoses: new DiagnosisSerializer().transform(website.diagnoses),
     };
   }
 }

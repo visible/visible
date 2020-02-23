@@ -1,0 +1,18 @@
+{
+  "name": "@visi/art",
+  "version": "0.0.1-rc1",
+  "repository": "https://github.com/neet/visible.git",
+  "author": "Ryo Igarashi <n33t5hin@gmail.com>",
+  "license": "AGPL-3.0",
+  "main": "./index.js",
+  "scripts": {
+    "build": "",
+    "test": ""
+  },
+  "files": [
+    "./"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,4 +1,5 @@
-import { Entity, PrimaryColumn, Column, Index, OneToMany } from 'typeorm';
+import { Column, Entity, Index, OneToMany, PrimaryColumn } from 'typeorm';
+
 import { DiagnosisORM } from './diagnosis';
 
 @Entity('website')
@@ -23,5 +24,5 @@ export class WebsiteORM {
     diagnosis => diagnosis.website,
     { onDelete: 'SET NULL' },
   )
-  diagnosises: DiagnosisORM[];
+  diagnoses: DiagnosisORM[];
 }

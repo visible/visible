@@ -1,6 +1,6 @@
+import { transparentize } from 'polished';
 import React from 'react';
 import styled from 'styled-components';
-import { transparentize } from 'polished';
 
 const Inner = styled.div`
   display: flex;

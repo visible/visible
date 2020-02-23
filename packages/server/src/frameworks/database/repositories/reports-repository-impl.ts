@@ -1,9 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
+
 import { ReportsRepository } from '../../../application/repositories/reports-repository';
-import { ReportORM } from '../entities/report';
-import { TYPES } from '../../../types';
 import { Report } from '../../../enterprise/entities';
+import { TYPES } from '../../../types';
+import { ReportORM } from '../entities/report';
 
 @injectable()
 export class ReportsRepositoryImpl implements ReportsRepository {

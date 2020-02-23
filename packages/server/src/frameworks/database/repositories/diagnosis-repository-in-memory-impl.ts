@@ -1,4 +1,5 @@
 import { injectable, unmanaged } from 'inversify';
+
 import { DiagnosisRepository } from '../../../application/repositories/diagnosis-repository';
 import { Diagnosis } from '../../../enterprise/entities';
 

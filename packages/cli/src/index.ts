@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-import path from 'path';
+import { visible } from '@visi/core/main';
+import { cosmiconfig } from 'cosmiconfig';
 import yargs from 'yargs';
-import { visible, Config } from '@visi/core';
-import { print } from './print';
-import { loader } from './loader';
+
 import { createI18n } from './i18n';
+import { loader } from './loader';
+import { print } from './print';
 
 (async () => {
-  const [i18next, t] = await createI18n();
+  const [, t] = await createI18n();
   const description = t('visible.description', 'The default command');
 
   yargs.command(
@@ -44,19 +45,22 @@ import { createI18n } from './i18n';
 
     async ({ url, json, verbose, fix }) => {
       try {
-        const config: Config = require(path.join(
-          process.cwd(),
-          '.visiblerc.json',
-        ));
+        const cosmiconfigResult = await cosmiconfig('visible').search();
+
+        if (!cosmiconfigResult?.config) {
+          throw new Error(t('visible.no-rc', 'No visiblerc file found'));
+        }
+
+        const { config } = cosmiconfigResult;
 
         const reports = await loader(
-          t('loading', 'Fetching diagnosises...'),
-          visible({ config, url, language: i18next.language }),
+          t('visible.loading', 'Fetching diagnoses...'),
+          visible({ config, url }),
         );
 
         await print(reports, json, verbose, t, fix);
 
-        const hasError = reports.some(report => report.type === 'error');
+        const hasError = reports.some(report => report.level === 'error');
         process.exit(hasError ? 1 : 0);
       } catch (e) {
         // eslint-disable-next-line no-console

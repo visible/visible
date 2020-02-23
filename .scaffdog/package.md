@@ -6,7 +6,7 @@ root: './packages/'
 ignore: []
 ---
 
-# {{ input | kebab }}/package.json
+# `{{ input | kebab }}/package.json`
 ```json
 {
   "name": "@visi/{{ input | kebab }}",
@@ -15,6 +15,10 @@ ignore: []
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
   "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
   "files": [
     "./dist"
   ],
@@ -24,7 +28,7 @@ ignore: []
 }
 ```
 
-# {{ input | kebab }}/tsconfig.json
+# `{{ input | kebab }}/tsconfig.json`
 ```json
 {
   "extends": "../../tsconfig.json",
@@ -35,7 +39,20 @@ ignore: []
 }
 ```
 
-# {{ input | kebab }}/src/index.ts
+# `{{ input | kebab }}/jest.config.js`
+```js
+module.exports = {
+  testEnvironment: 'node',
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+  },
+  testMatch: ['<rootDir>/src/**/*.spec.{ts,tsx}'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
+  // setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+};
+```
+
+# `{{ input | kebab }}/src/index.ts`
 ```ts
 
 ```

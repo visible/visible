@@ -1,5 +1,5 @@
 // import { PartialDeep } from 'type-fest';
-import { ReportType, Report } from '../../enterprise/entities/report';
+import { Report, ReportType } from '../../enterprise/entities/report';
 
 export enum ReportTypeAPI {
   OK = 'OK',

@@ -1,26 +1,21 @@
+import { boolean, text } from '@storybook/addon-knobs';
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { text, boolean } from '@storybook/addon-knobs';
+
 import { Button } from '.';
 
-storiesOf('Button', module)
-  .add('Primary', () => {
-    const content = text('Content', 'Button');
-    const disabled = boolean('Disabled', false);
+export default {
+  title: 'Button',
+  component: Button,
+};
 
-    return (
-      <Button appearance="primary" disabled={disabled}>
-        {content}
-      </Button>
-    );
-  })
-  .add('Skeleton', () => {
-    const content = text('Content', 'Button');
-    const disabled = boolean('Disabled', false);
+export const primary = () => (
+  <Button appearance="primary" disabled={boolean('Disabled', false)}>
+    {text('Content', 'Button')}
+  </Button>
+);
 
-    return (
-      <Button appearance="skeleton" disabled={disabled}>
-        {content}
-      </Button>
-    );
-  });
+export const skeleton = () => (
+  <Button appearance="skeleton" disabled={boolean('Disabled', false)}>
+    {text('Content', 'Button')}
+  </Button>
+);

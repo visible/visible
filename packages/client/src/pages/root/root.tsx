@@ -1,71 +1,82 @@
-import React, { Suspense } from 'react';
-import { Switch, Route } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
-import { ApolloClient } from 'apollo-client';
-import {
-  InMemoryCache,
-  IntrospectionFragmentMatcher,
-} from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { ThemeProvider } from 'styled-components';
-import { i18n } from 'i18next';
-import { I18nextProvider } from 'react-i18next';
-import typeDefs from '@visi/schema';
-import { theme, GlobalStyle } from '@visi/ui';
-import introspectionResult from '../../generated/introspection-result';
+import { GlobalStyle, theme } from '@visi/ui';
+import React from 'react';
+import Helmet from 'react-helmet';
+import { useTranslation } from 'react-i18next';
+import { Route, Switch, useLocation } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { Banner } from '../../components/banner';
 import { ContentInfo } from '../../components/content-info';
+import Diagnoses from '../diagnoses';
+import Home from '../home';
+import Void from '../void';
 
-const Home = React.lazy(() => import(/* webpackPrefetch: true */ '../home'));
-const Void = React.lazy(() => import(/* webpackPrefetch: true */ '../void'));
-const Diagnosises = React.lazy(() =>
-  import(/* webpackPrefetch: true */ '../diagnosises'),
-);
+// SuspenseがSSRで使えなかった...
+// import { Home, Void, Diagnoses } from './lazy';
 
-type RootProps = {
-  i18n: i18n;
+export const renderVoid = (props: RouteComponentProps) => {
+  const { staticContext } = props;
+
+  if (staticContext) {
+    staticContext.statusCode = 404;
+  }
+
+  return <Void />;
 };
 
-export const Root = (props: RootProps) => {
-  const fragmentMatcher = new IntrospectionFragmentMatcher({
-    introspectionQueryResultData: introspectionResult,
-  });
+export const Root = () => {
+  const location = useLocation();
+  const { t, i18n } = useTranslation();
 
-  const cache = new InMemoryCache({ fragmentMatcher }).restore(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).__APOLLO_STATE__,
+  const origin = process.env.PUBLIC_URL;
+
+  const href = origin + location.pathname;
+  const title = t('meta.title', 'Visible');
+  const description = t(
+    'meta.description',
+    '🦉 Visible is an open-source accessibility testing tool works on Node.js and CI',
   );
 
-  const client = new ApolloClient({
-    cache,
-    typeDefs,
-    link: new HttpLink({ uri: '/api/v1' }),
-    ssrForceFetchDelay: 100,
-  });
-
   return (
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <I18nextProvider i18n={props.i18n}>
-          <BrowserRouter>
-            <Banner role="banner" />
+    <>
+      <Helmet
+        htmlAttributes={{ lang: i18n.language.split('-')[0] }}
+        defaultTitle={title}
+        titleTemplate={`%s - ${title}`}
+      >
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
 
-            <Suspense fallback={<div>Loading...</div>}>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/diagnosises/:id" component={Diagnosises} />
-                <Route component={Void} />
-              </Switch>
-            </Suspense>
+        <link rel="canonical" href={href} />
+        <meta property="og:url" content={href} />
 
-            <ContentInfo role="contentinfo" />
-          </BrowserRouter>
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${origin}/thumbnail.png`} />
+        <meta name="twitter:card" content="summary_large_image" />
 
-          <GlobalStyle />
-        </I18nextProvider>
-      </ThemeProvider>
-    </ApolloProvider>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content={theme.highlight.normal} />
+
+        <link rel="mask-icon" href="/logo.svg" color={theme.highlight.normal} />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content={title} />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+      </Helmet>
+
+      <GlobalStyle />
+      <Banner role="banner" />
+
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/diagnoses/:id" component={Diagnoses} />
+        <Route render={renderVoid} />
+      </Switch>
+
+      <ContentInfo role="contentinfo" />
+    </>
   );
 };

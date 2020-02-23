@@ -19,7 +19,7 @@ export class MyRule implements Rule extends I18nProvider {
 
 - でもCLIとかだとラッパーになってる意味がわからなそう
 - と思ったけどlanguage detectorを時前実装しなくていいから楽？
-- i18nproviderだとクラス以外から使えないからシングルトンな関数をexportするとか
+- i18nProviderだとクラス以外から使えないからシングルトンな関数をexportするとか
 - 引数はi18nextのリソースの構造そのまま使う？
 - namespaceはどうなる？？
 
@@ -43,7 +43,7 @@ new Visible({ t });
 page.exposeFunction('t', t);
 // DOM (exposedな関数を使う) (でもwindowをオーバーロードする)
 // exposeFunctionしたあとにそれへの参照を new Rule() に渡せばいい？
-t('mykey');
+t('my_key');
 ```
 
 - VSCodeみたいにグローバルにAPIをエクスポートしまくるとか
@@ -69,7 +69,7 @@ registerPlugin({
 });
 
 class ImgAlt {
-  construtor() {
+  constructor() {
     this.context = window.getContext();
   }
 
@@ -103,10 +103,10 @@ Axe-core がサポートしている問題を、その修正方法でグルー�
 
 JSDOM などの静的解析で解決できる問題
 
-- accesskeys
+- accessKeys
 - aria-allowed-attr
 - aria-allowed-role
-- aria-dpub-role-fallback
+- aria-dupe-role-fallback
 - aria-hidden-body
 - aria-hidden-focus
 - aria-input-field-name
@@ -121,10 +121,10 @@ JSDOM などの静的解析で解決できる問題
 - avoid-inline-spacing
 - blink
 - bypass
-- checkboxgroup
+- checkboxGroup
 - css-orientation-lock
 - definition-list
-- dlitem
+- dlItem
 - duplicate-id-active
 - duplicate-id-aria
 - focus-order-semantics

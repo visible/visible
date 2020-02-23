@@ -1,13 +1,14 @@
 import { inject, injectable } from 'inversify';
-import { ReportsRepository } from '../repositories/reports-repository';
+
 import { TYPES } from '../../types';
+import { ReportsRepository } from '../repositories/reports-repository';
 
 @injectable()
 export class FindReportsByDiagnosisId {
   @inject(TYPES.ReportsRepository)
-  private reportsRepostiroy: ReportsRepository;
+  private reportsRepository: ReportsRepository;
 
   run(id: string) {
-    return this.reportsRepostiroy.findByDiagnosisId(id);
+    return this.reportsRepository.findByDiagnosisId(id);
   }
 }

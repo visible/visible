@@ -1,7 +1,7 @@
 import path from 'path';
 import {
-  createConnection as defaultCreateConnection,
   ConnectionOptionsReader,
+  createConnection as defaultCreateConnection,
 } from 'typeorm';
 
 // Workaround for TypeORM + Monorepo issue:

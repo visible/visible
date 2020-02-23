@@ -1,27 +1,26 @@
 import 'reflect-metadata';
+
 import { Container } from 'inversify';
 import { Connection } from 'typeorm';
-import { TYPES } from './types';
-
-import { DiagnosisRepository } from './application/repositories/diagnosis-repository';
-import { ReportsRepository } from './application/repositories/reports-repository';
 
 import { DiagnosisController } from './adapters/controllers/diagnosis-controller';
 import { ReportsController } from './adapters/controllers/reports-controller';
-import { FindDiagnosis } from './application/use-cases/find-diagnosis';
+import { DiagnosisRepository } from './application/repositories/diagnosis-repository';
+import { ReportsRepository } from './application/repositories/reports-repository';
 import { CreateDiagnosis } from './application/use-cases/create-diagnosis';
 import { DeleteDiagnosis } from './application/use-cases/delete-diagnosis';
+import { FindDiagnosis } from './application/use-cases/find-diagnosis';
 import { FindReportsByDiagnosisId } from './application/use-cases/find-reports-by-diagnosis-id';
-
-import { Server } from './frameworks/server';
 import { Context } from './frameworks/context';
 import { createConnection } from './frameworks/database/connection';
-import { DiagnosisRepositoryImpl } from './frameworks/database/repositories/diagnosis-repository-impl';
-import { ReportsRepositoryImpl } from './frameworks/database/repositories/reports-repository-impl';
 import {
   DiagnosisLoader,
   DiagnosisLoaderImpl,
 } from './frameworks/database/loaders/diagnosis-loader';
+import { DiagnosisRepositoryImpl } from './frameworks/database/repositories/diagnosis-repository-impl';
+import { ReportsRepositoryImpl } from './frameworks/database/repositories/reports-repository-impl';
+import { Server } from './frameworks/server';
+import { TYPES } from './types';
 
 // prettier-ignore
 (async () => {

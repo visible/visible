@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import diagnose from '@visi/art/diagnose.svg';
 import * as UI from '@visi/ui';
-import styled from 'styled-components';
-import { useTranslation, Trans } from 'react-i18next';
+import React, { useEffect, useState } from 'react';
+import Helmet from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
+import styled from 'styled-components';
+
 import { useCreateDiagnosisMutation } from '../../generated/graphql';
-import Diagnostics from '../diagnosises';
-import diagnose from './diagnose.svg';
 
 const Wizard = styled.section`
   width: 100%;
@@ -45,33 +46,36 @@ export const Home = () => {
   });
 
   useEffect(() => {
-    if (data) history.push(`/diagnosises/${data.createDiagnosis.id}`);
+    if (data) history.push(`/diagnoses/${data.createDiagnosis.id}`);
   }, [data, history]);
+
+  const title = t('home.title', 'Diagnose your website');
+  const description = t(
+    'home.description',
+    'Type URL of the website to inspect accessibility issues of it',
+  );
 
   return (
     <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+      </Helmet>
+
       <Wizard>
         <Inner>
-          <Title>{t('home.title', 'Diagnose your website')}</Title>
+          <Title>{title}</Title>
           <UI.Search
             submitLabel={t('home.submit', 'Diagnose')}
             placeholder={t('home.placeholder', 'Type URL of the website')}
             onChange={e => setValue(e.target.value)}
             onSubmit={_ => createDiagnosis()}
           />
-          <Description>
-            <Trans i18nKey="home.description">
-              Type URL of the website to inspect accessibility issues of it
-            </Trans>
-          </Description>
+          <Description>{description}</Description>
           {loading && <UI.Progress progress={50} />}
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          blah blah blah
         </Inner>
       </Wizard>
     </UI.Content>

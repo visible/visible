@@ -1,9 +1,10 @@
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
+
 import { DiagnosisRepository } from '../../../application/repositories/diagnosis-repository';
-import { DiagnosisORM } from '../entities/diagnosis';
 import { Diagnosis, Report } from '../../../enterprise/entities';
 import { TYPES } from '../../../types';
+import { DiagnosisORM } from '../entities/diagnosis';
 import { ReportORM } from '../entities/report';
 
 @injectable()
@@ -33,16 +34,16 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   };
 
   async find(ids: string[]) {
-    const diagnosises = await this.connection
+    const diagnoses = await this.connection
       .getRepository(DiagnosisORM)
       .createQueryBuilder('diagnosis')
       .leftJoinAndSelect('diagnosis.reports', 'report')
       .whereInIds(ids)
       .getMany();
 
-    if (!diagnosises.length) throw new Error('Entry not found');
+    if (!diagnoses.length) throw new Error('Entry not found');
 
-    return diagnosises.map(diagnosis => this.toDomain(diagnosis));
+    return diagnoses.map(diagnosis => this.toDomain(diagnosis));
   }
 
   async create(diagnosis: Diagnosis) {

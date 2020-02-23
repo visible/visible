@@ -44,7 +44,7 @@ type Website {
   name: String!
   description: String!
   domain: String!
-  diagnosises: [Diagnosis!]
+  diagnoses: [Diagnosis!]
 }
 
 type Score {

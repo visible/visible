@@ -1,5 +1,5 @@
-import { WebsiteSerializer } from '../website-serializer';
 import { Website } from '../../../enterprise/entities';
+import { WebsiteSerializer } from '../website-serializer';
 
 describe('WebsiteSerializer', () => {
   let websiteSerializer: WebsiteSerializer;
@@ -24,7 +24,7 @@ describe('WebsiteSerializer', () => {
       name: 'My website',
       description: 'My first personal website',
       domain: 'my-website.com',
-      diagnosises: [],
+      diagnoses: [],
     });
   });
 });

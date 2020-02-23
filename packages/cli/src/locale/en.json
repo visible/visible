@@ -1,5 +1,4 @@
 {
-  "loading": "Fetching diagnosises...",
   "options": {
     "fix": "Prints fixers",
     "json": "Output JSON instead of prettified table",
@@ -13,6 +12,8 @@
     "xpath": "XPath"
   },
   "visible": {
-    "description": "The default command"
+    "description": "The default command",
+    "loading": "Fetching diagnoses...",
+    "no-rc": "No visiblerc file found"
   }
 }

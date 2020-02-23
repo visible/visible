@@ -1,5 +1,10 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
+
 import { Banner } from '.';
 
-storiesOf('Banner', module).add('Normal', () => <Banner>Visible</Banner>);
+export default {
+  title: 'Banner',
+  component: Banner,
+};
+
+export const normal = () => <Banner>Visible</Banner>;

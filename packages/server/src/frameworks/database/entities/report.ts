@@ -1,10 +1,11 @@
 import {
-  Entity,
   Column,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { ReportType } from '../../../enterprise/entities';
 import { DiagnosisORM } from './diagnosis';
 
@@ -22,7 +23,7 @@ export class ReportORM {
   @Column('varchar', { length: 255, nullable: true })
   message?: string;
 
-  @ManyToOne(() => DiagnosisORM)
+  @ManyToOne(() => DiagnosisORM, { cascade: true })
   @JoinColumn()
   diagnosis: DiagnosisORM;
 

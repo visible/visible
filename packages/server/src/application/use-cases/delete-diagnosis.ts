@@ -1,6 +1,7 @@
-import { injectable, inject } from 'inversify';
-import { DiagnosisRepository } from '../repositories/diagnosis-repository';
+import { inject, injectable } from 'inversify';
+
 import { TYPES } from '../../types';
+import { DiagnosisRepository } from '../repositories/diagnosis-repository';
 
 @injectable()
 export class DeleteDiagnosis {

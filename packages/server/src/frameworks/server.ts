@@ -1,14 +1,16 @@
-import { promises as fs } from 'fs';
-import { injectable, inject } from 'inversify';
-import express from 'express';
-import cors from 'cors';
 import { ApolloServer, gql } from 'apollo-server-express';
+import cors from 'cors';
+import express from 'express';
+import { promises as fs } from 'fs';
 import depthLimit from 'graphql-depth-limit';
 import i18nextMiddleware from 'i18next-express-middleware';
-import { resolvers } from './resolvers';
-import { createI18n } from './i18n';
+import { inject, injectable } from 'inversify';
+
 import { Context } from './context';
+import { createI18n } from './i18n';
 import { logger } from './logger';
+import { resolvers } from './resolvers';
+import { routes } from './routes';
 
 @injectable()
 export class Server {
@@ -33,6 +35,7 @@ export class Server {
       .use(cors())
       .use(i18nextMiddleware.handle(i18n))
       .use(apollo.getMiddleware({ path: '/api/v1' }))
+      .use(routes)
       .listen({ port: Number(process.env.WEB_PORT) }, this.handleListened);
   }
 

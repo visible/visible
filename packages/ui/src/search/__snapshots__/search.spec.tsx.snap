@@ -1,29 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Search matches snapshot 1`] = `
-.c2 {
-  box-sizing: border-box;
-  padding: 8px 14px;
-  -webkit-transition: 0.15s ease-in;
-  transition: 0.15s ease-in;
-  border: 1px solid #e6e6e6;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.c2:focus {
-  -webkit-transition: 0.15s ease-out;
-  transition: 0.15s ease-out;
-  border-color: #ffaa01;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255,170,1,0.4);
-}
-
-.c2:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 .c4 {
   box-sizing: border-box;
   padding: 8px 14px;
@@ -56,6 +33,29 @@ exports[`Search matches snapshot 1`] = `
 }
 
 .c4:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.c2 {
+  box-sizing: border-box;
+  padding: 8px 14px;
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.c2:focus {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  border-color: #ffaa01;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,170,1,0.4);
+}
+
+.c2:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

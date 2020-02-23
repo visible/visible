@@ -1,13 +1,14 @@
 import {
+  CreateDateColumn,
   Entity,
-  ManyToOne,
-  OneToMany,
   Index,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
 import { ReportORM } from './report';
 import { WebsiteORM } from './website';
 

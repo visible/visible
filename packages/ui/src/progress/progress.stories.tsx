@@ -1,9 +1,15 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { number } from '@storybook/addon-knobs';
+import React from 'react';
+
 import { Progress } from '.';
 
-storiesOf('Progress', module).add('Normal', () => {
-  const progress = number('Progress', 50, { range: true, min: 0, max: 100 });
-  return <Progress progress={progress} />;
-});
+export default {
+  title: 'Progress',
+  component: Progress,
+};
+
+export const normal = () => (
+  <Progress
+    progress={number('Progress', 50, { range: true, min: 0, max: 100 })}
+  />
+);
