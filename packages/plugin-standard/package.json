@@ -26,5 +26,6 @@
     "rollup": "^1.29.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-typescript2": "^0.25.3"
-  }
+  },
+  "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
 }

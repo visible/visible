@@ -48,5 +48,6 @@
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5"
-  }
+  },
+  "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
 }

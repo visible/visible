@@ -2,6 +2,7 @@
   "name": "@visi/core",
   "version": "0.0.1-rc1",
   "license": "AGPL-3.0",
+  "main": "./dist/main/index.js",
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "test": "jest --coverage"
@@ -9,6 +10,9 @@
   "files": [
     "./dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@types/node": "^13.1.7",
     "@types/puppeteer": "^2.0.0",
@@ -28,5 +32,6 @@
     "rollup": "^1.29.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-typescript2": "^0.25.3"
-  }
+  },
+  "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
 }
