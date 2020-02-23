@@ -9,8 +9,7 @@
     "version": {
       "allowBranch": "release/*",
       "conventionalCommits": true,
-      "noGitTagVersion": true,
-      "noPush": true
+      "message": "chore(release): publish %s"
     }
   }
 }
