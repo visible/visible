@@ -1,0 +1,62 @@
+{
+  "name": "@visi/web-server",
+  "version": "0.0.1-rc3",
+  "repository": "https://github.com/neet/visible.git",
+  "author": "Ryo Igarashi <n33t5hin@gmail.com>",
+  "license": "AGPL-3.0",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "ts-node --project ./tsconfig.json ./src/index.ts",
+    "build": "tsc",
+    "test": "jest --coverage",
+    "postinstall": "graphql-codegen --config codegen.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@types/bull": "^3.10.6",
+    "@types/cors": "^2.8.6",
+    "@types/dotenv": "^8.2.0",
+    "@types/graphql": "^14.5.0",
+    "@types/graphql-depth-limit": "^1.1.2",
+    "@types/graphql-iso-date": "^3.3.3",
+    "@types/node": "^13.1.7",
+    "@types/pg": "^7.14.1",
+    "@types/uuid": "^3.4.6",
+    "@visi/web-client": "^0.0.1-rc3",
+    "@visi/core": "^0.0.1-rc3",
+    "@visi/web-schema": "^0.0.1-rc3",
+    "@visi/web-ui": "^0.0.1-rc3",
+    "apollo": "^2.21.3",
+    "apollo-link": "^1.2.13",
+    "apollo-link-http": "^1.5.16",
+    "apollo-server-express": "^2.9.16",
+    "bull": "^3.12.1",
+    "cors": "^2.8.5",
+    "dataloader": "^2.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "graphql-depth-limit": "^1.1.0",
+    "graphql-iso-date": "^3.6.1",
+    "i18next": "^19.0.3",
+    "i18next-express-middleware": "^1.9.1",
+    "inversify": "^5.0.1",
+    "log4js": "^6.1.0",
+    "pg": "^7.17.1",
+    "reflect-metadata": "^0.1.13",
+    "type-fest": "^0.8.1",
+    "typeorm": "^0.2.22",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.11.2",
+    "@graphql-codegen/typescript": "^1.11.2",
+    "@graphql-codegen/typescript-resolvers": "^1.11.2"
+  },
+  "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
+}

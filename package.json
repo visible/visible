@@ -14,9 +14,9 @@
     "test": "lerna run test --concurrency 1",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint -c .eslintrc.json './packages/**/*.{ts,tsx}'",
-    "lint:stylelint": "stylelint './packages/{client,ui}/**/*.{ts,tsx}'",
+    "lint:stylelint": "stylelint './packages/{web-client,web-ui}/**/*.{ts,tsx}'",
     "lint:spellcheck": "cspell './{packages,docs,scripts}/**/*.{ts,tsx,md,js,json,graphql}'",
-    "storybook": "lerna exec start-storybook --scope @visi/ui -- -p 6006",
+    "storybook": "lerna exec start-storybook --scope @visi/web-ui -- -p 6006",
     "manage-translations": "node ./scripts/manage-translations.js"
   },
   "devDependencies": {
