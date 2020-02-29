@@ -2,10 +2,10 @@
   "version": "0.1",
   "language": "en,en-GB",
   "ignorePaths": [
-    "**/node_modules/**",
-    "**/dist/**",
-    "**/generated/**",
-    "**/coverage/**"
+    "**/node_modules/",
+    "**/dist/",
+    "**/generated/",
+    "**/coverage/"
   ],
   "words": [
     "Affero",
