@@ -15,9 +15,20 @@ import { print } from './print';
     .command(
       'init',
       t('visible.init.description', 'Initialize .visiblerc file') as string,
-      undefined,
+      {},
       async () => {
-        await fs.writeFile('.visiblerc.json', JSON.stringify({}));
+        const defaultConfig = {
+          extends: [],
+          plugins: ['@visi/plugin-standard'],
+          settings: {},
+          rules: {},
+        };
+
+        await fs.writeFile(
+          '.visiblerc.json',
+          JSON.stringify(defaultConfig, undefined, 2),
+        );
+
         // eslint-disable-next-line no-console
         console.log(t('visible.init.done', '🎉 Initialization completed!!'));
       },
