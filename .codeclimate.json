@@ -1,0 +1,10 @@
+{
+  "version": "2",
+  "exclude_patterns": [
+    "**/node_modules/",
+    "**/dist/",
+    "**/generated/",
+    "**/coverage/",
+    "**/*.spec.{ts,tsx}"
+  ]
+}
