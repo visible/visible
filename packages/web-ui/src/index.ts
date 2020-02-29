@@ -10,5 +10,4 @@ export * from './navigation';
 export * from './progress';
 export * from './search';
 
-export * from './theme';
 export * from './global';

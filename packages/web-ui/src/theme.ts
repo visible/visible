@@ -1,16 +1,16 @@
-export const theme = {
+export interface Theme {
   foreground: {
-    normal: '#333333',
-    wash: '#666666',
-  },
+    normal: string;
+    wash: string;
+  };
   background: {
-    normal: '#ffffff',
-    wash: '#f1f1f1',
-  },
+    normal: string;
+    wash: string;
+  };
   highlight: {
-    normal: '#ffaa01',
-  },
+    normal: string;
+  };
   border: {
-    normal: '#e6e6e6',
-  },
-};
+    normal: string;
+  };
+}

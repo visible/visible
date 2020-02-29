@@ -1,15 +1,20 @@
-import { DecoratorFn } from '@storybook/react';
-import { theme } from '@visi/resources';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import { GlobalStyle } from './global';
 
-export const withTheme: DecoratorFn = storyFn => {
+export interface ConfigProviderProps {
+  theme: unknown;
+  children: React.ReactNode;
+}
+
+export const ConfigProvider = (props: ConfigProviderProps) => {
+  const { theme, children } = props;
+
   return (
     <ThemeProvider theme={theme}>
-      {storyFn()}
       <GlobalStyle />
+      {children}
     </ThemeProvider>
   );
 };
