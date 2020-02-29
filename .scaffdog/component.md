@@ -1,6 +1,6 @@
 ---
 name: 'component'
-description: 'Generates @visi/ui component'
+description: 'Generates @visi/web-ui component'
 message: 'Type the name of your component'
 root: './packages/'
 ignore: []

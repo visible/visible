@@ -16,9 +16,9 @@ const lngs = glob
   .map(file => file.match(/.*\/(.+?).json$/)[1]);
 
 const resourceMap = {
-  server: './packages/server/src/frameworks/locale/{{lng}}.json',
-  client: './packages/client/src/locale/{{lng}}.json',
   cli: './packages/cli/src/locale/{{lng}}.json',
+  'web-server': './packages/web-server/src/frameworks/locale/{{lng}}.json',
+  'web-client': './packages/web-client/src/locale/{{lng}}.json',
   'plugin-standard': './packages/plugin-standard/src/locale/{{lng}}.json',
 };
 
