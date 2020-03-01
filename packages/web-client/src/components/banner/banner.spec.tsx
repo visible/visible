@@ -4,7 +4,7 @@ import React from 'react';
 import { render } from '../../../tests/utils';
 import { Banner } from './banner';
 
-jest.mock('@visi/resources/logo-white.png', () => ({
+jest.mock('@visi/resources/assets/logo-white.png', () => ({
   __esModule: true,
   default: '',
 }));

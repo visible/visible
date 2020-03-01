@@ -1,14 +1,14 @@
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import { render as defaultRender, RenderOptions } from '@testing-library/react';
-import { theme as uiTheme } from '@visi/web-ui';
+import { theme as defaultTheme } from '@visi/resources';
+import { ConfigProvider, Theme } from '@visi/web-ui';
 import React from 'react';
 import { MemoryRouter } from 'react-router';
-import { ThemeProvider } from 'styled-components';
 
 export interface TestProvidersProps {
   children?: React.ReactNode;
   paths: string[];
-  theme: typeof uiTheme;
+  theme: Theme;
   mocks: MockedResponse[];
 }
 
@@ -17,16 +17,16 @@ export const TestProviders = (props: TestProvidersProps) => {
 
   return (
     <MockedProvider mocks={mocks}>
-      <ThemeProvider theme={theme}>
+      <ConfigProvider theme={theme}>
         <MemoryRouter initialEntries={paths}>{children}</MemoryRouter>
-      </ThemeProvider>
+      </ConfigProvider>
     </MockedProvider>
   );
 };
 
 export interface RenderProps extends Omit<RenderOptions, 'queries'> {
   paths?: string[];
-  theme?: typeof uiTheme;
+  theme?: Theme;
   mocks?: MockedResponse[];
 }
 
@@ -36,13 +36,13 @@ export const render = (ui: React.ReactElement, options: RenderProps = {}) => {
     wrapper: Wrapper = React.Fragment,
     paths = ['/'],
     mocks = [],
-    theme = uiTheme,
+    theme = defaultTheme,
     ...rest
   } = options;
 
   return defaultRender(ui, {
     wrapper: ({ children }) => (
-      <TestProviders paths={paths} theme={theme} mocks={mocks}>
+      <TestProviders paths={paths} theme={defaultTheme} mocks={mocks}>
         <Wrapper>{children}</Wrapper>
       </TestProviders>
     ),
