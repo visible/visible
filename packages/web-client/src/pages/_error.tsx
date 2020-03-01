@@ -1,9 +1,10 @@
 import * as UI from '@visi/web-ui';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { useTranslation } from 'react-i18next';
 
-export const Void = () => {
+import { useTranslation } from '../i18n';
+
+const Error = () => {
   const { t } = useTranslation();
 
   const title = t('void.title', 'You hit the void!');
@@ -26,3 +27,5 @@ export const Void = () => {
     </UI.Content>
   );
 };
+
+export default Error;

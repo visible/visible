@@ -1,16 +1,15 @@
-import diagnose from '@visi/resources/assets/diagnose.svg';
+// import diagnose from '@visi/resources/assets/diagnose.svg';
 import * as UI from '@visi/web-ui';
-import React, { useEffect, useState } from 'react';
-import Helmet from 'react-helmet';
-import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
+import Head from 'next/head';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { useCreateDiagnosisMutation } from '../../generated/graphql';
+import { useCreateDiagnosisMutation } from '../generated/graphql';
+import { useTranslation } from '../i18n';
 
+// background-image: url(${diagnose});
 const Wizard = styled.section`
   width: 100%;
-  background-image: url(${diagnose});
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
@@ -34,10 +33,10 @@ const Description = styled.p`
   font-size: 12px;
 `;
 
-export const Home = () => {
+const Index = () => {
   const { t } = useTranslation();
   const [value, setValue] = useState('');
-  const history = useHistory();
+  // const history = useHistory();
 
   const [createDiagnosis, { data, loading }] = useCreateDiagnosisMutation({
     variables: {
@@ -45,9 +44,9 @@ export const Home = () => {
     },
   });
 
-  useEffect(() => {
-    if (data) history.push(`/diagnoses/${data.createDiagnosis.id}`);
-  }, [data, history]);
+  // useEffect(() => {
+  //   if (data) history.push(`/diagnoses/${data.createDiagnosis.id}`);
+  // }, [data]);
 
   const title = t('home.title', 'Diagnose your website');
   const description = t(
@@ -57,12 +56,12 @@ export const Home = () => {
 
   return (
     <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
-      <Helmet>
+      <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-      </Helmet>
+      </Head>
 
       <Wizard>
         <Inner>
@@ -81,3 +80,5 @@ export const Home = () => {
     </UI.Content>
   );
 };
+
+export default Index;

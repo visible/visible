@@ -1,0 +1,21 @@
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import React from 'react';
+import { WithTranslation, withTranslation } from 'react-i18next';
+
+type CustomDocumentProps = WithTranslation;
+
+class CustomDocument extends Document<CustomDocumentProps> {
+  render() {
+    return (
+      <Html lang={this.props.i18n.language}>
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
+
+export default withTranslation()(CustomDocument);

@@ -4,13 +4,13 @@ import { cleanup, wait } from '@testing-library/react';
 import React from 'react';
 import { Route } from 'react-router';
 
-import { render } from '../../../tests/utils';
 import {
   Diagnosis,
   FetchDiagnosisSmallDocument,
   ReportType,
 } from '../../generated/graphql';
-import { Diagnoses } from './diagnoses';
+import { render } from '../../tests/utils';
+import { Diagnoses } from '../diagnoses/[id]';
 
 const mocks = [
   {

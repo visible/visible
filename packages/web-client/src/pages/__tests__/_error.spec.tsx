@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { render } from '../../../tests/utils';
-import { Void } from './void';
+import { Void } from '../_error';
+import { render } from '../../tests/utils';
 
 describe('Void', () => {
   it('matches to the snapshot', () => {

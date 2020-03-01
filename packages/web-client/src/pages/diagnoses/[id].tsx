@@ -9,7 +9,7 @@ import {
   useFetchDiagnosisSmallQuery,
 } from '../../generated/graphql';
 
-export const Diagnoses = () => {
+const Diagnoses = () => {
   const { t } = useTranslation();
   const match = useRouteMatch<{ id: string }>();
 
@@ -62,3 +62,5 @@ export const Diagnoses = () => {
     </UI.Content>
   );
 };
+
+export default Diagnoses;

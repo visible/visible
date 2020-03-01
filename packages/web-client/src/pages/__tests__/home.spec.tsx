@@ -4,13 +4,13 @@ import { cleanup, fireEvent, wait } from '@testing-library/react';
 import React from 'react';
 import { Route } from 'react-router';
 
-import { render } from '../../../tests/utils';
+import { Home } from '..';
 import {
   CreateDiagnosisDocument,
   Diagnosis,
   ReportType,
 } from '../../generated/graphql';
-import { Home } from './home';
+import { render } from '../../tests/utils';
 
 jest.mock('@visi/resources/assets/diagnose.svg', () => ({
   __esModule: true,
