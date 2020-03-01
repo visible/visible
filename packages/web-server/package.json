@@ -31,7 +31,7 @@
     "@visi/resources": "0.0.1-rc3",
     "@visi/web-client": "^0.0.1-rc3",
     "@visi/web-schema": "^0.0.1-rc3",
-    "apollo": "^2.21.3",
+    "apollo": "^2.24.0",
     "apollo-link": "^1.2.13",
     "apollo-link-http": "^1.5.16",
     "apollo-server-express": "^2.9.16",
