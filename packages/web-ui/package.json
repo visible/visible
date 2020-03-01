@@ -41,7 +41,6 @@
     "@types/react-syntax-highlighter": "^11.0.4",
     "@types/styled-components": "^4.4.2",
     "@types/webpack": "^4.41.2",
-    "@visi/resources": "0.0.1-rc3",
     "babel-loader": "^8.0.6",
     "fork-ts-checker-webpack-plugin": "^4.0.4",
     "jest-styled-components": "^7.0.0",

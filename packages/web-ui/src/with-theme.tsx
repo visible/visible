@@ -1,15 +1,31 @@
 import { DecoratorFn } from '@storybook/react';
-import { theme } from '@visi/resources';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 
+import { ConfigProvider } from './config';
 import { GlobalStyle } from './global';
+
+const theme = {
+  foreground: {
+    normal: '#333333',
+    wash: '#666666',
+  },
+  background: {
+    normal: '#ffffff',
+    wash: '#f1f1f1',
+  },
+  highlight: {
+    normal: '#ffaa01',
+  },
+  border: {
+    normal: '#e6e6e6',
+  },
+};
 
 export const withTheme: DecoratorFn = storyFn => {
   return (
-    <ThemeProvider theme={theme}>
+    <ConfigProvider theme={theme}>
       {storyFn()}
       <GlobalStyle />
-    </ThemeProvider>
+    </ConfigProvider>
   );
 };
