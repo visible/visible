@@ -1,4 +1,5 @@
-import { GlobalStyle, theme } from '@visi/web-ui';
+import { theme } from '@visi/resources';
+import { GlobalStyle } from '@visi/web-ui';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { useTranslation } from 'react-i18next';

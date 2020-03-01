@@ -1,15 +1,15 @@
 import { DecoratorFn } from '@storybook/react';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 
+import { theme } from './__fixtures__/default-theme';
+import { ConfigProvider } from './config';
 import { GlobalStyle } from './global';
-import { theme } from './theme';
 
 export const withTheme: DecoratorFn = storyFn => {
   return (
-    <ThemeProvider theme={theme}>
+    <ConfigProvider theme={theme}>
       {storyFn()}
       <GlobalStyle />
-    </ThemeProvider>
+    </ConfigProvider>
   );
 };

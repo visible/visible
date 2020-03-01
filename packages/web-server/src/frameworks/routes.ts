@@ -1,15 +1,15 @@
+import { theme } from '@visi/resources';
 import render from '@visi/web-client';
 import manifest from '@visi/web-client/dist/manifest.json';
-import { theme } from '@visi/web-ui';
 import express from 'express';
 import path from 'path';
 
 const router = express.Router();
 
-const art = path.resolve(require.resolve('@visi/art'), '..');
+const assets = path.resolve(require.resolve('@visi/resources/assets'), '..');
 const client = path.resolve(require.resolve('@visi/web-client'), '../..');
 
-router.use(express.static(art)).use(express.static(client));
+router.use(express.static(assets)).use(express.static(client));
 
 router.use('/manifest.json', ({ i18n }, res) => {
   res.json({

@@ -1,17 +1,12 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 
-import { theme } from '../theme';
+import { render } from '../render';
 import { Search } from '.';
 
 describe('Search', () => {
   it('matches snapshot', () => {
-    const { container } = render(
-      <ThemeProvider theme={theme}>
-        <Search />
-      </ThemeProvider>,
-    );
+    const { container } = render(<Search />);
 
     expect(container.firstChild).toMatchSnapshot();
   });
@@ -19,9 +14,7 @@ describe('Search', () => {
   it('calls onSubmit', () => {
     const onSubmit = jest.fn();
     const { getByText } = render(
-      <ThemeProvider theme={theme}>
-        <Search submitLabel="Submit" onSubmit={onSubmit} />
-      </ThemeProvider>,
+      <Search submitLabel="Submit" onSubmit={onSubmit} />,
     );
 
     fireEvent.click(getByText('Submit'));
@@ -31,9 +24,7 @@ describe('Search', () => {
   it('calls onChange', () => {
     const onChange = jest.fn();
     const { getByPlaceholderText } = render(
-      <ThemeProvider theme={theme}>
-        <Search placeholder="Type your text" onChange={onChange} />
-      </ThemeProvider>,
+      <Search placeholder="Type your text" onChange={onChange} />,
     );
 
     fireEvent.change(getByPlaceholderText('Type your text'), {

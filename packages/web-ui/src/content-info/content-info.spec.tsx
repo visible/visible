@@ -1,17 +1,11 @@
-import { render } from '@testing-library/react';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 
-import { theme } from '../theme';
+import { render } from '../render';
 import { ContentInfo } from '.';
 
 describe('ContentInfo', () => {
   it('matches snapshot', () => {
-    const { container } = render(
-      <ThemeProvider theme={theme}>
-        <ContentInfo />
-      </ThemeProvider>,
-    );
+    const { container } = render(<ContentInfo />);
     expect(container.firstChild).toMatchSnapshot();
   });
 });

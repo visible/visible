@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/react-hooks';
+import { theme } from '@visi/resources';
 import typeDefs from '@visi/web-schema';
-import { theme } from '@visi/web-ui';
+import { ConfigProvider } from '@visi/web-ui';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
@@ -11,7 +12,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { I18nextProvider } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 
 import introspectionResult from './generated/introspection-result';
 import { Root } from './pages/root';
@@ -40,13 +40,13 @@ const main = async () => {
 
   render(
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
+      <ConfigProvider theme={theme}>
         <I18nextProvider i18n={i18n}>
           <BrowserRouter>
             <Root />
           </BrowserRouter>
         </I18nextProvider>
-      </ThemeProvider>
+      </ConfigProvider>
     </ApolloProvider>,
     mountNode,
   );

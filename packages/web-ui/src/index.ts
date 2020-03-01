@@ -10,5 +10,6 @@ export * from './navigation';
 export * from './progress';
 export * from './search';
 
-export * from './theme';
+export * from './config';
 export * from './global';
+export * from './theme';

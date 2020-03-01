@@ -1,17 +1,11 @@
-import { render } from '@testing-library/react';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 
-import { theme } from '../theme';
+import { render } from '../render';
 import { Badge } from '.';
 
 describe('Badge', () => {
   it('matches snapshot', () => {
-    const { container } = render(
-      <ThemeProvider theme={theme}>
-        <Badge />
-      </ThemeProvider>,
-    );
+    const { container } = render(<Badge />);
     expect(container.firstChild).toMatchSnapshot();
   });
 });
