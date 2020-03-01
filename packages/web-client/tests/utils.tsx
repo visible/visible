@@ -42,7 +42,7 @@ export const render = (ui: React.ReactElement, options: RenderProps = {}) => {
 
   return defaultRender(ui, {
     wrapper: ({ children }) => (
-      <TestProviders paths={paths} theme={defaultTheme} mocks={mocks}>
+      <TestProviders paths={paths} theme={theme} mocks={mocks}>
         <Wrapper>{children}</Wrapper>
       </TestProviders>
     ),
