@@ -1,4 +1,6 @@
-export const theme = {
+import { Theme } from '@visi/web-ui';
+
+export const theme: Theme = {
   foreground: {
     normal: '#333333',
     wash: '#666666',

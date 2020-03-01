@@ -2,9 +2,10 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import { GlobalStyle } from './global';
+import { Theme } from './theme';
 
 export interface ConfigProviderProps {
-  theme: unknown;
+  theme: Theme;
   children: React.ReactNode;
 }
 
