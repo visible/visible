@@ -20,7 +20,7 @@ jest.mock('../void', () => ({
   default: () => 'Void',
 }));
 
-jest.mock('@visi/art/logo-white.png', () => ({
+jest.mock('@visi/resources/assets/logo-white.png', () => ({
   __esModule: true,
   default: '',
 }));

@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/react-hooks';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { theme } from '@visi/web-ui';
+import { theme } from '@visi/resources';
+import { ConfigProvider } from '@visi/web-ui';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
@@ -13,11 +14,7 @@ import ReactDOMServer from 'react-dom/server';
 import Helmet from 'react-helmet';
 import { I18nextProvider } from 'react-i18next';
 import { StaticRouter } from 'react-router-dom';
-import {
-  ServerStyleSheet,
-  StyleSheetManager,
-  ThemeProvider,
-} from 'styled-components';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
 import { Html } from './components/html';
 import introspectionResult from './generated/introspection-result';
@@ -63,9 +60,9 @@ const render = async (params: RenderParams): Promise<RenderResult> => {
       <StaticRouter location={params.location} context={context}>
         <StyleSheetManager sheet={sheet.instance}>
           <I18nextProvider i18n={i18n}>
-            <ThemeProvider theme={theme}>
+            <ConfigProvider theme={theme}>
               <Root />
-            </ThemeProvider>
+            </ConfigProvider>
           </I18nextProvider>
         </StyleSheetManager>
       </StaticRouter>

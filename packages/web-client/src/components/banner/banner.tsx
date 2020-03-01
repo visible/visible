@@ -1,4 +1,4 @@
-import logo from '@visi/art/logo-white.png';
+import logo from '@visi/resources/assets/logo-white.png';
 import * as UI from '@visi/web-ui';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

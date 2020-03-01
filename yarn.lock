@@ -4284,9 +4284,9 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@visi/art@^0.0.1-rc3":
+"@visi/resources@^0.0.1-rc3":
   version "0.0.1-rc3"
-  resolved "https://registry.yarnpkg.com/@visi/art/-/art-0.0.1-rc3.tgz#7fe91094f87b8dd45f25bfe9170e20eab6df4a33"
+  resolved "https://registry.yarnpkg.com/@visi/resources/-/art-0.0.1-rc3.tgz#7fe91094f87b8dd45f25bfe9170e20eab6df4a33"
   integrity sha512-ysgdjsfK8MK1hn033yK1yHA3YArM+rndlT6lOHI2jYPk75TYliAOFg5Gbp4IZao+HWwxerCHqWn5f4MjCrVNsQ==
 
 "@webassemblyjs/ast@1.8.5":

@@ -1,4 +1,4 @@
-import diagnose from '@visi/art/diagnose.svg';
+import diagnose from '@visi/resources/assets/diagnose.svg';
 import * as UI from '@visi/web-ui';
 import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
