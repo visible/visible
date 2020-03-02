@@ -29,7 +29,7 @@
     "@storybook/addon-docs": "^5.3.4",
     "@storybook/addon-knobs": "^5.3.3",
     "@storybook/addon-links": "^5.3.3",
-    "@storybook/cli": "^5.3.3",
+    "@storybook/cli": "^5.3.14",
     "@storybook/preset-typescript": "^1.2.0",
     "@storybook/react": "^5.3.3",
     "@storybook/theming": "^5.3.3",
