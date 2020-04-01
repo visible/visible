@@ -14389,10 +14389,10 @@ log-update@^2.3.0:
     cli-cursor "^2.0.0"
     wrap-ansi "^3.0.1"
 
-log4js@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/log4js/-/log4js-6.1.0.tgz#51268154adb2eb5d8a594b2c77f024a77f047265"
-  integrity sha512-fSCHMYsMJbHwfNTuMlopVVcfkKwIRLh5mpNZGB2oBbnSmr3yUTo4tL4xGBA0/q29xowlu96eTXGghJFNhPXMnA==
+log4js@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/log4js/-/log4js-6.1.2.tgz#04688e1f4b8080c127b7dccb0db1c759cbb25dc4"
+  integrity sha512-knS4Y30pC1e0n7rfx3VxcLOdBCsEo0o6/C7PVTGxdVK+5b1TYOSGQPn9FDcrhkoQBV29qwmA2mtkznPAQKnxQg==
   dependencies:
     date-format "^3.0.0"
     debug "^4.1.1"
