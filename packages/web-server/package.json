@@ -7,9 +7,9 @@
   "main": "./dist/index.js",
   "scripts": {
     "start": "ts-node --project ./tsconfig.json ./src/index.ts",
-    "build": "tsc",
+    "build": "yarn run generate:graphql && tsc",
     "test": "jest --coverage",
-    "postinstall": "graphql-codegen --config codegen.js"
+    "generate:graphql": "graphql-codegen --config codegen.js"
   },
   "files": [
     "dist"

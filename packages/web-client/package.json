@@ -7,10 +7,10 @@
   "main": "./dist/ssr.js",
   "type": "./index.d.ts",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "yarn run generate:graphql && webpack --mode production",
     "test": "jest --coverage",
     "watch": "webpack-dev-server --mode development",
-    "postinstall": "graphql-codegen --config codegen.js"
+    "generate:graphql": "graphql-codegen --config codegen.js"
   },
   "files": [
     "dist",
