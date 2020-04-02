@@ -46,7 +46,7 @@
     "i18next": "^19.0.3",
     "i18next-express-middleware": "^1.9.1",
     "inversify": "^5.0.1",
-    "log4js": "^6.1.0",
+    "log4js": "^6.1.2",
     "pg": "^7.17.1",
     "reflect-metadata": "^0.1.13",
     "type-fest": "^0.8.1",
