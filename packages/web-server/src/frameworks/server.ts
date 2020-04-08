@@ -7,7 +7,7 @@ import i18nextMiddleware from 'i18next-express-middleware';
 import { inject, injectable } from 'inversify';
 
 import { Context } from './context';
-import { createI18n } from './i18n';
+import { i18next, initI18next } from './i18next';
 import { logger } from './logger';
 import { resolvers } from './resolvers';
 import { routes } from './routes';
@@ -18,6 +18,8 @@ export class Server {
   private context: Context;
 
   async start() {
+    await initI18next();
+
     const typeDefs = await fs
       .readFile(require.resolve('@visi/web-schema'), 'utf-8')
       .then(gql);
@@ -29,11 +31,9 @@ export class Server {
       validationRules: [depthLimit(5)],
     });
 
-    const [i18n] = await createI18n();
-
     express()
       .use(cors())
-      .use(i18nextMiddleware.handle(i18n))
+      .use(i18nextMiddleware.handle(i18next))
       .use(apollo.getMiddleware({ path: '/api/v1' }))
       .use(routes)
       .listen({ port: Number(process.env.WEB_PORT) }, this.handleListened);

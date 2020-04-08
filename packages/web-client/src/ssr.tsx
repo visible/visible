@@ -18,8 +18,8 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
 import { Html } from './components/html';
 import introspectionResult from './generated/introspection-result';
+import { i18next } from './i18next';
 import { Root } from './pages/root';
-import { createI18n } from './utils/i18n';
 
 export interface RenderParams {
   /** i18next instance */
@@ -51,7 +51,6 @@ const render = async (params: RenderParams): Promise<RenderResult> => {
     }),
   });
 
-  const [i18n] = await createI18n(params.language);
   const context = { statusCode: 200 };
   const sheet = new ServerStyleSheet();
 
@@ -59,7 +58,7 @@ const render = async (params: RenderParams): Promise<RenderResult> => {
     <ApolloProvider client={client}>
       <StaticRouter location={params.location} context={context}>
         <StyleSheetManager sheet={sheet.instance}>
-          <I18nextProvider i18n={i18n}>
+          <I18nextProvider i18n={i18next}>
             <ConfigProvider theme={theme}>
               <Root />
             </ConfigProvider>
