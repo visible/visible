@@ -1,11 +1,11 @@
-import { i18n, TFunction } from 'i18next';
+import { i18n } from 'i18next';
 import path from 'path';
 
 import { Config } from '../shared/config';
 import { Report } from '../shared/report';
 import { Browser } from './browser';
 import { resolveExtends } from './config';
-import { createI18n } from './i18n';
+import { i18next, initI18next } from './i18next';
 import { serialize } from './serialize';
 
 export interface VisibleParams {
@@ -19,18 +19,16 @@ export class Visible {
     private readonly config: Config,
     private readonly browser: Browser,
     private readonly i18next: i18n,
-    private readonly t: TFunction,
   ) {}
 
   static async init(params: VisibleParams, browser: Browser) {
-    const [i18next, t] = await createI18n();
+    await initI18next(params.config?.settings?.language ?? 'en');
 
     return new Visible(
       params.url,
       resolveExtends(params.config),
       browser,
       i18next,
-      t,
     );
   }
 
@@ -54,8 +52,8 @@ export class Visible {
   private async embed() {
     await this.browser.addScriptTag({ path: path.resolve(__dirname, '../embed/index.js') });
     await this.browser.addScriptTag({ content: serialize`__VISIBLE_CONFIG__ = ${this.config};`});
-    await this.browser.exposeFunction('__VISIBLE_I18NEXT_ADD_RESOURCES__', this.i18next.addResources);
-    await this.browser.exposeFunction('__VISIBLE_I18NEXT_T__', this.t);
+    await this.browser.exposeFunction('__VISIBLE_I18NEXT_ADD_RESOURCES__', this.i18next.addResourceBundle.bind(i18next));
+    await this.browser.exposeFunction('__VISIBLE_I18NEXT_T__', this.i18next.t.bind(i18next));
   }
 
   /**
