@@ -1,0 +1,27 @@
+{
+  "banner": {
+    "home": "Home",
+    "index": "Visible",
+    "notifications": "Notifications"
+  },
+  "diagnoses": {
+    "description": "You diagnostics result of Visible",
+    "error": "Error occurred",
+    "loading": "Loading...",
+    "title": "Diagnostics Result: {{id}}"
+  },
+  "home": {
+    "description": "Type URL of the website to inspect accessibility issues of it",
+    "placeholder": "Type URL of the website",
+    "submit": "Diagnose",
+    "title": "Diagnose your website"
+  },
+  "meta": {
+    "description": "🦉 Visible is an open-source accessibility testing tool works on Node.js and CI",
+    "title": "Visible"
+  },
+  "void": {
+    "description": "The page you were looking for was not found",
+    "title": "You hit the void!"
+  }
+}

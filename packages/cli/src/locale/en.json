@@ -5,14 +5,12 @@
     "url": "URL to diagnose",
     "verbose": "Prints all reports including passed one"
   },
-  "result": {
-    "html": "HTML",
-    "message": "Message",
-    "type": "Type",
-    "xpath": "XPath"
-  },
   "visible": {
     "description": "The default command",
+    "init": {
+      "description": "Initialize .visiblerc file",
+      "done": "🎉 Initialization completed!!"
+    },
     "loading": "Fetching diagnoses...",
     "no-rc": "No visiblerc file found"
   }

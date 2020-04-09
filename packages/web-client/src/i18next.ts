@@ -6,8 +6,7 @@ config();
 const nextI18next = new NextI18next({
   defaultLanguage: 'en',
   otherLanguages: ['ja'],
-  defaultNS: 'common',
-  localePath: 'public/static/locales',
+  defaultNS: 'web-client',
 });
 
 export default nextI18next;

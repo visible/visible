@@ -18,7 +18,8 @@ const lngs = glob
 const resourceMap = {
   cli: './packages/cli/src/locale/{{lng}}.json',
   'web-server': './packages/web-server/src/frameworks/locale/{{lng}}.json',
-  'web-client': './packages/web-client/src/locale/{{lng}}.json',
+  'web-client':
+    './packages/web-client/public/static/locales/{{lng}}/{{ns}}.json',
   'plugin-standard': './packages/plugin-standard/src/locale/{{lng}}.json',
 };
 

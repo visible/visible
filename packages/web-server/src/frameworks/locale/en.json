@@ -1,5 +1,6 @@
 {
   "meta": {
+    "description": "🦉 Visible is an open-source accessibility testing tool works on Node.js and CI",
     "title": "Visible"
   }
 }
