@@ -1,7 +1,22 @@
-import { Report } from '@visi/core/main';
+const makeCodeFrame = require('@babel/code-frame').default;
+import { Report, ReportLevel } from '@visi/core/main';
 import chalk from 'chalk';
+// import { highlight } from 'cli-highlight';
 import { TFunction } from 'i18next';
-import { table } from 'table';
+import prettier from 'prettier';
+
+const mapLevelToColor = (level: ReportLevel) => {
+  switch (level) {
+    case 'error':
+      return chalk.red;
+    case 'warn':
+      return chalk.yellow;
+    case 'ok':
+      return chalk.green;
+    default:
+      return chalk.white;
+  }
+};
 
 export const print = async (
   reportsInput: Report[],
@@ -34,46 +49,24 @@ export const print = async (
     return console.log(JSON.stringify([reports, fixtures]));
   }
 
-  const rows = [
-    [
-      chalk.bold(t('result.type', 'Type')),
-      chalk.bold(t('result.message', 'Message')),
-      chalk.bold(t('result.xpath', 'XPath')),
-      chalk.bold(t('result.html', 'HTML')),
-    ],
-    ...reports.map(report => {
-      let color;
+  const output = reports.reduce((result, report) => {
+    const source = report.content?.html ?? '';
+    const formattedSource = prettier.format(source, { parser: 'html' });
 
-      switch (report.level) {
-        case 'ok':
-          color = chalk.green;
-          break;
-        case 'warn':
-          color = chalk.yellow;
-          break;
-        case 'error':
-        default:
-          color = chalk.red;
-          break;
-      }
+    const codeFrame = makeCodeFrame(formattedSource, 1, 0, {
+      highlightCode: true,
+    });
 
-      const xpath = report.content && report.content.xpath;
-
-      const html =
-        report.content && report.content.html
-          ? report.content.html.substr(0, 100)
-          : '';
-
-      return [color(report.type), report.message, xpath, html];
-    }),
-  ];
-
-  const output = table(rows, {
-    columnDefault: {
-      truncate: 50,
-      alignment: 'left',
-    },
-  });
+    return (
+      result +
+      [
+        mapLevelToColor(report.level).bold(report.rule + ': ') + report.message,
+        codeFrame,
+        chalk.italic.grey('location: ' + report.content?.xpath),
+        '\n',
+      ].join('\n')
+    );
+  }, '');
 
   // eslint-disable-next-line no-console
   return console.log(output);
