@@ -36,7 +36,7 @@ export const Banner = (props: BannerProps) => {
     <UI.Banner {...props}>
       <Title>
         <Link href="/">
-          <img alt="Visible" src="/logo-white.png" />
+          <img alt="Visible" src="/static/logo-white.png" />
         </Link>
       </Title>
 

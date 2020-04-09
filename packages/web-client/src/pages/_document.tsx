@@ -1,31 +1,63 @@
-import { AppProps } from 'next/app';
-import Document, { Html, Main, NextScript } from 'next/document';
+import Document, {
+  DocumentContext,
+  Html,
+  Main,
+  NextScript,
+} from 'next/document';
 import Head from 'next/head';
 import React from 'react';
 import { ServerStyleSheet } from 'styled-components';
 
-export default class MyDocument extends Document<{ styleTags: string }> {
-  static getInitialProps({ renderPage }: any) {
+import { I18n, TFunction } from '../utils/i18next';
+
+interface NextI18nextContext {
+  res?: {
+    locals: {
+      language: string;
+      languageDir: 'ltr' | 'rtl';
+      t: TFunction;
+      i18n: I18n;
+    };
+  };
+}
+
+interface CustomDocumentProps {
+  styleTags: React.ReactNode;
+  lang?: string;
+  dir?: 'ltr' | 'rtl';
+}
+
+export default class CustomDocument extends Document<CustomDocumentProps> {
+  static async getInitialProps({
+    res,
+    renderPage,
+  }: DocumentContext & NextI18nextContext) {
     // Step 1: Create an instance of ServerStyleSheet
     const sheet = new ServerStyleSheet();
 
     // Step 2: Retrieve styles from components in the page
-    const page = renderPage(
-      (App: React.ComponentType<AppProps>) => (props: AppProps) =>
-        sheet.collectStyles(<App {...props} />),
+    const page = renderPage(App => props =>
+      sheet.collectStyles(<App {...props} />),
     );
 
     // Step 3: Extract the styles as <style> tags
     const styleTags = sheet.getStyleElement();
 
     // Step 4: Pass styleTags as a prop
-    return { ...page, styleTags };
+    return {
+      ...page,
+      styleTags,
+      lang: res?.locals.language,
+      dir: res?.locals.languageDir,
+    };
   }
 
   render() {
+    const { lang, dir, styleTags } = this.props;
+
     return (
-      <Html>
-        <Head>{this.props.styleTags}</Head>
+      <Html lang={lang} dir={dir}>
+        <Head>{styleTags}</Head>
         <body>
           <Main />
           <NextScript />

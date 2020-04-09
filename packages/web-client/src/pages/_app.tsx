@@ -38,8 +38,12 @@ const App = ({ Component, pageProps }: AppProps) => {
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content={theme.highlight.normal} />
 
-        <link rel="mask-icon" href="/logo.svg" color={theme.highlight.normal} />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link
+          rel="mask-icon"
+          href="/static/logo.svg"
+          color={theme.highlight.normal}
+        />
+        <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content={title} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />

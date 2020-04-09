@@ -10,7 +10,7 @@ import { withApollo } from '../utils/with-apollo';
 
 const Wizard = styled.section`
   width: 100%;
-  background-image: url(/diagnose.svg);
+  background-image: url(/static/diagnose.svg);
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
