@@ -57,7 +57,15 @@ export default class CustomDocument extends Document<CustomDocumentProps> {
 
     return (
       <Html lang={lang} dir={dir}>
-        <Head>{styleTags}</Head>
+        <Head>
+          <meta charSet="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          {styleTags}
+        </Head>
+
         <body>
           <Main />
           <NextScript />
