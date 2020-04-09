@@ -68,4 +68,8 @@ const Diagnoses = () => {
   );
 };
 
+Diagnoses.getInitialProps = async () => ({
+  namespacesRequired: ['web-client'],
+});
+
 export default withApollo(Diagnoses);

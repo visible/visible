@@ -82,4 +82,8 @@ const Index = () => {
   );
 };
 
+Index.getInitialProps = async () => ({
+  namespacesRequired: ['web-client'],
+});
+
 export default withApollo(Index);
