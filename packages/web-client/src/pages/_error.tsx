@@ -2,7 +2,7 @@ import * as UI from '@visi/web-ui';
 import React from 'react';
 import Helmet from 'react-helmet';
 
-import { useTranslation } from '../i18n';
+import { useTranslation } from '../i18next';
 
 const Error = () => {
   const { t } = useTranslation();

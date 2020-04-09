@@ -1,17 +1,14 @@
-import i18nextDefault from 'i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import NextI18next from 'next-i18next';
+import config from 'next/config';
 
-import en from './locale/en.json';
-import ja from './locale/ja.json';
+config();
 
-export const i18next = i18nextDefault.createInstance();
+const nextI18next = new NextI18next({
+  defaultLanguage: 'en',
+  otherLanguages: ['ja'],
+  defaultNS: 'common',
+  localePath: 'public/static/locales',
+});
 
-export const initI18next = () =>
-  i18next.use(LanguageDetector).init({
-    defaultNS: 'web-client',
-    fallbackLng: 'en',
-    resources: {
-      en: { 'web-client': en },
-      ja: { 'web-client': ja },
-    },
-  });
+export default nextI18next;
+export const { useTranslation } = nextI18next;

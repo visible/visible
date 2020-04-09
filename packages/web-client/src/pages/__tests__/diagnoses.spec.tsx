@@ -10,7 +10,7 @@ import {
   ReportType,
 } from '../../generated/graphql';
 import { render } from '../../tests/utils';
-import { Diagnoses } from '../diagnoses/[id]';
+import Diagnoses from '../diagnoses/[id]';
 
 const mocks = [
   {

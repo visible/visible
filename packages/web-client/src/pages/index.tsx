@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useCreateDiagnosisMutation } from '../generated/graphql';
-import { useTranslation } from '../i18n';
+import { useTranslation } from '../i18next';
 
 // background-image: url(${diagnose});
 const Wizard = styled.section`

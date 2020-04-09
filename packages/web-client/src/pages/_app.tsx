@@ -16,7 +16,7 @@ import React from 'react';
 import { Banner } from '../components/banner';
 import { ContentInfo } from '../components/content-info';
 import introspectionResult from '../generated/introspection-result';
-import { useTranslation } from '../i18n';
+import { useTranslation } from '../i18next';
 
 const App = ({
   Component,

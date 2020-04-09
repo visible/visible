@@ -2,7 +2,7 @@ import express from 'express';
 import next from 'next';
 import nextI18nextMiddleware from 'next-i18next/middleware';
 
-import nextI18next from './i18n';
+import nextI18next from './i18next';
 
 const port = process.env.PORT ?? 3000;
 const app = next({ dev: process.env.NODE_ENV !== 'production' });

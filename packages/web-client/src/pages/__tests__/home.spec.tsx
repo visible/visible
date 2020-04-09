@@ -4,7 +4,7 @@ import { cleanup, fireEvent, wait } from '@testing-library/react';
 import React from 'react';
 import { Route } from 'react-router';
 
-import { Home } from '..';
+import Home from '..';
 import {
   CreateDiagnosisDocument,
   Diagnosis,
