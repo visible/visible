@@ -7,8 +7,9 @@
   "main": "./dist/ssr.js",
   "type": "./index.d.ts",
   "scripts": {
-    "build": "yarn run generate:graphql && yarn run next build",
-    "start": "next start",
+    "build": "yarn run generate:graphql && tsc -p tsconfig.server.json && next build",
+    "dev": "node dist/server.js",
+    "start": "NODE_ENV=production node dist/server.js",
     "test": "jest --coverage",
     "generate:graphql": "graphql-codegen --config codegen.js"
   },
