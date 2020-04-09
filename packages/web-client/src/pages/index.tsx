@@ -6,10 +6,11 @@ import styled from 'styled-components';
 
 import { useCreateDiagnosisMutation } from '../generated/graphql';
 import { useTranslation } from '../utils/i18next';
+import { withApollo } from '../utils/with-apollo';
 
 const Wizard = styled.section`
   width: 100%;
-  background-image: url(/public/diagnose.svg);
+  background-image: url(/diagnose.svg);
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
@@ -81,4 +82,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default withApollo(Index);

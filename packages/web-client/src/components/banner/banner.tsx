@@ -1,4 +1,3 @@
-// import logo from '@visi/resources/assets/logo-white.png';
 import * as UI from '@visi/web-ui';
 import Link from 'next/link';
 import React from 'react';
@@ -24,8 +23,6 @@ const Title = styled.h1`
 
 type BannerProps = JSX.IntrinsicElements['header'];
 
-// const activeClassName = 'active';
-
 export const Banner = (props: BannerProps) => {
   const { t } = useTranslation();
 
@@ -39,7 +36,7 @@ export const Banner = (props: BannerProps) => {
     <UI.Banner {...props}>
       <Title>
         <Link href="/">
-          <img alt="Visible" src="" />
+          <img alt="Visible" src="/logo-white.png" />
         </Link>
       </Title>
 

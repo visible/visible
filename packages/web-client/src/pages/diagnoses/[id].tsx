@@ -1,7 +1,7 @@
 import * as UI from '@visi/web-ui';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
-import Helmet from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -44,12 +44,12 @@ const Diagnoses = () => {
 
   return (
     <UI.Content>
-      <Helmet>
+      <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-      </Helmet>
+      </Head>
 
       <h1>{title}</h1>
 
