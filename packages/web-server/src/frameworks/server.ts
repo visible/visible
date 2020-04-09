@@ -10,7 +10,6 @@ import { Context } from './context';
 import { i18next, initI18next } from './i18next';
 import { logger } from './logger';
 import { resolvers } from './resolvers';
-import { routes } from './routes';
 
 @injectable()
 export class Server {
@@ -35,7 +34,6 @@ export class Server {
       .use(cors())
       .use(i18nextMiddleware.handle(i18next))
       .use(apollo.getMiddleware({ path: '/api/v1' }))
-      .use(routes)
       .listen({ port: Number(process.env.WEB_PORT) }, this.handleListened);
   }
 

@@ -10,4 +10,4 @@ const nextI18next = new NextI18next({
 });
 
 export default nextI18next;
-export const { useTranslation } = nextI18next;
+export const { appWithTranslation, useTranslation } = nextI18next;

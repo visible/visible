@@ -12,11 +12,6 @@ import {
 } from '../../generated/graphql';
 import { render } from '../../tests/utils';
 
-jest.mock('@visi/resources/assets/diagnose.svg', () => ({
-  __esModule: true,
-  default: '',
-}));
-
 const mocks = [
   {
     request: {

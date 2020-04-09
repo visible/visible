@@ -1,15 +1,15 @@
-// import diagnose from '@visi/resources/assets/diagnose.svg';
 import * as UI from '@visi/web-ui';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useCreateDiagnosisMutation } from '../generated/graphql';
-import { useTranslation } from '../i18next';
+import { useTranslation } from '../utils/i18next';
 
-// background-image: url(${diagnose});
 const Wizard = styled.section`
   width: 100%;
+  background-image: url(/public/diagnose.svg);
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
@@ -36,7 +36,7 @@ const Description = styled.p`
 const Index = () => {
   const { t } = useTranslation();
   const [value, setValue] = useState('');
-  // const history = useHistory();
+  const router = useRouter();
 
   const [createDiagnosis, { data, loading }] = useCreateDiagnosisMutation({
     variables: {
@@ -44,9 +44,9 @@ const Index = () => {
     },
   });
 
-  // useEffect(() => {
-  //   if (data) history.push(`/diagnoses/${data.createDiagnosis.id}`);
-  // }, [data]);
+  useEffect(() => {
+    if (data) router.push(`/diagnoses/${data.createDiagnosis.id}`);
+  }, [data, router]);
 
   const title = t('home.title', 'Diagnose your website');
   const description = t(

@@ -1,21 +1,26 @@
 import * as UI from '@visi/web-ui';
+import { useRouter } from 'next/router';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import { useRouteMatch } from 'react-router';
 
 import {
   ReportType,
   useFetchDiagnosisSmallQuery,
 } from '../../generated/graphql';
+import { withApollo } from '../../utils/with-apollo';
 
 const Diagnoses = () => {
   const { t } = useTranslation();
-  const match = useRouteMatch<{ id: string }>();
+  const router = useRouter();
+
+  if (typeof router.query.id !== 'string') {
+    throw new Error('Id must be a string');
+  }
 
   const { data, loading, error } = useFetchDiagnosisSmallQuery({
     variables: {
-      id: match.params.id,
+      id: router.query.id,
     },
   });
 
@@ -55,12 +60,12 @@ const Diagnoses = () => {
             <h2>{report.type}</h2>
             <span>@{report.xpath}</span>
             <p>{report.message}</p>
-            <UI.Code language="html">{report.html || ''}</UI.Code>
-            <UI.Code language="css">{report.css || ''}</UI.Code>
+            <UI.Code language="html">{report.html ?? ''}</UI.Code>
+            <UI.Code language="css">{report.css ?? ''}</UI.Code>
           </div>
         ))}
     </UI.Content>
   );
 };
 
-export default Diagnoses;
+export default withApollo(Diagnoses);
