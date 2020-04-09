@@ -50,9 +50,12 @@ const App = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <GlobalStyle />
-      <Banner role="banner" />
-      <Component {...pageProps} />
-      <ContentInfo role="contentinfo" />
+
+      <div role="application">
+        <Banner role="banner" />
+        <Component {...pageProps} />
+        <ContentInfo role="contentinfo" />
+      </div>
     </ConfigProvider>
   );
 };
