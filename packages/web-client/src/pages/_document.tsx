@@ -1,5 +1,5 @@
 import { AppProps } from 'next/app';
-import Document, { Main, NextScript } from 'next/document';
+import Document, { Html, Main, NextScript } from 'next/document';
 import Head from 'next/head';
 import React from 'react';
 import { ServerStyleSheet } from 'styled-components';
@@ -24,13 +24,13 @@ export default class MyDocument extends Document<{ styleTags: string }> {
 
   render() {
     return (
-      <html lang="en">
+      <Html>
         <Head>{this.props.styleTags}</Head>
         <body>
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
