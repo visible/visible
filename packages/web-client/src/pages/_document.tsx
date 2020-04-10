@@ -30,23 +30,18 @@ interface CustomDocumentProps {
 class CustomDocument extends Document<CustomDocumentProps> {
   static async getInitialProps(ctx: DocumentContext & NextI18nextContext) {
     const initialProps = await Document.getInitialProps(ctx);
+
     const { res, renderPage } = ctx;
-    // Step 1: Create an instance of ServerStyleSheet
     const sheet = new ServerStyleSheet();
 
-    // Step 2: Retrieve styles from components in the page
     const renderPageResult = renderPage(App => props =>
       sheet.collectStyles(<App {...props} />),
     );
 
-    // Step 3: Extract the styles as <style> tags
-    const styleTags = sheet.getStyleElement();
-
-    // Step 4: Pass styleTags as a prop
     return {
       ...initialProps,
       ...renderPageResult,
-      styleTags,
+      styleTags: sheet.getStyleElement(),
       lang: res?.locals.language,
       dir: res?.locals.languageDir,
     };
