@@ -17,7 +17,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@visi/core": "^0.0.1-rc3"
+    "@visi/core": "^0.0.1-rc3",
+    "polished": "^3.5.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.1",
