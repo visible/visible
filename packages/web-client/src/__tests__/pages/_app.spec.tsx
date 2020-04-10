@@ -1,7 +1,7 @@
 import { cleanup } from '@testing-library/react';
 import React from 'react';
 
-import App from '../_app';
+import App from '../../pages/_app';
 import { render } from '../../tests/render';
 
 jest.mock('next/router', () => ({

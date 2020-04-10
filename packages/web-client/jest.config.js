@@ -1,6 +1,11 @@
 const { defaults } = require('jest-config');
 
 module.exports = {
+  globals: {
+    'ts-jest': {
+      tsConfig: 'tsconfig.jest.json',
+    },
+  },
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.tsx?$': 'ts-jest',

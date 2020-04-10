@@ -5,9 +5,9 @@ import {
   Diagnosis,
   FetchDiagnosisSmallDocument,
   ReportType,
-} from '../../../generated/graphql';
-import { render } from '../../../tests/render';
-import Diagnoses from '../[id]';
+} from '../../../../generated/graphql';
+import Diagnoses from '../../../../pages/diagnoses/[id]';
+import { render } from '../../../../tests/render';
 
 jest.mock('next/router', () => ({
   __esModule: true,

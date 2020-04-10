@@ -6,8 +6,8 @@ import {
   Diagnosis,
   ReportType,
 } from '../../generated/graphql';
+import Index from '../../pages/index';
 import { render } from '../../tests/render';
-import Index from '../index';
 
 const push = jest.fn();
 
