@@ -36,14 +36,18 @@ export const Banner = (props: BannerProps) => {
     <UI.Banner {...props}>
       <Title>
         <Link href="/">
-          <img alt="Visible" src="/static/logo-white.png" />
+          <a>
+            <img alt="Visible" src="/static/logo-white.png" />
+          </a>
         </Link>
       </Title>
 
       <UI.Nav>
         {navItems.map(nav => (
           <UI.NavItem key={nav.to} appearance="inverse">
-            <Link href={nav.to}>{nav.text}</Link>
+            <Link href={nav.to}>
+              <a>{nav.text}</a>
+            </Link>
           </UI.NavItem>
         ))}
       </UI.Nav>
