@@ -1,5 +1,6 @@
 import * as UI from '@visi/web-ui';
-import Head from 'next/head';
+import { NextPage } from 'next';
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -34,7 +35,7 @@ const Description = styled.p`
   font-size: 12px;
 `;
 
-const Index = () => {
+const Index: NextPage = () => {
   const { t } = useTranslation();
   const [value, setValue] = useState('');
   const router = useRouter();
@@ -57,12 +58,8 @@ const Index = () => {
 
   return (
     <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} key="description" />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-      </Head>
+      <NextSeo title={title} description={description} />
+
       <Wizard>
         <Inner>
           <Title>{title}</Title>

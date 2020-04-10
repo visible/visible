@@ -1,5 +1,6 @@
 import * as UI from '@visi/web-ui';
-import Head from 'next/head';
+import { NextPage } from 'next';
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -10,7 +11,7 @@ import {
 import { useTranslation } from '../../utils/i18next';
 import { withApollo } from '../../utils/with-apollo';
 
-const Diagnoses = () => {
+const Diagnoses: NextPage = () => {
   const { t } = useTranslation();
   const router = useRouter();
 
@@ -44,12 +45,7 @@ const Diagnoses = () => {
 
   return (
     <UI.Content>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-      </Head>
+      <NextSeo title={title} description={description} />
 
       <h1>{title}</h1>
 

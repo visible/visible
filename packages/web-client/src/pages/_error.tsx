@@ -1,6 +1,6 @@
 import * as UI from '@visi/web-ui';
 import { NextPage } from 'next';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import React from 'react';
 
 import { useTranslation } from '../utils/i18next';
@@ -16,14 +16,8 @@ const Error: NextPage = () => {
 
   return (
     <UI.Content>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-      </Head>
-
-      <h1>{t('void.title', 'You hit the void!')}</h1>
+      <NextSeo title={title} description={description} />
+      <h1>{title}</h1>
       <p>{description}</p>
     </UI.Content>
   );
