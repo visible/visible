@@ -1,0 +1,4 @@
+{
+  "main": "../dist/type-defs",
+  "type": "index.d.ts"
+}

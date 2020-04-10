@@ -1,7 +1,7 @@
-import { ApolloServer, gql } from 'apollo-server-express';
+import { typeDefs } from '@visi/web-schema/type-defs';
+import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
-import { promises as fs } from 'fs';
 import depthLimit from 'graphql-depth-limit';
 import i18nextMiddleware from 'i18next-express-middleware';
 import { inject, injectable } from 'inversify';
@@ -18,10 +18,6 @@ export class Server {
 
   async start() {
     await initI18next();
-
-    const typeDefs = await fs
-      .readFile(require.resolve('@visi/web-schema'), 'utf-8')
-      .then(gql);
 
     const apollo = new ApolloServer({
       resolvers,
