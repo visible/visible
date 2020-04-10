@@ -29,8 +29,6 @@
     "@types/pg": "^7.14.1",
     "@types/uuid": "^3.4.6",
     "@visi/core": "^0.0.1-rc3",
-    "@visi/resources": "0.0.1-rc3",
-    "@visi/web-client": "^0.0.1-rc3",
     "@visi/web-schema": "^0.0.1-rc3",
     "apollo": "^2.24.0",
     "apollo-link": "^1.2.13",

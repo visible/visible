@@ -2,6 +2,14 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "allowJs": true,
+    "noEmit": true,
+    "module": "esnext",
+    "isolatedModules": true,
+    "jsx": "preserve"
   },
-  "include": ["./src/**/*", "index.d.ts"]
+  "include": [
+    "./src/**/*",
+    "./next-env.d.ts"
+  ]
 }

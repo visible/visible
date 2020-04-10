@@ -5,14 +5,12 @@
     "url": "診断するURL",
     "verbose": "合格したレポートを含めた全てのレポートを表示する"
   },
-  "result": {
-    "html": "HTML",
-    "message": "メッセージ",
-    "type": "種類",
-    "xpath": "XPath"
-  },
   "visible": {
     "description": "デフォルトのコマンド",
+    "init": {
+      "description": "Initialize .visiblerc file",
+      "done": "🎉 Initialization completed!!"
+    },
     "loading": "診断を取得中...",
     "no-rc": "visiblercファイルが見つかりませんでした。"
   }

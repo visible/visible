@@ -1,9 +1,9 @@
-import logo from '@visi/resources/assets/logo-white.png';
 import * as UI from '@visi/web-ui';
+import Link from 'next/link';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { useTranslation } from '../../utils/i18next';
 
 const Title = styled.h1`
   margin: 0;
@@ -24,8 +24,6 @@ const Title = styled.h1`
 
 type BannerProps = JSX.IntrinsicElements['header'];
 
-const activeClassName = 'active';
-
 export const Banner = (props: BannerProps) => {
   const { t } = useTranslation();
 
@@ -38,21 +36,19 @@ export const Banner = (props: BannerProps) => {
   return (
     <UI.Banner {...props}>
       <Title>
-        <Link to="/">
-          <img alt="Visible" src={logo} />
+        <Link href="/">
+          <a>
+            <img alt="Visible" src="/static/logo-white.png" />
+          </a>
         </Link>
       </Title>
 
       <UI.Nav>
         {navItems.map(nav => (
-          <UI.NavItem
-            key={nav.to}
-            activeClassName={activeClassName}
-            appearance="inverse"
-          >
-            <NavLink exact to={nav.to} activeClassName={activeClassName}>
-              {nav.text}
-            </NavLink>
+          <UI.NavItem key={nav.to} appearance="inverse">
+            <Link href={nav.to}>
+              <a>{nav.text}</a>
+            </Link>
           </UI.NavItem>
         ))}
       </UI.Nav>

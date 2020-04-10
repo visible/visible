@@ -17,6 +17,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@babel/code-frame": "^7.8.3",
     "@types/cli-spinner": "^0.2.0",
     "@types/i18next-node-fs-backend": "^2.1.0",
     "@types/table": "^4.0.7",

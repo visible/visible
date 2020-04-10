@@ -1,16 +1,16 @@
 import { cleanup } from '@testing-library/react';
 import React from 'react';
 
+import Error from '../../pages/_error';
 import { render } from '../../tests/render';
-import { Banner } from './banner';
 
-describe('Banner', () => {
+describe('Error', () => {
   afterEach(() => {
     cleanup();
   });
 
   it('matches to the snapshot', () => {
-    const { container } = render(<Banner />);
+    const { container } = render(<Error />);
     expect(container).toMatchSnapshot();
   });
 });
