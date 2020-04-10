@@ -1,10 +1,10 @@
 import Document, {
   DocumentContext,
+  Head,
   Html,
   Main,
   NextScript,
 } from 'next/document';
-import Head from 'next/head';
 import React from 'react';
 import { ServerStyleSheet } from 'styled-components';
 
@@ -27,16 +27,15 @@ interface CustomDocumentProps {
   dir?: 'ltr' | 'rtl';
 }
 
-export default class CustomDocument extends Document<CustomDocumentProps> {
-  static async getInitialProps({
-    res,
-    renderPage,
-  }: DocumentContext & NextI18nextContext) {
+class CustomDocument extends Document<CustomDocumentProps> {
+  static async getInitialProps(ctx: DocumentContext & NextI18nextContext) {
+    const initialProps = await Document.getInitialProps(ctx);
+    const { res, renderPage } = ctx;
     // Step 1: Create an instance of ServerStyleSheet
     const sheet = new ServerStyleSheet();
 
     // Step 2: Retrieve styles from components in the page
-    const page = renderPage(App => props =>
+    const renderPageResult = renderPage(App => props =>
       sheet.collectStyles(<App {...props} />),
     );
 
@@ -45,7 +44,8 @@ export default class CustomDocument extends Document<CustomDocumentProps> {
 
     // Step 4: Pass styleTags as a prop
     return {
-      ...page,
+      ...initialProps,
+      ...renderPageResult,
       styleTags,
       lang: res?.locals.language,
       dir: res?.locals.languageDir,
@@ -57,15 +57,7 @@ export default class CustomDocument extends Document<CustomDocumentProps> {
 
     return (
       <Html lang={lang} dir={dir}>
-        <Head>
-          <meta charSet="UTF-8" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
-          {styleTags}
-        </Head>
-
+        <Head>{styleTags}</Head>
         <body>
           <Main />
           <NextScript />
@@ -74,3 +66,5 @@ export default class CustomDocument extends Document<CustomDocumentProps> {
     );
   }
 }
+
+export default CustomDocument;
