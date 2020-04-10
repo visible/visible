@@ -14,7 +14,7 @@
   },
   "files": [
     "dist",
-    "type-defs",
+    "ast",
     "schema.graphql"
   ],
   "publishConfig": {

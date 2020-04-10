@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/react-hooks';
-import { typeDefs } from '@visi/web-schema/type-defs';
+import typeDefs from '@visi/web-schema/ast';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,

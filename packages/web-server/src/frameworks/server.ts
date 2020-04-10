@@ -1,4 +1,4 @@
-import { typeDefs } from '@visi/web-schema/type-defs';
+import typeDefs from '@visi/web-schema/ast';
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
