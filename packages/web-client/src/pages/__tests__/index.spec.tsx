@@ -1,6 +1,4 @@
-import '@testing-library/jest-dom/extend-expect';
-
-import { cleanup } from '@testing-library/react';
+import { cleanup, fireEvent, wait } from '@testing-library/react';
 import React from 'react';
 
 import {
@@ -10,6 +8,15 @@ import {
 } from '../../generated/graphql';
 import { render } from '../../tests/render';
 import Index from '../index';
+
+const push = jest.fn();
+
+jest.mock('next/router', () => ({
+  __esModule: true,
+  useRouter: () => ({
+    push,
+  }),
+}));
 
 const mocks = [
   {
@@ -59,5 +66,19 @@ describe('Index', () => {
     expect(container).toMatchSnapshot();
   });
 
-  test.todo('check if submit works');
+  it('navigates to diagnoses page after a completion of search', async () => {
+    const { getByPlaceholderText, getByRole } = render(<Index />, {
+      mocks,
+    });
+
+    fireEvent.change(getByPlaceholderText('Type URL of the website'), {
+      target: { value: 'test' },
+    });
+
+    fireEvent.submit(getByRole('search'));
+
+    await wait(() => {
+      expect(push).toHaveBeenCalledWith(`/diagnoses/123`);
+    });
+  });
 });

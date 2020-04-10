@@ -1,0 +1,225 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App matches to the snapshot 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 1080px;
+  margin: auto;
+  color: white;
+}
+
+.c0 {
+  background-color: #ffaa01;
+  box-shadow: 0 0 3px rgba(255,170,1,0.84);
+}
+
+.c7 {
+  list-style-type: disc;
+}
+
+.c5 {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+.c5 a {
+  color: #666666;
+}
+
+.c5 .c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-around;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: space-around;
+  justify-content: space-around;
+  width: 1080px;
+  margin: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.c5:hover,
+.c5:focus {
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+  opacity: 1;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 18px;
+  font-weight: bold;
+}
+
+.c4:last-child {
+  margin-right: 0;
+}
+
+.c4 > a {
+  display: block;
+  box-sizing: border-box;
+  padding: 12px 0px;
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  color: rgba(255,255,255,0.6);
+}
+
+.c4 > a:hover {
+  color: rgba(255,255,255,0.4);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 > a. {
+  color: rgba(255,255,255,1);
+}
+
+.c4 > a. .sc-fzoLsD {
+  visibility: display;
+}
+
+.c2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.c2 img {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 1.5em;
+  place-content: center;
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+}
+
+.c2 a:hover > img {
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+  opacity: 0.8;
+}
+
+<div>
+  <div
+    role="application"
+  >
+    <header
+      class="c0"
+    >
+      <div
+        class="c1"
+      >
+        <h1
+          class="c2"
+        >
+          <a
+            href="/"
+          >
+            <img
+              alt="Visible"
+              src="/static/logo-white.png"
+            />
+          </a>
+        </h1>
+        <ul
+          class="c3"
+        >
+          <li
+            class="c4"
+          >
+            <a
+              href="/"
+            >
+              Visible
+            </a>
+          </li>
+          <li
+            class="c4"
+          >
+            <a
+              href="/home"
+            >
+              Home
+            </a>
+          </li>
+          <li
+            class="c4"
+          >
+            <a
+              href="/notifications"
+            >
+              Notifications
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <footer
+      class="c5"
+      role="contentinfo"
+    >
+      <ul
+        class="c6 c7"
+      >
+        <li
+          class=""
+        >
+          <a
+            href="mailto:n33t5hin@gmail.com"
+          >
+            Contact
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            href="https://github.com/neet/visible"
+          >
+            GitHub
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            href="https://twitter.com/TheGodOfNeet"
+          >
+            Twitter
+          </a>
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>
+`;

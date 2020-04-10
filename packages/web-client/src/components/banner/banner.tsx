@@ -1,8 +1,9 @@
 import * as UI from '@visi/web-ui';
 import Link from 'next/link';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+
+import { useTranslation } from '../../utils/i18next';
 
 const Title = styled.h1`
   margin: 0;

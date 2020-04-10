@@ -2,12 +2,12 @@ import * as UI from '@visi/web-ui';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import {
   ReportType,
   useFetchDiagnosisSmallQuery,
 } from '../../generated/graphql';
+import { useTranslation } from '../../utils/i18next';
 import { withApollo } from '../../utils/with-apollo';
 
 const Diagnoses = () => {
