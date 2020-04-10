@@ -6,16 +6,10 @@
     "noEmit": true,
     "module": "esnext",
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "react"
   },
   "include": [
     "./src/**/*",
     "./next-env.d.ts",
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "**/*.spec.tsx",
-    "src/tests/**/*",
   ]
 }

@@ -56,31 +56,28 @@ const Index = () => {
   );
 
   return (
-    <>
+    <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} key="description" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
       </Head>
-
-      <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
-        <Wizard>
-          <Inner>
-            <Title>{title}</Title>
-            <UI.Search
-              submitLabel={t('home.submit', 'Diagnose')}
-              placeholder={t('home.placeholder', 'Type URL of the website')}
-              onChange={e => setValue(e.target.value)}
-              onSubmit={_ => createDiagnosis()}
-            />
-            <Description>{description}</Description>
-            {loading && <UI.Progress progress={50} />}
-            blah blah blah
-          </Inner>
-        </Wizard>
-      </UI.Content>
-    </>
+      <Wizard>
+        <Inner>
+          <Title>{title}</Title>
+          <UI.Search
+            submitLabel={t('home.submit', 'Diagnose')}
+            placeholder={t('home.placeholder', 'Type URL of the website')}
+            onChange={e => setValue(e.target.value)}
+            onSubmit={_ => createDiagnosis()}
+          />
+          <Description>{description}</Description>
+          {loading && <UI.Progress progress={50} />}
+          blah blah blah
+        </Inner>
+      </Wizard>
+    </UI.Content>
   );
 };
 
