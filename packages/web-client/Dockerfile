@@ -27,6 +27,5 @@ COPY --from=build \
   /home/packages/web-client/package.json \
   /home/
 
-VOLUME [ "./logs" ]
 EXPOSE ${CLIENT_PORT}
 CMD yarn start

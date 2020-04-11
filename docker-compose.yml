@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:12.2
     volumes:
-      - /postgres:/var/lib/postgresql/data
+      - ./postgres:/var/lib/postgresql/data
 
   web-server:
     build:
@@ -18,7 +18,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./logs:./logs
+      - ./logs:/home/logs
 
   web-client:
     build:
