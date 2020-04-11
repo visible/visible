@@ -30,13 +30,13 @@ export class Server {
       .use(cors())
       .use(i18nextMiddleware.handle(i18next))
       .use(apollo.getMiddleware({ path: '/api/v1' }))
-      .listen({ port: Number(process.env.WEB_PORT) }, this.handleListened);
+      .listen({ port: Number(process.env.SERVER_PORT) }, this.handleListened);
   }
 
   private handleListened() {
     logger.info(
       '🎉 GraphQL server is running at ' +
-        `http://localhost:${process.env.WEB_PORT}/api/v1`,
+        `http://localhost:${process.env.SERVER_PORT}/api/v1`,
     );
   }
 }

@@ -2,10 +2,7 @@ FROM node:12-alpine AS build
 ENV NODE_ENV=development
 WORKDIR /home
 
-RUN apk add --no-cache \
-  git \
-  yarn
-
+RUN apk add --no-cache git yarn
 COPY . /home
 
 RUN yarn --frozen-lockfile \
@@ -15,7 +12,6 @@ RUN yarn --frozen-lockfile \
 FROM node:12-alpine AS production
 
 ENV NODE_ENV=production \
-  WEB_PORT=3000 \
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
   PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
@@ -33,18 +29,15 @@ RUN apk add --no-cache \
   yarn
 
 RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
-  && mkdir -p /home/pptruser/Downloads /app \
-  && chown -R pptruser:pptruser /home/pptruser \
-  && chown -R pptruser:pptruser /app
+  && mkdir -p /home/pptruser/Downloads \
+  && chown -R pptruser:pptruser /home/pptruser
 
-COPY --from=build \
-  /home/node_modules \
-  /home/packages/web-server/dist \
-  /home/packages/web-server/package.json \
-  /home/packages/web-server/ormconfig.js \
-  /home/
+COPY --from=build /home/node_modules /home/node_modules
+COPY --from=build /home/packages/web-server/dist /home/dist
+COPY --from=build /home/packages/web-server/package.json /home/package.json
+COPY --from=build /home/packages/web-server/ormconfig.js /home/ormconfig.js
 
 VOLUME [ "./logs" ]
-EXPOSE ${WEB_PORT}
+EXPOSE ${SERVER_PORT}
 USER pptruser
-CMD yarn start
+ENTRYPOINT [ "yarn", "start" ]
