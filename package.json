@@ -9,6 +9,7 @@
     "packages/*"
   ],
   "scripts": {
+    "start": "lerna run start --stream",
     "build": "lerna run build --stream",
     "watch": "lerna run watch --parallel",
     "test": "lerna run test --concurrency 1",

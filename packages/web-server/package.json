@@ -6,7 +6,7 @@
   "license": "AGPL-3.0",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "ts-node --project ./tsconfig.json ./src/index.ts",
+    "start": "node ./dist/index.js",
     "build": "yarn run generate:graphql && tsc",
     "test": "jest --coverage",
     "generate:graphql": "graphql-codegen --config codegen.js"

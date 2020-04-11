@@ -1,6 +1,6 @@
 require('dotenv').config({ path: '../../.env' });
 const path = require('path');
-const context = './src/frameworks/database';
+const ctx = './dist/frameworks/database';
 
 module.exports = {
   type: 'postgres',
@@ -11,12 +11,12 @@ module.exports = {
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [path.resolve(context, './entities/**/*.ts')],
-  migrations: [path.resolve(context, './migrations/**/*.ts')],
-  subscribers: [path.resolve(context, './subscribers/**/*.ts')],
+  entities: [path.resolve(ctx, './entities/**/*.js')],
+  migrations: [path.resolve(ctx, './migrations/**/*.js')],
+  subscribers: [path.resolve(ctx, './subscribers/**/*.js')],
   cli: {
-    entitiesDir: path.resolve(context, './entities'),
-    migrationsDir: path.resolve(context, './migrations'),
-    subscribersDir: path.resolve(context, './subscribers'),
+    entitiesDir: path.resolve(ctx, './entities'),
+    migrationsDir: path.resolve(ctx, './migrations'),
+    subscribersDir: path.resolve(ctx, './subscribers'),
   },
 };
