@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 postgres:
   image: postgres:12.2
@@ -13,12 +13,11 @@ web-server:
   restart: always
   env_file: .env
   ports:
-    - "3000:3000"
+    - '3000:3000'
   depends_on:
     - postgres
   volumes:
     - ./logs:./logs
-
 # Uncomment if you want to deploy frontend thru Docker
 # web-client:
 #   build: ./packages/web-client
