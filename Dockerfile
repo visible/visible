@@ -6,7 +6,7 @@ RUN apk add --no-cache \
   git \
   yarn
 
-COPY ../.. /home
+COPY . /home
 
 RUN yarn --frozen-lockfile \
   && yarn cache clean \
