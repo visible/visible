@@ -3,14 +3,14 @@ version: '3'
 services:
   postgres:
     image: postgres:12.2
-    environment:
-      - POSTGRES_PASSWORD=
     volumes:
       - /postgres:/var/lib/postgresql/data
 
   web-server:
-    build: .
-    image: visi/web-server
+    build:
+      context: .
+      dockerfile: ./packages/web-server/Dockerfile
+    image: visiblehq/web-server
     restart: always
     env_file: .env
     ports:
@@ -19,3 +19,13 @@ services:
       - postgres
     volumes:
       - ./logs:./logs
+
+  web-client:
+    build:
+      context: .
+      dockerfile: ./packages/web-client/Dockerfile
+    image: visiblehq/web-client
+    restart: always
+    env_file: .env
+    ports:
+      - '4000:4000'

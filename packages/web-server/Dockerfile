@@ -15,7 +15,6 @@ RUN yarn --frozen-lockfile \
 FROM node:12-alpine AS production
 
 ENV NODE_ENV=production \
-  WEB_PORT=3000 \
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
   PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
@@ -45,6 +44,6 @@ COPY --from=build \
   /home/
 
 VOLUME [ "./logs" ]
-EXPOSE ${WEB_PORT}
+EXPOSE ${SERVER_PORT}
 USER pptruser
 CMD yarn start

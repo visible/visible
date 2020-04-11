@@ -13,6 +13,7 @@
     "antialiased",
     "appenders",
     "builtins",
+    "camelcase",
     "codegen",
     "cosmiconfig",
     "dataloader",
@@ -31,6 +32,7 @@
     "lngs",
     "nullish",
     "postgres",
+    "postgresql",
     "prefetch",
     "scaffdog",
     "serialized",
@@ -45,6 +47,7 @@
     "unmanaged",
     "varchar",
     "visi",
+    "visiblehq",
     "visiblerc",
     "WCAG",
     "WOFF"
