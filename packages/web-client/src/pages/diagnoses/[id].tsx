@@ -45,7 +45,7 @@ const Diagnoses: NextPage = () => {
 
   return (
     <UI.Content>
-      <NextSeo title={title} description={description} />
+      <NextSeo title={title} description={description} openGraph={{ title }} />
 
       <h1>{title}</h1>
 

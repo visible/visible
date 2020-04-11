@@ -20,8 +20,10 @@ const CustomApp = (props: CustomAppProps) => {
     <ConfigProvider theme={theme}>
       <DefaultSeo
         titleTemplate={'%s - Visible'}
-        openGraph={{ type: 'website', site_name: title }}
+        title={title}
+        openGraph={{ type: 'website', title, site_name: title }}
       />
+
       <GlobalStyle />
 
       <Head>

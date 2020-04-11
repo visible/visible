@@ -58,7 +58,7 @@ const Index: NextPage = () => {
 
   return (
     <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
-      <NextSeo title={title} description={description} />
+      <NextSeo title={title} description={description} openGraph={{ title }} />
 
       <Wizard>
         <Inner>
