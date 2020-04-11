@@ -30,7 +30,7 @@ export class DiagnosisController {
         extends: [],
         plugins: ['@visi/plugin-standard'],
         settings: {
-          noSandbox: true,
+          executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
         },
         rules: {},
       },

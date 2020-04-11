@@ -15,6 +15,10 @@ export class BrowserPuppeteerImpl implements Browser {
       headless: settings.headless ?? true,
     };
 
+    if (settings.executablePath) {
+      options.executablePath = settings.executablePath;
+    }
+
     if (settings.noSandbox) {
       options.args?.push('--no-sandbox', '--disable-setuid-sandbox');
     }
