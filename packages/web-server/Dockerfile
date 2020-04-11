@@ -40,4 +40,4 @@ COPY --from=build /home/packages/web-server/ormconfig.js /home/ormconfig.js
 VOLUME [ "./logs" ]
 EXPOSE ${SERVER_PORT}
 USER pptruser
-CMD yarn start
+ENTRYPOINT [ "yarn", "start" ]
