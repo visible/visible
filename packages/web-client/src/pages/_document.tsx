@@ -29,22 +29,33 @@ interface CustomDocumentProps {
 
 class CustomDocument extends Document<CustomDocumentProps> {
   static async getInitialProps(ctx: DocumentContext & NextI18nextContext) {
-    const initialProps = await Document.getInitialProps(ctx);
+    const { res } = ctx;
 
-    const { res, renderPage } = ctx;
     const sheet = new ServerStyleSheet();
+    const originalRenderPage = ctx.renderPage;
 
-    const renderPageResult = renderPage(App => props =>
-      sheet.collectStyles(<App {...props} />),
-    );
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
+        });
 
-    return {
-      ...initialProps,
-      ...renderPageResult,
-      styleTags: sheet.getStyleElement(),
-      lang: res?.locals.language,
-      dir: res?.locals.languageDir,
-    };
+      const initialProps = await Document.getInitialProps(ctx);
+
+      return {
+        ...initialProps,
+        lang: res?.locals.language,
+        dir: res?.locals.languageDir,
+        styleTags: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
+      };
+    } finally {
+      sheet.seal();
+    }
   }
 
   render() {
