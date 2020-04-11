@@ -12,6 +12,7 @@ export interface Settings {
   height?: number;
   headless?: boolean;
   noSandbox?: boolean;
+  executablePath?: string;
 }
 
 export interface Config {
