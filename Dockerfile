@@ -31,10 +31,10 @@ RUN apk add --no-cache \
   ttf-freefont \
   yarn
 
-RUN addgroup -S pptruser \
-  && adduser -S -g pptruser pptruser \
-  && mkdir -p /home/pptruser/Downloads \
-  && chown -R pptruser:pptruser /home/pptruser
+RUN addgroup -S visible \
+  && adduser -S -g visible visible \
+  && mkdir -p /home/visible/Downloads \
+  && chown -R visible:visible /home/visible/
 
 COPY --from=build /home/package.json /home/lerna.json /home/
 COPY --from=build /home/node_modules /home/node_modules
@@ -50,6 +50,6 @@ COPY --from=build /home/packages/web-client/dist /home/packages/web-client/dist
 COPY --from=build /home/packages/web-client/public /home/packages/web-client/public
 COPY --from=build /home/packages/web-client/.next /home/packages/web-client/.next
 
-USER pptruser
+USER visible
 VOLUME [ "/home/packages/web-server/logs" ]
 ENTRYPOINT [ "yarn", "start" ]
