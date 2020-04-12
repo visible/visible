@@ -1,6 +1,16 @@
+export type Serializable =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | never[]
+  | Serializable[]
+  | { [key: string]: Serializable };
+
 export const serialize = (
   strings: TemplateStringsArray,
-  ...values: unknown[]
+  ...values: Serializable[]
 ) => {
   const serializedValues = values.map(value => JSON.stringify(value));
 

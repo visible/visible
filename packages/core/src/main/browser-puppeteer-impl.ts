@@ -3,7 +3,10 @@ import path from 'path';
 import puppeteer, { LaunchOptions } from 'puppeteer';
 
 import { Settings } from '../shared';
-import { Browser, ScriptTagParams } from './browser';
+import { AnyFunction, Browser, Declarable, ScriptTagParams } from './browser';
+import { serialize as s } from './serialize';
+
+const isFunc = (fn: unknown): fn is AnyFunction => typeof fn === 'function';
 
 export class BrowserPuppeteerImpl implements Browser {
   private browser: puppeteer.Browser | undefined = undefined;
@@ -43,8 +46,8 @@ export class BrowserPuppeteerImpl implements Browser {
     await this.browser?.close();
   }
 
-  async waitFor(ms: number) {
-    await this.page?.waitFor(ms);
+  async waitFor(fn: string) {
+    await this.page?.waitForFunction(fn);
   }
 
   async openURL(url: string) {
@@ -59,8 +62,14 @@ export class BrowserPuppeteerImpl implements Browser {
     await this.page?.addScriptTag(options);
   }
 
-  async exposeFunction(name: string, fn: (...args: unknown[]) => unknown) {
-    await this.page?.exposeFunction(name, fn);
+  async declare(store: { [key: string]: Declarable }) {
+    for (const [name, value] of Object.entries(store)) {
+      if (isFunc(value)) {
+        await this.page?.exposeFunction(name, value);
+      } else {
+        await this.page?.evaluate(name + s`=${value}`);
+      }
+    }
   }
 
   async serveModule(field = 'browser') {

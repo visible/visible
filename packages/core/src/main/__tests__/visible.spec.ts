@@ -1,14 +1,14 @@
 import { Browser } from '../browser';
 import { Visible } from '../visible';
 
-const addScriptTag = jest.fn();
-const run = jest.fn();
-const openURL = jest.fn();
-const waitFor = jest.fn();
-const setup = jest.fn();
-const cleanup = jest.fn();
-const exposeFunction = jest.fn();
-const serveModule = jest.fn();
+const addScriptTag = jest.fn().mockResolvedValue(undefined);
+const run = jest.fn().mockResolvedValue(undefined);
+const openURL = jest.fn().mockResolvedValue(undefined);
+const waitFor = jest.fn().mockResolvedValue(undefined);
+const setup = jest.fn().mockResolvedValue(undefined);
+const cleanup = jest.fn().mockResolvedValue(undefined);
+const serveModule = jest.fn().mockResolvedValue(undefined);
+const declare = jest.fn().mockResolvedValue(undefined);
 
 class MockBrowser implements Browser {
   addScriptTag = addScriptTag;
@@ -16,8 +16,8 @@ class MockBrowser implements Browser {
   openURL = openURL;
   waitFor = waitFor;
   setup = setup;
+  declare = declare;
   cleanup = cleanup;
-  exposeFunction = exposeFunction;
   serveModule = serveModule;
 }
 
@@ -36,27 +36,24 @@ describe('Visible', () => {
   });
 
   it('diagnose', async () => {
-    run.mockImplementationOnce(() => Promise.resolve('done!'));
+    run.mockImplementation(async (name: string) => {
+      if (name === '__VISIBLE_EMBED__.listRules()') {
+        return ['foo', 'bar'];
+      }
 
-    const result = await visible.diagnose();
+      if (name.match(/__VISIBLE_EMBED__.processRule/)) {
+        return [];
+      }
+    });
 
-    expect(setup).toBeCalledWith(params.config.settings);
-    expect(openURL).toBeCalledWith(params.url);
-    expect(addScriptTag).toBeCalledWith(
-      expect.objectContaining({
-        path: expect.stringContaining('embed/index.js'),
-      }),
+    const result = await visible.diagnose().toPromise();
+    expect(run).toHaveBeenCalledWith('__VISIBLE_EMBED__.listRules()');
+    expect(run).toHaveBeenCalledWith(
+      '__VISIBLE_EMBED__.processRule(JSON.parse(\'"foo"\'))',
     );
-    expect(addScriptTag).toBeCalledWith(
-      expect.objectContaining({
-        content: expect.any(String),
-      }),
+    expect(run).toHaveBeenCalledWith(
+      '__VISIBLE_EMBED__.processRule(JSON.parse(\'"bar"\'))',
     );
-    expect(waitFor).toBeCalledWith(1000);
-    expect(run).toBeCalledWith(expect.stringContaining('runRule'));
-    expect(waitFor).toBeCalledWith(1000);
-    expect(cleanup).toBeCalled();
-
-    expect(result).toBe('done!');
+    expect(result).toEqual({ reports: [], totalCount: 2, doneCount: 2 });
   });
 });

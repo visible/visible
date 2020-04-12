@@ -1,12 +1,14 @@
 import { i18n } from 'i18next';
 import path from 'path';
+import { combineLatest, from } from 'rxjs';
+import { concatMap, count, map, mergeAll } from 'rxjs/operators';
 
 import { Config } from '../shared/config';
-import { Report } from '../shared/report';
+import { Report, ReportProgress } from '../shared/report';
 import { Browser } from './browser';
 import { resolveExtends } from './config';
 import { i18next, initI18next } from './i18next';
-import { serialize } from './serialize';
+import { Serializable, serialize as s } from './serialize';
 
 export interface VisibleParams {
   readonly config: Config;
@@ -24,44 +26,74 @@ export class Visible {
   static async init(params: VisibleParams, browser: Browser) {
     await initI18next(params.config?.settings?.language ?? 'en');
 
-    return new Visible(
+    const visible = new Visible(
       params.url,
       resolveExtends(params.config),
       browser,
       i18next,
     );
+
+    await visible.browser.setup(visible.config.settings);
+    await visible.browser.openURL(visible.url);
+    await visible.browser.serveModule();
+    await visible.expose();
+
+    return visible;
+  }
+
+  async cleanup() {
+    return await this.browser.cleanup();
+  }
+
+  private async expose() {
+    // Bind to itself context so that we can invoke without `this`
+    const t = this.i18next.t.bind(i18next);
+    const addTranslations = this.i18next.addResourceBundle.bind(i18next);
+
+    // Browser -> Node.js
+    await this.browser.declare({
+      __VISIBLE_CONFIG__: this.config as Serializable,
+      __VISIBLE_PLUGINS__: [],
+      __VISIBLE_T__: t,
+      __VISIBLE_ADD_TRANSLATIONS__: addTranslations,
+    });
+
+    // Node.js -> Browser
+    await this.browser
+      .addScriptTag({
+        path: path.resolve(__dirname, '../embed/index.js'),
+      })
+      .then(() =>
+        this.browser.waitFor('() => __VISIBLE_EMBED__ !== undefined'),
+      );
+
+    // Tell the browser that Node.js process is now ready
+    // so they starts setups such as loading plugins
+    await this.browser.run('__VISIBLE_EMBED__.onReady()');
   }
 
   /**
    * Diagnose the page
    */
-  async diagnose() {
-    await this.browser.setup(this.config.settings);
-    await this.browser.openURL(this.url);
-    await this.browser.serveModule();
-    await this.embed();
-    await this.browser.waitFor(1000);
-    const reports = await this.runRules();
-    await this.browser.waitFor(1000);
-    await this.browser.cleanup();
+  diagnose() {
+    const rules$ = from(
+      this.browser.run<string[]>('__VISIBLE_EMBED__.listRules()'),
+    ).pipe(mergeAll());
 
-    return reports;
-  }
+    const reports$ = rules$.pipe(
+      concatMap(name =>
+        this.browser.run<Report[]>(s`__VISIBLE_EMBED__.processRule(${name})`),
+      ),
+    );
 
-  // prettier-ignore
-  private async embed() {
-    await this.browser.addScriptTag({ path: path.resolve(__dirname, '../embed/index.js') });
-    await this.browser.addScriptTag({ content: serialize`__VISIBLE_CONFIG__ = ${this.config};`});
-    await this.browser.exposeFunction('__VISIBLE_I18NEXT_ADD_RESOURCES__', this.i18next.addResourceBundle.bind(i18next));
-    await this.browser.exposeFunction('__VISIBLE_I18NEXT_T__', this.i18next.t.bind(i18next));
-  }
-
-  /**
-   * Find rules from window, and execute them
-   */
-  // prettier-ignore
-  private async runRules() {
-    const pluginNames = this.config.plugins ?? [];
-    return this.browser.run<Report[]>(serialize`__VISIBLE_EMBED__.runRule(${pluginNames})`);
+    return combineLatest(reports$, rules$.pipe(count())).pipe(
+      map(
+        ([reports, totalCount], i): ReportProgress => ({
+          reports,
+          totalCount,
+          doneCount: i + 1,
+        }),
+      ),
+    );
   }
 }

@@ -1,9 +1,2 @@
-export const addTranslations = (
-  lng: string,
-  ns: string,
-  resources: unknown,
-) => {
-  window.__VISIBLE_I18NEXT_ADD_RESOURCES__(lng, ns, resources);
-};
-
-export const t = window.__VISIBLE_I18NEXT_T__;
+export const addTranslations = window.__VISIBLE_ADD_TRANSLATIONS__;
+export const t = window.__VISIBLE_T__;
