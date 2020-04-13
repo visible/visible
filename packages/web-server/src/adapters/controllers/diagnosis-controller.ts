@@ -1,5 +1,6 @@
 import { visible } from '@visi/core/main';
 import { inject, injectable } from 'inversify';
+import { finalize, mergeAll, pluck, toArray } from 'rxjs/operators';
 
 import { CreateDiagnosis } from '../../application/use-cases/create-diagnosis';
 import { DeleteDiagnosis } from '../../application/use-cases/delete-diagnosis';
@@ -25,7 +26,7 @@ export class DiagnosisController {
   }
 
   async create(url: string) {
-    const reports = await visible({
+    const visi = await visible({
       config: {
         extends: [],
         plugins: ['@visi/plugin-standard'],
@@ -36,6 +37,16 @@ export class DiagnosisController {
       },
       url,
     });
+
+    const reports = await visi
+      .diagnose()
+      .pipe(
+        finalize(() => visi.cleanup()),
+        pluck('reports'),
+        mergeAll(),
+        toArray(),
+      )
+      .toPromise();
 
     const input = new DiagnosisInterpreter().transform(reports);
     const result = await this.createDiagnosis.run(input);

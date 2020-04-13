@@ -2,10 +2,10 @@
 import { visible } from '@visi/core/main';
 import { cosmiconfig } from 'cosmiconfig';
 import { promises as fs } from 'fs';
+import { count, filter, finalize, mergeAll, pluck } from 'rxjs/operators';
 import yargs from 'yargs';
 
 import { i18next, initI18next } from './i18next';
-import { loader } from './loader';
 import { print } from './print';
 
 initI18next();
@@ -74,14 +74,22 @@ yargs
         throw new Error(t('visible.no-rc', 'No visiblerc file found'));
       }
 
-      const reports = await loader(
-        t('visible.loading', 'Fetching diagnoses...'),
-        visible({ config, url }),
+      const visi = await visible({ config, url });
+
+      const diagnosis$ = visi.diagnose().pipe(
+        finalize(() => visi.cleanup),
+        pluck('reports'),
+        mergeAll(),
       );
 
-      await print(reports, json, verbose, t, fix);
+      diagnosis$
+        .pipe(filter(report => !verbose && report.level !== 'ok'))
+        .subscribe(report => {
+          print(report, json, t, fix);
+        });
 
-      const hasError = reports.some(report => report.level === 'error');
-      process.exit(hasError ? 1 : 0);
+      diagnosis$
+        .pipe(count(report => report.level !== 'ok'))
+        .subscribe(errors => process.exit(errors > 0 ? 1 : 0));
     },
   ).argv;

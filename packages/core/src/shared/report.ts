@@ -20,3 +20,9 @@ export interface Report {
   /** Way to fix this report (WIP) */
   readonly fix?: () => Promise<Partial<ReportContent>>;
 }
+
+export interface ReportProgress {
+  reports: Report[];
+  totalCount: number;
+  doneCount: number;
+}

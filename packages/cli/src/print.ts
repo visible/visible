@@ -19,54 +19,31 @@ const mapLevelToColor = (level: ReportLevel) => {
 };
 
 export const print = async (
-  reportsInput: Report[],
+  report: Report,
   json: boolean,
-  verbose: boolean,
   t: TFunction,
   fix: boolean,
 ) => {
-  const reports = reportsInput.filter(report => {
-    if (verbose) {
-      return true;
-    }
-
-    return report.level !== 'ok';
-  });
-
-  const fixtures = [];
-
-  if (fix) {
-    for (const report of reports) {
-      if (report.fix) {
-        const fixture = await report.fix();
-        fixtures.push(fixture);
-      }
-    }
-  }
+  const fixture = fix && report.fix ? await report.fix() : undefined;
 
   if (json) {
     // eslint-disable-next-line no-console
-    return console.log(JSON.stringify([reports, fixtures]));
+    return console.log(JSON.stringify([report, fixture]));
   }
 
-  const output = reports.reduce((result, report) => {
-    const source = report.content?.html ?? '';
-    const formattedSource = prettier.format(source, { parser: 'html' });
+  const source = report.content?.html ?? '';
+  const formattedSource = prettier.format(source, { parser: 'html' });
 
-    const codeFrame = makeCodeFrame(formattedSource, 1, 0, {
-      highlightCode: true,
-    });
+  const codeFrame = makeCodeFrame(formattedSource, 1, 0, {
+    highlightCode: true,
+  });
 
-    return (
-      result +
-      [
-        mapLevelToColor(report.level).bold(report.rule + ': ') + report.message,
-        codeFrame,
-        chalk.italic.grey('location: ' + report.content?.xpath),
-        '\n',
-      ].join('\n')
-    );
-  }, '');
+  const output = [
+    mapLevelToColor(report.level).bold(report.rule + ': ') + report.message,
+    codeFrame,
+    chalk.italic.grey('location: ' + report.content?.xpath),
+    '\n',
+  ].join('\n');
 
   // eslint-disable-next-line no-console
   return console.log(output);
