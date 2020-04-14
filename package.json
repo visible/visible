@@ -9,20 +9,21 @@
     "packages/*"
   ],
   "scripts": {
+    "bootstrap": "lerna run bootstrap",
     "start": "lerna run start --stream",
     "build": "lerna run build --stream",
     "watch": "lerna run watch --parallel",
     "test": "lerna run test --concurrency 1",
     "lint": "run-s lint:*",
-    "lint:eslint": "eslint -c .eslintrc.json './packages/**/*.{ts,tsx}'",
-    "lint:stylelint": "stylelint './packages/{web-client,web-ui}/**/*.{ts,tsx}'",
+    "lint:eslint": "eslint --cache --cache-location .cache/eslint/cache './packages/**/*.{ts,tsx}'",
+    "lint:stylelint": "stylelint --cache --cache-location .cache/stylelint/cache './packages/{web-client,web-ui}/**/*.{ts,tsx}'",
     "lint:spellcheck": "cspell './{packages,docs,scripts}/**/*.{ts,tsx,md,js,json,graphql}'",
     "storybook": "lerna exec start-storybook --scope @visi/web-ui -- -p 6006",
     "manage-translations": "node ./scripts/manage-translations.js"
   },
   "devDependencies": {
     "@types/jest": "^24.9.0",
-    "@types/node": "^13.1.7",
+    "@types/node": "^13.11.1",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
     "core-js": "^3.6.4",
