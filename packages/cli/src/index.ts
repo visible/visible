@@ -1,8 +1,17 @@
 #!/usr/bin/env node
-import { visible } from '@visi/core/main';
+import { Config, visible } from '@visi/core/main';
+import { Presets, SingleBar } from 'cli-progress';
 import { cosmiconfig } from 'cosmiconfig';
 import { promises as fs } from 'fs';
-import { count, filter, finalize, mergeAll, pluck } from 'rxjs/operators';
+import {
+  count,
+  filter,
+  finalize,
+  first,
+  mergeAll,
+  pluck,
+  toArray,
+} from 'rxjs/operators';
 import yargs from 'yargs';
 
 import { i18next, initI18next } from './i18next';
@@ -68,27 +77,40 @@ yargs
     async ({ url, json, verbose, fix }) => {
       const config = await cosmiconfig('visible')
         .search()
-        .then(result => result?.config);
+        .then(result => result?.config as Config | undefined);
 
-      if (!config) {
-        throw new Error(t('visible.no-rc', 'No visiblerc file found'));
+      if (config === undefined) {
+        // eslint-disable-next-line no-console
+        console.error(t('visible.no-rc', 'No visiblerc file found'));
+        process.exit(1);
       }
 
       const visi = await visible({ config, url });
+      const singleBar = new SingleBar({}, Presets.shades_classic);
+      const diagnosis$ = visi.diagnose();
 
-      const diagnosis$ = visi.diagnose().pipe(
-        finalize(() => visi.cleanup),
+      diagnosis$.pipe(first()).subscribe(progress => {
+        singleBar.start(progress.totalCount, 0);
+      });
+
+      diagnosis$.pipe(finalize(() => singleBar.stop())).subscribe(progress => {
+        singleBar.update(progress.doneCount);
+      });
+
+      const reports$ = diagnosis$.pipe(
         pluck('reports'),
+        mergeAll(),
+        toArray(),
         mergeAll(),
       );
 
-      diagnosis$
-        .pipe(filter(report => !verbose && report.level !== 'ok'))
+      reports$
+        .pipe(filter(report => verbose || report.level !== 'ok'))
         .subscribe(report => {
           print(report, json, t, fix);
         });
 
-      diagnosis$
+      reports$
         .pipe(count(report => report.level !== 'ok'))
         .subscribe(errors => process.exit(errors > 0 ? 1 : 0));
     },

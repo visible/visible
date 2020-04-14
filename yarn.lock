@@ -4267,10 +4267,10 @@
   dependencies:
     "@types/ioredis" "*"
 
-"@types/cli-spinner@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@types/cli-spinner/-/cli-spinner-0.2.0.tgz#50304d21d9a3623a878fc2a42c9bfa6921c6d236"
-  integrity sha512-M7+zuU/wPkgG74TZnS4lE/FD6pH4HQg/H7QHPInGfPcx+kfc9dam+yWbye6CAqdpUczdMjvN7NfBf1OUEJnAZA==
+"@types/cli-progress@^3.4.2":
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/@types/cli-progress/-/cli-progress-3.4.2.tgz#03dfa3d507e9dda85ba4a14006c37e8b7094c605"
+  integrity sha512-9Rlk664JggbgDLDMCM/8HziTh6ZU2IBLVS2/Kkh3T/TNVlpWlwgLrFl7kDyQBOlX1pofPM05ZKG/GyuULJ0FfA==
   dependencies:
     "@types/node" "*"
 
@@ -4703,11 +4703,6 @@
     "@types/react" "*"
     "@types/react-native" "*"
     csstype "^2.2.0"
-
-"@types/table@^4.0.7":
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/@types/table/-/table-4.0.7.tgz#c21100d37d4924abbbde85414170260d4d7b0316"
-  integrity sha512-HKtXvBxU8U8evZCSlUi9HbfT/SFW7nSGCoiBEheB06jAhXeW6JbGh8biEAqIFG5rZo9f8xeJVdIn455sddmIcw==
 
 "@types/tapable@*", "@types/tapable@^1.0.5":
   version "1.0.5"
@@ -7868,10 +7863,13 @@ cli-progress@^3.4.0:
     colors "^1.1.2"
     string-width "^4.2.0"
 
-cli-spinner@^0.2.10:
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/cli-spinner/-/cli-spinner-0.2.10.tgz#f7d617a36f5c47a7bc6353c697fc9338ff782a47"
-  integrity sha512-U0sSQ+JJvSLi1pAYuJykwiA8Dsr15uHEy85iCJ6A+0DjVxivr3d+N2Wjvodeg89uP5K6TswFkKBfAD7B3YSn/Q==
+cli-progress@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/cli-progress/-/cli-progress-3.7.0.tgz#8983a67ab692aad8598511b9d9e3b35e2dead43e"
+  integrity sha512-xo2HeQ3vNyAO2oYF5xfrk5YM6jzaDNEbeJRLAQir6QlH54g4f6AXW+fLyJ/f12gcTaCbJznsOdQcr/yusp/Kjg==
+  dependencies:
+    colors "^1.1.2"
+    string-width "^4.2.0"
 
 cli-spinners@^2.0.0:
   version "2.2.0"

@@ -1,7 +1,13 @@
 import { i18n } from 'i18next';
 import path from 'path';
-import { combineLatest, from } from 'rxjs';
-import { concatMap, count, map, mergeAll } from 'rxjs/operators';
+import { from } from 'rxjs';
+import {
+  concatMap,
+  count,
+  map,
+  mergeAll,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 import { Config } from '../shared/config';
 import { Report, ReportProgress } from '../shared/report';
@@ -80,13 +86,11 @@ export class Visible {
       this.browser.run<string[]>('__VISIBLE_EMBED__.listRules()'),
     ).pipe(mergeAll());
 
-    const reports$ = rules$.pipe(
+    return rules$.pipe(
       concatMap(name =>
         this.browser.run<Report[]>(s`__VISIBLE_EMBED__.processRule(${name})`),
       ),
-    );
-
-    return combineLatest(reports$, rules$.pipe(count())).pipe(
+      withLatestFrom(rules$.pipe(count())),
       map(
         ([reports, totalCount], i): ReportProgress => ({
           reports,
