@@ -1,31 +1,24 @@
 /* eslint-disable */
-import { visible } from './dist/main';
-import { filter, flatMap, finalize } from 'rxjs/operators';
+import { Visible } from './src/main';
+import { filter, last, flatMap, finalize } from 'rxjs/operators';
 
 (async () => {
-  const browser = await visible({
-    url: 'https://fsn4x.csb.app/',
-    config: {
+  const visible = await Visible.init(
+    {
       extends: [],
       plugins: ['@visi/plugin-standard'],
       settings: {
         headless: true,
       },
-      rules: {},
     },
-  });
+  );
 
-  const diagnosis$ = browser.diagnose().pipe(finalize(() => browser.cleanup()));
+  await visible.open('https://djmnj.csb.app/');
+  const diagnosis$ = visible.diagnose();
 
-  diagnosis$.subscribe(progress => {
-    const percentage = Math.floor(
-      (progress.doneCount / progress.totalCount) * 100,
-    );
-    console.log(percentage.toString() + '%');
-  });
+  diagnosis$.subscribe(report => {
+    console.log(JSON.stringify(report, undefined, 2));
+  })
 
-  diagnosis$
-    .pipe(flatMap(progress => progress.reports))
-    .pipe(filter(report => report.level !== 'ok'))
-    .subscribe(report => console.log(report.message));
+  // visible.done$.subscribe(map => console.log(map));
 })();

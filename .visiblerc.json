@@ -1,3 +1,6 @@
 {
-  "plugins": ["@visi/plugin-standard"]
+  "plugins": ["@visi/plugin-standard"],
+  "settings": {
+    "screenshot": "only-fail"
+  }
 }

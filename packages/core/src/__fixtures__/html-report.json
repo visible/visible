@@ -1,0 +1,26 @@
+{
+  "rule": {
+    "id": "img-alt",
+    "type": "atomic",
+    "description": "Checks img has alt"
+  },
+  "outcome": "fail",
+  "target": "/html/body/img",
+  "message": "img element must have alt attribute",
+  "sources": [
+    {
+      "type": "html",
+      "pointer": {
+        "xpath": "/html/body/img",
+        "url": "https://djmnj.csb.app/",
+        "location": {
+          "startLine": 85,
+          "startColumn": 5,
+          "endLine": 85,
+          "endColumn": 90
+        }
+      },
+      "path": "1587576661476.png"
+    }
+  ]
+}

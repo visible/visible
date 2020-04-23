@@ -10,15 +10,25 @@ describe('img-alt', () => {
       </div>
     `;
 
-    const [report] = await imgAltRule.audit();
+    const [report] = await imgAltRule.run();
 
-    expect(report).toEqual(
-      expect.objectContaining({
-        rule: 'img-alt',
-        type: 'img-alt.no-alt',
-        level: 'error',
-      }),
-    );
+    expect(report.outcome).toBe('fail');
+    expect(report).toMatchInlineSnapshot(`
+      Object {
+        "message": "img element must have alt attribute",
+        "outcome": "fail",
+        "rule": [Function],
+        "sources": Array [
+          Object {
+            "pointer": Object {
+              "xpath": "/html/body/div/img",
+            },
+            "type": "html",
+          },
+        ],
+        "target": "/html/body/div/img",
+      }
+    `);
   });
 
   it('returns nothing when the img is accessible', async () => {
@@ -26,14 +36,23 @@ describe('img-alt', () => {
       <img src="https://example.com" alt="this is an image" />
     `;
 
-    const [report] = await imgAltRule.audit();
+    const [report] = await imgAltRule.run();
 
-    expect(report).toEqual(
-      expect.objectContaining({
-        rule: 'img-alt',
-        type: 'img-alt.ok',
-        level: 'ok',
-      }),
-    );
+    expect(report.outcome).toBe('passed');
+    expect(report).toMatchInlineSnapshot(`
+      Object {
+        "outcome": "passed",
+        "rule": [Function],
+        "sources": Array [
+          Object {
+            "pointer": Object {
+              "xpath": "/html/body/img",
+            },
+            "type": "html",
+          },
+        ],
+        "target": "/html/body/img",
+      }
+    `);
   });
 });

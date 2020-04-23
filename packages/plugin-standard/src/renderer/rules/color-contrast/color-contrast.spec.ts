@@ -10,15 +10,33 @@ describe('color-contrast', () => {
       </button>
     `;
 
-    const [report] = await colorContrast.audit();
+    const [report] = await colorContrast.run();
 
-    expect(report).toEqual(
-      expect.objectContaining({
-        type: 'color-contrast.wcag-aa',
-        rule: 'color-contrast',
-        level: 'error',
-      }),
-    );
+    expect(report.outcome).toBe('fail');
+    expect(report).toMatchInlineSnapshot(`
+      Object {
+        "message": "Color contrast ratio should be greater than 7",
+        "outcome": "fail",
+        "rule": [Function],
+        "sources": Array [
+          Object {
+            "pointer": Object {
+              "propertyName": "color",
+              "xpath": "/html/body/button",
+            },
+            "type": "css-property",
+          },
+          Object {
+            "pointer": Object {
+              "propertyName": "background-color",
+              "xpath": "/html/body/button",
+            },
+            "type": "css-property",
+          },
+        ],
+        "target": "/html/body/button",
+      }
+    `);
   });
 
   it('returns a warning when a color contrast does not satisfies WCAG G18 AAA', async () => {
@@ -28,15 +46,33 @@ describe('color-contrast', () => {
       </button>
     `;
 
-    const [report] = await colorContrast.audit();
+    const [report] = await colorContrast.run();
 
-    expect(report).toEqual(
-      expect.objectContaining({
-        type: 'color-contrast.wcag-aaa',
-        rule: 'color-contrast',
-        level: 'warn',
-      }),
-    );
+    expect(report.outcome).toBe('fail');
+    expect(report).toMatchInlineSnapshot(`
+      Object {
+        "message": "Color contrast ratio should be greater than 7",
+        "outcome": "fail",
+        "rule": [Function],
+        "sources": Array [
+          Object {
+            "pointer": Object {
+              "propertyName": "color",
+              "xpath": "/html/body/button",
+            },
+            "type": "css-property",
+          },
+          Object {
+            "pointer": Object {
+              "propertyName": "background-color",
+              "xpath": "/html/body/button",
+            },
+            "type": "css-property",
+          },
+        ],
+        "target": "/html/body/button",
+      }
+    `);
   });
 
   it('returns nothing when accessible', async () => {
@@ -46,14 +82,31 @@ describe('color-contrast', () => {
       </button>
     `;
 
-    const [report] = await colorContrast.audit();
+    const [report] = await colorContrast.run();
 
-    expect(report).toEqual(
-      expect.objectContaining({
-        type: 'color-contrast.ok',
-        rule: 'color-contrast',
-        level: 'ok',
-      }),
-    );
+    expect(report.outcome).toBe('passed');
+    expect(report).toMatchInlineSnapshot(`
+      Object {
+        "outcome": "passed",
+        "rule": [Function],
+        "sources": Array [
+          Object {
+            "pointer": Object {
+              "propertyName": "color",
+              "xpath": "/html/body/button",
+            },
+            "type": "css-property",
+          },
+          Object {
+            "pointer": Object {
+              "propertyName": "background-color",
+              "xpath": "/html/body/button",
+            },
+            "type": "css-property",
+          },
+        ],
+        "target": "/html/body/button",
+      }
+    `);
   });
 });
