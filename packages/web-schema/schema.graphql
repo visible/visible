@@ -77,6 +77,8 @@ type Diagnosis {
   reports: [Report!]!
   doneCount: Int!
   totalCount: Int!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 type Query {
