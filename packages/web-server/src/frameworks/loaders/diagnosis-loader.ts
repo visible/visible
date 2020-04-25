@@ -1,8 +1,8 @@
 import DataLoader from 'dataloader';
 import { inject, injectable } from 'inversify';
 
-import { DiagnosisController } from '../../../adapters/controllers/diagnosis-controller';
-import { DiagnosisAPI } from '../../../adapters/presenters/diagnosis-presenter';
+import { DiagnosisController } from '../../adapters/controllers/diagnosis-controller';
+import { DiagnosisAPI } from '../../adapters/presenters/diagnosis-presenter';
 
 export interface DiagnosisLoader {
   load(id: string): Promise<DiagnosisAPI>;

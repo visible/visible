@@ -1,7 +1,7 @@
 import { injectable, unmanaged } from 'inversify';
 
-import { ReportsRepository } from '../../../application/repositories/reports-repository';
-import { Report } from '../../../domain/models';
+import { ReportsRepository } from '../../application/repositories/reports-repository';
+import { Report } from '../../domain/models';
 
 @injectable()
 export class ReportsRepositoryInMemoryImpl implements ReportsRepository {

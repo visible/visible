@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 
 import { Report, ReportType } from '../../../domain/models';
-import { ReportsRepositoryInMemoryImpl } from '../../../frameworks/database/repositories/reports-repository-in-memory-impl';
+import { ReportsRepositoryInMemoryImpl } from '../../../frameworks/repositories/reports-repository-in-memory-impl';
 import { TYPES } from '../../../types';
 import { ReportsRepository } from '../../repositories/reports-repository';
 import { FindReportsByDiagnosisId } from '../find-reports-by-diagnosis-id';

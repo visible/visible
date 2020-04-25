@@ -11,14 +11,14 @@ import { CreateDiagnosis } from './application/use-cases/create-diagnosis';
 import { DeleteDiagnosis } from './application/use-cases/delete-diagnosis';
 import { FindDiagnosis } from './application/use-cases/find-diagnosis';
 import { FindReportsByDiagnosisId } from './application/use-cases/find-reports-by-diagnosis-id';
+import { createConnection } from './frameworks/connection';
 import { Context } from './frameworks/context';
-import { createConnection } from './frameworks/database/connection';
 import {
   DiagnosisLoader,
   DiagnosisLoaderImpl,
-} from './frameworks/database/loaders/diagnosis-loader';
-import { DiagnosisRepositoryImpl } from './frameworks/database/repositories/diagnosis-repository-impl';
-import { ReportsRepositoryImpl } from './frameworks/database/repositories/reports-repository-impl';
+} from './frameworks/loaders/diagnosis-loader';
+import { DiagnosisRepositoryImpl } from './frameworks/repositories/diagnosis-repository-impl';
+import { ReportsRepositoryImpl } from './frameworks/repositories/reports-repository-impl';
 import { Server } from './frameworks/server';
 import { TYPES } from './types';
 

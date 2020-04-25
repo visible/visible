@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
 
-import { DiagnosisRepository } from '../../../application/repositories/diagnosis-repository';
-import { Diagnosis, Report } from '../../../domain/models';
-import { TYPES } from '../../../types';
+import { DiagnosisRepository } from '../../application/repositories/diagnosis-repository';
+import { Diagnosis, Report } from '../../domain/models';
+import { TYPES } from '../../types';
 import { DiagnosisORM } from '../entities/diagnosis';
 import { ReportORM } from '../entities/report';
 

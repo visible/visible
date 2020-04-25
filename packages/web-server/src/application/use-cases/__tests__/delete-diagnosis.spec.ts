@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 
 import { Diagnosis } from '../../../domain/models';
-import { DiagnosisRepositoryInMemoryImpl } from '../../../frameworks/database/repositories/diagnosis-repository-in-memory-impl';
+import { DiagnosisRepositoryInMemoryImpl } from '../../../frameworks/repositories/diagnosis-repository-in-memory-impl';
 import { TYPES } from '../../../types';
 import { DiagnosisRepository } from '../../repositories/diagnosis-repository';
 import { DeleteDiagnosis } from '../delete-diagnosis';
