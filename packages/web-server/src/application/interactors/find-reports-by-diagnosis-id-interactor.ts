@@ -3,8 +3,8 @@ import { inject, injectable } from 'inversify';
 import { TYPES } from '../../types';
 import { ReportsRepository } from '../repositories/reports-repository';
 import {
-  FindReportsByDiagnosisIdInputData,
-  FindReportsByDiagnosisIdOutputData,
+  FindReportsByDiagnosisIdRequest,
+  FindReportsByDiagnosisIdResponse,
   FindReportsByDiagnosisIdUseCase,
 } from '../use-cases';
 
@@ -16,8 +16,8 @@ export class FindReportsByDiagnosisIdInteractor
 
   async run({
     id,
-  }: FindReportsByDiagnosisIdInputData): Promise<
-    FindReportsByDiagnosisIdOutputData
+  }: FindReportsByDiagnosisIdRequest): Promise<
+    FindReportsByDiagnosisIdResponse
   > {
     const reports = await this.reportsRepository.findByDiagnosisId(id);
     return { reports };

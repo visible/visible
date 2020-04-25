@@ -3,8 +3,8 @@ import { inject, injectable } from 'inversify';
 import { TYPES } from '../../types';
 import { DiagnosisRepository } from '../repositories';
 import {
-  FindDiagnosisInputData,
-  FindDiagnosisOutputData,
+  FindDiagnosisRequest,
+  FindDiagnosisResponse,
   FindDiagnosisUseCase,
 } from '../use-cases';
 
@@ -13,7 +13,7 @@ export class FindDiagnosisInteractor implements FindDiagnosisUseCase {
   @inject(TYPES.DiagnosisRepository)
   private readonly diagnosisRepository: DiagnosisRepository;
 
-  async run({ ids }: FindDiagnosisInputData): Promise<FindDiagnosisOutputData> {
+  async run({ ids }: FindDiagnosisRequest): Promise<FindDiagnosisResponse> {
     const diagnoses = await this.diagnosisRepository.find(ids);
     return { diagnoses };
   }
