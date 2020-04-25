@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 
-import { Diagnosis } from '../../../enterprise/entities';
+import { Diagnosis } from '../../../domain/models';
 import { DiagnosisRepositoryInMemoryImpl } from '../../../frameworks/database/repositories/diagnosis-repository-in-memory-impl';
 import { TYPES } from '../../../types';
 import { DiagnosisRepository } from '../../repositories/diagnosis-repository';

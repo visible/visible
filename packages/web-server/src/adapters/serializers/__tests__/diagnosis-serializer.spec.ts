@@ -1,4 +1,4 @@
-import { Diagnosis } from '../../../enterprise/entities';
+import { Diagnosis } from '../../../domain/models';
 import { DiagnosisSerializer } from '../diagnosis-serializer';
 
 describe('DiagnosisSerializer', () => {

@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
 
 import { ReportsRepository } from '../../../application/repositories/reports-repository';
-import { Report } from '../../../enterprise/entities';
+import { Report } from '../../../domain/models';
 import { TYPES } from '../../../types';
 import { ReportORM } from '../entities/report';
 

@@ -1,4 +1,4 @@
-import { Diagnosis } from '../../enterprise/entities/diagnosis';
+import { Diagnosis } from '../../domain/models/diagnosis';
 
 export type CreateParam = Pick<Diagnosis, 'reports'>;
 

@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { ReportType } from '../../../enterprise/entities';
+import { ReportType } from '../../../domain/models';
 import { DiagnosisORM } from './diagnosis';
 
 @Entity('report')

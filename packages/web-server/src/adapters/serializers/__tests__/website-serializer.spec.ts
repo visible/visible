@@ -1,4 +1,4 @@
-import { Website } from '../../../enterprise/entities';
+import { Website } from '../../../domain/models';
 import { WebsiteSerializer } from '../website-serializer';
 
 describe('WebsiteSerializer', () => {

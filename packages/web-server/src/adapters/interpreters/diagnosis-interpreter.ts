@@ -5,7 +5,7 @@ import {
 import uuid from 'uuid';
 
 import { CreateDiagnosisInput } from '../../application/use-cases/create-diagnosis';
-import { Report, ReportType } from '../../enterprise/entities';
+import { Report, ReportType } from '../../domain/models';
 
 export class DiagnosisInterpreter {
   transformType = (level: CoreReportLevel) => {

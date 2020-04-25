@@ -1,7 +1,7 @@
 import { injectable, unmanaged } from 'inversify';
 
 import { DiagnosisRepository } from '../../../application/repositories/diagnosis-repository';
-import { Diagnosis } from '../../../enterprise/entities';
+import { Diagnosis } from '../../../domain/models';
 
 @injectable()
 export class DiagnosisRepositoryInMemoryImpl implements DiagnosisRepository {

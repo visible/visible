@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 
-import { Diagnosis, Report } from '../../enterprise/entities';
+import { Diagnosis, Report } from '../../domain/models';
 import { TYPES } from '../../types';
 import { DiagnosisRepository } from '../repositories/diagnosis-repository';
 

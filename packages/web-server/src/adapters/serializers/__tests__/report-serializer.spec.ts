@@ -1,4 +1,4 @@
-import { Report, ReportType } from '../../../enterprise/entities';
+import { Report, ReportType } from '../../../domain/models';
 import { ReportSerializer, ReportTypeAPI } from '../report-serializer';
 
 describe('ReportSerializer', () => {
