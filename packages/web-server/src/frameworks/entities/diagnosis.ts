@@ -29,6 +29,9 @@ export class DiagnosisORM {
   @Column('varchar', { length: 255 })
   screenshot: string;
 
+  @Column('varchar', { length: 255 })
+  url: string;
+
   @Column('int')
   doneCount: number;
 

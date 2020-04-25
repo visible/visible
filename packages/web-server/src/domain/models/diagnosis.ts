@@ -1,4 +1,4 @@
-import { IsEnum, IsInt, IsPositive, IsUrl, IsUUID, Min } from 'class-validator';
+import { IsEnum, IsInt, IsUrl, IsUUID, Min } from 'class-validator';
 
 import { validateOrRejectSync } from '../../utils/validate-or-reject-sync';
 import { Report } from './report';
@@ -14,6 +14,7 @@ interface DiagnosisConstructorParams {
   id: string;
   status: Status;
   screenshot: string;
+  url: string;
   reports: Report[];
   doneCount: number;
   totalCount: number;
@@ -31,6 +32,9 @@ export class Diagnosis {
   @IsUrl()
   readonly screenshot: string;
 
+  @IsUrl()
+  readonly url: string;
+
   @Min(0)
   @IsInt()
   readonly doneCount: number;
@@ -47,6 +51,7 @@ export class Diagnosis {
     this.id = params.id;
     this.status = params.status;
     this.screenshot = params.screenshot;
+    this.url = params.url;
     this.doneCount = params.doneCount;
     this.totalCount = params.totalCount;
     this.reports = params.reports;
