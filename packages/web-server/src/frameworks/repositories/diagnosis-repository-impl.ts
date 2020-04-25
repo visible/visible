@@ -1,27 +1,26 @@
 import { Visible } from '@visi/core';
 import Bull from 'bull';
 import { inject, injectable } from 'inversify';
-import { finalize } from 'rxjs/operators';
+import { finalize, pluck, toArray } from 'rxjs/operators';
 import { Connection } from 'typeorm';
+import uuid from 'uuid';
 
 import { DiagnosisRepository } from '../../application/repositories';
-import { Diagnosis } from '../../domain/models';
+import { Diagnosis, Report } from '../../domain/models';
 import { TYPES } from '../../types';
 import { DiagnosisORM } from '../entities/diagnosis';
 import { ReportORM } from '../entities/report';
 import { ReportsRepositoryImpl } from './reports-repository-impl';
 
-const options: Bull.QueueOptions = {
-  redis: {
-    port: Number(process.env.REDIS_PORT),
-    host: process.env.REDIS_HOST,
-    password: process.env.REDIS_PASSWORD,
-  },
-};
-
 @injectable()
 export class DiagnosisRepositoryImpl implements DiagnosisRepository {
-  private readonly bull = new Bull<Diagnosis>('diagnosis', options);
+  private readonly bull = new Bull<Diagnosis>('diagnosis', {
+    redis: {
+      port: Number(process.env.REDIS_PORT),
+      host: process.env.REDIS_HOST,
+      password: process.env.REDIS_PASSWORD,
+    },
+  });
 
   @inject(TYPES.Connection)
   private readonly connection: Connection;
@@ -115,6 +114,50 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
     diagnosis$.pipe(finalize(() => done())).subscribe(progress => {
       const percentage = (progress.doneCount / progress.totalCount) * 100;
       job.progress(percentage);
+    });
+
+    diagnosis$.subscribe(progress => {
+      const diagnosis = new Diagnosis({
+        id: job.data.id,
+        status: job.data.status,
+        screenshot: job.data.screenshot,
+        url: job.data.url,
+        doneCount: progress.doneCount,
+        totalCount: progress.totalCount,
+        reports: job.data.reports,
+        createdAt: job.data.createdAt,
+        updatedAt: new Date(),
+      });
+
+      this.update(diagnosis);
+    });
+
+    diagnosis$.pipe(pluck('report'), toArray()).subscribe(_reports => {
+      const reports = _reports.map(
+        report =>
+          new Report({
+            id: uuid(),
+            outcome: report.outcome,
+            rule: report.rule,
+            target: report?.target,
+            message: report?.message,
+            pointers: report?.pointers,
+          }),
+      );
+
+      const diagnosis = new Diagnosis({
+        id: job.data.id,
+        status: job.data.status,
+        screenshot: job.data.screenshot,
+        url: job.data.url,
+        doneCount: job.data.doneCount,
+        totalCount: job.data.totalCount,
+        reports,
+        createdAt: job.data.createdAt,
+        updatedAt: new Date(),
+      });
+
+      this.update(diagnosis);
     });
   }
 }

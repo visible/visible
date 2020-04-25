@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 
+import dotenv from 'dotenv';
 import { Container } from 'inversify';
+import path from 'path';
 import { Connection } from 'typeorm';
 
 import { DiagnosisController, ReportsController } from './adapters/controllers';
@@ -21,6 +23,9 @@ import {
 } from './frameworks/repositories';
 import { Server } from './frameworks/server';
 import { TYPES } from './types';
+
+console.log(path.resolve('../../.env'));
+dotenv.config({ path: path.resolve('../../.env') });
 
 // prettier-ignore
 (async () => {
