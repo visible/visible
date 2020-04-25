@@ -3,25 +3,22 @@ import 'reflect-metadata';
 import { Container } from 'inversify';
 import { Connection } from 'typeorm';
 
-import { DiagnosisController } from './adapters/controllers/diagnosis-controller';
-import { ReportsController } from './adapters/controllers/reports-controller';
-import { CreateDiagnosisInteractor } from './application/interactors/create-diagnosis-interactor';
-import { DiagnosisRepository } from './application/repositories/diagnosis-repository';
-import { ReportsRepository } from './application/repositories/reports-repository';
+import { DiagnosisController, ReportsController } from './adapters/controllers';
 import {
-  CreateDiagnosisUseCase,
-  DeleteDiagnosisUseCase,
-  FindDiagnosisUseCase,
-  FindReportsByDiagnosisIdUseCase,
-} from './application/use-cases';
+  CreateDiagnosisInteractor,
+  DeleteDiagnosisInteractor,
+  FindDiagnosisInteractor,
+  FindReportsByDiagnosisIdInteractor,
+} from './application/interactors';
 import { createConnection } from './frameworks/connection';
 import { Context } from './frameworks/context';
+import { I18nImpl } from './frameworks/i18n';
+import { DiagnosisLoaderImpl } from './frameworks/loaders/diagnosis-loader';
+import { LoggerImpl } from './frameworks/logger';
 import {
-  DiagnosisLoader,
-  DiagnosisLoaderImpl,
-} from './frameworks/loaders/diagnosis-loader';
-import { DiagnosisRepositoryImpl } from './frameworks/repositories/diagnosis-repository-impl';
-import { ReportsRepositoryImpl } from './frameworks/repositories/reports-repository-impl';
+  DiagnosisRepositoryImpl,
+  ReportsRepositoryImpl,
+} from './frameworks/repositories';
 import { Server } from './frameworks/server';
 import { TYPES } from './types';
 
@@ -30,14 +27,18 @@ import { TYPES } from './types';
   const container = new Container();
   const connection = await createConnection();
 
-  container.bind<DiagnosisRepository>(TYPES.DiagnosisRepository).to(DiagnosisRepositoryImpl);
-  container.bind<DiagnosisLoader>(TYPES.DiagnosisLoader).to(DiagnosisLoaderImpl);
-  container.bind<ReportsRepository>(TYPES.ReportsRepository).to(ReportsRepositoryImpl);
+  container.bind(TYPES.I18n).to(I18nImpl);
+  container.bind(TYPES.Logger).to(LoggerImpl);
 
-  container.bind<FindDiagnosis>(FindDiagnosis).toSelf();
-  container.bind<CreateDiagnosisUseCase>(CreateDiagnosisInteractor).toSelf();
-  container.bind<DeleteDiagnosis>(DeleteDiagnosis).toSelf();
-  container.bind<FindReportsByDiagnosisId>(FindReportsByDiagnosisId).toSelf();
+  container.bind(TYPES.DiagnosisRepository).to(DiagnosisRepositoryImpl);
+  container.bind(TYPES.DiagnosisLoader).to(DiagnosisLoaderImpl);
+  container.bind(TYPES.ReportsRepository).to(ReportsRepositoryImpl);
+
+  container.bind(TYPES.FindDiagnosisUseCase).to(FindDiagnosisInteractor)
+  container.bind(TYPES.CreateDiagnosisUseCase).to(CreateDiagnosisInteractor)
+  container.bind(TYPES.DeleteDiagnosisUseCase).to(DeleteDiagnosisInteractor);
+  container.bind(TYPES.FindReportsByDiagnosisIdUseCase).to(FindReportsByDiagnosisIdInteractor);
+
   container.bind<DiagnosisController>(DiagnosisController).toSelf();
   container.bind<ReportsController>(ReportsController).toSelf();
 
