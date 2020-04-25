@@ -4,7 +4,7 @@ import {
   Entity,
   Index,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -13,8 +13,8 @@ import { ReportORM } from './report';
 
 @Entity('diagnosis')
 export class DiagnosisORM {
-  @PrimaryGeneratedColumn('uuid')
-  readonly id: string;
+  @PrimaryColumn('uuid')
+  id: string;
 
   @OneToMany(
     () => ReportORM,
@@ -37,9 +37,9 @@ export class DiagnosisORM {
 
   @Index()
   @CreateDateColumn({ type: 'timestamp with time zone' })
-  readonly createdAt: Date;
+  createdAt: Date;
 
   @Index()
   @UpdateDateColumn({ type: 'timestamp with time zone' })
-  readonly updatedAt: Date;
+  updatedAt: Date;
 }

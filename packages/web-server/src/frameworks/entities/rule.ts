@@ -11,5 +11,5 @@ export class RuleORM {
   type: RuleType;
 
   @Column('varchar', { length: 255 })
-  description?: string;
+  description: string;
 }

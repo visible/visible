@@ -4,7 +4,7 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from 'typeorm';
 
 import { Outcome } from '../../domain/models';
@@ -14,8 +14,8 @@ import { RuleORM } from './rule';
 
 @Entity('report')
 export class ReportORM {
-  @PrimaryGeneratedColumn('uuid')
-  readonly id: string;
+  @PrimaryColumn('uuid')
+  id: string;
 
   @Column('varchar', { length: 255 })
   outcome: Outcome;
@@ -39,5 +39,5 @@ export class ReportORM {
     pointer => pointer.report,
     { nullable: true },
   )
-  pointers: PointerORM[];
+  pointers?: PointerORM[];
 }

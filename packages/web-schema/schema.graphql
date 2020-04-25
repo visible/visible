@@ -1,3 +1,5 @@
+scalar Date
+
 enum RuleType {
   ATOMIC
   COMPOSITE
@@ -40,7 +42,7 @@ type CSSPointer {
   screenshot: String
 }
 
-union Pointer = HTMLPointer | CSSPointer;
+union Pointer = HTMLPointer | CSSPointer
 
 enum Outcome {
   FAIL
@@ -57,7 +59,7 @@ type Report {
   pointers: [Pointer!]!
 }
 
-enum DiagnosisStatus {
+enum Status {
   STARTED
   PROCESSING
   DONE
@@ -66,7 +68,7 @@ enum DiagnosisStatus {
 
 type Diagnosis {
   id: ID!
-  status: DiagnosisStatus!
+  status: Status!
   screenshot: String!
   reports: [Report!]!
   doneCount: Int!
@@ -91,4 +93,5 @@ type Subscription {
 schema {
   query: Query
   mutation: Mutation
+  subscription: Subscription
 }

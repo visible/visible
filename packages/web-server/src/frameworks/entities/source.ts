@@ -1,9 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('source')
 export class SourceORM {
-  @PrimaryGeneratedColumn('uuid')
-  readonly id: string;
+  @PrimaryColumn('uuid')
+  id: string;
 
   @Column('text')
   content: string;

@@ -10,9 +10,8 @@ export class ReportsRepositoryInMemoryImpl implements ReportsRepository {
     private reports = new Map<string, Report>(),
   ) {}
 
-  async findByDiagnosisId(id: string) {
-    return Array.from(this.reports.values()).filter(
-      report => report.diagnosisId === id,
-    );
+  async findByDiagnosisId(_id: string) {
+    // ReportにDiagnosis持たせる？
+    return this.reports.entries().next().value;
   }
 }

@@ -5,12 +5,15 @@ import { Connection } from 'typeorm';
 
 import { DiagnosisController } from './adapters/controllers/diagnosis-controller';
 import { ReportsController } from './adapters/controllers/reports-controller';
+import { CreateDiagnosisInteractor } from './application/interactors/create-diagnosis-interactor';
 import { DiagnosisRepository } from './application/repositories/diagnosis-repository';
 import { ReportsRepository } from './application/repositories/reports-repository';
-import { CreateDiagnosis } from './application/use-cases/create-diagnosis';
-import { DeleteDiagnosis } from './application/use-cases/delete-diagnosis';
-import { FindDiagnosis } from './application/use-cases/find-diagnosis';
-import { FindReportsByDiagnosisId } from './application/use-cases/find-reports-by-diagnosis-id';
+import {
+  CreateDiagnosisUseCase,
+  DeleteDiagnosisUseCase,
+  FindDiagnosisUseCase,
+  FindReportsByDiagnosisIdUseCase,
+} from './application/use-cases';
 import { createConnection } from './frameworks/connection';
 import { Context } from './frameworks/context';
 import {
@@ -32,7 +35,7 @@ import { TYPES } from './types';
   container.bind<ReportsRepository>(TYPES.ReportsRepository).to(ReportsRepositoryImpl);
 
   container.bind<FindDiagnosis>(FindDiagnosis).toSelf();
-  container.bind<CreateDiagnosis>(CreateDiagnosis).toSelf();
+  container.bind<CreateDiagnosisUseCase>(CreateDiagnosisInteractor).toSelf();
   container.bind<DeleteDiagnosis>(DeleteDiagnosis).toSelf();
   container.bind<FindReportsByDiagnosisId>(FindReportsByDiagnosisId).toSelf();
   container.bind<DiagnosisController>(DiagnosisController).toSelf();
