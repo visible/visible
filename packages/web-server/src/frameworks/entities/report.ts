@@ -3,11 +3,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { ReportType } from '../../domain/models';
+import { Outcome } from '../../domain/models';
 import { DiagnosisORM } from './diagnosis';
+import { PointerORM } from './pointer';
+import { RuleORM } from './rule';
 
 @Entity('report')
 export class ReportORM {
@@ -15,10 +18,14 @@ export class ReportORM {
   readonly id: string;
 
   @Column('varchar', { length: 255 })
-  name: string;
+  outcome: Outcome;
 
-  @Column('varchar', { length: 255 })
-  type: ReportType;
+  @ManyToOne(() => RuleORM, { cascade: true })
+  @JoinColumn()
+  rule: RuleORM;
+
+  @Column('varchar', { length: 255, nullable: true })
+  target?: string;
 
   @Column('varchar', { length: 255, nullable: true })
   message?: string;
@@ -27,12 +34,10 @@ export class ReportORM {
   @JoinColumn()
   diagnosis: DiagnosisORM;
 
-  @Column('varchar', { length: 255, nullable: true })
-  xpath?: string;
-
-  @Column('text', { nullable: true })
-  html?: string;
-
-  @Column('text', { nullable: true })
-  css?: string;
+  @OneToMany(
+    () => PointerORM,
+    pointer => pointer.report,
+    { nullable: true },
+  )
+  pointers: PointerORM[];
 }

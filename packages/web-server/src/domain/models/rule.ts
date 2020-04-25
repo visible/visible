@@ -1,4 +1,4 @@
-import { IsEnum, IsUUID, Length } from 'class-validator';
+import { IsEnum, Length } from 'class-validator';
 
 import { validateOrRejectSync } from '../../utils/validate-or-reject-sync';
 
@@ -14,7 +14,6 @@ export interface RuleConstructorParams {
 }
 
 export class Rule {
-  @IsUUID()
   readonly id: string;
 
   @IsEnum(RuleType)

@@ -1,25 +1,20 @@
 import {
+  Column,
   CreateDateColumn,
   Entity,
   Index,
-  JoinColumn,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+import { Status } from '../../domain/models';
 import { ReportORM } from './report';
-import { WebsiteORM } from './website';
 
 @Entity('diagnosis')
 export class DiagnosisORM {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
-
-  @ManyToOne(() => WebsiteORM)
-  @JoinColumn()
-  website: WebsiteORM;
 
   @OneToMany(
     () => ReportORM,
@@ -27,6 +22,18 @@ export class DiagnosisORM {
     { onDelete: 'SET NULL' },
   )
   reports: ReportORM[];
+
+  @Column('varchar', { length: 255 })
+  status: Status;
+
+  @Column('varchar', { length: 255 })
+  screenshot: string;
+
+  @Column('int')
+  doneCount: number;
+
+  @Column('int')
+  totalCount: number;
 
   @Index()
   @CreateDateColumn({ type: 'timestamp with time zone' })
