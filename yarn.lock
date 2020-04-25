@@ -4785,6 +4785,11 @@
   resolved "https://registry.yarnpkg.com/@types/valid-url/-/valid-url-1.0.2.tgz#60fa435ce24bfd5ba107b8d2a80796aeaf3a8f45"
   integrity sha1-YPpDXOJL/VuhB7jSqAeWrq86j0U=
 
+"@types/validator@13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.0.0.tgz#365f1bf936aeaddd0856fc41aa1d6f82d88ee5b3"
+  integrity sha512-WAy5txG7aFX8Vw3sloEKp5p/t/Xt8jD3GRD9DacnFv6Vo8ubudAsRTXgxpQwU0mpzY/H8U4db3roDuCMjShBmw==
+
 "@types/vfile-message@*":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/vfile-message/-/vfile-message-2.0.0.tgz#690e46af0fdfc1f9faae00cd049cc888957927d5"
@@ -7842,6 +7847,16 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
+
+class-validator@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.12.2.tgz#2ceb72f88873e9c714cf5f9c278cbc71f6f6c8ef"
+  integrity sha512-TDzPzp8BmpsbPhQpccB3jMUE/3pK0TyqamrK0kcx+ZeFytMA+O6q87JZZGObHHnoo9GM8vl/JppIyKWeEA/EVw==
+  dependencies:
+    "@types/validator" "13.0.0"
+    google-libphonenumber "^3.2.8"
+    tslib ">=1.9.0"
+    validator "13.0.0"
 
 classnames@^2.2.5:
   version "2.2.6"
@@ -11866,6 +11881,11 @@ good-listener@^1.2.2:
   integrity sha1-1TswzfkxPf+33JoNR3CWqm0UXFA=
   dependencies:
     delegate "^3.1.2"
+
+google-libphonenumber@^3.2.8:
+  version "3.2.8"
+  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.8.tgz#fb5898cbae18104d456e0fd80df52d860a3eb2b8"
+  integrity sha512-iWs1KcxOozmKQbCeGjvU0M7urrkNjBYOSBtb819RjkUNJHJLfn7DADKkKwdJTOMPLcLOE11/4h/FyFwJsTiwLg==
 
 got@^6.7.1:
   version "6.7.1"
@@ -22031,7 +22051,7 @@ tslib@1.10.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
-tslib@1.11.1, tslib@^1, tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@1.11.1, tslib@>=1.9.0, tslib@^1, tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
   integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
@@ -22711,6 +22731,11 @@ validate-npm-package-name@^3.0.0:
   integrity sha1-X6kS2B630MdK/BQN5zF/DKffQ34=
   dependencies:
     builtins "^1.0.3"
+
+validator@13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-13.0.0.tgz#0fb6c6bb5218ea23d368a8347e6d0f5a70e3bcab"
+  integrity sha512-anYx5fURbgF04lQV18nEQWZ/3wHGnxiKdG4aL8J+jEDsm98n/sU/bey+tYk6tnGJzm7ioh5FoqrAiQ6m03IgaA==
 
 value-or-function@^3.0.0:
   version "3.0.0"

@@ -1,16 +1,30 @@
-import { Location } from './location';
-import { Pointer } from './pointer';
-import { Source } from './source';
+import { Length } from 'class-validator';
+
+import { validateOrRejectSync } from '../../utils/validate-or-reject-sync';
+import { Pointer, PointerConstructorParams } from './pointer';
+
+export interface CSSPointerConstructorParams extends PointerConstructorParams {
+  readonly xpath: string;
+  readonly propertyName: string;
+}
 
 export class CSSPointer extends Pointer {
-  constructor(
-    readonly id: string,
-    readonly xpath: string,
-    readonly propertyName: string,
-    readonly source?: Source,
-    readonly location?: Location,
-    readonly screenshot?: string,
-  ) {
-    super(id, source, location, screenshot);
+  @Length(1, 255)
+  readonly xpath: string;
+
+  @Length(1, 255)
+  readonly propertyName: string;
+
+  constructor(params: CSSPointerConstructorParams) {
+    super({
+      id: params.id,
+      source: params.source,
+      location: params.location,
+      screenshot: params.screenshot,
+    });
+
+    this.xpath = params.xpath;
+    this.propertyName = params.propertyName;
+    validateOrRejectSync(this);
   }
 }
