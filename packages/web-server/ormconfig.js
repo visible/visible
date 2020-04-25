@@ -1,6 +1,6 @@
 require('dotenv').config({ path: '../../.env' });
 const path = require('path');
-const ctx = './dist/frameworks/database';
+const ctx = './dist/frameworks';
 
 module.exports = {
   type: 'postgres',
