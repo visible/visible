@@ -1,5 +1,5 @@
 const path = require('path');
-const ctx = '../../adapters/serializers';
+const ctx = '../../adapters/presenters';
 
 module.exports = {
   overwrite: true,
@@ -17,10 +17,10 @@ module.exports = {
           "import('type-fest').PartialDeep<T> | Promise<import('type-fest').PartialDeep<T>>",
         useIndexSignature: true,
         mappers: {
-          Diagnosis: path.join(ctx, './diagnosis-serializer#DiagnosisAPI'),
-          Report: path.join(ctx, './report-serializer#ReportAPI'),
-          ReportType: path.join(ctx, './report-serializer#ReportTypeAPI'),
-          Website: path.join(ctx, './website-serializer#WebsiteAPI'),
+          Diagnosis: path.join(ctx, './diagnosis-presenters#DiagnosisAPI'),
+          Report: path.join(ctx, './report-presenter#ReportAPI'),
+          ReportType: path.join(ctx, './report-presenter#ReportTypeAPI'),
+          Website: path.join(ctx, './website-presenter#WebsiteAPI'),
         },
       },
     },

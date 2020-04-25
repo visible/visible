@@ -16,7 +16,7 @@ export type DiagnosisAPI = PartialDeep<{
   reports: ReportAPI[];
 }>;
 
-export class DiagnosisSerializer {
+export class DiagnosisPresenter {
   transformOne(diagnosis: Diagnosis): DiagnosisAPI {
     return {
       id: diagnosis.id,

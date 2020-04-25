@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 
 import { FindReportsByDiagnosisId } from '../../application/use-cases/find-reports-by-diagnosis-id';
-import { ReportSerializer } from '../serializers/report-serializer';
+import { ReportSerializer } from '../presenters/report-serializer';
 
 @injectable()
 export class ReportsController {

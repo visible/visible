@@ -1,16 +1,16 @@
 import { Diagnosis } from '../../../domain/models';
-import { DiagnosisSerializer } from '../diagnosis-serializer';
+import { DiagnosisPresenter } from '../diagnosis-presenter';
 
-describe('DiagnosisSerializer', () => {
-  let diagnosisSerializer: DiagnosisSerializer;
+describe('DiagnosisPresenter', () => {
+  let diagnosisPresenter: DiagnosisPresenter;
 
   beforeAll(() => {
-    diagnosisSerializer = new DiagnosisSerializer();
+    diagnosisPresenter = new DiagnosisPresenter();
   });
 
   it('serializes properly', () => {
     const diagnosis = new Diagnosis('123', [], new Date(), new Date());
-    const result = diagnosisSerializer.transformOne(diagnosis);
+    const result = diagnosisPresenter.transformOne(diagnosis);
 
     expect(result).toEqual({
       id: '123',

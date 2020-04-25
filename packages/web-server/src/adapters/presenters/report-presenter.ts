@@ -17,7 +17,7 @@ export type ReportAPI = {
   html?: string;
 };
 
-export class ReportSerializer {
+export class ReportPresenter {
   private serializeType = (type: ReportType): ReportTypeAPI => {
     switch (type) {
       case ReportType.ERROR:
