@@ -1,7 +1,9 @@
+import { injectable } from 'inversify';
 import log4js from 'log4js';
 
 import { Logger } from '../domain/services/logger';
 
+@injectable()
 export class LoggerImpl implements Logger {
   private readonly logger = log4js
     .configure({

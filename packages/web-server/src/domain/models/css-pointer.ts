@@ -1,14 +1,15 @@
 import { Length } from 'class-validator';
 
 import { validateOrRejectSync } from '../../utils/validate-or-reject-sync';
-import { Pointer, PointerConstructorParams } from './pointer';
+import { BasePointer, BasePointerConstructorParams } from './base-pointer';
 
-export interface CSSPointerConstructorParams extends PointerConstructorParams {
+export interface CSSPointerConstructorParams
+  extends BasePointerConstructorParams {
   readonly xpath: string;
   readonly propertyName: string;
 }
 
-export class CSSPointer extends Pointer {
+export class CSSPointer extends BasePointer {
   @Length(1, 255)
   readonly xpath: string;
 

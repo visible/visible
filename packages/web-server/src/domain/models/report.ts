@@ -1,7 +1,7 @@
 import { IsEnum, IsOptional, IsUUID, Length } from 'class-validator';
 
 import { validateOrRejectSync } from '../../utils/validate-or-reject-sync';
-import { Pointer } from './pointer';
+import { Pointer } from './base-pointer';
 import { Rule } from './rule';
 
 export enum Outcome {

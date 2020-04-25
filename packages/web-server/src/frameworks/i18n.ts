@@ -1,9 +1,11 @@
 import i18nextDefault, { i18n } from 'i18next';
 import { LanguageDetector } from 'i18next-express-middleware';
 import Backend from 'i18next-node-fs-backend';
+import { injectable } from 'inversify';
 
 import { I18n } from '../domain/services/i18n';
 
+@injectable()
 export class I18nImpl implements I18n {
   private readonly i18next: i18n;
 

@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
 
 import { ReportsRepository } from '../../application/repositories';
-import { Report } from '../../domain/models';
+import { CSSPointer, HTMLPointer, Report } from '../../domain/models';
 import { TYPES } from '../../types';
 import { DiagnosisORM, ReportORM } from '../entities';
 import { PointerRepositoryImpl } from './pointer-repository-impl';
@@ -19,8 +19,10 @@ export class ReportsRepositoryImpl implements ReportsRepository {
       outcome: report.outcome,
       target: report.target,
       message: report.message,
-      // たまたまプロパティが合致してるので代入できてしまっている
-      pointers: report.pointers,
+      pointers: [
+        ...(report.htmlPointers ?? []),
+        ...(report.cssPointers ?? []),
+      ].map(pointer => PointerRepositoryImpl.toDomain(pointer)),
     });
   }
 
@@ -32,9 +34,14 @@ export class ReportsRepositoryImpl implements ReportsRepository {
     entity.target = domain.target;
     entity.message = domain.message;
     entity.diagnosis = diagnosis;
-    entity.pointers = domain.pointers?.map(pointer =>
-      PointerRepositoryImpl.toORM(pointer, entity),
-    );
+    entity.htmlPointers = domain.pointers
+      ?.filter(pointer => pointer instanceof HTMLPointer)
+      .map(pointer => PointerRepositoryImpl.toHTMLPointerORM(pointer, entity));
+    entity.cssPointers = domain.pointers
+      ?.filter(
+        (pointer): pointer is CSSPointer => pointer instanceof CSSPointer,
+      )
+      .map(pointer => PointerRepositoryImpl.toCSSPointerORM(pointer, entity));
 
     return entity;
   }

@@ -8,8 +8,9 @@ import {
 } from 'typeorm';
 
 import { Outcome } from '../../domain/models';
+import { CSSPointerORM } from './css-pointer';
 import { DiagnosisORM } from './diagnosis';
-import { PointerORM } from './pointer';
+import { HTMLPointerORM } from './html-pointer';
 import { RuleORM } from './rule';
 
 @Entity('report')
@@ -35,9 +36,16 @@ export class ReportORM {
   diagnosis: DiagnosisORM;
 
   @OneToMany(
-    () => PointerORM,
+    () => HTMLPointerORM,
     pointer => pointer.report,
     { nullable: true },
   )
-  pointers?: PointerORM[];
+  htmlPointers?: HTMLPointerORM[];
+
+  @OneToMany(
+    () => CSSPointerORM,
+    pointer => pointer.report,
+    { nullable: true },
+  )
+  cssPointers?: CSSPointerORM[];
 }
