@@ -22,7 +22,8 @@ export class CreateDiagnosisInteractor implements CreateDiagnosisUseCase {
     const diagnosis = new Diagnosis({
       id: uuid(),
       status: Status.STARTED,
-      screenshot: '',
+      url: params.url,
+      screenshot: 'https://example.com',
       reports: [],
       totalCount: 0,
       doneCount: 0,
@@ -31,6 +32,7 @@ export class CreateDiagnosisInteractor implements CreateDiagnosisUseCase {
     });
 
     await this.repository.create(diagnosis);
+    await this.repository.queue(diagnosis);
 
     return { diagnosis };
   }
