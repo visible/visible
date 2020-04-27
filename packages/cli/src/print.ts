@@ -1,48 +1,60 @@
-const makeCodeFrame = require('@babel/code-frame').default;
-import { Report, ReportLevel } from '@visi/core/main';
+import { codeFrameColumns } from '@babel/code-frame';
+import { Report, Source } from '@visi/core/main';
 import chalk from 'chalk';
-// import { highlight } from 'cli-highlight';
-import { TFunction } from 'i18next';
-import prettier from 'prettier';
 
-const mapLevelToColor = (level: ReportLevel) => {
-  switch (level) {
-    case 'error':
-      return chalk.red;
-    case 'warn':
-      return chalk.yellow;
-    case 'ok':
-      return chalk.green;
-    default:
-      return chalk.white;
-  }
-};
+import { i18next } from './i18next';
 
-export const print = async (
+const t = i18next.t.bind(i18next);
+
+export const print = (
   report: Report,
+  sources: Map<string, Source>,
   json: boolean,
-  t: TFunction,
-  fix: boolean,
+  _fix: boolean,
 ) => {
-  const fixture = fix && report.fix ? await report.fix() : undefined;
-
   if (json) {
     // eslint-disable-next-line no-console
-    return console.log(JSON.stringify([report, fixture]));
+    return console.log(JSON.stringify(report, undefined, 2));
   }
 
-  const source = report.content?.html ?? '';
-  const formattedSource = prettier.format(source, { parser: 'html' });
+  if (report.outcome === 'inapplicable') {
+    return;
+  }
 
-  const codeFrame = makeCodeFrame(formattedSource, 1, 0, {
-    highlightCode: true,
-  });
+  const codeFrame = report.pointers
+    .map(pointer => {
+      const { sourceId, location } = pointer;
+
+      if (!location || !sourceId) {
+        return chalk.grey(
+          t(
+            'code-frame.unavailable',
+            '(Code frame is not available for this node)',
+          ),
+        );
+      }
+
+      const source = sources.get(sourceId);
+      if (!source) {
+        throw new Error(`Unmapped source given ${sourceId}`);
+      }
+
+      const loc = {
+        start: { line: location.startLine, column: location.startColumn },
+        end: { line: location.endLine, column: location.endColumn },
+      };
+
+      return codeFrameColumns(source.content, loc, { highlightCode: true });
+    })
+    .join('\n');
 
   const output = [
-    mapLevelToColor(report.level).bold(report.rule + ': ') + report.message,
+    chalk.bold(
+      chalk.red(report.rule.id) +
+        ' ' +
+        (report.outcome === 'fail' ? report.message : 'passed'),
+    ),
     codeFrame,
-    chalk.italic.grey('location: ' + report.content?.xpath),
-    '\n',
   ].join('\n');
 
   // eslint-disable-next-line no-console

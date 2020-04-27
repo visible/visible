@@ -1,7 +1,11 @@
 {
+  "code-frame": {
+    "unavailable": "(Code frame is not available for this node)"
+  },
   "options": {
     "fix": "Prints fixers",
     "json": "Output JSON instead of prettified table",
+    "silent": "Disables progress bar",
     "url": "URL to diagnose",
     "verbose": "Prints all reports including passed one"
   },
@@ -11,7 +15,7 @@
       "description": "Initialize .visiblerc file",
       "done": "🎉 Initialization completed!!"
     },
-    "loading": "Fetching diagnoses...",
-    "no-rc": "No visiblerc file found"
+    "no-rc": "No visiblerc file found",
+    "start": "🦉 Diagnosing {{name}} at {{url}}..."
   }
 }

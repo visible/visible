@@ -1,10 +1,5 @@
 fragment ReportSmall on Report {
   id
-	type
-  message
-  html
-  xpath
-  css
 }
 
 fragment DiagnosisSmall on Diagnosis {

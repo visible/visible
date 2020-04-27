@@ -1,16 +1,17 @@
 import { inject, injectable } from 'inversify';
 
-import { FindReportsByDiagnosisId } from '../../application/use-cases/find-reports-by-diagnosis-id';
-import { ReportSerializer } from '../serializers/report-serializer';
+import { FindReportsByDiagnosisIdUseCase } from '../../application/use-cases/find-reports-by-diagnosis-id-use-case';
+import { TYPES } from '../../types';
+import { transformReport } from '../serializers/serializers';
 
 @injectable()
 export class ReportsController {
-  @inject(FindReportsByDiagnosisId)
-  private findReportsByDiagnosisId: FindReportsByDiagnosisId;
+  @inject(TYPES.FindDiagnosisUseCase)
+  private findReportsByDiagnosisId: FindReportsByDiagnosisIdUseCase;
 
   async findByDiagnosisId(id: string) {
-    const result = await this.findReportsByDiagnosisId.run(id);
-    const output = new ReportSerializer().serialize(result);
+    const { reports } = await this.findReportsByDiagnosisId.run({ id });
+    const output = reports.map(report => transformReport(report));
     return output;
   }
 }
