@@ -1,0 +1,309 @@
+{
+  "nodeId": 23,
+  "backendNodeId": 3,
+  "nodeType": 9,
+  "nodeName": "#document",
+  "localName": "",
+  "nodeValue": "",
+  "childNodeCount": 2,
+  "children": [
+    {
+      "nodeId": 24,
+      "parentId": 23,
+      "backendNodeId": 9,
+      "nodeType": 10,
+      "nodeName": "html",
+      "localName": "",
+      "nodeValue": "",
+      "publicId": "",
+      "systemId": ""
+    },
+    {
+      "nodeId": 25,
+      "parentId": 23,
+      "backendNodeId": 10,
+      "nodeType": 1,
+      "nodeName": "HTML",
+      "localName": "html",
+      "nodeValue": "",
+      "childNodeCount": 2,
+      "children": [
+        {
+          "nodeId": 26,
+          "parentId": 25,
+          "backendNodeId": 11,
+          "nodeType": 1,
+          "nodeName": "HEAD",
+          "localName": "head",
+          "nodeValue": "",
+          "childNodeCount": 7,
+          "children": [
+            {
+              "nodeId": 27,
+              "parentId": 26,
+              "backendNodeId": 12,
+              "nodeType": 1,
+              "nodeName": "SCRIPT",
+              "localName": "script",
+              "nodeValue": "",
+              "childNodeCount": 0,
+              "children": [],
+              "attributes": [
+                "type",
+                "text/javascript",
+                "src",
+                "https://codesandbox.io/public/sse-hooks/sse-hooks.js"
+              ]
+            },
+            {
+              "nodeId": 28,
+              "parentId": 26,
+              "backendNodeId": 13,
+              "nodeType": 1,
+              "nodeName": "META",
+              "localName": "meta",
+              "nodeValue": "",
+              "childNodeCount": 0,
+              "children": [],
+              "attributes": [
+                "charset",
+                "UTF-8"
+              ]
+            },
+            {
+              "nodeId": 29,
+              "parentId": 26,
+              "backendNodeId": 14,
+              "nodeType": 1,
+              "nodeName": "META",
+              "localName": "meta",
+              "nodeValue": "",
+              "childNodeCount": 0,
+              "children": [],
+              "attributes": [
+                "name",
+                "viewport",
+                "content",
+                "width=device-width, initial-scale=1.0"
+              ]
+            },
+            {
+              "nodeId": 30,
+              "parentId": 26,
+              "backendNodeId": 15,
+              "nodeType": 1,
+              "nodeName": "META",
+              "localName": "meta",
+              "nodeValue": "",
+              "childNodeCount": 0,
+              "children": [],
+              "attributes": [
+                "http-equiv",
+                "X-UA-Compatible",
+                "content",
+                "ie=edge"
+              ]
+            },
+            {
+              "nodeId": 31,
+              "parentId": 26,
+              "backendNodeId": 16,
+              "nodeType": 1,
+              "nodeName": "TITLE",
+              "localName": "title",
+              "nodeValue": "",
+              "childNodeCount": 1,
+              "children": [
+                {
+                  "nodeId": 32,
+                  "parentId": 31,
+                  "backendNodeId": 17,
+                  "nodeType": 3,
+                  "nodeName": "#text",
+                  "localName": "",
+                  "nodeValue": "Static Template"
+                }
+              ],
+              "attributes": []
+            },
+            {
+              "nodeId": 33,
+              "parentId": 26,
+              "backendNodeId": 6,
+              "nodeType": 1,
+              "nodeName": "LINK",
+              "localName": "link",
+              "nodeValue": "",
+              "childNodeCount": 0,
+              "children": [],
+              "attributes": [
+                "href",
+                "/style.css",
+                "rel",
+                "stylesheet"
+              ]
+            },
+            {
+              "nodeId": 34,
+              "parentId": 26,
+              "backendNodeId": 18,
+              "nodeType": 1,
+              "nodeName": "SCRIPT",
+              "localName": "script",
+              "nodeValue": "",
+              "childNodeCount": 1,
+              "children": [
+                {
+                  "nodeId": 35,
+                  "parentId": 34,
+                  "backendNodeId": 19,
+                  "nodeType": 3,
+                  "nodeName": "#text",
+                  "localName": "",
+                  "nodeValue": "var __VISIBLE_EMBED__ = (function (exports) {\n    'use strict';\n\n    /*! *****************************************************************************\r\n    Copyright (c) Microsoft Corporation. All rights reserved.\r\n    Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use\r\n    this file except in compliance with the License. You may obtain a copy of the\r\n    License at http://www.apache.org/licenses/LICENSE-2.0\r\n\r\n    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\r\n    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED\r\n    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,\r\n    MERCHANTABLITY OR NON-INFRINGEMENT.\r\n\r\n    See the Apache Version 2.0 License for specific language governing permissions\r\n    and limitations under the License.\r\n    ***************************************************************************** */\r\n\r\n    function __awaiter(thisArg, _arguments, P, generator) {\r\n        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\r\n        return new (P || (P = Promise))(function (resolve, reject) {\r\n            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\r\n            function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\r\n            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\r\n            step((generator = generator.apply(thisArg, _arguments || [])).next());\r\n        });\r\n    }\n\n    const config = window.__VISIBLE_CONFIG__;\r\n    const plugins = window.__VISIBLE_PLUGINS__;\n\n    const loadPlugins = (moduleResolverHost = 'https://localhost') => __awaiter(void 0, void 0, void 0, function* () {\r\n        var _a;\r\n        const pluginNames = (_a = config.plugins) !== null && _a !== void 0 ? _a : [];\r\n        for (const pluginName of pluginNames) {\r\n            const url = new URL(moduleResolverHost);\r\n            url.pathname = pluginName;\r\n            const plugin = yield import(url.href).then(plugin => plugin.default);\r\n            plugins.push(plugin);\r\n        }\r\n    });\n\n    const listRules = () => __awaiter(void 0, void 0, void 0, function* () {\r\n        return window.__VISIBLE_PLUGINS__\r\n            .flatMap(plugin => plugin.rules)\r\n            .map(rule => rule.id);\r\n    });\r\n    const isConstructor = (rule) => 'constructor' in rule;\r\n    const processRule = (id) => __awaiter(void 0, void 0, void 0, function* () {\r\n        const _rule = window.__VISIBLE_PLUGINS__\r\n            .flatMap(plugin => plugin.rules)\r\n            .find(rule => rule.id === id);\r\n        if (_rule == null) {\r\n            throw new Error(`no such rule ${id}`);\r\n        }\r\n        const rule = isConstructor(_rule) ? new _rule() : _rule;\r\n        const reports = yield rule.run();\r\n        return reports;\r\n    });\n\n    const onReady = () => __awaiter(void 0, void 0, void 0, function* () {\r\n        yield Promise.all([loadPlugins()]);\r\n    });\n\n    exports.listRules = listRules;\n    exports.loadPlugins = loadPlugins;\n    exports.onReady = onReady;\n    exports.processRule = processRule;\n\n    return exports;\n\n}({}));\n//# sourceURL=/Users/nucx/.ghq/github.com/visible/visible/packages/core/dist/embed/index.js"
+                }
+              ],
+              "attributes": [
+                "type",
+                ""
+              ]
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "nodeId": 36,
+          "parentId": 25,
+          "backendNodeId": 20,
+          "nodeType": 1,
+          "nodeName": "BODY",
+          "localName": "body",
+          "nodeValue": "",
+          "childNodeCount": 5,
+          "children": [
+            {
+              "nodeId": 37,
+              "parentId": 36,
+              "backendNodeId": 4,
+              "nodeType": 1,
+              "nodeName": "H1",
+              "localName": "h1",
+              "nodeValue": "",
+              "childNodeCount": 1,
+              "children": [
+                {
+                  "nodeId": 38,
+                  "parentId": 37,
+                  "backendNodeId": 21,
+                  "nodeType": 3,
+                  "nodeName": "#text",
+                  "localName": "",
+                  "nodeValue": "This is a static template, there is no bundler or bundling involved!"
+                }
+              ],
+              "attributes": []
+            },
+            {
+              "nodeId": 39,
+              "parentId": 36,
+              "backendNodeId": 7,
+              "nodeType": 1,
+              "nodeName": "IMG",
+              "localName": "img",
+              "nodeValue": "",
+              "childNodeCount": 0,
+              "children": [],
+              "attributes": [
+                "src",
+                "https://neet.love/static/1946f60a645da532835e50cad8ed44ae/685db/avatar.jpg"
+              ]
+            },
+            {
+              "nodeId": 40,
+              "parentId": 36,
+              "backendNodeId": 5,
+              "nodeType": 1,
+              "nodeName": "BUTTON",
+              "localName": "button",
+              "nodeValue": "",
+              "childNodeCount": 1,
+              "children": [
+                {
+                  "nodeId": 41,
+                  "parentId": 40,
+                  "backendNodeId": 22,
+                  "nodeType": 3,
+                  "nodeName": "#text",
+                  "localName": "",
+                  "nodeValue": "\n      foo\n    "
+                }
+              ],
+              "attributes": [
+                "class",
+                "a"
+              ]
+            },
+            {
+              "nodeId": 42,
+              "parentId": 36,
+              "backendNodeId": 23,
+              "nodeType": 1,
+              "nodeName": "SCRIPT",
+              "localName": "script",
+              "nodeValue": "",
+              "childNodeCount": 0,
+              "children": [],
+              "attributes": [
+                "crossorigin",
+                "",
+                "type",
+                "text/javascript",
+                "src",
+                "https://codesandbox.io/static/js/watermark-button.b90db4dc7.js"
+              ]
+            },
+            {
+              "nodeId": 43,
+              "parentId": 36,
+              "backendNodeId": 24,
+              "nodeType": 1,
+              "nodeName": "IFRAME",
+              "localName": "iframe",
+              "nodeValue": "",
+              "childNodeCount": 0,
+              "children": [],
+              "attributes": [
+                "id",
+                "sb__open-sandbox7",
+                "style",
+                "\n      position: fixed;\n      margin: 0;\n      padding: 0;\n      bottom: 16px;\n      right: 16px;\n      border: none;\n      width: 118px;\n      height: 36px;\n      z-index: 9999999999999;\n    "
+              ],
+              "frameId": "543C5DC7F8F00410E9711671F079F2C1",
+              "contentDocument": {
+                "nodeId": 44,
+                "backendNodeId": 25,
+                "nodeType": 9,
+                "nodeName": "#document",
+                "localName": "",
+                "nodeValue": "",
+                "childNodeCount": 1,
+                "documentURL": "about:blank",
+                "baseURL": "https://djmnj.csb.app/",
+                "xmlVersion": ""
+              }
+            }
+          ],
+          "attributes": []
+        }
+      ],
+      "attributes": [
+        "lang",
+        "en"
+      ],
+      "frameId": "C357008BA6C6EF4ED288D93B3C5FD906"
+    }
+  ],
+  "documentURL": "https://djmnj.csb.app/",
+  "baseURL": "https://djmnj.csb.app/",
+  "xmlVersion": ""
+}

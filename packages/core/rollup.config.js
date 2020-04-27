@@ -33,10 +33,10 @@ export default [
     ],
   },
   {
-    input: ['./src/embed/index.ts'],
+    input: ['./src/renderer/gateway/index.ts'],
     output: {
-      file: './dist/embed/index.js',
-      name: '__VISIBLE_EMBED__',
+      file: './dist/gateway/index.js',
+      name: '__VISIBLE_GATEWAY__',
       format: 'iife',
     },
     plugins: [

@@ -1,40 +1,48 @@
 import 'reflect-metadata';
 
+import dotenv from 'dotenv';
 import { Container } from 'inversify';
+import path from 'path';
 import { Connection } from 'typeorm';
 
-import { DiagnosisController } from './adapters/controllers/diagnosis-controller';
-import { ReportsController } from './adapters/controllers/reports-controller';
-import { DiagnosisRepository } from './application/repositories/diagnosis-repository';
-import { ReportsRepository } from './application/repositories/reports-repository';
-import { CreateDiagnosis } from './application/use-cases/create-diagnosis';
-import { DeleteDiagnosis } from './application/use-cases/delete-diagnosis';
-import { FindDiagnosis } from './application/use-cases/find-diagnosis';
-import { FindReportsByDiagnosisId } from './application/use-cases/find-reports-by-diagnosis-id';
-import { Context } from './frameworks/context';
-import { createConnection } from './frameworks/database/connection';
+import { DiagnosisController, ReportsController } from './adapters/controllers';
 import {
-  DiagnosisLoader,
-  DiagnosisLoaderImpl,
-} from './frameworks/database/loaders/diagnosis-loader';
-import { DiagnosisRepositoryImpl } from './frameworks/database/repositories/diagnosis-repository-impl';
-import { ReportsRepositoryImpl } from './frameworks/database/repositories/reports-repository-impl';
+  CreateDiagnosisInteractor,
+  DeleteDiagnosisInteractor,
+  FindDiagnosisInteractor,
+  FindReportsByDiagnosisIdInteractor,
+} from './application/interactors';
+import { createConnection } from './frameworks/connection';
+import { Context } from './frameworks/context';
+import { I18nImpl } from './frameworks/i18n';
+import { DiagnosisLoaderImpl } from './frameworks/loaders/diagnosis-loader';
+import { LoggerImpl } from './frameworks/logger';
+import {
+  DiagnosisRepositoryImpl,
+  ReportsRepositoryImpl,
+} from './frameworks/repositories';
 import { Server } from './frameworks/server';
 import { TYPES } from './types';
+
+dotenv.config({ path: path.resolve('../../.env') });
 
 // prettier-ignore
 (async () => {
   const container = new Container();
   const connection = await createConnection();
 
-  container.bind<DiagnosisRepository>(TYPES.DiagnosisRepository).to(DiagnosisRepositoryImpl);
-  container.bind<DiagnosisLoader>(TYPES.DiagnosisLoader).to(DiagnosisLoaderImpl);
-  container.bind<ReportsRepository>(TYPES.ReportsRepository).to(ReportsRepositoryImpl);
+  container.bind(TYPES.I18n).to(I18nImpl);
+  container.bind(TYPES.Logger).to(LoggerImpl);
 
-  container.bind<FindDiagnosis>(FindDiagnosis).toSelf();
-  container.bind<CreateDiagnosis>(CreateDiagnosis).toSelf();
-  container.bind<DeleteDiagnosis>(DeleteDiagnosis).toSelf();
-  container.bind<FindReportsByDiagnosisId>(FindReportsByDiagnosisId).toSelf();
+  container.bind(TYPES.DiagnosisRepository).to(DiagnosisRepositoryImpl);
+  container.bind(TYPES.DiagnosisLoader).to(DiagnosisLoaderImpl);
+  container.bind(TYPES.ReportsRepository).to(ReportsRepositoryImpl);
+
+  container.bind(TYPES.FindDiagnosisUseCase).to(FindDiagnosisInteractor)
+  container.bind(TYPES.CreateDiagnosisUseCase).to(CreateDiagnosisInteractor)
+  container.bind(TYPES.DeleteDiagnosisUseCase).to(DeleteDiagnosisInteractor);
+  container.bind(TYPES.FindReportsByDiagnosisIdUseCase).to(FindReportsByDiagnosisIdInteractor);
+
   container.bind<DiagnosisController>(DiagnosisController).toSelf();
   container.bind<ReportsController>(ReportsController).toSelf();
 

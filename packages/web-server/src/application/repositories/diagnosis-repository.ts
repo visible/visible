@@ -1,9 +1,9 @@
-import { Diagnosis } from '../../enterprise/entities/diagnosis';
-
-export type CreateParam = Pick<Diagnosis, 'reports'>;
+import { Diagnosis } from '../../domain/models/diagnosis';
 
 export interface DiagnosisRepository {
   find(id: readonly string[]): Promise<Diagnosis[]>;
-  create(diagnosis: CreateParam): Promise<Diagnosis>;
+  update(diagnosis: Diagnosis): Promise<Diagnosis>;
+  create(diagnosis: Diagnosis): Promise<Diagnosis>;
   delete(id: string): Promise<string>;
+  queue(diagnosis: Diagnosis): Promise<void>;
 }

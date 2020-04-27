@@ -1,28 +1,26 @@
-export type ReportLevel = 'ok' | 'warn' | 'error';
+import { Pointer } from './pointer';
+import { RuleMetadata } from './rule-metadata';
 
-export interface ReportContent {
-  readonly html?: string;
-  readonly xpath?: string;
-  readonly style?: string;
+export interface BaseReport {
+  readonly rule: RuleMetadata;
 }
 
-export interface Report {
-  /** Unique name of the report type (e.g. img-alt) */
-  readonly type: string;
-  /** Level of the report */
-  readonly level: ReportLevel;
-  /** Unique name of the rule */
-  readonly rule: string;
-  /** User-readable message for the report */
-  readonly message?: string;
-  /** Web content which affected to the report */
-  readonly content?: ReportContent;
-  /** Way to fix this report (WIP) */
-  readonly fix?: () => Promise<Partial<ReportContent>>;
+export interface TargetAndPointers {
+  readonly target: string;
+  readonly pointers: Pointer[];
 }
 
-export interface ReportProgress {
-  reports: Report[];
-  totalCount: number;
-  doneCount: number;
+export interface InapplicableReport extends BaseReport {
+  readonly outcome: 'inapplicable';
 }
+
+export interface PassedReport extends BaseReport, TargetAndPointers {
+  readonly outcome: 'passed';
+}
+
+export interface FailReport extends BaseReport, TargetAndPointers {
+  readonly outcome: 'fail';
+  readonly message: string;
+}
+
+export type Report = InapplicableReport | PassedReport | FailReport;

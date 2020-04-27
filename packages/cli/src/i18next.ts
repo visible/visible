@@ -1,8 +1,8 @@
 import i18nextDefault from 'i18next';
 import I18nextCLILanguageDetector from 'i18next-cli-language-detector';
 
-import en from './locale/en.json';
 // import Backend from 'i18next-node-fs-backend';
+import en from './locale/en.json';
 import ja from './locale/ja.json';
 
 export const i18next = i18nextDefault.createInstance();

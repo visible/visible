@@ -1,17 +1,21 @@
 {
+  "code-frame": {
+    "unavailable": "(Code frame is not available for this node)"
+  },
   "options": {
-    "fix": "Prints fixers",
+    "fix": "修正を表示します",
     "json": "整形済みテーブルの代わりにJSONデータを出力します",
+    "silent": "プログレスバーを非表示にします",
     "url": "診断するURL",
     "verbose": "合格したレポートを含めた全てのレポートを表示する"
   },
   "visible": {
     "description": "デフォルトのコマンド",
     "init": {
-      "description": "Initialize .visiblerc file",
-      "done": "🎉 Initialization completed!!"
+      "description": ".visiblercファイルを生成します",
+      "done": "🎉 設定が完了しました!!"
     },
-    "loading": "診断を取得中...",
-    "no-rc": "visiblercファイルが見つかりませんでした。"
+    "no-rc": "visiblercファイルが見つかりませんでした。",
+    "start": "🦉 {{url}}から「{{name}}」を診断中..."
   }
 }

@@ -4,10 +4,7 @@ import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import {
-  ReportType,
-  useFetchDiagnosisSmallQuery,
-} from '../../generated/graphql';
+import { useFetchDiagnosisSmallQuery } from '../../generated/graphql';
 import { useTranslation } from '../../utils/i18next';
 import { withApollo } from '../../utils/with-apollo';
 
@@ -49,17 +46,11 @@ const Diagnoses: NextPage = () => {
 
       <h1>{title}</h1>
 
-      {diagnosis.reports
-        .filter(report => report.type !== ReportType.Ok)
-        .map(report => (
-          <div key={report.id}>
-            <h2>{report.type}</h2>
-            <span>@{report.xpath}</span>
-            <p>{report.message}</p>
-            <UI.Code language="html">{report.html ?? ''}</UI.Code>
-            <UI.Code language="css">{report.css ?? ''}</UI.Code>
-          </div>
-        ))}
+      {diagnosis.reports.map(report => (
+        <div key={report.id}>
+          <h2>{report.id}</h2>
+        </div>
+      ))}
     </UI.Content>
   );
 };

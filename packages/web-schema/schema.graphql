@@ -1,84 +1,84 @@
-interface Actor {
-  id: ID!
-  name: String!
-  websites: [Website!]
+scalar Date
+
+enum RuleType {
+  ATOMIC
+  COMPOSITE
 }
 
-type Account implements Actor {
+type Rule {
   id: ID!
-  name: String!
-  websites: [Website!]
+  type: RuleType!
+  description: String!
 }
 
-type Organization implements Actor {
+type Source {
   id: ID!
-  name: String!
-  websites: [Website!]
+  content: String!
+  title: String
+  url: String
 }
 
-type Credential implements Actor {
-  id: ID!
-  email: String!
-  name: String!
-  websites: [Website!]
+type Location {
+  startLine: Int!
+  startColumn: Int!
+  endLine: Int!
+  endColumn: Int!
 }
 
-enum ReportType {
-  OK
-  WARN
-  ERROR
+type HTMLPointer {
+  id: ID!
+  xpath: String!
+  source: Source
+  location: Location
+  screenshot: String
+}
+
+type CSSPointer {
+  id: ID!
+  xpath: String!
+  propertyName: String!
+  source: Source
+  location: Location
+  screenshot: String
+}
+
+union Pointer = HTMLPointer | CSSPointer
+
+enum Outcome {
+  FAIL
+  PASSED
+  INAPPLICABLE
 }
 
 type Report {
   id: ID!
-  type: ReportType!
-  name: String!
+  outcome: Outcome!
+  rule: Rule!
+  target: String
   message: String
-  html: String
-  xpath: String
-  css: String
+  pointers: [Pointer!]!
 }
 
-type Website {
-  id: ID!
-  name: String!
-  description: String!
-  domain: String!
-  diagnoses: [Diagnosis!]
-}
-
-type Score {
-  error: Int!
-  warn: Int!
-  ok: Int!
-}
-
-type Diagnosis {
-  id: ID!
-  score: Score!
-  screenshot: String!
-  reports: [Report!]!
-  # website: Website!
-}
-
-enum DiagnosisProgressStatus {
+enum Status {
   STARTED
   PROCESSING
   DONE
   FAILED
 }
 
-type DiagnosisProgress {
+type Diagnosis {
   id: ID!
-  status: DiagnosisProgressStatus!
-  progress: Int!
+  status: Status!
+  screenshot: String!
+  reports: [Report!]!
+  doneCount: Int!
+  totalCount: Int!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 type Query {
   diagnosis(id: ID!): Diagnosis!
-  account(id: ID!): Account!
-  organization(id: ID!): Organization!
-  credential: Credential!
 }
 
 type Mutation {
@@ -87,10 +87,11 @@ type Mutation {
 }
 
 type Subscription {
-  diagnosisProgress(id: ID!): DiagnosisProgress!
+  diagnosis(id: ID!): Diagnosis!
 }
 
 schema {
   query: Query
   mutation: Mutation
+  subscription: Subscription
 }

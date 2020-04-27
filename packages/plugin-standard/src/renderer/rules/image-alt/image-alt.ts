@@ -1,17 +1,25 @@
-import { BaseRule, Report, ReportContent, Rule, t } from '@visi/core/renderer';
+import { $$, createXPath, Report, RuleClass, t } from '@visi/core/renderer';
 
-import { $$ } from '../../utils/$$';
-import { createXPath } from '../../utils/create-xpath';
+export class ImgAltRule implements RuleClass {
+  static id = 'img-alt';
+  static type = 'atomic' as const;
+  static description = t(
+    'plugin-standard:img-alt.description',
+    'Checks img has alt',
+  );
 
-export class ImgAltRule extends BaseRule implements Rule {
-  static meta = {
-    name: 'img-alt',
-    description: 'Checks img has alt',
-  };
-
-  async audit() {
+  async run() {
     const elements = $$('img');
     const reports: Report[] = [];
+
+    if (elements.length === 0) {
+      const report: Report = {
+        rule: ImgAltRule,
+        outcome: 'inapplicable',
+      };
+
+      return [report];
+    }
 
     for (const element of elements) {
       const report = await this.createReport(element);
@@ -21,39 +29,27 @@ export class ImgAltRule extends BaseRule implements Rule {
     return reports;
   }
 
-  async fix(content: ReportContent) {
-    return content;
-  }
-
   private async createReport(element: Element): Promise<Report> {
-    const xpath = createXPath(element);
     const alt = element.getAttribute('alt');
-    const html = element.outerHTML;
 
     if (!alt) {
       return {
-        type: 'img-alt.no-alt',
-        rule: ImgAltRule.meta.name,
-        level: 'error',
-        message: await t(
+        rule: ImgAltRule,
+        outcome: 'fail',
+        target: createXPath(element),
+        message: t(
           'plugin-standard:img-alt.no-alt',
           'img element must have alt attribute',
         ),
-        content: {
-          xpath,
-          html,
-        },
+        pointers: [{ type: 'html', xpath: createXPath(element) }],
       };
     }
 
     return {
-      type: 'img-alt.ok',
-      rule: ImgAltRule.meta.name,
-      level: 'ok',
-      content: {
-        xpath,
-        html,
-      },
+      rule: ImgAltRule,
+      outcome: 'passed',
+      target: createXPath(element),
+      pointers: [{ type: 'html', xpath: createXPath(element) }],
     };
   }
 }

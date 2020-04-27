@@ -1,0 +1,23 @@
+{
+  "rule": {
+    "id": "img-alt",
+    "type": "atomic",
+    "description": "Checks img has alt"
+  },
+  "outcome": "fail",
+  "target": "/html/body/img",
+  "message": "img element must have alt attribute",
+  "pointers": [
+    {
+      "type": "html",
+      "xpath": "/html/body/img",
+      "screenshot": "1587576661476.png",
+      "location": {
+        "startLine": 85,
+        "startColumn": 5,
+        "endLine": 85,
+        "endColumn": 90
+      }
+    }
+  ]
+}

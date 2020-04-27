@@ -1,18 +1,25 @@
-import { BaseRule, Report, ReportContent, Rule, t } from '@visi/core/renderer';
+import { $$, createXPath, Report, RuleClass, t } from '@visi/core/renderer';
 
-import { $$ } from '../../utils/$$';
-import { createXPath } from '../../utils/create-xpath';
+export class ButtonAltRule implements RuleClass {
+  static id = 'button-alt';
+  static type = 'atomic' as const;
+  static description = t(
+    'plugin-standard:button-alt.description',
+    'Checks button has textContent yor title attribute',
+  );
 
-export class ButtonAltRule extends BaseRule implements Rule {
-  static meta = {
-    name: 'button-alt',
-    description: 'Checks button has textContent yor title attribute',
-    fixable: true,
-  };
-
-  async audit() {
+  async run() {
     const elements = $$('button');
     const reports: Report[] = [];
+
+    if (elements.length === 0) {
+      const report: Report = {
+        rule: ButtonAltRule,
+        outcome: 'inapplicable',
+      };
+
+      return [report];
+    }
 
     for (const element of elements) {
       const report = await this.createReport(element);
@@ -22,39 +29,38 @@ export class ButtonAltRule extends BaseRule implements Rule {
     return reports;
   }
 
-  async fix(content: ReportContent) {
-    return content;
-  }
-
   private async createReport(element: Element): Promise<Report> {
     const textContent = element.textContent;
     const title = element.getAttribute('title');
-    const outerHTML = element.outerHTML;
 
     if (!textContent && !title) {
       return {
-        type: 'button-alt.no-alt',
-        rule: ButtonAltRule.meta.name,
-        level: 'error',
-        message: await t(
+        rule: ButtonAltRule,
+        outcome: 'fail',
+        target: createXPath(element),
+        message: t(
           'plugin-standard:button-alt.no-alt',
           'button element must have title attribute or text content',
         ),
-        content: {
-          html: outerHTML,
-          xpath: createXPath(element),
-        },
+        pointers: [
+          {
+            type: 'html',
+            xpath: createXPath(element),
+          },
+        ],
       };
     }
 
     return {
-      type: 'button-alt.ok',
-      rule: ButtonAltRule.meta.name,
-      level: 'ok',
-      content: {
-        html: outerHTML,
-        xpath: createXPath(element),
-      },
+      rule: ButtonAltRule,
+      outcome: 'passed',
+      target: createXPath(element),
+      pointers: [
+        {
+          type: 'html',
+          xpath: createXPath(element),
+        },
+      ],
     };
   }
 }
