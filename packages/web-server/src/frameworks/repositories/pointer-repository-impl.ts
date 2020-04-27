@@ -1,4 +1,4 @@
-import { CSSPointer, HTMLPointer, Pointer } from '../../domain/models';
+import { CSSPointer, HTMLPointer } from '../../domain/models';
 import {
   CSSPointerORM,
   HTMLPointerORM,

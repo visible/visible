@@ -24,7 +24,6 @@ import {
 import { Server } from './frameworks/server';
 import { TYPES } from './types';
 
-console.log(path.resolve('../../.env'));
 dotenv.config({ path: path.resolve('../../.env') });
 
 // prettier-ignore

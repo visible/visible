@@ -1,12 +1,11 @@
 import { Visible } from '@visi/core';
 import Bull from 'bull';
 import { inject, injectable } from 'inversify';
-import { finalize, pluck, toArray } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { Connection } from 'typeorm';
-import uuid from 'uuid';
 
 import { DiagnosisRepository } from '../../application/repositories';
-import { Diagnosis, Report } from '../../domain/models';
+import { Diagnosis } from '../../domain/models';
 import { TYPES } from '../../types';
 import { DiagnosisORM } from '../entities/diagnosis';
 import { ReportORM } from '../entities/report';

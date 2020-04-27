@@ -5,7 +5,8 @@
     "**/node_modules/",
     "**/dist/",
     "**/generated/",
-    "**/coverage/"
+    "**/coverage/",
+    "**/__fixtures__/"
   ],
   "words": [
     "Affero",
@@ -27,6 +28,7 @@
     "eslintcache",
     "esnext",
     "Gmail",
+    "gotoeasy",
     "harddisk",
     "Igarashi",
     "IIFE",
