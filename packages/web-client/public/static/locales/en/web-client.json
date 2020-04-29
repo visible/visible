@@ -10,6 +10,12 @@
     "loading": "Loading...",
     "title": "Diagnostics Result: {{id}}"
   },
+  "error": {
+    "unexpected": {
+      "message": "Report to the administrator of this system",
+      "name": "{{statusCode}} An unexpected error has occurred"
+    }
+  },
   "home": {
     "description": "Type URL of the website to inspect accessibility issues of it",
     "placeholder": "Type URL of the website",
@@ -20,8 +26,8 @@
     "description": "🦉 Visible is an open-source accessibility testing tool works on Node.js and CI",
     "title": "Visible"
   },
-  "void": {
-    "description": "The page you were looking for was not found",
+  "not-found": {
+    "content": "The page you were looking for was not found. You can <2>go back to home</2> or <5>search contents</5>",
     "title": "You hit the void!"
   }
 }

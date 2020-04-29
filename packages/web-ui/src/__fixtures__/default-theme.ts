@@ -9,6 +9,7 @@ export const theme = {
   },
   highlight: {
     normal: '#ffaa01',
+    dark: '#fa7900',
   },
   border: {
     normal: '#e6e6e6',

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Error matches to the snapshot 1`] = `
+exports[`NotFound matches to the snapshot 1`] = `
 .c0 {
   box-sizing: border-box;
   width: 1080px;
@@ -11,16 +11,42 @@ exports[`Error matches to the snapshot 1`] = `
   box-shadow: 0 0 24px rgba(0,0,0,0.05);
 }
 
+.c1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.c2 {
+  font-size: 14px;
+}
+
 <div>
   <main
     class="c0"
   >
-    <h1>
-      You hit the void!
+    <h1
+      class="c1"
+    >
+      503: 
+      name
     </h1>
-    <p>
-      The page you were looking for was not found
-    </p>
+    <span
+      class="c2"
+    >
+      message
+    </span>
+    <pre
+      style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(240, 240, 240); color: rgb(68, 68, 68);"
+      theme="[object Object]"
+    >
+      <code>
+        <span
+          style="font-weight: bold;"
+        >
+          foo
+        </span>
+      </code>
+    </pre>
   </main>
 </div>
 `;

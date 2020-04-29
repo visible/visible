@@ -3,18 +3,18 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { I18n } from '../../utils/i18next';
 
-export default (
-  req: NextApiRequest & {
-    i18n: I18n;
-  },
-  res: NextApiResponse,
-) => {
-  const { i18n } = req;
+type Request = NextApiRequest & {
+  i18n: I18n;
+};
 
-  const manifest = {
-    name: i18n.t('meta.title', 'Visible'),
-    short_name: i18n.t('meta.title', 'Visible'),
-    description: i18n.t(
+export default (req: Request, res: NextApiResponse) => {
+  const { i18n } = req;
+  const t = i18n.t.bind(i18n);
+
+  res.json({
+    name: t('meta.title', 'Visible'),
+    short_name: t('meta.title', 'Visible'),
+    description: t(
       'meta.description',
       '🦉 Visible is an open-source accessibility testing tool works on Node.js and CI',
     ),
@@ -34,7 +34,5 @@ export default (
         type: 'image/png',
       },
     ],
-  };
-
-  res.json(manifest);
+  });
 };

@@ -1,4 +1,4 @@
-import * as UI from '@visi/web-ui';
+import { Content, Typography } from '@visi/web-ui';
 import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -41,17 +41,16 @@ const Diagnoses: NextPage = () => {
   );
 
   return (
-    <UI.Content>
+    <Content>
       <NextSeo title={title} description={description} openGraph={{ title }} />
-
-      <h1>{title}</h1>
+      <Typography variant="h1">{title}</Typography>
 
       {diagnosis.reports.map(report => (
         <div key={report.id}>
-          <h2>{report.id}</h2>
+          <Typography variant="h2">{report.id}</Typography>
         </div>
       ))}
-    </UI.Content>
+    </Content>
   );
 };
 
