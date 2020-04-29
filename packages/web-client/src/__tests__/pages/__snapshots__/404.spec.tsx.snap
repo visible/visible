@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound matches to the snapshot 1`] = `
+.c0 {
+  box-sizing: border-box;
+  width: 1080px;
+  margin: 24px auto;
+}
+
+.c3 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.c4 {
+  font-size: 14px;
+}
+
+.c1 {
+  text-align: center;
+}
+
+.c2 {
+  width: 50%;
+}
+
+<div>
+  <main
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <img
+        alt="You hit the void!"
+        class="c2"
+        src="/static/404.png"
+      />
+      <h1
+        class="c3"
+      >
+        You hit the void!
+      </h1>
+      <span
+        class="c4"
+      >
+        The page you were looking for was not found. You can
+         
+        <a
+          href="/"
+        >
+          go back to home
+        </a>
+         or
+         
+        <a
+          href="/search"
+        >
+          search contents
+        </a>
+      </span>
+    </div>
+  </main>
+</div>
+`;

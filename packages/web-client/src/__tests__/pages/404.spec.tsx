@@ -1,7 +1,7 @@
 import { cleanup } from '@testing-library/react';
 import React from 'react';
 
-import Error from '../../pages/_error';
+import NotFound from '../../pages/404';
 import { render } from '../../tests/render';
 
 describe('NotFound', () => {
@@ -10,9 +10,7 @@ describe('NotFound', () => {
   });
 
   it('matches to the snapshot', () => {
-    const { container } = render(
-      <Error name="name" message="message" statusCode={503} stack="foo" />,
-    );
+    const { container } = render(<NotFound />);
     expect(container).toMatchSnapshot();
   });
 });

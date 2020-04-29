@@ -20,8 +20,8 @@ exports[`App matches to the snapshot 1`] = `
 }
 
 .c0 {
-  background-color: #ffaa01;
-  box-shadow: 0 0 3px rgba(255,170,1,0.84);
+  background-color: #FF8C00;
+  box-shadow: 0 0 3px rgba(255,140,0,0.84);
 }
 
 .c7 {

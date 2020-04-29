@@ -4,5 +4,10 @@ import React, { ComponentType } from 'react';
 
 const t = (_key: string, defaultValue: string) => defaultValue;
 export const useTranslation = () => ({ t });
-export const Trans = React.Fragment;
 export const appWithTranslation = (fn: ComponentType) => fn;
+
+interface TransProps {
+  children?: React.ReactNode;
+}
+
+export const Trans = (props: TransProps) => <>{props.children}</>;

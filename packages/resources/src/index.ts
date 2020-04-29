@@ -10,7 +10,8 @@ export const theme: Theme = {
     wash: '#f1f1f1',
   },
   highlight: {
-    normal: '#ffaa01',
+    normal: '#FF8C00',
+    dark: '#fa7900',
   },
   border: {
     normal: '#e6e6e6',

@@ -9,6 +9,7 @@ export interface Theme {
   };
   highlight: {
     normal: string;
+    dark: string;
   };
   border: {
     normal: string;
