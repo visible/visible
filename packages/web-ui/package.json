@@ -17,37 +17,37 @@
     "access": "public"
   },
   "dependencies": {
-    "polished": "^3.4.4",
+    "polished": "^3.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.12.0",
     "react-syntax-highlighter": "^12.2.1",
-    "styled-components": "^5.0.0"
+    "styled-components": "^5.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
+    "@babel/core": "^7.9.6",
     "@storybook/addon-actions": "^5.3.3",
     "@storybook/addon-docs": "^5.3.4",
     "@storybook/addon-knobs": "^5.3.3",
     "@storybook/addon-links": "^5.3.3",
     "@storybook/cli": "^5.3.14",
-    "@storybook/preset-typescript": "^1.2.0",
+    "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^5.3.3",
     "@storybook/theming": "^5.3.3",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.1",
-    "@types/node": "^13.1.7",
-    "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.4",
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^10.0.4",
+    "@types/node": "^13.13.4",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
     "@types/react-syntax-highlighter": "^11.0.4",
-    "@types/styled-components": "^4.4.2",
-    "@types/webpack": "^4.41.2",
-    "babel-loader": "^8.0.6",
-    "fork-ts-checker-webpack-plugin": "^4.0.4",
-    "jest-styled-components": "^7.0.0",
+    "@types/styled-components": "^5.1.0",
+    "@types/webpack": "^4.41.12",
+    "babel-loader": "^8.1.0",
+    "fork-ts-checker-webpack-plugin": "^4.1.3",
+    "jest-styled-components": "^7.0.2",
     "react-docgen-typescript-loader": "^3.6.0",
-    "ts-loader": "^6.2.1",
+    "ts-loader": "^7.0.2",
     "typescript": "^3.7.4",
-    "webpack": "^4.41.5"
+    "webpack": "^4.43.0"
   },
   "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
 }
