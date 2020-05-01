@@ -16,11 +16,9 @@ export class DiagnosisORM {
   @PrimaryColumn('uuid')
   id: string;
 
-  @OneToMany(
-    () => ReportORM,
-    report => report.diagnosis,
-    { onDelete: 'SET NULL' },
-  )
+  @OneToMany(() => ReportORM, (report) => report.diagnosis, {
+    onDelete: 'SET NULL',
+  })
   reports: ReportORM[];
 
   @Column('varchar', { length: 255 })

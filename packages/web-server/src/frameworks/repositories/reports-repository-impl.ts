@@ -22,7 +22,7 @@ export class ReportsRepositoryImpl implements ReportsRepository {
       pointers: [
         ...(report.htmlPointers ?? []),
         ...(report.cssPointers ?? []),
-      ].map(pointer => PointerRepositoryImpl.toDomain(pointer)),
+      ].map((pointer) => PointerRepositoryImpl.toDomain(pointer)),
     });
   }
 
@@ -35,13 +35,15 @@ export class ReportsRepositoryImpl implements ReportsRepository {
     entity.message = domain.message;
     entity.diagnosis = diagnosis;
     entity.htmlPointers = domain.pointers
-      ?.filter(pointer => pointer instanceof HTMLPointer)
-      .map(pointer => PointerRepositoryImpl.toHTMLPointerORM(pointer, entity));
+      ?.filter((pointer) => pointer instanceof HTMLPointer)
+      .map((pointer) =>
+        PointerRepositoryImpl.toHTMLPointerORM(pointer, entity),
+      );
     entity.cssPointers = domain.pointers
       ?.filter(
         (pointer): pointer is CSSPointer => pointer instanceof CSSPointer,
       )
-      .map(pointer => PointerRepositoryImpl.toCSSPointerORM(pointer, entity));
+      .map((pointer) => PointerRepositoryImpl.toCSSPointerORM(pointer, entity));
 
     return entity;
   }
@@ -54,6 +56,6 @@ export class ReportsRepositoryImpl implements ReportsRepository {
       .where('diagnosis.id = :id', { id })
       .getMany();
 
-    return reports.map(report => ReportsRepositoryImpl.toDomain(report));
+    return reports.map((report) => ReportsRepositoryImpl.toDomain(report));
   }
 }

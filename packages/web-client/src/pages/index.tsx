@@ -66,8 +66,8 @@ const Index: NextPage = () => {
           <UI.Search
             submitLabel={t('home.submit', 'Diagnose')}
             placeholder={t('home.placeholder', 'Type URL of the website')}
-            onChange={e => setValue(e.target.value)}
-            onSubmit={_ => createDiagnosis()}
+            onChange={(e) => setValue(e.target.value)}
+            onSubmit={(_) => createDiagnosis()}
           />
           <Description>{description}</Description>
           {loading && <UI.Progress progress={50} />}

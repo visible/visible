@@ -25,10 +25,10 @@ const isSameKind = (a: Node, b: Node) => {
 };
 
 const filterSameKind = (topic: Node, nodes: Node[]) =>
-  nodes.filter(node => isSameKind(topic, node));
+  nodes.filter((node) => isSameKind(topic, node));
 
 const testPredicates = (predicates: PredicateNode[], node: Node) =>
-  predicates.every(predicate => {
+  predicates.every((predicate) => {
     if (
       predicate.type === EQUALITY &&
       predicate.lhs.type === FUNCTION_CALL &&
@@ -37,7 +37,7 @@ const testPredicates = (predicates: PredicateNode[], node: Node) =>
       node.parent
     ) {
       const selfIndex = filterSameKind(node, node.parent.childNodes).findIndex(
-        child => child === node,
+        (child) => child === node,
       );
 
       return selfIndex === predicate.rhs.number - 1;
@@ -93,7 +93,7 @@ const findNode = (
 
   const { test } = step;
 
-  const match = node.children.find(child => {
+  const match = node.children.find((child) => {
     switch (test.type) {
       case NODE_NAME_TEST:
         return testNodeName(child, test.name, step.predicates);
@@ -117,7 +117,7 @@ export const findASTByXPath = (
   const htmlElement = parseDOM(source, {
     withEndIndices: true,
     withStartIndices: true,
-  }).find(node => node instanceof Element && node.name === 'html');
+  }).find((node) => node instanceof Element && node.name === 'html');
 
   if (htmlElement == null) {
     throw new Error('Top-level html element were not provided');

@@ -36,7 +36,7 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
       url: diagnosis.url,
       doneCount: diagnosis.doneCount,
       totalCount: diagnosis.totalCount,
-      reports: diagnosis.reports.map(report =>
+      reports: diagnosis.reports.map((report) =>
         ReportsRepositoryImpl.toDomain(report),
       ),
       createdAt: diagnosis.createdAt,
@@ -47,7 +47,7 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   static toORM(domain: Diagnosis) {
     const entity = new DiagnosisORM();
     entity.id = domain.id;
-    entity.reports = domain.reports.map(report =>
+    entity.reports = domain.reports.map((report) =>
       ReportsRepositoryImpl.toORM(report, entity),
     );
     entity.url = domain.url;
@@ -70,7 +70,7 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
 
     if (!diagnoses.length) throw new Error('Entry not found');
 
-    return diagnoses.map(diagnosis =>
+    return diagnoses.map((diagnosis) =>
       DiagnosisRepositoryImpl.toDomain(diagnosis),
     );
   }
@@ -110,12 +110,12 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
     await visible.open(job.data.url);
     const diagnosis$ = visible.diagnose();
 
-    diagnosis$.pipe(finalize(() => done())).subscribe(progress => {
+    diagnosis$.pipe(finalize(() => done())).subscribe((progress) => {
       const percentage = (progress.doneCount / progress.totalCount) * 100;
       job.progress(percentage);
     });
 
-    diagnosis$.subscribe(progress => {
+    diagnosis$.subscribe((progress) => {
       const diagnosis = new Diagnosis({
         id: job.data.id,
         status: job.data.status,

@@ -73,7 +73,7 @@ export class Visible {
     );
 
     visible.postProcessors = [ScreenshotFetcher, SourceMapper].map(
-      PostProcessor =>
+      (PostProcessor) =>
         new PostProcessor({
           cdp,
           driver,
@@ -132,7 +132,7 @@ export class Visible {
     return from(this.postProcessors).pipe(
       reduce(
         (report$, postProcessor) =>
-          report$.pipe(concatMap(report => from(postProcessor.run(report)))),
+          report$.pipe(concatMap((report) => from(postProcessor.run(report)))),
         of(report),
       ),
       mergeAll(),
@@ -143,9 +143,9 @@ export class Visible {
     const rules$ = from(this.gateway.listRules()).pipe(mergeAll());
 
     const progress$ = rules$.pipe(
-      concatMap(rule => this.gateway.processRule(rule)),
+      concatMap((rule) => this.gateway.processRule(rule)),
       mergeAll(),
-      concatMap(report => this.runPostProcessors(report)),
+      concatMap((report) => this.runPostProcessors(report)),
       withLatestFrom(rules$.pipe(count())),
       map(
         ([report, totalCount], i): Progress => ({

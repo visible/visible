@@ -6,8 +6,8 @@ const findPropertyInStyle = (
   propertyName: string,
 ) => {
   return style.cssProperties
-    .filter(property => !property.disabled && !property.implicit)
-    .find(property => property.name === propertyName);
+    .filter((property) => !property.disabled && !property.implicit)
+    .find((property) => property.name === propertyName);
 };
 
 const flattenStylesFromMatchedStyles = (
@@ -21,13 +21,13 @@ const flattenStylesFromMatchedStyles = (
   } = matched;
 
   const a = matchedCSSRules
-    .filter(ruleMatch => ruleMatch.rule.origin === 'regular')
-    .map(ruleMatch => ruleMatch.rule.style);
+    .filter((ruleMatch) => ruleMatch.rule.origin === 'regular')
+    .map((ruleMatch) => ruleMatch.rule.style);
 
-  const b = inherited.flatMap(rule =>
+  const b = inherited.flatMap((rule) =>
     rule.matchedCSSRules
-      .filter(ruleMatch => ruleMatch.rule.origin === 'regular')
-      .map(ruleMatch => ruleMatch.rule.style),
+      .filter((ruleMatch) => ruleMatch.rule.origin === 'regular')
+      .map((ruleMatch) => ruleMatch.rule.style),
   );
 
   return [inlineStyle, attributesStyle, a, b]
@@ -48,7 +48,7 @@ export const findRuleAndPropertyByName = async (
 
   // Find style such that propertyName can be found
   const matchedStyle = styles.find(
-    style => findPropertyInStyle(style, propertyName) != null,
+    (style) => findPropertyInStyle(style, propertyName) != null,
   );
 
   if (matchedStyle == null) {

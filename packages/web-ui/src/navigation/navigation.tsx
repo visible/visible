@@ -68,9 +68,9 @@ export const NavItemWrapper = styled.li<NavItemWrapperProps>`
     ${({ activeClassName, appearance }) => css`
       &.${activeClassName} {
         ${appearance === 'inverse' &&
-          css`
-            color: rgba(255, 255, 255, 1);
-          `}
+        css`
+          color: rgba(255, 255, 255, 1);
+        `}
 
         ${NavItemBorder} {
           visibility: display;

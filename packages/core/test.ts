@@ -14,7 +14,7 @@ import { filter, last, flatMap, finalize } from 'rxjs/operators';
   await visible.open('https://djmnj.csb.app/');
   const diagnosis$ = visible.diagnose();
 
-  diagnosis$.subscribe(report => {
+  diagnosis$.subscribe((report) => {
     console.log(JSON.stringify(report, undefined, 2));
   });
 

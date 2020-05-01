@@ -22,7 +22,7 @@ export const print = (
   }
 
   const codeFrame = report.pointers
-    .map(pointer => {
+    .map((pointer) => {
       const { sourceId, location } = pointer;
 
       if (!location || !sourceId) {

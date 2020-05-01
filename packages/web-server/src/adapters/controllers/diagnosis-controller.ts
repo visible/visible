@@ -21,7 +21,7 @@ export class DiagnosisController {
 
   async find(ids: readonly string[]) {
     const { diagnoses } = await this.findDiagnosis.run({ ids });
-    const output = diagnoses.map(diagnosis => transformDiagnosis(diagnosis));
+    const output = diagnoses.map((diagnosis) => transformDiagnosis(diagnosis));
     return output;
   }
 

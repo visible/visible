@@ -35,17 +35,13 @@ export class ReportORM {
   @JoinColumn()
   diagnosis: DiagnosisORM;
 
-  @OneToMany(
-    () => HTMLPointerORM,
-    pointer => pointer.report,
-    { nullable: true },
-  )
+  @OneToMany(() => HTMLPointerORM, (pointer) => pointer.report, {
+    nullable: true,
+  })
   htmlPointers?: HTMLPointerORM[];
 
-  @OneToMany(
-    () => CSSPointerORM,
-    pointer => pointer.report,
-    { nullable: true },
-  )
+  @OneToMany(() => CSSPointerORM, (pointer) => pointer.report, {
+    nullable: true,
+  })
   cssPointers?: CSSPointerORM[];
 }
