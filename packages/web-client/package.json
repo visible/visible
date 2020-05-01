@@ -34,7 +34,7 @@
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.1",
     "next": "^9.3.6",
-    "next-i18next": "^4.3.0",
+    "next-i18next": "^4.4.0",
     "next-seo": "^4.4.0",
     "next-with-apollo": "^5.0.1",
     "react": "^16.13.1",
