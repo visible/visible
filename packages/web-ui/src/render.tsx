@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { theme } from './__fixtures__/default-theme';
 
-const TestProvider: React.FC = props => {
+const TestProvider: React.FC = (props) => {
   const { children } = props;
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;

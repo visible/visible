@@ -45,7 +45,7 @@ const Diagnoses: NextPage = () => {
       <NextSeo title={title} description={description} openGraph={{ title }} />
       <Typography variant="h1">{title}</Typography>
 
-      {diagnosis.reports.map(report => (
+      {diagnosis.reports.map((report) => (
         <div key={report.id}>
           <Typography variant="h2">{report.id}</Typography>
         </div>

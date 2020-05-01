@@ -12,7 +12,7 @@ interface ErrorProps {
   stack?: string;
 }
 
-const Error: NextPage<ErrorProps> = props => {
+const Error: NextPage<ErrorProps> = (props) => {
   const { name, message, stack, statusCode } = props;
   const { t } = useTranslation();
 

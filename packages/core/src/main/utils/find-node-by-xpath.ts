@@ -25,14 +25,14 @@ const isSameKind = (a: Protocol.DOM.Node, b: Protocol.DOM.Node) => {
 };
 
 const filterSameKind = (topic: Protocol.DOM.Node, nodes: Protocol.DOM.Node[]) =>
-  nodes.filter(node => isSameKind(topic, node));
+  nodes.filter((node) => isSameKind(topic, node));
 
 const testPredicates = (
   predicates: PredicateNode[],
   node: Protocol.DOM.Node,
   parent?: Protocol.DOM.Node,
 ) => {
-  return predicates.every(predicate => {
+  return predicates.every((predicate) => {
     if (
       predicate.type === EQUALITY &&
       predicate.lhs.type === FUNCTION_CALL &&
@@ -42,7 +42,7 @@ const testPredicates = (
       parent.children
     ) {
       const selfIndex = filterSameKind(node, parent.children).findIndex(
-        child => child.nodeId === node.nodeId,
+        (child) => child.nodeId === node.nodeId,
       );
       return selfIndex === predicate.rhs.number - 1;
     }
@@ -90,7 +90,7 @@ const findNode = (
 
   const { test } = step;
 
-  const match = node.children.find(child => {
+  const match = node.children.find((child) => {
     switch (test.type) {
       case NODE_NAME_TEST:
         return testNodeName(child, test.name, node, step.predicates);

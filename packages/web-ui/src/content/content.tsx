@@ -9,7 +9,7 @@ export const Content = styled.main<ContentProps>`
   width: 1080px;
   margin: 24px auto;
 
-  ${props =>
+  ${(props) =>
     props.appearance === 'default' &&
     css`
       padding: 12px 18px;

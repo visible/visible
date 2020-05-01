@@ -78,7 +78,8 @@ export const transformReport = (report: Report): ReportAPI => {
     outcome: transformOutcome(report.outcome),
     message: report.message,
     rule: transformRule(report.rule),
-    pointers: report.pointers?.map(pointer => transformPointer(pointer)) ?? [],
+    pointers:
+      report.pointers?.map((pointer) => transformPointer(pointer)) ?? [],
   };
 };
 
@@ -100,7 +101,7 @@ export const transformDiagnosis = (diagnosis: Diagnosis): DiagnosisAPI => {
     id: diagnosis.id,
     status: transformStatus(diagnosis.status),
     screenshot: diagnosis.screenshot,
-    reports: diagnosis.reports.map(report => transformReport(report)),
+    reports: diagnosis.reports.map((report) => transformReport(report)),
     doneCount: diagnosis.doneCount,
     totalCount: diagnosis.totalCount,
     createdAt: diagnosis.createdAt,

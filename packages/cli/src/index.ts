@@ -45,7 +45,7 @@ yargs
   .command(
     '*',
     t('visible.description', 'The default command') as string,
-    yargs =>
+    (yargs) =>
       yargs
         .option('url', {
           description: t('options.url', 'URL to diagnose'),
@@ -82,7 +82,7 @@ yargs
     async ({ url, json, verbose, silent, fix }) => {
       const config = await cosmiconfig('visible')
         .search()
-        .then(result => result?.config as Config | undefined);
+        .then((result) => result?.config as Config | undefined);
 
       if (config === undefined) {
         // eslint-disable-next-line no-console
@@ -101,7 +101,7 @@ yargs
       const progress$ = visible.diagnose();
 
       if (!silent) {
-        progress$.pipe(first()).subscribe(progress => {
+        progress$.pipe(first()).subscribe((progress) => {
           // eslint-disable-next-line no-console
           console.log(
             chalk.grey(
@@ -115,20 +115,22 @@ yargs
           singleBar.start(progress.totalCount, 0);
         });
 
-        progress$.pipe(finalize(() => singleBar.stop())).subscribe(progress => {
-          singleBar.update(progress.doneCount);
-        });
+        progress$
+          .pipe(finalize(() => singleBar.stop()))
+          .subscribe((progress) => {
+            singleBar.update(progress.doneCount);
+          });
       }
 
       progress$
         .pipe(
           pluck('report'),
-          filter(report => verbose || report.outcome === 'fail'),
+          filter((report) => verbose || report.outcome === 'fail'),
           toArray(),
           mergeAll(),
           finalize(() => visible.close()),
         )
-        .subscribe(report => {
+        .subscribe((report) => {
           const sources = visible.getSources();
           print(report, sources, json, fix);
         });

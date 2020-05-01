@@ -12,7 +12,7 @@ export const serialize = (
   strings: TemplateStringsArray,
   ...values: Serializable[]
 ) => {
-  const serializedValues = values.map(value => JSON.stringify(value));
+  const serializedValues = values.map((value) => JSON.stringify(value));
 
   return strings.reduce((expr, string, i) => {
     if (i === 0) return string;

@@ -12,7 +12,7 @@ export class DiagnosisRepositoryInMemoryImpl implements DiagnosisRepository {
 
   async find(ids: string[]) {
     return ids
-      .map(id => this.diagnosis.get(id))
+      .map((id) => this.diagnosis.get(id))
       .filter((v): v is Diagnosis => !!v);
   }
 

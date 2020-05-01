@@ -11,7 +11,7 @@ export class ReportsController {
 
   async findByDiagnosisId(id: string) {
     const { reports } = await this.findReportsByDiagnosisId.run({ id });
-    const output = reports.map(report => transformReport(report));
+    const output = reports.map((report) => transformReport(report));
     return output;
   }
 }

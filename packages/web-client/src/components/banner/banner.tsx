@@ -44,7 +44,7 @@ export const Banner = (props: BannerProps) => {
       </Title>
 
       <UI.Nav>
-        {navItems.map(nav => (
+        {navItems.map((nav) => (
           <UI.NavItem key={nav.to} appearance="inverse">
             <Link href={nav.to}>
               <a>{nav.text}</a>

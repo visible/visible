@@ -15,7 +15,7 @@ export const loadPlugins: LoadPlugins = async (
     url.pathname = pluginName;
 
     const plugin: PluginBrowser = await import(url.href).then(
-      plugin => plugin.default,
+      (plugin) => plugin.default,
     );
 
     window.__VISIBLE_PLUGINS__.push(plugin);

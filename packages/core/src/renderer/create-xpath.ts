@@ -11,7 +11,7 @@ const isSameKind = (a: Node, b: Node) => {
 };
 
 const filterSameKind = (topic: Node, nodes: Node[]) =>
-  nodes.filter(node => isSameKind(topic, node));
+  nodes.filter((node) => isSameKind(topic, node));
 
 const getSelfXPath = (node: Node) => {
   if (node.parentNode == null || node.parentNode.childNodes == null) {
@@ -25,7 +25,7 @@ const getSelfXPath = (node: Node) => {
   let predicate = '';
 
   if (node.parentNode && sameKindNodes.length >= 2) {
-    const index = sameKindNodes.findIndex(child => child.isEqualNode(node));
+    const index = sameKindNodes.findIndex((child) => child.isEqualNode(node));
     predicate = `[position()=${index + 1}]`;
   }
 
