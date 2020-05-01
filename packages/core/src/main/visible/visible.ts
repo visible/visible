@@ -1,3 +1,4 @@
+import path from 'path';
 import { launch } from 'puppeteer';
 import { ConnectableObservable, from, of } from 'rxjs';
 import {
@@ -107,16 +108,19 @@ export class Visible {
   }
 
   async fetchLetterhead() {
-    const screenshot = 'tmp/' + Date.now().toString() + '.png';
+    const dir = this.config.settings?.screenshotDir ?? 'tmp';
+    const fileName = Date.now().toString() + '.png';
+    const pathName = path.resolve(dir, fileName);
+
     const title = await this.driver.getTitle();
     const url = this.driver.getURL();
 
     await this.driver.takeScreenshotForPage({
-      path: screenshot,
+      path: pathName,
     });
 
     const letterhead: Letterhead = {
-      screenshot,
+      screenshot: pathName,
       title,
       url,
     };

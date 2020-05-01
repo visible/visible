@@ -1,6 +1,6 @@
 import { injectable, unmanaged } from 'inversify';
 
-import { ReportsRepository } from '../../application/repositories/reports-repository';
+import { ReportsRepository } from '../../application/repositories';
 import { Report } from '../../domain/models';
 
 @injectable()
@@ -10,8 +10,14 @@ export class ReportsRepositoryInMemoryImpl implements ReportsRepository {
     private reports = new Map<string, Report>(),
   ) {}
 
-  async findByDiagnosisId(_id: string) {
-    // ReportにDiagnosis持たせる？
-    return this.reports.entries().next().value;
+  async save(report: Report) {
+    this.reports.set(report.id, report);
+    return report;
+  }
+
+  async findByDiagnosisId(id: string) {
+    return [...this.reports.entries()]
+      .map(([, value]) => value)
+      .filter((report) => report.diagnosisId === id);
   }
 }

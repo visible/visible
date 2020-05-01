@@ -1,20 +1,24 @@
-const ctx = '../../adapters/serializers/types';
+const ctx = '../../../interfaces/presenters/types';
 
 module.exports = {
   overwrite: true,
   schema: [require.resolve('@visi/web-schema')],
   documents: null,
   generates: {
-    './src/frameworks/generated/graphql.ts': {
-      plugins: ['typescript', 'typescript-resolvers'],
+    './src/frameworks/server/generated/graphql.ts': {
+      plugins: [
+        'typescript',
+        'typescript-resolvers',
+        { add: "import { PartialDeep } from 'type-fest';" },
+      ],
       config: {
+        contextType: '../context#Context',
+        defaultMapper: 'PartialDeep<{T}>',
+        useIndexSignature: true,
+        immutableTypes: true,
         scalars: {
           Date: 'Date',
         },
-        contextType: '../context#Context',
-        resolverTypeWrapperSignature:
-          "import('type-fest').PartialDeep<T> | Promise<import('type-fest').PartialDeep<T>>",
-        useIndexSignature: true,
         mappers: {
           RuleType: ctx + '#RuleTypeAPI',
           Rule: ctx + '#RuleAPI',

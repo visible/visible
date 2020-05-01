@@ -1,95 +1,79 @@
-import { Visible } from '@visi/core';
-import Bull from 'bull';
 import { inject, injectable } from 'inversify';
-import { finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
 import { Connection } from 'typeorm';
 
 import { DiagnosisRepository } from '../../application/repositories';
 import { Diagnosis } from '../../domain/models';
+import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
-import { DiagnosisORM } from '../entities/diagnosis';
-import { ReportORM } from '../entities/report';
-import { ReportsRepositoryImpl } from './reports-repository-impl';
+import { DiagnosisORM } from '../entities';
+import { ProcessDiagnosisJob, PublishDiagnosisJob } from '../jobs';
 
 @injectable()
 export class DiagnosisRepositoryImpl implements DiagnosisRepository {
-  private readonly bull = new Bull<Diagnosis>('diagnosis', {
-    redis: {
-      port: Number(process.env.REDIS_PORT),
-      host: process.env.REDIS_HOST,
-      password: process.env.REDIS_PASSWORD,
-    },
-  });
+  private readonly publish$: Subject<Diagnosis>;
 
-  @inject(TYPES.Connection)
-  private readonly connection: Connection;
+  constructor(
+    @inject(TYPES.Logger)
+    private readonly logger: Logger,
 
-  constructor() {
-    this.bull.process(this.handleProcess);
-  }
+    @inject(TYPES.Connection)
+    private readonly connection: Connection,
 
-  static toDomain(diagnosis: DiagnosisORM) {
-    return new Diagnosis({
-      id: diagnosis.id,
-      status: diagnosis.status,
-      screenshot: diagnosis.screenshot,
-      url: diagnosis.url,
-      doneCount: diagnosis.doneCount,
-      totalCount: diagnosis.totalCount,
-      reports: diagnosis.reports.map((report) =>
-        ReportsRepositoryImpl.toDomain(report),
-      ),
-      createdAt: diagnosis.createdAt,
-      updatedAt: diagnosis.updatedAt,
+    @inject(TYPES.PublishDiagnosisJob)
+    private readonly publishDiagnosis: PublishDiagnosisJob,
+
+    @inject(TYPES.ProcessDiagnosisJob)
+    private readonly processDiagnosis: ProcessDiagnosisJob,
+  ) {
+    this.publish$ = new Subject<Diagnosis>();
+    this.publishDiagnosis.queue.process((job, done) => {
+      const diagnosis = Diagnosis.from(job.data);
+      this.publish$.next(diagnosis);
+      done();
     });
-  }
-
-  static toORM(domain: Diagnosis) {
-    const entity = new DiagnosisORM();
-    entity.id = domain.id;
-    entity.reports = domain.reports.map((report) =>
-      ReportsRepositoryImpl.toORM(report, entity),
-    );
-    entity.url = domain.url;
-    entity.status = domain.status;
-    entity.screenshot = domain.screenshot;
-    entity.doneCount = domain.doneCount;
-    entity.totalCount = domain.totalCount;
-    entity.createdAt = domain.createdAt;
-    entity.updatedAt = domain.updatedAt;
-    return entity;
   }
 
   async find(ids: string[]) {
     const diagnoses = await this.connection
       .getRepository(DiagnosisORM)
-      .createQueryBuilder('diagnosis')
-      .leftJoinAndSelect('diagnosis.reports', 'report')
-      .whereInIds(ids)
-      .getMany();
+      .findByIds(ids, {
+        relations: [
+          'reports',
+          'reports.rule',
+          'reports.pointers',
+          'reports.pointers.source',
+        ],
+      });
 
+    this.logger.debug(diagnoses);
+    this.logger.debug(diagnoses.length);
     if (!diagnoses.length) throw new Error('Entry not found');
 
-    return diagnoses.map((diagnosis) =>
-      DiagnosisRepositoryImpl.toDomain(diagnosis),
-    );
+    return diagnoses.map((diagnosis) => diagnosis.toDomain());
   }
 
-  async create(diagnosis: Diagnosis) {
-    const entity = DiagnosisRepositoryImpl.toORM(diagnosis);
-    await this.connection.getRepository(ReportORM).save(entity.reports);
-    const result = await this.connection
+  private async findOne(id: string) {
+    return this.connection
       .getRepository(DiagnosisORM)
-      .save(entity);
-
-    return DiagnosisRepositoryImpl.toDomain(result);
+      .findOne(id, {
+        relations: [
+          'reports',
+          'reports.rule',
+          'reports.pointers',
+          'reports.pointers.source',
+        ],
+      })
+      .then((result) => result?.toDomain());
   }
 
-  async update(diagnosis: Diagnosis) {
-    const entity = DiagnosisRepositoryImpl.toORM(diagnosis);
-    await this.connection.getRepository(ReportORM).save(entity.reports);
-    await this.connection.getRepository(DiagnosisORM).update(entity.id, entity);
-    const [result] = await this.find([entity.id]);
+  async save(diagnosis: Diagnosis) {
+    await this.connection
+      .getRepository(DiagnosisORM)
+      .save(DiagnosisORM.fromDomain(diagnosis));
+    const result = await this.findOne(diagnosis.id);
+    if (result == null) throw new Error('Save failed');
     return result;
   }
 
@@ -99,52 +83,17 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
   }
 
   async queue(diagnosis: Diagnosis) {
-    await this.bull.add(diagnosis);
+    await this.processDiagnosis.queue.add(diagnosis.toJSON());
   }
 
-  private async handleProcess(
-    job: Bull.Job<Diagnosis>,
-    done: Bull.DoneCallback,
-  ) {
-    const visible = await Visible.init({});
-    await visible.open(job.data.url);
-    const diagnosis$ = visible.diagnose();
+  subscribe(id: string) {
+    return this.publish$.pipe(
+      tap((v) => this.logger.debug(v)),
+      filter((diagnosis) => diagnosis.id === id),
+    );
+  }
 
-    diagnosis$.pipe(finalize(() => done())).subscribe((progress) => {
-      const percentage = (progress.doneCount / progress.totalCount) * 100;
-      job.progress(percentage);
-    });
-
-    diagnosis$.subscribe((progress) => {
-      const diagnosis = new Diagnosis({
-        id: job.data.id,
-        status: job.data.status,
-        screenshot: job.data.screenshot,
-        url: job.data.url,
-        doneCount: progress.doneCount,
-        totalCount: progress.totalCount,
-        reports: job.data.reports,
-        createdAt: job.data.createdAt,
-        updatedAt: new Date(),
-      });
-
-      this.update(diagnosis);
-    });
-
-    /*
-    レポートの追加処理
-    diagnosis$.pipe(pluck('report'), toArray()).subscribe(_reports => {
-      const reports = _reports.map(
-        report =>
-          new Report({
-            id: uuid(),
-            outcome: report.outcome,
-            rule: report.rule,
-            target: report?.target,
-            message: report?.message,
-            pointers: report?.pointers,
-          }),
-      );
-    */
+  async publish(diagnosis: Diagnosis) {
+    await this.publishDiagnosis.queue.add(diagnosis.toJSON());
   }
 }

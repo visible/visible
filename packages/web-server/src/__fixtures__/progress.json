@@ -1,0 +1,19 @@
+{
+  "report": {
+    "outcome": "passed",
+    "target": "/html/body",
+    "rule": {
+      "id": "foo",
+      "type": "atomic",
+      "description": "Mock"
+    },
+    "pointers": [
+      {
+        "type": "html",
+        "xpath": "/html/body"
+      }
+    ]
+  },
+  "totalCount": 10,
+  "doneCount": 2
+}

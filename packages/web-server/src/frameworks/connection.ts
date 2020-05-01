@@ -1,8 +1,11 @@
+import IORedis from 'ioredis';
 import path from 'path';
 import {
   ConnectionOptionsReader,
   createConnection as defaultCreateConnection,
 } from 'typeorm';
+
+import { ConfigImpl } from './config';
 
 // Workaround for TypeORM + Monorepo issue:
 // https://github.com/inxilpro/node-app-root-path/issues/31#issuecomment-439739607
@@ -25,4 +28,17 @@ export const createConnection = async () => {
   });
 
   return connection;
+};
+
+export const createRedisConnection = async () => {
+  // TODO: Use DI Container
+  const config = new ConfigImpl();
+
+  const redis = new IORedis({
+    port: config.redis.port,
+    host: config.redis.host,
+    password: config.redis.password,
+  });
+
+  return redis;
 };

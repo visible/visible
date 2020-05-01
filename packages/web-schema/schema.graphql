@@ -56,7 +56,7 @@ type Report {
   rule: Rule!
   target: String
   message: String
-  pointers: [Pointer!]!
+  pointers: [Pointer]
 }
 
 enum Status {

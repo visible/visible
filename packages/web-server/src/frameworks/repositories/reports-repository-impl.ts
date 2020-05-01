@@ -2,60 +2,42 @@ import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
 
 import { ReportsRepository } from '../../application/repositories';
-import { CSSPointer, HTMLPointer, Report } from '../../domain/models';
+import { Report } from '../../domain/models';
 import { TYPES } from '../../types';
-import { DiagnosisORM, ReportORM } from '../entities';
-import { PointerRepositoryImpl } from './pointer-repository-impl';
+import { ReportORM } from '../entities';
 
 @injectable()
 export class ReportsRepositoryImpl implements ReportsRepository {
-  @inject(TYPES.Connection)
-  private connection: Connection;
+  constructor(
+    @inject(TYPES.Connection)
+    private connection: Connection,
+  ) {}
 
-  static toDomain(report: ReportORM) {
-    return new Report({
-      id: report.id,
-      rule: report.rule,
-      outcome: report.outcome,
-      target: report.target,
-      message: report.message,
-      pointers: [
-        ...(report.htmlPointers ?? []),
-        ...(report.cssPointers ?? []),
-      ].map((pointer) => PointerRepositoryImpl.toDomain(pointer)),
-    });
+  private findOne(id: string) {
+    return this.connection
+      .getRepository(ReportORM)
+      .findOne(id, {
+        relations: ['rule'],
+      })
+      .then((result) => result?.toDomain());
   }
 
-  static toORM(domain: Report, diagnosis: DiagnosisORM) {
-    const entity = new ReportORM();
-    entity.id = domain.id;
-    entity.outcome = domain.outcome;
-    entity.rule = domain.rule;
-    entity.target = domain.target;
-    entity.message = domain.message;
-    entity.diagnosis = diagnosis;
-    entity.htmlPointers = domain.pointers
-      ?.filter((pointer) => pointer instanceof HTMLPointer)
-      .map((pointer) =>
-        PointerRepositoryImpl.toHTMLPointerORM(pointer, entity),
-      );
-    entity.cssPointers = domain.pointers
-      ?.filter(
-        (pointer): pointer is CSSPointer => pointer instanceof CSSPointer,
-      )
-      .map((pointer) => PointerRepositoryImpl.toCSSPointerORM(pointer, entity));
-
-    return entity;
+  async save(report: Report) {
+    await this.connection
+      .getRepository(ReportORM)
+      .save(ReportORM.fromDomain(report));
+    const result = await this.findOne(report.id);
+    if (!result) throw new Error('Save failed');
+    return result;
   }
 
   async findByDiagnosisId(id: string) {
-    const reports = await this.connection
-      .getRepository(ReportORM)
-      .createQueryBuilder('report')
-      .leftJoinAndSelect('report.diagnosis', 'diagnosis')
-      .where('diagnosis.id = :id', { id })
-      .getMany();
+    const reports = await this.connection.getRepository(ReportORM).find({
+      where: {
+        diagnosisId: id,
+      },
+    });
 
-    return reports.map((report) => ReportsRepositoryImpl.toDomain(report));
+    return reports.map((report) => report.toDomain());
   }
 }

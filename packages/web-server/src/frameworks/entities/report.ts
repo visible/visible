@@ -1,29 +1,49 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 
-import { Outcome } from '../../domain/models';
-import { CSSPointerORM } from './css-pointer';
+import { Outcome, Report } from '../../domain/models';
 import { DiagnosisORM } from './diagnosis';
-import { HTMLPointerORM } from './html-pointer';
+import { PointerORM } from './pointer';
 import { RuleORM } from './rule';
 
 @Entity('report')
 export class ReportORM {
+  static fromDomain(report: Report) {
+    const entity = new ReportORM();
+    entity.id = report.id;
+    entity.outcome = report.outcome;
+    entity.target = report.target;
+    entity.message = report.message;
+    entity.diagnosisId = report.diagnosisId;
+    entity.ruleId = report.rule.id;
+    entity.pointers = report.pointers?.map((pointer) =>
+      PointerORM.fromDomain(pointer),
+    );
+    return entity;
+  }
+
+  toDomain() {
+    if (this.rule == null) {
+      throw new TypeError(
+        'No value specified for rule property. You may have forgot to JOIN',
+      );
+    }
+
+    return Report.from({
+      id: this.id,
+      outcome: this.outcome,
+      target: this.target,
+      message: this.message,
+      diagnosisId: this.diagnosisId,
+      rule: this.rule.toDomain(),
+      pointers: this.pointers?.map((pointer) => pointer.toDomain()),
+    });
+  }
+
   @PrimaryColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column('varchar', { length: 255 })
-  outcome: Outcome;
-
-  @ManyToOne(() => RuleORM, { cascade: true })
-  @JoinColumn()
-  rule: RuleORM;
+  outcome!: Outcome;
 
   @Column('varchar', { length: 255, nullable: true })
   target?: string;
@@ -31,17 +51,18 @@ export class ReportORM {
   @Column('varchar', { length: 255, nullable: true })
   message?: string;
 
-  @ManyToOne(() => DiagnosisORM, { cascade: true })
-  @JoinColumn()
-  diagnosis: DiagnosisORM;
+  @Column('uuid')
+  diagnosisId!: string;
 
-  @OneToMany(() => HTMLPointerORM, (pointer) => pointer.report, {
-    nullable: true,
-  })
-  htmlPointers?: HTMLPointerORM[];
+  @Column('uuid')
+  ruleId!: string;
 
-  @OneToMany(() => CSSPointerORM, (pointer) => pointer.report, {
-    nullable: true,
-  })
-  cssPointers?: CSSPointerORM[];
+  @ManyToOne(() => DiagnosisORM, { onDelete: 'CASCADE' })
+  readonly diagnosis?: DiagnosisORM;
+
+  @ManyToOne(() => RuleORM)
+  readonly rule?: RuleORM;
+
+  @OneToMany(() => PointerORM, (pointer) => pointer.report, { nullable: true })
+  pointers?: PointerORM[];
 }

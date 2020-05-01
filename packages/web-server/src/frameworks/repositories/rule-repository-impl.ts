@@ -1,19 +1,29 @@
-import { Rule } from '../../domain/models';
-import { RuleORM } from '../entities/rule';
+import { inject, injectable } from 'inversify';
+import { Connection } from 'typeorm';
 
-export class RuleRepositoryImpl {
-  static toDomain(entity: RuleORM) {
-    return new Rule({
-      id: entity.id,
-      type: entity.type,
-      description: entity.description,
-    });
+import { RuleRepository } from '../../application/repositories';
+import { Rule } from '../../domain/models';
+import { TYPES } from '../../types';
+import { RuleORM } from '../entities';
+
+@injectable()
+export class RuleRepositoryImpl implements RuleRepository {
+  constructor(
+    @inject(TYPES.Connection)
+    private readonly connection: Connection,
+  ) {}
+
+  async save(rule: Rule) {
+    return this.connection
+      .getRepository(RuleORM)
+      .save(RuleORM.fromDomain(rule))
+      .then((result) => result.toDomain());
   }
 
-  static toORM(domain: Rule) {
-    const entity = new RuleORM();
-    entity.id = domain.id;
-    entity.type = domain.type;
-    entity.description = domain.description;
+  async findByName(name: string) {
+    return this.connection
+      .getRepository(RuleORM)
+      .findOne({ where: { name } })
+      .then((rule) => rule?.toDomain());
   }
 }

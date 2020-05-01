@@ -10,8 +10,10 @@ import {
 
 @injectable()
 export class FindDiagnosisInteractor implements FindDiagnosisUseCase {
-  @inject(TYPES.DiagnosisRepository)
-  private readonly diagnosisRepository: DiagnosisRepository;
+  constructor(
+    @inject(TYPES.DiagnosisRepository)
+    private readonly diagnosisRepository: DiagnosisRepository,
+  ) {}
 
   async run({ ids }: FindDiagnosisRequest): Promise<FindDiagnosisResponse> {
     const diagnoses = await this.diagnosisRepository.find(ids);

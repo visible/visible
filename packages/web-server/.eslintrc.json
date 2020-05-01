@@ -1,0 +1,40 @@
+{
+  "overrides": [
+    {
+      "files": ["src/domain/**/*"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": ["application", "interfaces", "frameworks"]
+          }
+        ]
+      }
+    },
+
+    {
+      "files": ["src/application/**/*"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": ["interfaces", "frameworks"]
+          }
+        ]
+      }
+    },
+
+
+    {
+      "files": ["src/interfaces/**/*"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": ["frameworks"]
+          }
+        ]
+      }
+    }
+  ]
+}

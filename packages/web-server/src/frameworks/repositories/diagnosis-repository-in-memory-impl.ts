@@ -1,41 +1,45 @@
 import { injectable, unmanaged } from 'inversify';
+import { Subject } from 'rxjs';
 
 import { DiagnosisRepository } from '../../application/repositories/diagnosis-repository';
 import { Diagnosis } from '../../domain/models';
 
 @injectable()
 export class DiagnosisRepositoryInMemoryImpl implements DiagnosisRepository {
+  private readonly update$ = new Subject<Diagnosis>();
+
   constructor(
     @unmanaged()
-    private diagnosis = new Map<string, Diagnosis>(),
+    private readonly diagnoses = new Map<string, Diagnosis>(),
   ) {}
 
   async find(ids: string[]) {
     return ids
-      .map((id) => this.diagnosis.get(id))
-      .filter((v): v is Diagnosis => !!v);
+      .map((id) => this.diagnoses.get(id))
+      .filter((value): value is Diagnosis => value != null);
   }
 
-  async create(diagnosis: Diagnosis) {
-    this.diagnosis.set(diagnosis.id, diagnosis);
-    const result = this.diagnosis.get(diagnosis.id);
+  async save(diagnosis: Diagnosis) {
+    this.diagnoses.set(diagnosis.id, diagnosis);
+    const result = this.diagnoses.get(diagnosis.id);
     if (!result) throw new Error('No entry found');
     return result;
   }
 
   async delete(id: string) {
-    this.diagnosis.delete(id);
+    this.diagnoses.delete(id);
     return id;
-  }
-
-  async update(diagnosis: Diagnosis) {
-    this.diagnosis.set(diagnosis.id, diagnosis);
-    const result = this.diagnosis.get(diagnosis.id);
-    if (!result) throw new Error('No entry found');
-    return result;
   }
 
   async queue() {
     return;
+  }
+
+  async publish(diagnosis: Diagnosis) {
+    this.update$.next(diagnosis);
+  }
+
+  subscribe() {
+    return this.update$;
   }
 }

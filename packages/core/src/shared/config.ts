@@ -9,6 +9,7 @@ export interface Settings {
   readonly noSandbox?: boolean;
   readonly executablePath?: string;
   readonly screenshot?: 'always' | 'only-fail' | 'never';
+  readonly screenshotDir?: string;
 }
 
 export interface Config {
