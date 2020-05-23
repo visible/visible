@@ -1,7 +1,7 @@
 import { IsEnum, IsOptional, IsUUID, Length } from 'class-validator';
 
-import { validateOrRejectSync } from '../../utils/validate-or-reject-sync';
-import { Pointer } from './base-pointer';
+import { Model } from './model';
+import { Pointer } from './pointer';
 import { Rule } from './rule';
 
 export enum Outcome {
@@ -10,23 +10,17 @@ export enum Outcome {
   INAPPLICABLE = 'inapplicable',
 }
 
-export interface ReportConstructorParams {
-  id: string;
-  rule: Rule;
-  outcome: Outcome;
-  target?: string;
-  message?: string;
-  pointers?: Pointer[];
-}
-
-export class Report {
+export class Report extends Model {
   @IsUUID()
-  readonly id: string;
+  readonly id!: string;
+
+  @IsUUID()
+  readonly diagnosisId!: string;
 
   @IsEnum(Outcome)
-  readonly outcome: Outcome;
+  readonly outcome!: Outcome;
 
-  readonly rule: Rule;
+  readonly rule!: Rule;
 
   @IsOptional()
   @Length(1, 255)
@@ -38,14 +32,4 @@ export class Report {
 
   @IsOptional()
   readonly pointers?: Pointer[];
-
-  constructor(params: ReportConstructorParams) {
-    this.id = params.id;
-    this.outcome = params.outcome;
-    this.rule = params.rule;
-    this.target = params.target;
-    this.message = params.message;
-    this.pointers = params.pointers;
-    validateOrRejectSync(this);
-  }
 }

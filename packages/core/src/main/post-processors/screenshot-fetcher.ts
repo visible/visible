@@ -1,3 +1,5 @@
+import path from 'path';
+
 import { Pointer, Report } from '../../shared';
 import { Driver } from '../driver';
 import { PostProcessor, PostProcessorContext } from './post-processor';
@@ -7,22 +9,24 @@ type Condition = 'always' | 'only-fail' | 'never';
 export class ScreenshotFetcher implements PostProcessor {
   private readonly driver: Driver;
   private readonly condition: Condition;
+  private readonly dir: string;
+  private readonly cache = new Map<string, string>();
 
   constructor(context: PostProcessorContext) {
     this.driver = context.driver;
     this.condition = context.config.settings?.screenshot ?? 'always';
+    this.dir = context.config.settings?.screenshotDir ?? 'tmp';
   }
 
-  private screenshotCache = new Map<string, string>();
-
   async takeScreenshotForXPath(xpath: string) {
-    const path = 'tmp/' + Date.now().toString() + '.png';
+    const fileName = Date.now().toString() + '.png';
+    const pathName = path.resolve(this.dir, fileName);
 
     await this.driver.takeScreenshotForXpath(xpath, {
-      path,
+      path: pathName,
     });
 
-    return path;
+    return pathName;
   }
 
   async run(report: Report) {
@@ -43,7 +47,7 @@ export class ScreenshotFetcher implements PostProcessor {
       }
 
       const { xpath } = pointer;
-      const cache = this.screenshotCache.get(xpath);
+      const cache = this.cache.get(xpath);
 
       if (cache) {
         pointers.push({ ...pointer, screenshot: cache });
@@ -53,7 +57,7 @@ export class ScreenshotFetcher implements PostProcessor {
       try {
         const path = await this.takeScreenshotForXPath(xpath);
         pointers.push({ ...pointer, screenshot: path });
-        this.screenshotCache.set(xpath, path);
+        this.cache.set(xpath, path);
       } catch (error) {
         // eslint-disable-next-line
         console.error(error);

@@ -3,7 +3,7 @@ import { Location } from '../location';
 describe('CSSPointer', () => {
   it('accepts valid entity', () => {
     expect(() => {
-      new Location({
+      Location.from({
         startLine: 1,
         startColumn: 1,
         endLine: 1,
@@ -14,7 +14,7 @@ describe('CSSPointer', () => {
 
   it('rejects negative or floating points', () => {
     expect(() => {
-      new Location({
+      Location.from({
         startLine: -1,
         startColumn: -1,
         endLine: 0.5,
