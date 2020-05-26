@@ -1,10 +1,10 @@
 import { injectable, unmanaged } from 'inversify';
 
-import { PointersRepository } from '../../application/repositories';
-import { Pointer } from '../../domain/models';
+import { PointerRepository } from '../../../application/repositories';
+import { Pointer } from '../../../domain/models';
 
 @injectable()
-export class PointersRepositoryInMemoryImpl implements PointersRepository {
+export class PointerGatewayMock implements PointerRepository {
   constructor(
     @unmanaged()
     private readonly pointers = new Map<string, Pointer>(),

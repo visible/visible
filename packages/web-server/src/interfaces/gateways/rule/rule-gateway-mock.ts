@@ -1,10 +1,10 @@
 import { injectable, unmanaged } from 'inversify';
 
-import { RuleRepository } from '../../application/repositories';
-import { Rule } from '../../domain/models';
+import { RuleRepository } from '../../../application/repositories';
+import { Rule } from '../../../domain/models';
 
 @injectable()
-export class RuleRepositoryInMemoryImpl implements RuleRepository {
+export class RuleGatewayMock implements RuleRepository {
   constructor(
     @unmanaged()
     private readonly rules = new Map<string, Rule>(),

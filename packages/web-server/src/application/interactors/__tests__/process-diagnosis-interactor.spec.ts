@@ -1,7 +1,7 @@
 import { minimalDiagnosis as diagnosis } from '../../../__fixtures__/diagnosis';
 import progress from '../../../__fixtures__/progress.json';
-import { diagnosis$ } from '../../../__mocks__/core';
 import { createContainer } from '../../../tests/container';
+import { diagnosis$ } from '../../../tests/core';
 import { TYPES } from '../../../types';
 import { DiagnosisRepository } from '../../repositories';
 import { ProcessDiagnosisUseCase } from '../../use-cases';

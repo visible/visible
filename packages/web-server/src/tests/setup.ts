@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { Visible } from '../__mocks__/core';
+import { Visible } from './core';
 
 jest.mock('@visi/core', () => ({
   __esModule: true,

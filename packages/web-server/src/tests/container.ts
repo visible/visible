@@ -9,18 +9,18 @@ import {
 import { Translator } from '../application/translator';
 import { ConfigImpl } from '../frameworks/config';
 import {
-  DiagnosisRepositoryInMemoryImpl,
-  PointersRepositoryInMemoryImpl,
-  ReportsRepositoryInMemoryImpl,
-  RuleRepositoryInMemoryImpl,
-  SourceRepositoryInMemoryImpl,
-} from '../frameworks/repositories';
-import {
   I18nMock,
   LoggerConsoleImpl,
   StorageMock,
 } from '../frameworks/services';
 import { DiagnosisController } from '../interfaces/controllers';
+import {
+  DiagnosisGatewayMock,
+  PointerGatewayMock,
+  ReportGatewayMock,
+  RuleGatewayMock,
+  SourceGatewayMock,
+} from '../interfaces/gateways';
 import {
   DiagnosisPresenter,
   PointerPresenter,
@@ -29,6 +29,7 @@ import {
 } from '../interfaces/presenters';
 import { TYPES } from '../types';
 
+// prettier-ignore
 export const createContainer = () => {
   const container = new Container();
 
@@ -36,26 +37,11 @@ export const createContainer = () => {
   container.bind(TYPES.I18n).to(I18nMock);
   container.bind(TYPES.Storage).to(StorageMock);
 
-  container
-    .bind(TYPES.DiagnosisRepository)
-    .to(DiagnosisRepositoryInMemoryImpl)
-    .inSingletonScope();
-  container
-    .bind(TYPES.RuleRepository)
-    .to(RuleRepositoryInMemoryImpl)
-    .inSingletonScope();
-  container
-    .bind(TYPES.ReportsRepository)
-    .to(ReportsRepositoryInMemoryImpl)
-    .inSingletonScope();
-  container
-    .bind(TYPES.PointersRepository)
-    .to(PointersRepositoryInMemoryImpl)
-    .inSingletonScope();
-  container
-    .bind(TYPES.SourceRepository)
-    .to(SourceRepositoryInMemoryImpl)
-    .inSingletonScope();
+  container.bind(TYPES.DiagnosisRepository).to(DiagnosisGatewayMock).inSingletonScope();
+  container.bind(TYPES.RuleRepository).to(RuleGatewayMock).inSingletonScope();
+  container.bind(TYPES.ReportRepository).to(ReportGatewayMock).inSingletonScope();
+  container.bind(TYPES.PointerRepository).to(PointerGatewayMock).inSingletonScope();
+  container.bind(TYPES.SourceRepository).to(SourceGatewayMock).inSingletonScope();
 
   container.bind(TYPES.FindDiagnosisUseCase).to(FindDiagnosisInteractor);
   container.bind(TYPES.CreateDiagnosisUseCase).to(CreateDiagnosisInteractor);

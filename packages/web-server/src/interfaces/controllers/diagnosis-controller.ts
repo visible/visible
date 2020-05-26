@@ -7,7 +7,6 @@ import {
   DeleteDiagnosisUseCase,
   FindDiagnosisUseCase,
   ProcessDiagnosisUseCase,
-  QueueDiagnosisUseCase,
   SubscribeDiagnosisUseCase,
 } from '../../application/use-cases';
 import { Diagnosis } from '../../domain/models';
@@ -29,9 +28,6 @@ export class DiagnosisController {
 
     @inject(TYPES.DeleteDiagnosisUseCase)
     private readonly deleteDiagnosis: DeleteDiagnosisUseCase,
-
-    @inject(TYPES.QueueDiagnosisUseCase)
-    private readonly queueDiagnosis: QueueDiagnosisUseCase,
 
     @inject(TYPES.ProcessDiagnosisUseCase)
     private readonly processDiagnosis: ProcessDiagnosisUseCase,
@@ -62,8 +58,6 @@ export class DiagnosisController {
 
   async create(url: string) {
     const { diagnosis } = await this.createDiagnosis.run({ url });
-    await this.queueDiagnosis.run({ diagnosis });
-
     const output = this.diagnosisPresenter.run(diagnosis);
     return output;
   }

@@ -5,18 +5,18 @@ import {
   HTMLPointer,
   Location,
   Pointer,
-} from '../../domain/models';
-import { ReportORM } from './report';
-import { SourceORM } from './source';
+} from '../../../domain/models';
+import { ReportTable } from '../report';
+import { SourceTable } from '../source';
 
 /*
  * Basic Single Table Inheritance
  */
 @Entity('pointer')
-export class PointerORM {
+export class PointerTable {
   static fromDomain(pointer: Pointer) {
     if (pointer instanceof HTMLPointer) {
-      const entity = new PointerORM();
+      const entity = new PointerTable();
       entity.id = pointer.id;
       entity.type = 'html';
       entity.xpath = pointer.xpath;
@@ -28,7 +28,7 @@ export class PointerORM {
     }
 
     if (pointer instanceof CSSPointer) {
-      const entity = new PointerORM();
+      const entity = new PointerTable();
       entity.id = pointer.id;
       entity.type = 'html';
       entity.xpath = pointer.xpath;
@@ -94,9 +94,9 @@ export class PointerORM {
   @Column('uuid')
   reportId!: string;
 
-  @ManyToOne(() => SourceORM, { nullable: true })
-  readonly source?: SourceORM;
+  @ManyToOne(() => SourceTable, { nullable: true })
+  readonly source?: SourceTable;
 
-  @ManyToOne(() => ReportORM, { onDelete: 'CASCADE' })
-  readonly report?: ReportORM;
+  @ManyToOne(() => ReportTable, { onDelete: 'CASCADE' })
+  readonly report?: ReportTable;
 }

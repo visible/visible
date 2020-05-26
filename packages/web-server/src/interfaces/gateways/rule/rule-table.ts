@@ -1,12 +1,12 @@
 import { Column, Entity, Index, PrimaryColumn, Unique } from 'typeorm';
 
-import { Rule, RuleType } from '../../domain/models';
+import { Rule, RuleType } from '../../../domain/models';
 
 @Entity('rule')
 @Unique(['name'])
-export class RuleORM {
+export class RuleTable {
   static fromDomain(rule: Rule) {
-    const entity = new RuleORM();
+    const entity = new RuleTable();
     entity.id = rule.id;
     entity.name = rule.name;
     entity.type = rule.type;

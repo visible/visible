@@ -1,5 +1,5 @@
 import { Pointer } from '../../domain/models';
 
-export interface PointersRepository {
+export interface PointerRepository {
   save(pointer: Pointer): Promise<Pointer>;
 }

@@ -1,13 +1,13 @@
 import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
 
-import { ReportsRepository } from '../../application/repositories';
-import { Report } from '../../domain/models';
-import { TYPES } from '../../types';
-import { ReportORM } from '../entities';
+import { ReportRepository } from '../../../application/repositories';
+import { Report } from '../../../domain/models';
+import { TYPES } from '../../../types';
+import { ReportTable } from './report-table';
 
 @injectable()
-export class ReportsRepositoryImpl implements ReportsRepository {
+export class ReportGateway implements ReportRepository {
   constructor(
     @inject(TYPES.Connection)
     private connection: Connection,
@@ -15,7 +15,7 @@ export class ReportsRepositoryImpl implements ReportsRepository {
 
   private findOne(id: string) {
     return this.connection
-      .getRepository(ReportORM)
+      .getRepository(ReportTable)
       .findOne(id, {
         relations: ['rule'],
       })
@@ -24,15 +24,15 @@ export class ReportsRepositoryImpl implements ReportsRepository {
 
   async save(report: Report) {
     await this.connection
-      .getRepository(ReportORM)
-      .save(ReportORM.fromDomain(report));
+      .getRepository(ReportTable)
+      .save(ReportTable.fromDomain(report));
     const result = await this.findOne(report.id);
     if (!result) throw new Error('Save failed');
     return result;
   }
 
   async findByDiagnosisId(id: string) {
-    const reports = await this.connection.getRepository(ReportORM).find({
+    const reports = await this.connection.getRepository(ReportTable).find({
       where: {
         diagnosisId: id,
       },

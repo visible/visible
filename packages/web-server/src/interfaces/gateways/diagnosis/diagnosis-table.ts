@@ -1,12 +1,12 @@
 import { Column, Entity, Index, OneToMany, PrimaryColumn } from 'typeorm';
 
-import { Diagnosis, Status } from '../../domain/models';
-import { ReportORM } from './report';
+import { Diagnosis, Status } from '../../../domain/models';
+import { ReportTable } from '../report';
 
 @Entity('diagnosis')
-export class DiagnosisORM {
+export class DiagnosisTable {
   static fromDomain(diagnosis: Diagnosis) {
-    const entity = new DiagnosisORM();
+    const entity = new DiagnosisTable();
     entity.id = diagnosis.id;
     entity.url = diagnosis.url;
     entity.status = diagnosis.status;
@@ -20,7 +20,7 @@ export class DiagnosisORM {
 
   toDomain() {
     if (this.reports == null) {
-      throw new Error(
+      throw new TypeError(
         'No value specified for reports property. You may have forgot JOIN?',
       );
     }
@@ -65,6 +65,6 @@ export class DiagnosisORM {
   @Column('timestamp')
   updatedAt!: Date;
 
-  @OneToMany(() => ReportORM, (report) => report.diagnosis)
-  readonly reports?: ReportORM[];
+  @OneToMany(() => ReportTable, (report) => report.diagnosis)
+  readonly reports?: ReportTable[];
 }
