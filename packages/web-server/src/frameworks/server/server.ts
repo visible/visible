@@ -1,4 +1,7 @@
-import typeDefs from '@visi/web-schema/ast';
+import { CodeFileLoader } from '@graphql-tools/code-file-loader';
+import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
+import { loadSchema } from '@graphql-tools/load';
+import { addResolversToSchema } from '@graphql-tools/schema';
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
@@ -32,34 +35,54 @@ export class Server {
     private readonly logger: Logger,
   ) {}
 
-  private handleListen = () => {
-    this.logger.info(outdent`
-      🎉 GraphQL server is running at:
-      ${this.config.getUrl()}/api/v1
-    `);
+  private loadSchema = async () => {
+    const glob = path.join(
+      path.resolve(require.resolve('@visi/web-schema'), '..'),
+      '**/*.graphql',
+    );
+
+    // Load .graphql as an AST
+    const schema = await loadSchema(glob, {
+      loaders: [new GraphQLFileLoader(), new CodeFileLoader()],
+    });
+
+    return addResolversToSchema({
+      schema,
+      resolvers,
+    });
   };
 
   async start() {
     const app = express();
     const server = createServer(app);
 
+    const i18nMiddleware = i18nextMiddleware.handle(
+      this.i18n.getI18nextInstance(),
+    );
+
+    const staticMiddleware = express.static(
+      path.join(process.cwd(), this.config.static.dir),
+    );
+
     app
       .use(cors())
-      .use(i18nextMiddleware.handle(this.i18n.getI18nextInstance()))
-      .use(
-        this.config.static.route,
-        express.static(path.join(process.cwd(), this.config.static.dir)),
-      );
+      .use(i18nMiddleware)
+      .use(this.config.static.route, staticMiddleware);
 
     const apollo = new ApolloServer({
-      resolvers,
-      typeDefs,
+      schema: await this.loadSchema(),
       context: this.context,
       validationRules: [depthLimit(5)],
     });
 
     apollo.applyMiddleware({ app, path: '/api/v1' });
     apollo.installSubscriptionHandlers(server);
-    server.listen({ port: this.config.app.port }, this.handleListen);
+
+    server.listen({ port: this.config.app.port }, () => {
+      this.logger.info(outdent`
+        🎉 Visible GraphQL server is running at:
+        ${this.config.getUrl()}/${apollo.graphqlPath}
+      `);
+    });
   }
 }

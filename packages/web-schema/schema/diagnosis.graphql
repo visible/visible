@@ -1,0 +1,21 @@
+# import Node from "./node.graphql"
+# import Date from "./scalars.graphql"
+# import Report from "./report.graphql"
+
+enum Status {
+  STARTED
+  PROCESSING
+  DONE
+  FAILED
+}
+
+type Diagnosis implements Node {
+  id: ID!
+  status: Status!
+  screenshot: String!
+  reports: [Report!]!
+  doneCount: Int!
+  totalCount: Int!
+  createdAt: Date!
+  updatedAt: Date!
+}
