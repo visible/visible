@@ -1,0 +1,28 @@
+# import Node from "./node.graphql"
+# import Source from "./source.graphql"
+
+type Location {
+  startLine: Int!
+  startColumn: Int!
+  endLine: Int!
+  endColumn: Int!
+}
+
+type HTMLPointer implements Node {
+  id: ID!
+  xpath: String!
+  source: Source
+  location: Location
+  screenshot: String
+}
+
+type CSSPointer implements Node {
+  id: ID!
+  xpath: String!
+  propertyName: String!
+  source: Source
+  location: Location
+  screenshot: String
+}
+
+union Pointer = HTMLPointer | CSSPointer

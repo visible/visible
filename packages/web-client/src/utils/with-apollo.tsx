@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/react-hooks';
-import typeDefs from '@visi/web-schema/ast';
+// import typeDefs from '@visi/web-schema';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
@@ -28,7 +28,7 @@ export const withApollo = makeWithApollo(
     return new ApolloClient({
       link,
       cache,
-      typeDefs,
+      // typeDefs,
     });
   },
   {

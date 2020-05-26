@@ -18,6 +18,10 @@
     "access": "public"
   },
   "dependencies": {
+    "@graphql-tools/code-file-loader": "^6.0.1",
+    "@graphql-tools/graphql-file-loader": "^6.0.1",
+    "@graphql-tools/load": "^6.0.1",
+    "@graphql-tools/schema": "^6.0.1",
     "@visi/core": "^0.0.1-rc4",
     "@visi/web-schema": "^0.0.1-rc4",
     "apollo": "^2.27.3",
