@@ -1,12 +1,12 @@
 import { Column, Entity, OneToOne, PrimaryColumn } from 'typeorm';
 
-import { Source } from '../../domain/models';
-import { PointerORM } from './pointer';
+import { Source } from '../../../domain/models';
+import { PointerTable } from '../pointer';
 
 @Entity('source')
-export class SourceORM {
+export class SourceTable {
   static fromDomain(source: Source) {
-    const entity = new SourceORM();
+    const entity = new SourceTable();
     entity.id = source.id;
     entity.content = source.content;
     entity.url = source.url;
@@ -40,8 +40,8 @@ export class SourceORM {
   @Column('uuid')
   pointerId!: string;
 
-  @OneToOne(() => PointerORM, (report) => report.source, {
+  @OneToOne(() => PointerTable, (report) => report.source, {
     onDelete: 'CASCADE',
   })
-  readonly pointer?: PointerORM;
+  readonly pointer?: PointerTable;
 }

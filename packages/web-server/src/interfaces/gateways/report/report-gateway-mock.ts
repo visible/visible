@@ -1,10 +1,10 @@
 import { injectable, unmanaged } from 'inversify';
 
-import { ReportsRepository } from '../../application/repositories';
-import { Report } from '../../domain/models';
+import { ReportRepository } from '../../../application/repositories';
+import { Report } from '../../../domain/models';
 
 @injectable()
-export class ReportsRepositoryInMemoryImpl implements ReportsRepository {
+export class ReportGatewayMock implements ReportRepository {
   constructor(
     @unmanaged()
     private reports = new Map<string, Report>(),

@@ -4,16 +4,14 @@ export const TYPES = {
   I18n: Symbol.for('I18n'),
   Storage: Symbol.for('Storage'),
 
-  Redis: Symbol.for('Redis'),
   Connection: Symbol.for('Connection'),
   Context: Symbol.for('Context'),
   Config: Symbol.for('Config'),
-  PubSubEngine: Symbol.for('PubSubEngine'),
 
   DiagnosisRepository: Symbol.for('DiagnosisRepository'),
-  ReportsRepository: Symbol.for('ReportsRepository'),
+  ReportRepository: Symbol.for('ReportRepository'),
   RuleRepository: Symbol.for('RuleRepository'),
-  PointersRepository: Symbol.for('PointersRepository'),
+  PointerRepository: Symbol.for('PointerRepository'),
   SourceRepository: Symbol.for('SourceRepository'),
 
   ProcessDiagnosisJob: Symbol.for('ProcessDiagnosisJob'),
@@ -22,7 +20,6 @@ export const TYPES = {
   CreateDiagnosisUseCase: Symbol.for('CreateDiagnosisUseCase'),
   FindDiagnosisUseCase: Symbol.for('FindDiagnosisUseCase'),
   DeleteDiagnosisUseCase: Symbol.for('DeleteDiagnosisUseCase'),
-  QueueDiagnosisUseCase: Symbol.for('QueueDiagnosisUseCase'),
   ProcessDiagnosisUseCase: Symbol.for('ProcessDiagnosisUseCase'),
   SubscribeDiagnosisUseCase: Symbol.for('SubscribeDiagnosisUseCase'),
 };

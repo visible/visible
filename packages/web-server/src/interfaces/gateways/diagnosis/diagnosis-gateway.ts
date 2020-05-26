@@ -3,15 +3,16 @@ import { Subject } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { Connection } from 'typeorm';
 
-import { DiagnosisRepository } from '../../application/repositories';
-import { Diagnosis } from '../../domain/models';
-import { Logger } from '../../domain/services';
-import { TYPES } from '../../types';
-import { DiagnosisORM } from '../entities';
-import { ProcessDiagnosisJob, PublishDiagnosisJob } from '../jobs';
+import { DiagnosisRepository } from '../../../application/repositories';
+import { Diagnosis } from '../../../domain/models';
+import { Logger } from '../../../domain/services';
+// eslint-disable-next-line
+import { ProcessDiagnosisJob, PublishDiagnosisJob } from '../../../frameworks/jobs';
+import { TYPES } from '../../../types';
+import { DiagnosisTable } from './diagnosis-table';
 
 @injectable()
-export class DiagnosisRepositoryImpl implements DiagnosisRepository {
+export class DiagnosisGateway implements DiagnosisRepository {
   private readonly publish$: Subject<Diagnosis>;
 
   constructor(
@@ -37,7 +38,7 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
 
   async find(ids: string[]) {
     const diagnoses = await this.connection
-      .getRepository(DiagnosisORM)
+      .getRepository(DiagnosisTable)
       .findByIds(ids, {
         relations: [
           'reports',
@@ -56,7 +57,7 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
 
   private async findOne(id: string) {
     return this.connection
-      .getRepository(DiagnosisORM)
+      .getRepository(DiagnosisTable)
       .findOne(id, {
         relations: [
           'reports',
@@ -70,15 +71,15 @@ export class DiagnosisRepositoryImpl implements DiagnosisRepository {
 
   async save(diagnosis: Diagnosis) {
     await this.connection
-      .getRepository(DiagnosisORM)
-      .save(DiagnosisORM.fromDomain(diagnosis));
+      .getRepository(DiagnosisTable)
+      .save(DiagnosisTable.fromDomain(diagnosis));
     const result = await this.findOne(diagnosis.id);
     if (result == null) throw new Error('Save failed');
     return result;
   }
 
   async delete(id: string) {
-    await this.connection.getRepository(DiagnosisORM).delete(id);
+    await this.connection.getRepository(DiagnosisTable).delete(id);
     return id;
   }
 

@@ -1,14 +1,14 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 
-import { Outcome, Report } from '../../domain/models';
-import { DiagnosisORM } from './diagnosis';
-import { PointerORM } from './pointer';
-import { RuleORM } from './rule';
+import { Outcome, Report } from '../../../domain/models';
+import { DiagnosisTable } from '../diagnosis';
+import { PointerTable } from '../pointer';
+import { RuleTable } from '../rule';
 
 @Entity('report')
-export class ReportORM {
+export class ReportTable {
   static fromDomain(report: Report) {
-    const entity = new ReportORM();
+    const entity = new ReportTable();
     entity.id = report.id;
     entity.outcome = report.outcome;
     entity.target = report.target;
@@ -16,7 +16,7 @@ export class ReportORM {
     entity.diagnosisId = report.diagnosisId;
     entity.ruleId = report.rule.id;
     entity.pointers = report.pointers?.map((pointer) =>
-      PointerORM.fromDomain(pointer),
+      PointerTable.fromDomain(pointer),
     );
     return entity;
   }
@@ -57,12 +57,14 @@ export class ReportORM {
   @Column('uuid')
   ruleId!: string;
 
-  @ManyToOne(() => DiagnosisORM, { onDelete: 'CASCADE' })
-  readonly diagnosis?: DiagnosisORM;
+  @ManyToOne(() => DiagnosisTable, { onDelete: 'CASCADE' })
+  readonly diagnosis?: DiagnosisTable;
 
-  @ManyToOne(() => RuleORM)
-  readonly rule?: RuleORM;
+  @ManyToOne(() => RuleTable)
+  readonly rule?: RuleTable;
 
-  @OneToMany(() => PointerORM, (pointer) => pointer.report, { nullable: true })
-  pointers?: PointerORM[];
+  @OneToMany(() => PointerTable, (pointer) => pointer.report, {
+    nullable: true,
+  })
+  pointers?: PointerTable[];
 }

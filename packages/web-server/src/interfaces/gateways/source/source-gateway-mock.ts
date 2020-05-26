@@ -1,10 +1,10 @@
 import { injectable, unmanaged } from 'inversify';
 
-import { SourceRepository } from '../../application/repositories';
-import { Source } from '../../domain/models';
+import { SourceRepository } from '../../../application/repositories';
+import { Source } from '../../../domain/models';
 
 @injectable()
-export class SourceRepositoryInMemoryImpl implements SourceRepository {
+export class SourceGatewayMock implements SourceRepository {
   constructor(
     @unmanaged()
     private readonly sources = new Map<string, Source>(),

@@ -8,8 +8,8 @@ import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
 import {
   DiagnosisRepository,
-  PointersRepository,
-  ReportsRepository,
+  PointerRepository,
+  ReportRepository,
   RuleRepository,
   SourceRepository,
 } from '../repositories';
@@ -32,11 +32,11 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
     @inject(TYPES.RuleRepository)
     private readonly ruleRepository: RuleRepository,
 
-    @inject(TYPES.ReportsRepository)
-    private readonly reportsRepository: ReportsRepository,
+    @inject(TYPES.ReportRepository)
+    private readonly reportsRepository: ReportRepository,
 
-    @inject(TYPES.PointersRepository)
-    private readonly pointersRepository: PointersRepository,
+    @inject(TYPES.PointerRepository)
+    private readonly pointersRepository: PointerRepository,
 
     @inject(TYPES.SourceRepository)
     private readonly sourceRepository: SourceRepository,

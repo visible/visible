@@ -1,11 +1,11 @@
 import { injectable, unmanaged } from 'inversify';
 import { Subject } from 'rxjs';
 
-import { DiagnosisRepository } from '../../application/repositories/diagnosis-repository';
-import { Diagnosis } from '../../domain/models';
+import { DiagnosisRepository } from '../../../application/repositories';
+import { Diagnosis } from '../../../domain/models';
 
 @injectable()
-export class DiagnosisRepositoryInMemoryImpl implements DiagnosisRepository {
+export class DiagnosisGatewayMock implements DiagnosisRepository {
   private readonly update$ = new Subject<Diagnosis>();
 
   constructor(

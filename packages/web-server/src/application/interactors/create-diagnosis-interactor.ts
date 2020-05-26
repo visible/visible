@@ -54,7 +54,8 @@ export class CreateDiagnosisInteractor implements CreateDiagnosisUseCase {
     this.logger.debug(diagnosis.toString());
 
     await this.repository.save(diagnosis);
-    this.logger.info(`Diagnosis ${diagnosis.id} were created`);
+    await this.repository.queue(diagnosis);
+    this.logger.info(`Diagnosis ${diagnosis.id} were created and queued`);
 
     return { diagnosis };
   }
