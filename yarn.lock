@@ -9885,10 +9885,10 @@ detect-port@^1.3.0:
     address "^1.0.1"
     debug "^2.6.0"
 
-devtools-protocol@^0.0.762508:
-  version "0.0.762508"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.762508.tgz#71c0eed9adcba15866e3d9ddce3dc5f0fcebab9e"
-  integrity sha512-izrsTMcPPiuGBCl+VP+tuNiZ5xaycuvvL3/kNJ83aytGC1ljWfXP2hzS3CrMWdDWZ/aNUYuKP7iIJCK1cGddQw==
+devtools-protocol@^0.0.772852:
+  version "0.0.772852"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.772852.tgz#9dd87a50d0425d86dc4f36e270e9c06a94160c67"
+  integrity sha512-BTNnZFhh/ogi12dCzYAoXaaM+zo++BMr8FBV/5DT4Ug1ufYS9QS7vNSfrcJOLIRH+NshZS3Au4iXH7fdJysN/w==
 
 dezalgo@^1.0.0:
   version "1.0.3"

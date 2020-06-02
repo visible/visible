@@ -21,7 +21,7 @@
     "@types/puppeteer": "^2.0.0",
     "@types/uuid": "^7.0.3",
     "deepmerge": "^4.2.2",
-    "devtools-protocol": "^0.0.762508",
+    "devtools-protocol": "^0.0.772852",
     "domelementtype": "^2.0.1",
     "domhandler": "^3.0.0",
     "eventemitter3": "^4.0.0",
