@@ -26,7 +26,7 @@
     "@visi/resources": "^0.0.1-rc4",
     "@visi/web-schema": "^0.0.1-rc4",
     "@visi/web-ui": "^0.0.1-rc4",
-    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.8",
     "apollo-link-http": "^1.5.17",
     "core-js": "^3.6.5",
