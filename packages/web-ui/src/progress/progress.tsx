@@ -2,7 +2,8 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 export interface ProgressProps {
-  progress: number;
+  max: number;
+  value: number;
 }
 
 const pulse = keyframes`
@@ -18,37 +19,33 @@ const pulse = keyframes`
 `;
 
 const Wrapper = styled.div`
-  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 99px;
+  background-color: ${({ theme }) => theme.border.normal};
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
 `;
 
 const Foreground = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 8px;
+  height: 100%;
   transition: 0.15s ease-in;
   animation: ${pulse} 1.5s ease-in infinite;
   border-radius: 99px;
   background-color: ${({ theme }) => theme.highlight.normal};
-`;
-
-const Background = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 8px;
-  border-radius: 99px;
-  background-color: ${({ theme }) => theme.border.normal};
+  box-shadow: inset 0 0 8px #ffae00;
 `;
 
 export const Progress = (props: ProgressProps) => {
-  const { progress } = props;
+  const { max, value } = props;
 
   return (
     <Wrapper>
-      <Background />
-      <Foreground style={{ width: `${progress}%` }} />
+      <Foreground
+        role="presentation"
+        style={{ width: `${(value / max) * 100}%` }}
+      />
     </Wrapper>
   );
 };

@@ -14,5 +14,5 @@ type Report implements Node {
   rule: Rule!
   target: String
   message: String
-  pointers: [Pointer]
+  pointers: [Pointer!]
 }

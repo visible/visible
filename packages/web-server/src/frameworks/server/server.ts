@@ -8,32 +8,26 @@ import express from 'express';
 import depthLimit from 'graphql-depth-limit';
 import { createServer } from 'http';
 import i18nextMiddleware from 'i18next-express-middleware';
-import { inject, injectable } from 'inversify';
+import { Container } from 'inversify';
 import { outdent } from 'outdent';
 import path from 'path';
 
-import { Logger } from '../../domain/services/logger';
+import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
 import { Config } from '../config';
-import { I18nI18nextImpl } from '../services/i18n/i18n-i18next-impl';
-import { Context } from './context';
+import { I18nI18nextImpl } from '../services';
 import { resolvers } from './resolvers';
 
-@injectable()
 export class Server {
-  constructor(
-    @inject(TYPES.Config)
-    private readonly config: Config,
+  private readonly i18n: I18nI18nextImpl;
+  private readonly config: Config;
+  private readonly logger: Logger;
 
-    @inject(TYPES.Context)
-    private readonly context: Context,
-
-    @inject(TYPES.I18n)
-    private readonly i18n: I18nI18nextImpl,
-
-    @inject(TYPES.Logger)
-    private readonly logger: Logger,
-  ) {}
+  constructor(private readonly container: Container) {
+    this.i18n = container.get(TYPES.I18n);
+    this.config = container.get(TYPES.Config);
+    this.logger = container.get(TYPES.Logger);
+  }
 
   private loadSchema = async () => {
     const glob = path.join(
@@ -60,9 +54,7 @@ export class Server {
       this.i18n.getI18nextInstance(),
     );
 
-    const staticMiddleware = express.static(
-      path.join(process.cwd(), this.config.static.dir),
-    );
+    const staticMiddleware = express.static(this.config.static.dir);
 
     app
       .use(cors())
@@ -71,8 +63,13 @@ export class Server {
 
     const apollo = new ApolloServer({
       schema: await this.loadSchema(),
-      context: this.context,
+      context: () => {
+        return this.container.get(TYPES.Context);
+      },
       validationRules: [depthLimit(5)],
+      subscriptions: {
+        path: '/api/v1',
+      },
     });
 
     apollo.applyMiddleware({ app, path: '/api/v1' });
@@ -81,7 +78,8 @@ export class Server {
     server.listen({ port: this.config.app.port }, () => {
       this.logger.info(outdent`
         🎉 Visible GraphQL server is running at:
-        ${this.config.getUrl()}/${apollo.graphqlPath}
+        ${this.config.getUrl()}${apollo.graphqlPath}
+        ${this.config.getSocketUrl()}${apollo.subscriptionsPath}
       `);
     });
   }

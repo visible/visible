@@ -1,6 +1,10 @@
+const path = require('path');
+
 module.exports = {
   overwrite: true,
-  schema: [require.resolve('@visi/web-schema')],
+  schema: [
+    path.join(require.resolve('@visi/web-schema'), '..', '**/*.graphql'),
+  ],
   documents: './src/**/*.graphql',
   generates: {
     './src/generated/graphql.tsx': {

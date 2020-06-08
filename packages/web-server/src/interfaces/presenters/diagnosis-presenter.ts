@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 
 import { Diagnosis, Status } from '../../domain/models';
 import { ReportPresenter } from './report-presenter';
-import { StatusAPI } from './types';
+import { DiagnosisAPI, StatusAPI } from './types';
 
 @injectable()
 export class DiagnosisPresenter {
@@ -24,9 +24,10 @@ export class DiagnosisPresenter {
     }
   }
 
-  run(diagnosis: Diagnosis) {
+  run(diagnosis: Diagnosis): DiagnosisAPI {
     return {
       id: diagnosis.id,
+      url: diagnosis.url,
       status: this.transformStatus(diagnosis.status),
       screenshot: diagnosis.screenshot,
       reports: diagnosis.reports.map((report) =>

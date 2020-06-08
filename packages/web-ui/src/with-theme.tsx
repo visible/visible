@@ -8,8 +8,8 @@ import { GlobalStyle } from './global';
 export const withTheme: DecoratorFn = (storyFn) => {
   return (
     <ConfigProvider theme={theme}>
-      {storyFn()}
       <GlobalStyle />
+      {storyFn()}
     </ConfigProvider>
   );
 };

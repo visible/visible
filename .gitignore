@@ -63,5 +63,6 @@ typings/
 dist
 generated
 postgres
+redis
 tmp
 .cache

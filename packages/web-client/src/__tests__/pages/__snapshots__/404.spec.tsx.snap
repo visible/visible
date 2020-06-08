@@ -2,47 +2,32 @@
 
 exports[`NotFound matches to the snapshot 1`] = `
 .c0 {
-  box-sizing: border-box;
-  width: 1080px;
-  margin: 24px auto;
-}
-
-.c3 {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.c4 {
-  font-size: 14px;
-}
-
-.c1 {
   text-align: center;
 }
 
-.c2 {
+.c1 {
   width: 50%;
 }
 
 <div>
   <main
-    class="c0"
+    class="sc-Axmtr goBstW"
   >
     <div
-      class="c1"
+      class="c0"
     >
       <img
         alt="You hit the void!"
-        class="c2"
+        class="c1"
         src="/static/404.png"
       />
       <h1
-        class="c3"
+        class="sc-fznZeY jOdKoG"
       >
         You hit the void!
       </h1>
-      <span
-        class="c4"
+      <p
+        class="sc-fznZeY Cnwrk"
       >
         The page you were looking for was not found. You can
          
@@ -58,7 +43,7 @@ exports[`NotFound matches to the snapshot 1`] = `
         >
           search contents
         </a>
-      </span>
+      </p>
     </div>
   </main>
 </div>

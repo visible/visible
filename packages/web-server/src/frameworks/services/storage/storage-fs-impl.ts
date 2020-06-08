@@ -26,7 +26,7 @@ export class StorageFsImpl implements Storage {
       });
 
       fromEvent(stream, 'end').subscribe(() => {
-        const url = `${this.config.getUrl()}/${fileName}`;
+        const url = `${this.config.getStaticUrl()}/${fileName}`;
         resolve({ file: url });
       });
     });

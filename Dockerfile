@@ -34,7 +34,11 @@ RUN apk add --no-cache \
 RUN addgroup -S visible \
   && adduser -S -g visible visible \
   && mkdir -p /home/visible/Downloads \
-  && chown -R visible:visible /home/visible/
+  && chown -R visible:visible /home/visible/ \
+  && mkdir -p /home/packages/web-server/tmp \
+  && mkdir -p /home/packages/web-server/static \
+  && chown -R visible:visible /home/packages/web-server/tmp/ \
+  && chown -R visible:visible /home/packages/web-server/static/
 
 COPY --from=build /home/package.json /home/lerna.json /home/
 COPY --from=build /home/node_modules /home/node_modules

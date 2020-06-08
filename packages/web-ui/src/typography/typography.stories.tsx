@@ -35,3 +35,15 @@ export const h6 = () => (
 export const body = () => (
   <Typography variant="body">{text('Text', 'Hello')}</Typography>
 );
+
+export const italic = () => (
+  <Typography fontStyle="italic">{text('Text', 'Hello')}</Typography>
+);
+
+export const wash = () => (
+  <Typography color="wash">{text('Text', 'Hello')}</Typography>
+);
+
+export const uppercase = () => (
+  <Typography textTransform="uppercase">{text('Text', 'Hello')}</Typography>
+);

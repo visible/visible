@@ -8,6 +8,12 @@ export interface AppConfig {
   port: number;
 }
 
+export interface SocketConfig {
+  protocol: string;
+  host: string;
+  port: number;
+}
+
 export interface StaticConfig {
   route: string;
   dir: string;
@@ -29,15 +35,19 @@ export interface RedisConfig {
 
 export interface Config {
   app: AppConfig;
+  socket: SocketConfig;
   static: StaticConfig;
   db: DbConfig;
   redis: RedisConfig;
   getUrl(): string;
+  getSocketUrl(): string;
+  getStaticUrl(): string;
 }
 
 @injectable()
 export class ConfigImpl implements Config {
   app: AppConfig;
+  socket: SocketConfig;
   static: StaticConfig;
   db: DbConfig;
   redis: RedisConfig;
@@ -52,8 +62,14 @@ export class ConfigImpl implements Config {
       port: Number(e.APP_PORT) ?? 3000,
     };
 
+    this.socket = {
+      protocol: 'ws',
+      host: e.APP_HOST ?? 'localhost',
+      port: Number(e.APP_PORT) ?? 3000,
+    };
+
     this.static = {
-      route: 'static',
+      route: '/static',
       dir: path.join(process.cwd(), 'static'),
     };
 
@@ -74,5 +90,13 @@ export class ConfigImpl implements Config {
 
   getUrl() {
     return `${this.app.protocol}://${this.app.host}:${this.app.port}`;
+  }
+
+  getSocketUrl() {
+    return `${this.socket.protocol}://${this.socket.host}:${this.socket.port}`;
+  }
+
+  getStaticUrl() {
+    return `${this.getUrl()}${this.static.route}`;
   }
 }

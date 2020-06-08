@@ -12,6 +12,7 @@ enum Status {
 type Diagnosis implements Node {
   id: ID!
   status: Status!
+  url: String!
   screenshot: String!
   reports: [Report!]!
   doneCount: Int!

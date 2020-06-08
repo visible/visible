@@ -4,6 +4,7 @@ export const theme: Theme = {
   foreground: {
     normal: '#333333',
     wash: '#666666',
+    inverse: '#ffffff',
   },
   background: {
     normal: '#ffffff',
@@ -15,5 +16,10 @@ export const theme: Theme = {
   },
   border: {
     normal: '#e6e6e6',
+  },
+  fixed: {
+    red: '#d32626',
+    green: '#2b580c',
+    grey: '#666666',
   },
 };

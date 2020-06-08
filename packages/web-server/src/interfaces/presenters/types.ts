@@ -66,6 +66,7 @@ export enum StatusAPI {
 
 export interface DiagnosisAPI {
   id: string;
+  url: string;
   status: StatusAPI;
   screenshot: string;
   reports: ReportAPI[];

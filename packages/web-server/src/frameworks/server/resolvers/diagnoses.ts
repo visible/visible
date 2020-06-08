@@ -4,25 +4,23 @@ import {
   SubscriptionResolvers,
 } from '../generated/graphql';
 
-export const rootDiagnosis: QueryResolvers['diagnosis'] = async (
+export const rootDiagnosis: QueryResolvers['diagnosis'] = (
   _,
   { id },
-  { diagnosisController },
+  { diagnosisLoader },
 ) => {
-  const diagnosis = await diagnosisController.load(id);
-  return diagnosis;
+  return diagnosisLoader.load(id);
 };
 
-export const createDiagnosis: MutationResolvers['createDiagnosis'] = async (
+export const createDiagnosis: MutationResolvers['createDiagnosis'] = (
   _,
   { url },
   { diagnosisController },
 ) => {
-  const diagnosis = await diagnosisController.create(url);
-  return diagnosis;
+  return diagnosisController.create(url);
 };
 
-export const deleteDiagnosis: MutationResolvers['deleteDiagnosis'] = async (
+export const deleteDiagnosis: MutationResolvers['deleteDiagnosis'] = (
   _,
   { id },
   { diagnosisController },
