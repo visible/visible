@@ -20,14 +20,14 @@ export const withApollo = makeWithApollo(
     });
 
     const httpLink = new HttpLink({
-      uri: 'http://localhost:3000/api/v1',
+      uri: `${process.env.API_URL}/api/v1`,
     });
     let link: ApolloLink = httpLink;
 
     // Skip WebSocket initialisation at the server side
     if (process.browser) {
       const wsLink = new WebSocketLink({
-        uri: 'ws://localhost:3000/api/v1',
+        uri: `${process.env.STREAMING_API_URL}/api/v1`,
         options: {
           reconnect: true,
         },
