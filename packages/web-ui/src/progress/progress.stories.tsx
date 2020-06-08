@@ -9,7 +9,5 @@ export default {
 };
 
 export const normal = () => (
-  <Progress
-    progress={number('Progress', 50, { range: true, min: 0, max: 100 })}
-  />
+  <Progress max={100} value={number('Progress', 50)} />
 );

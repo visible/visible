@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { Subject } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { Connection } from 'typeorm';
 
 import { DiagnosisRepository } from '../../../application/repositories';
@@ -88,13 +88,12 @@ export class DiagnosisGateway implements DiagnosisRepository {
   }
 
   subscribe(id: string) {
-    return this.publish$.pipe(
-      tap((v) => this.logger.debug(v)),
-      filter((diagnosis) => diagnosis.id === id),
-    );
+    this.logger.debug(`[Repository] Some client has subscribed to ${id}`);
+    return this.publish$.pipe(filter((diagnosis) => diagnosis.id === id));
   }
 
   async publish(diagnosis: Diagnosis) {
+    this.logger.debug(`[Repository] Publishing ${diagnosis.id}`);
     await this.publishDiagnosis.queue.add(diagnosis.toJSON());
   }
 }

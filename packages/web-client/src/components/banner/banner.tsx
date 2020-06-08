@@ -1,6 +1,7 @@
 import * as UI from '@visi/web-ui';
 import Link from 'next/link';
 import React from 'react';
+import { Bell, Home } from 'react-feather';
 import styled from 'styled-components';
 
 import { useTranslation } from '../../utils/i18next';
@@ -22,15 +23,27 @@ const Title = styled.h1`
   }
 `;
 
+const Item = styled.a`
+  display: flex !important;
+  align-items: center;
+
+  svg {
+    margin-right: 0.5em;
+  }
+`;
+
 type BannerProps = JSX.IntrinsicElements['header'];
 
 export const Banner = (props: BannerProps) => {
   const { t } = useTranslation();
 
   const navItems = [
-    { to: '/', text: t('banner.index', 'Visible') },
-    { to: '/home', text: t('banner.home', 'Home') },
-    { to: '/notifications', text: t('banner.notifications', 'Notifications') },
+    { to: '/', text: t('banner.home', 'Home'), icon: Home },
+    {
+      to: '/notifications',
+      text: t('banner.notifications', 'Notifications'),
+      icon: Bell,
+    },
   ];
 
   return (
@@ -44,10 +57,13 @@ export const Banner = (props: BannerProps) => {
       </Title>
 
       <UI.Nav>
-        {navItems.map((nav) => (
-          <UI.NavItem key={nav.to} appearance="inverse">
-            <Link href={nav.to}>
-              <a>{nav.text}</a>
+        {navItems.map(({ to, text, icon: Icon }) => (
+          <UI.NavItem key={to} appearance="inverse">
+            <Link href={to}>
+              <Item>
+                <Icon size={16} />
+                {text}
+              </Item>
             </Link>
           </UI.NavItem>
         ))}

@@ -1,4 +1,3 @@
-import DataLoader from 'dataloader';
 import { inject, injectable } from 'inversify';
 import { map, tap } from 'rxjs/operators';
 
@@ -13,12 +12,10 @@ import { Diagnosis } from '../../domain/models';
 import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
 import { toAsyncIterator } from '../../utils/to-async-iterator';
-import { DiagnosisAPI, DiagnosisPresenter } from '../presenters';
+import { DiagnosisPresenter } from '../presenters';
 
 @injectable()
 export class DiagnosisController {
-  private readonly dataLoader: DataLoader<string, DiagnosisAPI>;
-
   constructor(
     @inject(TYPES.FindDiagnosisUseCase)
     private readonly findDiagnosis: FindDiagnosisUseCase,
@@ -40,13 +37,7 @@ export class DiagnosisController {
 
     @inject(TYPES.Logger)
     private readonly logger: Logger,
-  ) {
-    this.dataLoader = new DataLoader((keys) => this.find(keys));
-  }
-
-  async load(key: string) {
-    return this.dataLoader.load(key);
-  }
+  ) {}
 
   async find(ids: readonly string[]) {
     const { diagnoses } = await this.findDiagnosis.run({ ids });

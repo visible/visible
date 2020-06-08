@@ -3,10 +3,10 @@ import {
   render as defaultRender,
   RenderOptions as DefaultRenderOptions,
 } from '@testing-library/react';
-import { theme as defaultTheme } from '@visi/resources';
 import { Theme } from '@visi/web-ui';
 import React from 'react';
 
+import { theme as defaultTheme } from '../theme';
 import { TestProvider } from './test-provider';
 
 export interface RenderOptions extends Omit<DefaultRenderOptions, 'queries'> {

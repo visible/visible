@@ -1,64 +1,75 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const H1 = styled.h1`
-  font-size: 28px;
-  font-weight: bold;
+import { Theme } from '../theme';
+import { createHelpers } from '../utils';
+
+export type TypographyVariant =
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'body';
+
+const { shouldForwardProp, select } = createHelpers([
+  'fontStyle',
+  'color',
+  'variant',
+  'textTransform',
+]);
+
+interface WrapperProps {
+  fontStyle: 'bold' | 'italic' | 'normal';
+  color: keyof Theme['foreground'];
+  variant: TypographyVariant;
+  textTransform: 'none' | 'uppercase';
+}
+
+const isHeading = (variant: TypographyVariant) => variant.startsWith('h');
+
+const mapVariantToFontSize = (variant: TypographyVariant): string => {
+  return {
+    h1: '28px',
+    h2: '24px',
+    h3: '21px',
+    h4: '18px',
+    h5: '16px',
+    h6: '14px',
+    body: '14px',
+  }[variant];
+};
+
+const Wrapper = styled('p').withConfig({
+  shouldForwardProp,
+})<WrapperProps>`
+  margin: 0;
+  /* margin-bottom: ${(p) => (isHeading(p.variant) ? '1em' : '0')}; */
+  color: ${(p) => p.theme.foreground[p.color]};
+  font-size: ${(p) => mapVariantToFontSize(p.variant)};
+  font-style: ${select.fontStyle};
+  text-transform: ${select.textTransform};
+  line-height: 1.6;
 `;
 
-export const H2 = styled.h2`
-  font-size: 24px;
-  font-weight: bold;
-`;
-
-export const H3 = styled.h3`
-  font-size: 21px;
-  font-weight: bold;
-`;
-
-export const H4 = styled.h4`
-  font-size: 18px;
-  font-weight: bold;
-`;
-
-export const H5 = styled.h5`
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-export const H6 = styled.h6`
-  font-size: 14px;
-  font-weight: bold;
-`;
-
-export const Body = styled.span`
-  font-size: 14px;
-`;
-
-export interface TypographyProps {
-  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body';
+export interface TypographyProps extends WrapperProps {
   children: React.ReactNode;
 }
 
 export const Typography = (props: TypographyProps) => {
-  const { variant, children, ...rest } = props;
+  const { children, ...rest } = props;
 
-  switch (variant) {
-    case 'h1':
-      return <H1 {...rest}>{children}</H1>;
-    case 'h2':
-      return <H2 {...rest}>{children}</H2>;
-    case 'h3':
-      return <H3 {...rest}>{children}</H3>;
-    case 'h4':
-      return <H4 {...rest}>{children}</H4>;
-    case 'h5':
-      return <H5 {...rest}>{children}</H5>;
-    case 'h6':
-      return <H6 {...rest}>{children}</H6>;
-    case 'body':
-      return <Body {...rest}>{children}</Body>;
-    default:
-      return null;
-  }
+  return (
+    <Wrapper as={rest.variant !== 'body' ? rest.variant : 'p'} {...rest}>
+      {children}
+    </Wrapper>
+  );
+};
+
+Typography.defaultProps = {
+  variant: 'body',
+  fontStyle: 'normal',
+  color: 'normal',
+  textTransform: 'none',
 };

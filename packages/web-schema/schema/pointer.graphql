@@ -8,7 +8,14 @@ type Location {
   endColumn: Int!
 }
 
-type HTMLPointer implements Node {
+interface BasePointer {
+  id: ID!
+  source: Source
+  location: Location
+  screenshot: String
+}
+
+type HTMLPointer implements Node & BasePointer {
   id: ID!
   xpath: String!
   source: Source
@@ -16,7 +23,7 @@ type HTMLPointer implements Node {
   screenshot: String
 }
 
-type CSSPointer implements Node {
+type CSSPointer implements Node & BasePointer {
   id: ID!
   xpath: String!
   propertyName: String!

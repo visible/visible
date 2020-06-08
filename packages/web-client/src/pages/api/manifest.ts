@@ -1,6 +1,6 @@
-import { theme } from '@visi/resources';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { theme } from '../../theme';
 import { I18n } from '../../utils/i18next';
 
 type Request = NextApiRequest & {

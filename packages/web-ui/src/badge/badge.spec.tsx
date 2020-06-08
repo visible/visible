@@ -5,7 +5,7 @@ import { Badge } from '.';
 
 describe('Badge', () => {
   it('matches snapshot', () => {
-    const { container } = render(<Badge />);
+    const { container } = render(<Badge variant="red" />);
     expect(container.firstChild).toMatchSnapshot();
   });
 });

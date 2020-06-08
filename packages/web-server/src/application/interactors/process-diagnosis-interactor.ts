@@ -1,7 +1,8 @@
 import * as Core from '@visi/core';
 import { inject, injectable } from 'inversify';
 import path from 'path';
-import { catchError, tap } from 'rxjs/operators';
+import { from } from 'rxjs';
+import { catchError, concatMap, tap } from 'rxjs/operators';
 
 import { Diagnosis, Status } from '../../domain/models';
 import { Logger } from '../../domain/services';
@@ -72,9 +73,9 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
       });
 
     // Save
+    await this.ruleRepository.save(report.rule);
     await this.diagnosisRepository.save(diagnosis);
     await this.reportsRepository.save(report);
-    await this.ruleRepository.save(report.rule);
     for (const pointer of report.pointers ?? []) {
       if (pointer.source) {
         await this.sourceRepository.save(pointer.source);
@@ -91,6 +92,7 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
       updatedAt: new Date(),
     });
     await this.diagnosisRepository.save(diagnosis);
+    await this.diagnosisRepository.publish(diagnosis);
   }
 
   private async handleError(baseDiagnosis: Diagnosis) {
@@ -99,6 +101,7 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
       updatedAt: new Date(),
     });
     await this.diagnosisRepository.save(diagnosis);
+    await this.diagnosisRepository.publish(diagnosis);
   }
 
   async run({
@@ -118,9 +121,10 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
     await visible
       .diagnose()
       .pipe(
-        tap(async (progress) => {
-          diagnosis = await this.handleProgress(progress, diagnosis, visible);
-        }),
+        concatMap((progress) =>
+          from(this.handleProgress(progress, diagnosis, visible)),
+        ),
+        tap((newDiagnosis) => (diagnosis = newDiagnosis)),
         catchError(async (error) => {
           await this.handleError(diagnosis);
           throw error;

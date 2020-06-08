@@ -1,22 +1,94 @@
-fragment ReportSmall on Report {
-  id
+fragment LocationLarge on Location {
+  startLine
+  startColumn
+  endLine
+  endColumn
 }
 
-fragment DiagnosisSmall on Diagnosis {
+fragment SourceLarge on Source {
   id
-  reports {
-    ...ReportSmall
+  title
+  url
+}
+
+fragment HTMLPointerLarge on HTMLPointer {
+  id
+  source {
+    ...SourceLarge
+  }
+  screenshot
+  xpath
+  location {
+    ...LocationLarge
   }
 }
 
-query FetchDiagnosisSmall($id: ID!) {
+fragment CSSPointerLarge on CSSPointer {
+  id
+  source {
+    ...SourceLarge
+  }
+  screenshot
+  xpath
+  location {
+    ...LocationLarge
+  }
+  xpath
+  propertyName
+}
+
+fragment RuleLarge on Rule {
+  id
+  name
+  type
+  description
+}
+
+fragment ReportLarge on Report {
+  id
+  outcome
+  target
+  message
+  rule {
+    ...RuleLarge
+  }
+  pointers {
+    ...on HTMLPointer {
+      ...HTMLPointerLarge
+    }
+    ...on CSSPointer {
+      ...CSSPointerLarge
+    }
+  }
+}
+
+fragment DiagnosisLarge on Diagnosis {
+  id
+  url
+  status
+  screenshot
+  doneCount
+  totalCount
+  createdAt
+  reports {
+    ...ReportLarge
+  }
+}
+
+query FetchDiagnosisLarge($id: ID!) {
 	diagnosis(id: $id) {
-		...DiagnosisSmall
+		...DiagnosisLarge
 	}
 }
 
 mutation createDiagnosis($url: String!) {
   createDiagnosis(url: $url) {
-    ...DiagnosisSmall
+    ...DiagnosisLarge
+  }
+}
+
+subscription subscribeDiagnosis($id: ID!) {
+  diagnosis(id: $id) {
+    ...DiagnosisLarge
   }
 }

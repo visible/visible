@@ -2,6 +2,7 @@ export interface Theme {
   foreground: {
     normal: string;
     wash: string;
+    inverse: string;
   };
   background: {
     normal: string;
@@ -13,5 +14,10 @@ export interface Theme {
   };
   border: {
     normal: string;
+  };
+  fixed: {
+    red: string;
+    green: string;
+    grey: string;
   };
 }

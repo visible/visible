@@ -1,4 +1,4 @@
-import * as UI from '@visi/web-ui';
+import { Content, Search, Typography } from '@visi/web-ui';
 import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -16,23 +16,17 @@ const Wizard = styled.section`
   background-size: cover;
   color: white;
 
-  input {
-    width: 400px;
+  form[role='search'] {
+    width: 360px;
   }
 `;
 
 const Inner = styled.div`
-  width: 400px;
   padding: 68px 40px;
-`;
 
-const Title = styled.h2`
-  font-size: 28px;
-`;
-
-const Description = styled.p`
-  color: #f1f1f1;
-  font-size: 12px;
+  & > *:not(:last-child) {
+    margin-bottom: 18px;
+  }
 `;
 
 const Index: NextPage = () => {
@@ -47,8 +41,21 @@ const Index: NextPage = () => {
   });
 
   useEffect(() => {
-    if (data) router.push(`/diagnoses/${data.createDiagnosis.id}`);
+    if (data)
+      router.push('/diagnoses/[id]', `/diagnoses/${data.createDiagnosis.id}`);
   }, [data, router]);
+
+  useEffect(() => {
+    router.prefetch('/diagnoses/[id]');
+  }, [router]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    createDiagnosis();
+  };
 
   const title = t('home.title', 'Diagnose your website');
   const description = t(
@@ -57,24 +64,27 @@ const Index: NextPage = () => {
   );
 
   return (
-    <UI.Content style={{ padding: '0', overflow: 'hidden' }}>
+    <Content style={{ padding: '0', overflow: 'hidden' }}>
       <NextSeo title={title} description={description} openGraph={{ title }} />
 
       <Wizard>
         <Inner>
-          <Title>{title}</Title>
-          <UI.Search
-            submitLabel={t('home.submit', 'Diagnose')}
+          <Typography variant="h2" color="inverse">
+            {title}
+          </Typography>
+
+          <Search
             placeholder={t('home.placeholder', 'Type URL of the website')}
-            onChange={(e) => setValue(e.target.value)}
-            onSubmit={(_) => createDiagnosis()}
+            submitLabel={t('home.submit', 'Diagnose')}
+            onChange={handleChange}
+            onSubmit={handleSubmit}
+            loading={loading}
           />
-          <Description>{description}</Description>
-          {loading && <UI.Progress progress={50} />}
-          blah blah blah
+
+          <Typography color="inverse">{description}</Typography>
         </Inner>
       </Wizard>
-    </UI.Content>
+    </Content>
   );
 };
 

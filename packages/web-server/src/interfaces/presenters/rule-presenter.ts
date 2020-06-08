@@ -17,6 +17,7 @@ export class RulePresenter {
   run(rule: Rule) {
     return {
       id: rule.id,
+      name: rule.name,
       type: this.transformRuleType(rule.type),
       description: rule.description,
     };

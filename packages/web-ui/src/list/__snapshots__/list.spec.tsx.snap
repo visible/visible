@@ -1,11 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`List matches snapshot 1`] = `
-.c0 {
-  list-style-type: disc;
-}
-
 <ul
-  class="c0"
+  class="sc-AxjAm bgzbNk"
 />
 `;
