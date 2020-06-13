@@ -1,6 +1,6 @@
 {
   "name": "@visi/plugin-standard",
-  "version": "0.0.1-rc4",
+  "version": "0.0.1-rc5",
   "repository": "https://github.com/neet/visible.git",
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
@@ -17,16 +17,16 @@
     "access": "public"
   },
   "dependencies": {
-    "@visi/core": "^0.0.1-rc4",
-    "polished": "^3.5.1"
+    "@visi/core": "^0.0.1-rc5",
+    "polished": "^3.5.2"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^11.0.1",
-    "@rollup/plugin-json": "^4.0.1",
-    "@rollup/plugin-node-resolve": "^7.1.1",
-    "rollup": "^1.29.0",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-json": "^4.0.3",
+    "@rollup/plugin-node-resolve": "^8.0.0",
+    "rollup": "^2.7.6",
     "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-typescript2": "^0.25.3"
+    "rollup-plugin-typescript2": "^0.27.0"
   },
   "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
 }

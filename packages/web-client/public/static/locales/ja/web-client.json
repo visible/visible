@@ -1,14 +1,22 @@
 {
   "banner": {
     "home": "ホーム",
-    "index": "Visible",
     "notifications": "通知"
+  },
+  "content-info": {
+    "email": "お問い合わせ",
+    "github": "GitHub",
+    "twitter": "Twitter"
   },
   "diagnoses": {
     "description": "Visibleによるあなたの診断結果",
     "error": "エラーが発生しました",
     "loading": "読み込み中...",
-    "title": "診断結果: {{id}}"
+    "title": "診断結果: {{domain}}"
+  },
+  "error": {
+    "default-message": "エラーメッセージがありません",
+    "default-title": "予期せぬエラーが発生しました"
   },
   "home": {
     "description": "ウェブサイトのURLを入力してアクセシビリティーの問題点を指摘します。",
@@ -20,8 +28,11 @@
     "description": "🦉 VisibleはNode.js及びCI上で動作するオープンソースのアクセシビリティーテストツールです",
     "title": "Visible"
   },
-  "void": {
-    "description": "お探しのページは存在していないようです。",
+  "not-found": {
+    "content": "お探しのページが見つかりませんでした。 <2>ホームに戻る</2>か<5>サイト内を検索</5>することができます。",
     "title": "ページが見つかりません"
+  },
+  "report": {
+    "location": "{{fileName}}:{{startLine}}で検出"
   }
 }

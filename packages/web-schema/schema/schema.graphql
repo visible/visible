@@ -1,0 +1,20 @@
+# import Diagnosis from "./diagnosis.graphql"
+
+type Query {
+  diagnosis(id: ID!): Diagnosis!
+}
+
+type Mutation {
+  createDiagnosis(url: String!): Diagnosis!
+  deleteDiagnosis(id: ID!): ID!
+}
+
+type Subscription {
+  diagnosis(id: ID!): Diagnosis!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}

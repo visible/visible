@@ -7,4 +7,6 @@ export default {
   component: Badge,
 };
 
-export const normal = () => <Badge>badge</Badge>;
+export const red = () => <Badge variant="red">badge</Badge>;
+export const green = () => <Badge variant="green">badge</Badge>;
+export const grey = () => <Badge variant="grey">badge</Badge>;

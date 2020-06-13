@@ -1,4 +1,9 @@
 .env
+.next
+.cache
+coverage
 node_modules
 generated
 dist
+postgres
+redis

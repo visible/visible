@@ -1,5 +1,7 @@
 import { transparentize } from 'polished';
-import styled, { css } from 'styled-components';
+import React, { PropsWithChildren } from 'react';
+import { Loader } from 'react-feather';
+import styled, { css, keyframes } from 'styled-components';
 
 export type ButtonAppearance = 'primary' | 'skeleton';
 
@@ -8,7 +10,16 @@ export interface ButtonProps {
   appearance: ButtonAppearance;
 }
 
-export const Button = styled.button<ButtonProps>`
+const spin = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Wrapper = styled.button<ButtonProps>`
   box-sizing: border-box;
   padding: 8px 14px;
   transition: 0.15s ease-in;
@@ -53,4 +64,22 @@ export const Button = styled.button<ButtonProps>`
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+  & > svg {
+    animation: ${spin} 1s infinite linear;
+  }
 `;
+
+export const Button = (
+  props: PropsWithChildren<
+    ButtonProps & { loading?: boolean } & React.ButtonHTMLAttributes<
+        HTMLButtonElement
+      >
+  >,
+) => {
+  const { children, loading, ...rest } = props;
+
+  return (
+    <Wrapper {...rest}>{loading ? <Loader size={14} /> : children}</Wrapper>
+  );
+};

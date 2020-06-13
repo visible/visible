@@ -1,9 +1,4 @@
-import { BrowserPuppeteerImpl } from './browser-puppeteer-impl';
-import { Visible, VisibleParams } from './visible';
-
-export const visible = async (params: VisibleParams) => {
-  const browser = new BrowserPuppeteerImpl();
-  return (await Visible.init(params, browser)).diagnose();
-};
-
 export * from '../shared';
+export * from './visible/visible';
+export * from './post-processors';
+export * from './plugin';

@@ -8,3 +8,4 @@ export default {
 };
 
 export const normal = () => <Content>Hello</Content>;
+export const skeleton = () => <Content appearance="skeleton">Hello</Content>;

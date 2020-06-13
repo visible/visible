@@ -1,0 +1,18 @@
+# import Node from "./node.graphql"
+# import Rule from "./rule.graphql"
+# import Pointer from "./pointer.graphql"
+
+enum Outcome {
+  FAIL
+  PASSED
+  INAPPLICABLE
+}
+
+type Report implements Node {
+  id: ID!
+  outcome: Outcome!
+  rule: Rule!
+  target: String
+  message: String
+  pointers: [Pointer!]
+}

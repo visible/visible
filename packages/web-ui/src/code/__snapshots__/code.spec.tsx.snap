@@ -3,7 +3,6 @@
 exports[`Code matches snapshot 1`] = `
 <pre
   style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(240, 240, 240); color: rgb(68, 68, 68);"
-  theme="[object Object]"
 >
   <code>
     

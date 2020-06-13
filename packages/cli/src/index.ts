@@ -1,11 +1,20 @@
 #!/usr/bin/env node
-import { visible } from '@visi/core/main';
+import { Config, Visible } from '@visi/core/main';
+import chalk from 'chalk';
+import { Presets, SingleBar } from 'cli-progress';
 import { cosmiconfig } from 'cosmiconfig';
 import { promises as fs } from 'fs';
+import {
+  filter,
+  finalize,
+  first,
+  mergeAll,
+  pluck,
+  toArray,
+} from 'rxjs/operators';
 import yargs from 'yargs';
 
 import { i18next, initI18next } from './i18next';
-import { loader } from './loader';
 import { print } from './print';
 
 initI18next();
@@ -36,7 +45,7 @@ yargs
   .command(
     '*',
     t('visible.description', 'The default command') as string,
-    yargs =>
+    (yargs) =>
       yargs
         .option('url', {
           description: t('options.url', 'URL to diagnose'),
@@ -56,6 +65,11 @@ yargs
           type: 'boolean',
           default: false,
         })
+        .option('silent', {
+          description: t('options.silent', 'Disables progress bar'),
+          type: 'boolean',
+          default: false,
+        })
         .option('verbose', {
           description: t(
             'options.verbose',
@@ -65,23 +79,60 @@ yargs
           default: false,
         }),
 
-    async ({ url, json, verbose, fix }) => {
+    async ({ url, json, verbose, silent, fix }) => {
       const config = await cosmiconfig('visible')
         .search()
-        .then(result => result?.config);
+        .then((result) => result?.config as Config | undefined);
 
-      if (!config) {
-        throw new Error(t('visible.no-rc', 'No visiblerc file found'));
+      if (config === undefined) {
+        // eslint-disable-next-line no-console
+        console.error(t('visible.no-rc', 'No visiblerc file found'));
+        process.exit(1);
       }
 
-      const reports = await loader(
-        t('visible.loading', 'Fetching diagnoses...'),
-        visible({ config, url }),
+      const singleBar = new SingleBar(
+        { clearOnComplete: true },
+        Presets.shades_classic,
       );
 
-      await print(reports, json, verbose, t, fix);
+      const visible = await Visible.init(config);
+      await visible.open(url);
+      const letterhead = await visible.fetchLetterhead();
+      const progress$ = visible.diagnose();
 
-      const hasError = reports.some(report => report.level === 'error');
-      process.exit(hasError ? 1 : 0);
+      if (!silent) {
+        progress$.pipe(first()).subscribe((progress) => {
+          // eslint-disable-next-line no-console
+          console.log(
+            chalk.grey(
+              t('visible.start', '🦉 Diagnosing "{{name}}" at {{url}}...', {
+                name: letterhead.title,
+                url: letterhead.url,
+              }),
+            ),
+          );
+
+          singleBar.start(progress.totalCount, 0);
+        });
+
+        progress$
+          .pipe(finalize(() => singleBar.stop()))
+          .subscribe((progress) => {
+            singleBar.update(progress.doneCount);
+          });
+      }
+
+      progress$
+        .pipe(
+          pluck('report'),
+          filter((report) => verbose || report.outcome === 'fail'),
+          toArray(),
+          mergeAll(),
+          finalize(() => visible.close()),
+        )
+        .subscribe((report) => {
+          const sources = visible.getSources();
+          print(report, sources, json, fix);
+        });
     },
   ).argv;

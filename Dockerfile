@@ -2,9 +2,7 @@ FROM node:12-alpine AS build
 ENV NODE_ENV=development
 WORKDIR /home
 
-RUN apk add --no-cache \
-  git \
-  yarn
+RUN apk add --no-cache git yarn
 
 COPY . /home
 
@@ -12,13 +10,15 @@ RUN yarn --frozen-lockfile \
   && yarn cache clean \
   && yarn run build
 
-FROM node:12-alpine AS production
+RUN mv node_modules/@visi node_modules/.tmp \
+  && cp -LR node_modules/.tmp node_modules/@visi \
+  && rm -rf node_modules/.tmp
 
+FROM node:12-alpine AS production
 ENV NODE_ENV=production \
-  WEB_PORT=3000 \
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
   PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-
+EXPOSE ${CLIENT_PORT} ${SERVER_PORT}
 WORKDIR /home
 
 RUN apk add --no-cache \
@@ -29,22 +29,31 @@ RUN apk add --no-cache \
   harfbuzz \
   ca-certificates \
   ttf-freefont \
-  nodejs \
   yarn
 
-RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
-  && mkdir -p /home/pptruser/Downloads /app \
-  && chown -R pptruser:pptruser /home/pptruser \
-  && chown -R pptruser:pptruser /app
+RUN addgroup -S visible \
+  && adduser -S -g visible visible \
+  && mkdir -p /home/visible/Downloads \
+  && chown -R visible:visible /home/visible/ \
+  && mkdir -p /home/packages/web-server/tmp \
+  && mkdir -p /home/packages/web-server/static \
+  && chown -R visible:visible /home/packages/web-server/tmp/ \
+  && chown -R visible:visible /home/packages/web-server/static/
+
+COPY --from=build /home/package.json /home/lerna.json /home/
+COPY --from=build /home/node_modules /home/node_modules
 
 COPY --from=build \
-  /home/node_modules \
-  /home/packages/web-server/dist \
   /home/packages/web-server/package.json \
   /home/packages/web-server/ormconfig.js \
-  /home/
+  /home/packages/web-server/
+COPY --from=build /home/packages/web-server/dist /home/packages/web-server/dist
 
-VOLUME [ "./logs" ]
-EXPOSE ${WEB_PORT}
-USER pptruser
-CMD yarn start
+COPY --from=build /home/packages/web-client/package.json /home/packages/web-client/
+COPY --from=build /home/packages/web-client/dist /home/packages/web-client/dist
+COPY --from=build /home/packages/web-client/public /home/packages/web-client/public
+COPY --from=build /home/packages/web-client/.next /home/packages/web-client/.next
+
+USER visible
+VOLUME [ "/home/packages/web-server/logs" ]
+ENTRYPOINT [ "yarn", "start" ]

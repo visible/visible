@@ -1,9 +1,12 @@
-import { Diagnosis } from '../../enterprise/entities/diagnosis';
+import { Observable } from 'rxjs';
 
-export type CreateParam = Pick<Diagnosis, 'reports'>;
+import { Diagnosis } from '../../domain/models/diagnosis';
 
 export interface DiagnosisRepository {
   find(id: readonly string[]): Promise<Diagnosis[]>;
-  create(diagnosis: CreateParam): Promise<Diagnosis>;
+  save(diagnosis: Diagnosis): Promise<Diagnosis>;
   delete(id: string): Promise<string>;
+  queue(diagnosis: Diagnosis): Promise<void>;
+  publish(diagnosis: Diagnosis): Promise<void>;
+  subscribe(id: string): Observable<Diagnosis>;
 }

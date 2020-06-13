@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DiagnosisPresenter transforms diagnosis into API response 1`] = `
+Object {
+  "createdAt": 2020-05-17T08:28:59.186Z,
+  "doneCount": 1,
+  "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
+  "reports": Array [
+    Object {
+      "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
+      "message": "Error!",
+      "outcome": "FAIL",
+      "pointers": Array [
+        Object {
+          "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
+          "location": Object {
+            "endColumn": 1,
+            "endLine": 1,
+            "startColumn": 1,
+            "startLine": 1,
+          },
+          "screenshot": "https://example.com",
+          "source": Object {
+            "content": "<html></html>",
+            "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
+            "title": "index.html",
+            "url": "https://example.com",
+          },
+          "xpath": "/html/body",
+        },
+      ],
+      "rule": Object {
+        "description": "foo",
+        "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
+        "name": "img-alt",
+        "type": "ATOMIC",
+      },
+      "target": "/html/body",
+    },
+  ],
+  "screenshot": "https://example.com",
+  "status": "STARTED",
+  "totalCount": 1,
+  "updatedAt": 2020-05-17T08:28:59.186Z,
+  "url": "https://exmaple.com",
+}
+`;

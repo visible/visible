@@ -19,3 +19,9 @@ export const skeleton = () => (
     {text('Content', 'Button')}
   </Button>
 );
+
+export const loading = () => (
+  <Button appearance="primary" loading={true}>
+    {text('Content', 'Button')}
+  </Button>
+);

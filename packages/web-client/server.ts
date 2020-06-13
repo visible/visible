@@ -4,7 +4,7 @@ import nextI18nextMiddleware from 'next-i18next/middleware';
 
 import nextI18next from './src/utils/i18next';
 
-const port = process.env.PORT ?? 3000;
+const port = process.env.CLIENT_PORT ?? 4000;
 const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const handle = app.getRequestHandler();
 

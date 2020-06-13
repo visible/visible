@@ -1,12 +1,15 @@
 {
   "button-alt": {
+    "description": "ボタンのテキストコンテンツを検出します。",
     "no-alt": "button要素にはテキストコンテンツかtitle属性を指定する必要があります。"
   },
   "color-contrast": {
     "aa": "色コントラスト比は7以上であるべきです。",
-    "less-than-aa": "色コントラスト比は4.5以上である必要があります。"
+    "description": "色コントラスト比を検出します。",
+    "less-than-aa": "色コントラスト比は4.5でなければなりません。"
   },
   "img-alt": {
+    "description": "画像のalt属性を検出します。",
     "no-alt": "img要素にはalt属性を指定される必要があります。"
   }
 }
