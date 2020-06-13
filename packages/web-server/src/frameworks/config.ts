@@ -6,12 +6,14 @@ export interface AppConfig {
   protocol: string;
   host: string;
   port: number;
+  url: string;
 }
 
 export interface SocketConfig {
   protocol: string;
   host: string;
   port: number;
+  url: string;
 }
 
 export interface StaticConfig {
@@ -60,12 +62,14 @@ export class ConfigImpl implements Config {
       protocol: 'http',
       host: e.APP_HOST ?? 'localhost',
       port: Number(e.APP_PORT) ?? 3000,
+      url: e.API_URL ?? 'http://localhost',
     };
 
     this.socket = {
       protocol: 'ws',
       host: e.APP_HOST ?? 'localhost',
       port: Number(e.APP_PORT) ?? 3000,
+      url: e.STREAMING_API_URL ?? 'ws://localhost',
     };
 
     this.static = {
@@ -89,11 +93,11 @@ export class ConfigImpl implements Config {
   }
 
   getUrl() {
-    return `${this.app.protocol}://${this.app.host}:${this.app.port}`;
+    return this.app.url;
   }
 
   getSocketUrl() {
-    return `${this.socket.protocol}://${this.socket.host}:${this.socket.port}`;
+    return this.socket.url;
   }
 
   getStaticUrl() {
