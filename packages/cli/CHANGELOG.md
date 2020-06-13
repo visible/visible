@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.1-rc5](https://github.com/visible/visible/compare/v0.0.1-rc4...v0.0.1-rc5) (2020-06-13)
+
+
+### Bug Fixes
+
+* Run prettier ([c841a2e](https://github.com/visible/visible/commit/c841a2ea7ebde2eab732dfd1cedb4ae0764b119e))
+
+
+### Features
+
+* Add node location to the report ([4cbc6ba](https://github.com/visible/visible/commit/4cbc6ba6f2c2e133085ee20a6f86df8fc2d1b835))
+* Show progress of diagnosis on CLI ([2528d3d](https://github.com/visible/visible/commit/2528d3d0da4e35b3dcc200451cd2bd08ad20439d))
+
+
+
+
+
 ## [0.0.1-rc4](https://github.com/visible/visible/compare/v0.0.1-rc3...v0.0.1-rc4) (2020-04-11)
 
 
