@@ -27,7 +27,7 @@
     "eventemitter3": "^4.0.0",
     "fp-ts": "^2.5.4",
     "htmlparser2": "^4.1.0",
-    "i18next": "^19.4.4",
+    "i18next": "^19.5.2",
     "polished": "^3.5.2",
     "puppeteer": "^3.0.2",
     "rxjs": "^6.5.5",
