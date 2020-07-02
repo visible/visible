@@ -51,7 +51,7 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0",
     "ts-jest": "^25.4.0",
-    "typescript": "^3.7.4",
+    "typescript": "^3.9.6",
     "vinyl-fs": "^3.0.3"
   }
 }

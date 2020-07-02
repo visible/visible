@@ -48,7 +48,7 @@
     "jest-styled-components": "^7.0.2",
     "react-docgen-typescript-loader": "^3.6.0",
     "ts-loader": "^7.0.2",
-    "typescript": "^3.7.4",
+    "typescript": "^3.9.6",
     "webpack": "^4.43.0"
   },
   "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
