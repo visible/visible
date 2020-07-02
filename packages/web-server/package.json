@@ -50,7 +50,7 @@
     "rxjs-async-iterator": "^1.0.1",
     "type-fest": "^0.13.1",
     "typeorm": "^0.2.22",
-    "uuid": "^8.0.0"
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "@graphql-codegen/add": "^1.13.5",
