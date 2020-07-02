@@ -19,7 +19,7 @@
   "dependencies": {
     "@babel/code-frame": "^7.8.3",
     "@visi/core": "^0.0.1-rc5",
-    "chalk": "^4.0.0",
+    "chalk": "^4.1.0",
     "cli-progress": "^3.8.1",
     "cosmiconfig": "^6.0.0",
     "i18next": "^19.4.4",
