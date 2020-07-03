@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/add": "^1.13.5",
-    "@graphql-codegen/cli": "^1.13.4",
+    "@graphql-codegen/cli": "^1.16.0",
     "@graphql-codegen/typescript": "^1.15.0",
     "@graphql-codegen/typescript-resolvers": "^1.13.4",
     "@types/bull": "^3.12.2",
