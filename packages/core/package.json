@@ -28,6 +28,7 @@
     "fp-ts": "^2.5.4",
     "htmlparser2": "^4.1.0",
     "i18next": "^19.5.3",
+    "mkdirp": "^1.0.4",
     "polished": "^3.5.2",
     "puppeteer": "^3.0.2",
     "rxjs": "^6.5.5",
@@ -38,6 +39,7 @@
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
+    "@types/mkdirp": "^1.0.1",
     "rollup": "^2.7.6",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-typescript2": "^0.27.0"

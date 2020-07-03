@@ -19,18 +19,20 @@ it('resolves `extends` property of config', () => {
     fakeConfigLoader,
   );
 
-  expect(result).toStrictEqual({
-    extends: ['plugin-a', 'plugin-b', 'plugin-c'],
-    rules: {
-      'rule-a': {
-        level: 'ok',
+  expect(result).toEqual(
+    expect.objectContaining({
+      extends: ['plugin-a', 'plugin-b', 'plugin-c'],
+      rules: {
+        'rule-a': {
+          level: 'ok',
+        },
+        'rule-b': {
+          level: 'ok',
+        },
+        'rule-c': {
+          level: 'ok',
+        },
       },
-      'rule-b': {
-        level: 'ok',
-      },
-      'rule-c': {
-        level: 'ok',
-      },
-    },
-  });
+    }),
+  );
 });

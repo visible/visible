@@ -1,6 +1,22 @@
 import merge from 'deepmerge';
+import os from 'os';
+import path from 'path';
 
 import { Config } from '../../shared';
+
+const defaultConfig: Config = {
+  extends: [],
+  plugins: [],
+  settings: {
+    browser: 'chrome',
+    language: 'en',
+    delay: 0,
+    headless: true,
+    noSandbox: false,
+    screenshot: 'only-fail',
+    screenshotDir: path.join(os.tmpdir(), 'visible'),
+  },
+};
 
 const loadConfig = (path: string) => require(path).config;
 
@@ -9,9 +25,11 @@ const loadConfig = (path: string) => require(path).config;
  * @param baseConfig base configuration object
  */
 export function resolveExtends(baseConfig: Config, configLoader = loadConfig) {
-  const extendConfigs = baseConfig.extends ?? [];
+  const extensions = baseConfig.extends ?? [];
 
-  return extendConfigs.reduce((result, extendConfig) => {
+  const config = extensions.reduce((result, extendConfig) => {
     return merge(result, configLoader(extendConfig));
   }, baseConfig);
+
+  return merge(config, defaultConfig);
 }
