@@ -20,7 +20,7 @@
     "@babel/code-frame": "^7.8.3",
     "@visi/core": "^0.0.1-rc5",
     "chalk": "^4.1.0",
-    "cli-progress": "^3.8.1",
+    "cli-progress": "^3.8.2",
     "cosmiconfig": "^6.0.0",
     "i18next": "^19.5.2",
     "i18next-cli-language-detector": "^1.0.0",
