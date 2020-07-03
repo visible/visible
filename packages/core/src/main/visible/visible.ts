@@ -1,3 +1,4 @@
+import mkdirp from 'mkdirp';
 import path from 'path';
 import { launch } from 'puppeteer';
 import { ConnectableObservable, from, of } from 'rxjs';
@@ -50,6 +51,7 @@ export class Visible {
 
   static async init(rawConfig: Config) {
     const config = resolveExtends(rawConfig);
+    await mkdirp(config.settings.screenshotDir ?? '');
     const launchOptions = createLaunchOptionsFromSettings(
       config.settings ?? {},
     );
