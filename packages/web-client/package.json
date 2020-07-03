@@ -48,7 +48,7 @@
     "subscriptions-transport-ws": "^0.9.16"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.15.0",
+    "@graphql-codegen/cli": "^1.16.0",
     "@graphql-codegen/fragment-matcher": "^1.15.0",
     "@graphql-codegen/typescript": "^1.15.0",
     "@graphql-codegen/typescript-operations": "^1.15.0",
