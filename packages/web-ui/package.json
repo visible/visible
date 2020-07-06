@@ -1,6 +1,6 @@
 {
   "name": "@visi/web-ui",
-  "version": "0.0.1-rc5",
+  "version": "0.0.1",
   "repository": "https://github.com/neet/visible.git",
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",

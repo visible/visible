@@ -1,6 +1,6 @@
 {
   "name": "@visi/cli",
-  "version": "0.0.1-rc5",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "AGPL-3.0",
   "bin": {
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@babel/code-frame": "^7.8.3",
-    "@visi/core": "^0.0.1-rc5",
+    "@visi/core": "^0.0.1",
     "chalk": "^4.1.0",
     "cli-progress": "^3.8.2",
     "cosmiconfig": "^6.0.0",
