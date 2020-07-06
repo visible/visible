@@ -1,6 +1,6 @@
 {
   "name": "@visi/web-client",
-  "version": "0.0.1-rc5",
+  "version": "0.0.1",
   "repository": "https://github.com/neet/visible.git",
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
@@ -23,8 +23,8 @@
     "@apollo/react-hooks": "^3.1.5",
     "@apollo/react-ssr": "^3.1.5",
     "@apollo/react-testing": "^3.1.4",
-    "@visi/web-schema": "^0.0.1-rc5",
-    "@visi/web-ui": "^0.0.1-rc5",
+    "@visi/web-schema": "^0.0.1",
+    "@visi/web-ui": "^0.0.1",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
@@ -48,7 +48,7 @@
     "subscriptions-transport-ws": "^0.9.16"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.15.0",
+    "@graphql-codegen/cli": "^1.16.0",
     "@graphql-codegen/fragment-matcher": "^1.15.0",
     "@graphql-codegen/typescript": "^1.15.0",
     "@graphql-codegen/typescript-operations": "^1.15.0",

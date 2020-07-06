@@ -1,8 +1,11 @@
+const path = require('path');
 const ctx = '../../../interfaces/presenters/types';
 
 module.exports = {
   overwrite: true,
-  schema: [require.resolve('@visi/web-schema')],
+  schema: [
+    path.join(require.resolve('@visi/web-schema'), '..', '**/*.graphql'),
+  ],
   documents: null,
   generates: {
     './src/frameworks/server/generated/graphql.ts': {

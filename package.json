@@ -27,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.34.0",
     "core-js": "^3.6.5",
-    "cspell": "^4.0.57",
+    "cspell": "^4.0.63",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.20.0",
@@ -45,13 +45,13 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "scaffdog": "^0.2.3",
-    "stylelint": "^13.5.0",
+    "stylelint": "^13.6.1",
     "stylelint-config-property-sort-order-smacss": "^6.0.0",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0",
     "ts-jest": "^25.4.0",
-    "typescript": "^3.7.4",
+    "typescript": "^3.9.6",
     "vinyl-fs": "^3.0.3"
   }
 }
