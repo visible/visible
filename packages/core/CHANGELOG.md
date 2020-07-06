@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.1](https://github.com/visible/visible/compare/v0.0.1-rc5...v0.0.1) (2020-07-06)
+
+
+### Bug Fixes
+
+* Use os.tmpdir as a default value for screenshotDir ([93b8173](https://github.com/visible/visible/commit/93b8173fea10e84973753bd65264d6990a7efb07))
+
+
+
+
+
 ## [0.0.1-rc5](https://github.com/visible/visible/compare/v0.0.1-rc4...v0.0.1-rc5) (2020-06-13)
 
 
