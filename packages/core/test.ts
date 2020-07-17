@@ -1,22 +1,23 @@
 /* eslint-disable */
-import { Visible } from './src/main';
-import { filter, last, flatMap, finalize } from 'rxjs/operators';
+import { Visible } from './src/visible';
+import path from 'path';
+import postcss from 'postcss';
+import diff from 'cli-diff';
+import { getOuterHTML } from 'domutils';
 
 (async () => {
   const visible = await Visible.init({
+    driver: '@visi/plugin-puppeteer',
     extends: [],
-    plugins: ['@visi/plugin-standard'],
-    settings: {
-      headless: true,
-    },
+    plugins: [
+      '@visi/plugin-puppeteer',
+      '@visi/plugin-standard',
+    ],
+    // settings: {
+    //   headless: false,
+    // },
   });
 
-  await visible.open('https://djmnj.csb.app/');
-  const diagnosis$ = visible.diagnose();
-
-  diagnosis$.subscribe((report) => {
-    console.log(JSON.stringify(report, undefined, 2));
-  });
-
-  // visible.done$.subscribe(map => console.log(map));
+  const result = await visible.diagnose('https://djmnj.csb.app/');
+  console.log(result);
 })();

@@ -1,61 +1,69 @@
 import { codeFrameColumns } from '@babel/code-frame';
-import { Report, Source } from '@visi/core/main';
+import { Outcome, Source } from '@visi/core';
 import chalk from 'chalk';
+import diff from 'cli-diff';
 
-import { i18next } from './i18next';
+// import { i18next } from './i18next';
+// const t = i18next.t.bind(i18next);
 
-const t = i18next.t.bind(i18next);
+const colors = {
+  [Outcome.FAIL]: chalk.bgRed,
+  [Outcome.INAPPLICABLE]: chalk.bgGrey,
+  [Outcome.PASSED]: chalk.bgGreen,
+};
 
 export const print = (
-  report: Report,
-  sources: Map<string, Source>,
+  sources: Source[],
+  originals: Map<string, string>,
   json: boolean,
   _fix: boolean,
 ) => {
+  let output = '';
+
   if (json) {
-    // eslint-disable-next-line no-console
-    return console.log(JSON.stringify(report, undefined, 2));
+    output = JSON.stringify(sources, null, 2);
   }
 
-  if (report.outcome === 'inapplicable') {
-    return;
-  }
+  for (const source of sources) {
+    const original = originals.get(source.id);
 
-  const codeFrame = report.pointers
-    .map((pointer) => {
-      const { sourceId, location } = pointer;
+    if (original == null) {
+      continue;
+    }
 
-      if (!location || !sourceId) {
-        return chalk.grey(
-          t(
-            'code-frame.unavailable',
-            '(Code frame is not available for this node)',
-          ),
+    for (const report of source.reports) {
+      const title = colors[report.outcome](report.ruleId);
+      const message = report.message ?? 'No message provided';
+
+      output += `${title} ${message}\n`;
+
+      if (report.location != null) {
+        const frame = codeFrameColumns(
+          original,
+          {
+            start: {
+              line: report.location.startLine,
+              column: report.location.startColumn,
+            },
+            end: {
+              line: report.location.endLine,
+              column: report.location.endColumn,
+            },
+          },
+          { highlightCode: true },
         );
+
+        output += frame + '\n';
       }
+    }
 
-      const source = sources.get(sourceId);
-      if (!source) {
-        throw new Error(`Unmapped source given ${sourceId}`);
-      }
-
-      const loc = {
-        start: { line: location.startLine, column: location.startColumn },
-        end: { line: location.endLine, column: location.endColumn },
-      };
-
-      return codeFrameColumns(source.content, loc, { highlightCode: true });
-    })
-    .join('\n');
-
-  const output = [
-    chalk.bold(
-      chalk.red(report.rule.id) +
-        ' ' +
-        (report.outcome === 'fail' ? report.message : 'passed'),
-    ),
-    codeFrame,
-  ].join('\n');
+    if (original !== source.text) {
+      output += chalk.bgGrey(
+        `Suggested change for ${source.url ?? 'the file'}:\n`,
+      );
+      output += diff(original, source.text);
+    }
+  }
 
   // eslint-disable-next-line no-console
   return console.log(output);

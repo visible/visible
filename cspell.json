@@ -26,6 +26,7 @@
     "docgen",
     "domelementtype",
     "domhandler",
+    "domutils",
     "eslintcache",
     "esnext",
     "Gmail",
@@ -41,11 +42,11 @@
     "languagedetector",
     "lngs",
     "mixins",
+    "newable",
     "nullish",
     "outdent",
     "postgres",
     "postgresql",
-    "newable",
     "prefetch",
     "scaffdog",
     "serializable",
@@ -56,6 +57,7 @@
     "stylelint",
     "stylelintcache",
     "theming",
+    "tmpdir",
     "transparentize",
     "transpiled",
     "typeorm",
@@ -65,6 +67,7 @@
     "visiblehq",
     "visiblerc",
     "WCAG",
-    "WOFF"
+    "WOFF",
+    "xpaths"
   ]
 }
