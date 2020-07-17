@@ -1,6 +1,0 @@
-{
-  "plugins": ["@visi/plugin-standard"],
-  "settings": {
-    "screenshot": "only-fail"
-  }
-}

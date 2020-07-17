@@ -1,17 +1,10 @@
 #!/usr/bin/env node
-import { Config, Visible } from '@visi/core/main';
+import { ConfigSchema, init } from '@visi/core';
 import chalk from 'chalk';
 import { Presets, SingleBar } from 'cli-progress';
 import { cosmiconfig } from 'cosmiconfig';
 import { promises as fs } from 'fs';
-import {
-  filter,
-  finalize,
-  first,
-  mergeAll,
-  pluck,
-  toArray,
-} from 'rxjs/operators';
+import { finalize, first } from 'rxjs/operators';
 import yargs from 'yargs';
 
 import { i18next, initI18next } from './i18next';
@@ -79,10 +72,10 @@ yargs
           default: false,
         }),
 
-    async ({ url, json, verbose, silent, fix }) => {
+    async ({ url, json, silent, fix }) => {
       const config = await cosmiconfig('visible')
         .search()
-        .then((result) => result?.config as Config | undefined);
+        .then((result) => result?.config as ConfigSchema | undefined);
 
       if (config === undefined) {
         // eslint-disable-next-line no-console
@@ -95,44 +88,23 @@ yargs
         Presets.shades_classic,
       );
 
-      const visible = await Visible.init(config);
-      await visible.open(url);
-      const letterhead = await visible.fetchLetterhead();
-      const progress$ = visible.diagnose();
+      const visible = await init(config);
 
       if (!silent) {
-        progress$.pipe(first()).subscribe((progress) => {
+        visible.progress$.pipe(first()).subscribe((progress) => {
           // eslint-disable-next-line no-console
-          console.log(
-            chalk.grey(
-              t('visible.start', '🦉 Diagnosing "{{name}}" at {{url}}...', {
-                name: letterhead.title,
-                url: letterhead.url,
-              }),
-            ),
-          );
-
+          console.log(chalk.grey(t('visible.start', '🦉 Diagnosing...')));
           singleBar.start(progress.totalCount, 0);
         });
 
-        progress$
+        visible.progress$
           .pipe(finalize(() => singleBar.stop()))
           .subscribe((progress) => {
             singleBar.update(progress.doneCount);
           });
       }
 
-      progress$
-        .pipe(
-          pluck('report'),
-          filter((report) => verbose || report.outcome === 'fail'),
-          toArray(),
-          mergeAll(),
-          finalize(() => visible.close()),
-        )
-        .subscribe((report) => {
-          const sources = visible.getSources();
-          print(report, sources, json, fix);
-        });
+      const sources = await visible.diagnose(url);
+      print(sources, visible.originals, json, fix);
     },
   ).argv;

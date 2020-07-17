@@ -22,7 +22,7 @@
     "manage-translations": "node ./scripts/manage-translations.js"
   },
   "devDependencies": {
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^26.0.4",
     "@types/node": "^13.13.4",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.34.0",
@@ -39,8 +39,8 @@
     "gulp-sort": "^2.0.0",
     "i18next-scanner": "^2.10.3",
     "i18next-scanner-typescript": "^1.0.3",
-    "jest": "^25.5.3",
-    "jest-config": "^26.0.1",
+    "jest": "^26.1.0",
+    "jest-config": "^26.1.0",
     "lerna": "^3.20.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
@@ -50,7 +50,7 @@
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0",
-    "ts-jest": "^25.4.0",
+    "ts-jest": "^26.1.3",
     "typescript": "^3.9.6",
     "vinyl-fs": "^3.0.3"
   }

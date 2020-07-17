@@ -22,7 +22,7 @@
     "@graphql-tools/graphql-file-loader": "^6.0.1",
     "@graphql-tools/load": "^6.0.1",
     "@graphql-tools/schema": "^6.0.5",
-    "@visi/core": "^0.0.1",
+    "@visi/core": "0.0.1-rc5",
     "@visi/web-schema": "^0.0.1",
     "apollo": "^2.27.3",
     "apollo-link": "^1.2.14",

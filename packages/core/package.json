@@ -8,31 +8,21 @@
     "test": "jest --coverage"
   },
   "files": [
-    "dist",
-    "main",
-    "renderer"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@gotoeasy/code-frame": "^0.4.1",
-    "@types/node": "^13.13.4",
-    "@types/puppeteer": "^2.0.0",
-    "@types/uuid": "^7.0.3",
     "deepmerge": "^4.2.2",
-    "devtools-protocol": "^0.0.772852",
     "domelementtype": "^2.0.1",
     "domhandler": "^3.0.0",
-    "eventemitter3": "^4.0.0",
-    "fp-ts": "^2.5.4",
+    "domutils": "^2.1.0",
     "htmlparser2": "^4.1.0",
     "i18next": "^19.5.3",
     "mkdirp": "^1.0.4",
-    "polished": "^3.5.2",
-    "puppeteer": "^3.0.2",
+    "postcss": "^7.0.32",
     "rxjs": "^6.5.5",
-    "uuid": "^8.2.0",
     "xpath-analyzer": "^3.0.0"
   },
   "devDependencies": {
@@ -40,6 +30,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@types/mkdirp": "^1.0.1",
+    "@types/node": "^13.13.4",
     "rollup": "^2.7.6",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-typescript2": "^0.27.0"
