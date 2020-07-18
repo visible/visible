@@ -6,7 +6,7 @@
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
   "workspaces": [
-    "packages/*"
+    "packages/*/*"
   ],
   "scripts": {
     "bootstrap": "lerna run bootstrap",
@@ -16,7 +16,7 @@
     "test": "lerna run test --concurrency 1",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint --cache --cache-location .cache/eslint/cache './packages/**/*.{ts,tsx}'",
-    "lint:stylelint": "stylelint --cache --cache-location .cache/stylelint/cache './packages/{web-client,web-ui}/**/*.{ts,tsx}'",
+    "lint:stylelint": "stylelint --cache --cache-location .cache/stylelint/cache './packages/@visi/{web-client,web-ui}/**/*.{ts,tsx}'",
     "lint:spellcheck": "cspell './{packages,docs,scripts}/**/*.{ts,tsx,md,js,json,graphql}'",
     "storybook": "lerna exec start-storybook --scope @visi/web-ui -- -p 6006",
     "manage-translations": "node ./scripts/manage-translations.js"
