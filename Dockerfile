@@ -35,25 +35,25 @@ RUN addgroup -S visible \
   && adduser -S -g visible visible \
   && mkdir -p /home/visible/Downloads \
   && chown -R visible:visible /home/visible/ \
-  && mkdir -p /home/packages/web-server/tmp \
-  && mkdir -p /home/packages/web-server/static \
-  && chown -R visible:visible /home/packages/web-server/tmp/ \
-  && chown -R visible:visible /home/packages/web-server/static/
+  && mkdir -p /home/packages/@visi/web-server/tmp \
+  && mkdir -p /home/packages/@visi/web-server/static \
+  && chown -R visible:visible /home/packages/@visi/web-server/tmp/ \
+  && chown -R visible:visible /home/packages/@visi/web-server/static/
 
 COPY --from=build /home/package.json /home/lerna.json /home/
 COPY --from=build /home/node_modules /home/node_modules
 
 COPY --from=build \
-  /home/packages/web-server/package.json \
-  /home/packages/web-server/ormconfig.js \
-  /home/packages/web-server/
-COPY --from=build /home/packages/web-server/dist /home/packages/web-server/dist
+  /home/packages/@visi/web-server/package.json \
+  /home/packages/@visi/web-server/ormconfig.js \
+  /home/packages/@visi/web-server/
+COPY --from=build /home/packages/@visi/web-server/dist /home/packages/@visi/web-server/dist
 
-COPY --from=build /home/packages/web-client/package.json /home/packages/web-client/
-COPY --from=build /home/packages/web-client/dist /home/packages/web-client/dist
-COPY --from=build /home/packages/web-client/public /home/packages/web-client/public
-COPY --from=build /home/packages/web-client/.next /home/packages/web-client/.next
+COPY --from=build /home/packages/@visi/web-client/package.json /home/packages/@visi/web-client/
+COPY --from=build /home/packages/@visi/web-client/dist /home/packages/@visi/web-client/dist
+COPY --from=build /home/packages/@visi/web-client/public /home/packages/@visi/web-client/public
+COPY --from=build /home/packages/@visi/web-client/.next /home/packages/@visi/web-client/.next
 
 USER visible
-VOLUME [ "/home/packages/web-server/logs" ]
+VOLUME [ "/home/packages/@visi/web-server/logs" ]
 ENTRYPOINT [ "yarn", "start" ]

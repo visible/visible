@@ -6,29 +6,30 @@ const scanner = require('i18next-scanner');
 const typescriptTransform = require('i18next-scanner-typescript');
 
 // Returns false for non-plural using languages
-const shouldUsePlural = lng => {
+const shouldUsePlural = (lng) => {
   const nonPluralLanguages = ['ja'];
   return !nonPluralLanguages.includes(lng);
 };
 
 const lngs = glob
-  .sync(`./packages/cli/src/locale/*.json`)
-  .map(file => file.match(/.*\/(.+?).json$/)[1]);
+  .sync(`./packages/@visi/cli/src/locale/*.json`)
+  .map((file) => file.match(/.*\/(.+?).json$/)[1]);
 
 const resourceMap = {
-  cli: './packages/cli/src/locale/{{lng}}.json',
-  'web-server': './packages/web-server/src/frameworks/locale/{{lng}}.json',
+  cli: './packages/@visi/cli/src/locale/{{lng}}.json',
+  'web-server':
+    './packages/@visi/web-server/src/frameworks/locale/{{lng}}.json',
   'web-client':
-    './packages/web-client/public/static/locales/{{lng}}/{{ns}}.json',
-  'plugin-standard': './packages/plugin-standard/src/locale/{{lng}}.json',
+    './packages/@visi/web-client/public/static/locales/{{lng}}/{{ns}}.json',
+  'plugin-standard': './packages/@visi/plugin-standard/src/locale/{{lng}}.json',
 };
 
 const workspaces = Object.keys(resourceMap);
 
-const createConfig = workspace => {
+const createConfig = (workspace) => {
   return {
     transform: typescriptTransform({ extensions: ['.tsx'] }),
-    input: [`./packages/${workspace}/src/**/*.{ts,tsx}`],
+    input: [`./packages/@visi/${workspace}/src/**/*.{ts,tsx}`],
     output: '.',
     options: {
       func: {
