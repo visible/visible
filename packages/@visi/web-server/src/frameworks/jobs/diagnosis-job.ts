@@ -1,12 +1,10 @@
 import Bull from 'bull';
 import { inject, injectable } from 'inversify';
 
-import { Diagnosis } from '../../domain/models';
-import { JustProps } from '../../domain/models/model';
 import { TYPES } from '../../types';
 import { Config } from '../config';
 
-export type JobData = JustProps<Diagnosis>;
+export type JobData = string;
 
 @injectable()
 export class ProcessDiagnosisJob {
