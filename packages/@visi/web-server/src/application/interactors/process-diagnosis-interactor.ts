@@ -1,4 +1,5 @@
 import * as Core from '@visi/core';
+import { produce } from 'immer';
 import { inject, injectable } from 'inversify';
 import path from 'path';
 import { from } from 'rxjs';
@@ -48,7 +49,7 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
 
   private async handleProgress(
     progress: Core.Progress,
-    baseDiagnosis: Diagnosis,
+    base: Diagnosis,
     visible: Core.Visible,
   ) {
     this.logger.info(
@@ -58,19 +59,17 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
     // Update
     const report = await this.translator.createReport(
       progress.report,
-      baseDiagnosis.id,
+      base.id,
       visible.getSources(),
     );
-    const diagnosis = baseDiagnosis
-      .copy({
-        updatedAt: new Date(),
-        status: Status.PROCESSING,
-        doneCount: progress.doneCount,
-        totalCount: progress.totalCount,
-      })
-      .map({
-        reports: (reports) => reports.concat(report),
-      });
+
+    const diagnosis = produce(base, (draft) => {
+      draft.updatedAt = new Date();
+      draft.status = Status.PROCESSING;
+      draft.doneCount = progress.doneCount;
+      draft.totalCount = progress.totalCount;
+      draft.reports.push(report);
+    });
 
     // Save
     await this.ruleRepository.save(report.rule);
@@ -86,20 +85,22 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
     return diagnosis;
   }
 
-  private async handleComplete(baseDiagnosis: Diagnosis) {
-    const diagnosis = baseDiagnosis.copy({
-      status: Status.DONE,
-      updatedAt: new Date(),
+  private async handleComplete(base: Diagnosis) {
+    const diagnosis = produce(base, (draft) => {
+      draft.status = Status.DONE;
+      draft.updatedAt = new Date();
     });
+
     await this.diagnosisRepository.save(diagnosis);
     await this.diagnosisRepository.publish(diagnosis);
   }
 
-  private async handleError(baseDiagnosis: Diagnosis) {
-    const diagnosis = baseDiagnosis.copy({
-      status: Status.FAILED,
-      updatedAt: new Date(),
+  private async handleError(base: Diagnosis) {
+    const diagnosis = produce(base, (draft) => {
+      draft.status = Status.FAILED;
+      draft.updatedAt = new Date();
     });
+
     await this.diagnosisRepository.save(diagnosis);
     await this.diagnosisRepository.publish(diagnosis);
   }

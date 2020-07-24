@@ -1,3 +1,4 @@
+import { validateOrReject } from 'class-validator';
 import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
 
@@ -14,6 +15,7 @@ export class PointersGateway implements PointerRepository {
   ) {}
 
   async save(pointer: Pointer) {
+    await validateOrReject(pointer);
     return this.connection
       .getRepository(PointerTable)
       .save(PointerTable.fromDomain(pointer))

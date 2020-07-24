@@ -1,3 +1,4 @@
+import { validateOrReject } from 'class-validator';
 import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
 
@@ -14,6 +15,7 @@ export class SourceGateway implements SourceRepository {
   ) {}
 
   async save(source: Source) {
+    await validateOrReject(source);
     return this.connection
       .getRepository(SourceTable)
       .save(SourceTable.fromDomain(source))

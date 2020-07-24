@@ -50,20 +50,20 @@ describe('Diagnosis', () => {
   //   }).toThrow();
   // });
 
-  it('can be updated by using copy', () => {
-    const diagnosis = Diagnosis.from({
-      id: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
-      status: Status.STARTED,
-      url: 'https://exmaple.com',
-      screenshot: 'https://exmaple.com',
-      reports: [],
-      doneCount: 1,
-      totalCount: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+  // it('can be updated by using copy', () => {
+  //   const diagnosis = Diagnosis.from({
+  //     id: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
+  //     status: Status.STARTED,
+  //     url: 'https://exmaple.com',
+  //     screenshot: 'https://exmaple.com',
+  //     reports: [],
+  //     doneCount: 1,
+  //     totalCount: 1,
+  //     createdAt: new Date(),
+  //     updatedAt: new Date(),
+  //   });
 
-    const newDiagnosis = diagnosis.copy({ doneCount: 2 });
-    expect(newDiagnosis.doneCount).toBe(2);
-  });
+  //   const newDiagnosis = diagnosis.copy({ doneCount: 2 });
+  //   expect(newDiagnosis.doneCount).toBe(2);
+  // });
 });

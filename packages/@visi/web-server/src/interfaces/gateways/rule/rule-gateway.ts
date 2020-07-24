@@ -1,3 +1,4 @@
+import { validateOrReject } from 'class-validator';
 import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
 
@@ -14,6 +15,7 @@ export class RuleGateway implements RuleRepository {
   ) {}
 
   async save(rule: Rule) {
+    await validateOrReject(rule);
     return this.connection
       .getRepository(RuleTable)
       .save(RuleTable.fromDomain(rule))

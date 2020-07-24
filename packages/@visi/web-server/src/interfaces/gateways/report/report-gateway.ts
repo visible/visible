@@ -1,3 +1,4 @@
+import { validateOrReject } from 'class-validator';
 import { inject, injectable } from 'inversify';
 import { Connection } from 'typeorm';
 
@@ -23,6 +24,7 @@ export class ReportGateway implements ReportRepository {
   }
 
   async save(report: Report) {
+    await validateOrReject(report);
     await this.connection
       .getRepository(ReportTable)
       .save(ReportTable.fromDomain(report));

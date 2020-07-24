@@ -39,6 +39,8 @@
     "interactor",
     "interactors",
     "inversify",
+    "immer",
+    "immerable",
     "languagedetector",
     "lngs",
     "mixins",

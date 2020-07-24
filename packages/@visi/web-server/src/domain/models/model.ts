@@ -1,27 +1,26 @@
-import { validateSync } from 'class-validator';
-
-import { Copyable } from '../../utils/copyable';
+import { immerable } from 'immer';
 
 interface Newable<T> {
   new (): T;
 }
 
 type PropertyNameOf<T> = {
-  [K in keyof T]: T[K] extends Function ? never : K;
+  [K in keyof T]: T[K] extends Function
+    ? never
+    : K extends typeof immerable
+    ? never
+    : K;
 }[keyof T];
 
 export type JustProps<T> = Pick<T, PropertyNameOf<T>>;
 
-const isObject = (x: unknown): x is Record<string, unknown> =>
-  typeof x === 'object' && x !== null;
+export abstract class Model {
+  readonly [immerable]: true;
 
-const validateOrRejectSync = (target: unknown) => {
-  if (!isObject(target)) return;
-  const errors = validateSync(target);
-  if (errors.length > 0) throw errors;
-};
+  toJSON() {
+    return JSON.stringify(this);
+  }
 
-export abstract class Model extends Copyable {
   static from<T>(this: Newable<T>, params: JustProps<T>) {
     const instance = new this();
 
@@ -29,11 +28,6 @@ export abstract class Model extends Copyable {
       instance[key] = value;
     }
 
-    validateOrRejectSync(instance);
     return instance;
-  }
-
-  afterChange() {
-    validateOrRejectSync(this);
   }
 }

@@ -1,3 +1,4 @@
+import { validateOrReject } from 'class-validator';
 import { inject, injectable } from 'inversify';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -30,7 +31,7 @@ export class DiagnosisGateway implements DiagnosisRepository {
   ) {
     this.publish$ = new Subject<Diagnosis>();
     this.publishDiagnosis.queue.process((job, done) => {
-      const diagnosis = Diagnosis.from(job.data);
+      const diagnosis = Diagnosis.from(JSON.parse(job.data));
       this.publish$.next(diagnosis);
       done();
     });
@@ -70,6 +71,7 @@ export class DiagnosisGateway implements DiagnosisRepository {
   }
 
   async save(diagnosis: Diagnosis) {
+    await validateOrReject(diagnosis);
     await this.connection
       .getRepository(DiagnosisTable)
       .save(DiagnosisTable.fromDomain(diagnosis));

@@ -22,7 +22,9 @@ export class ProcessDiagnosisWorker {
   }
 
   process = async (job: Job<JobData>, done: DoneCallback) => {
-    await this.diagnosisController.process(Diagnosis.from(job.data));
+    await this.diagnosisController.process(
+      Diagnosis.from(JSON.parse(job.data)),
+    );
     done();
   };
 }
