@@ -18,10 +18,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@graphql-tools/code-file-loader": "^6.0.1",
-    "@graphql-tools/graphql-file-loader": "^6.0.1",
-    "@graphql-tools/load": "^6.0.1",
-    "@graphql-tools/schema": "^6.0.5",
     "@visi/core": "0.0.1-rc5",
     "@visi/web-schema": "^0.0.1",
     "apollo": "^2.27.3",
@@ -56,6 +52,7 @@
   "devDependencies": {
     "@graphql-codegen/add": "^1.13.5",
     "@graphql-codegen/cli": "^1.16.0",
+    "@graphql-codegen/schema-ast": "^1.17.4",
     "@graphql-codegen/typescript": "^1.15.0",
     "@graphql-codegen/typescript-resolvers": "^1.13.4",
     "@types/bull": "^3.12.2",

@@ -3,11 +3,11 @@ const ctx = '../../../interfaces/presenters/types';
 
 module.exports = {
   overwrite: true,
-  schema: [
-    path.join(require.resolve('@visi/web-schema'), '..', '**/*.graphql'),
-  ],
-  documents: null,
+  schema: path.join(require.resolve('@visi/web-schema'), '..', '**/*.graphql'),
   generates: {
+    './src/frameworks/server/generated/schema.graphql': {
+      plugins: ['schema-ast'],
+    },
     './src/frameworks/server/generated/graphql.ts': {
       plugins: [
         'typescript',

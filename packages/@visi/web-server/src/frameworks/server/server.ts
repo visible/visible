@@ -1,7 +1,3 @@
-import { CodeFileLoader } from '@graphql-tools/code-file-loader';
-import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
-import { loadSchema } from '@graphql-tools/load';
-import { addResolversToSchema } from '@graphql-tools/schema';
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
@@ -10,7 +6,9 @@ import { createServer } from 'http';
 import i18nextMiddleware from 'i18next-express-middleware';
 import { Container } from 'inversify';
 import { outdent } from 'outdent';
+import gql from 'graphql-tag';
 import path from 'path';
+import { promises as fs } from 'fs';
 
 import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
@@ -29,22 +27,11 @@ export class Server {
     this.logger = container.get(TYPES.Logger);
   }
 
-  private loadSchema = async () => {
-    const glob = path.join(
-      path.resolve(require.resolve('@visi/web-schema'), '..'),
-      '**/*.graphql',
-    );
-
-    // Load .graphql as an AST
-    const schema = await loadSchema(glob, {
-      loaders: [new GraphQLFileLoader(), new CodeFileLoader()],
-    });
-
-    return addResolversToSchema({
-      schema,
-      resolvers,
-    });
-  };
+  private async loadSchema() {
+    return fs
+      .readFile(path.resolve('./generated/schema.graphql'), 'utf-8')
+      .then(code => gql(code));
+  }
 
   async start() {
     const app = express();
@@ -62,7 +49,8 @@ export class Server {
       .use(this.config.static.route, staticMiddleware);
 
     const apollo = new ApolloServer({
-      schema: await this.loadSchema(),
+      typeDefs: await this.loadSchema(),
+      resolvers,
       context: () => {
         return this.container.get(TYPES.Context);
       },
