@@ -1,14 +1,14 @@
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
+import { promises as fs } from 'fs';
 import depthLimit from 'graphql-depth-limit';
+import gql from 'graphql-tag';
 import { createServer } from 'http';
 import i18nextMiddleware from 'i18next-express-middleware';
 import { Container } from 'inversify';
 import { outdent } from 'outdent';
-import gql from 'graphql-tag';
 import path from 'path';
-import { promises as fs } from 'fs';
 
 import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
@@ -30,7 +30,7 @@ export class Server {
   private async loadSchema() {
     return fs
       .readFile(path.resolve('./generated/schema.graphql'), 'utf-8')
-      .then(code => gql(code));
+      .then((code) => gql(code));
   }
 
   async start() {
