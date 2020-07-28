@@ -1,3 +1,5 @@
+import { validate, ValidationError } from 'class-validator';
+
 import { Location } from '../location';
 import { HTMLPointer } from '../pointer';
 import { Outcome, Report } from '../report';
@@ -36,8 +38,8 @@ describe('Report', () => {
     location,
   });
 
-  it('accepts valid entity', () => {
-    expect(() => {
+  it('accepts valid entity', async () => {
+    const error = await validate(
       Report.from({
         id: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         diagnosisId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
@@ -46,54 +48,64 @@ describe('Report', () => {
         target: '/html/body',
         message: 'Error!',
         pointers: [pointer],
-      });
-    }).not.toThrow();
+      }),
+    );
+
+    expect(error.length).toBe(0);
   });
 
-  it('accepts valid entity with nulls', () => {
-    expect(() => {
+  it('accepts valid entity with nulls', async () => {
+    const error = await validate(
       Report.from({
         id: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         diagnosisId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         outcome: Outcome.FAIL,
         rule,
-      });
-    }).not.toThrow();
+      }),
+    );
+
+    expect(error.length).toBe(0);
   });
 
-  it('does not accept non-UUID id', () => {
-    expect(() => {
+  it('does not accept non-UUID id', async () => {
+    const error = await validate(
       Report.from({
         id: '123123',
         diagnosisId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         outcome: Outcome.FAIL,
         rule,
-      });
-    }).toThrow();
+      }),
+    );
+
+    expect(error[0]).toBeInstanceOf(ValidationError);
   });
 
-  it('does not accept target longer than 225', () => {
-    expect(() => {
+  it('does not accept target longer than 225', async () => {
+    const error = await validate(
       Report.from({
         id: '123123',
         diagnosisId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         outcome: Outcome.FAIL,
         rule,
         target: 'a'.repeat(226),
-      });
-    }).toThrow();
+      }),
+    );
+
+    expect(error[0]).toBeInstanceOf(ValidationError);
   });
 
-  it('does not accept message longer than 225', () => {
-    expect(() => {
+  it('does not accept message longer than 225', async () => {
+    const error = await validate(
       Report.from({
         id: '123123',
         diagnosisId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         outcome: Outcome.FAIL,
         rule,
         message: 'a'.repeat(226),
-      });
-    }).toThrow();
+      }),
+    );
+
+    expect(error[0]).toBeInstanceOf(ValidationError);
   });
 
   test.todo('invalid diagnosis id');

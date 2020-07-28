@@ -2,16 +2,15 @@ import { AsyncContainerModule } from 'inversify';
 
 import { ConfigImpl } from '../frameworks/config';
 import { createConnection } from '../frameworks/connection';
-import { ProcessDiagnosisJob, PublishDiagnosisJob } from '../frameworks/jobs';
+import { ProcessDiagnosisQueueImpl } from '../frameworks/queues';
 import { ContextImpl } from '../frameworks/server';
 import { ProcessDiagnosisWorker } from '../frameworks/workers';
 import { TYPES } from '../types';
 
 export const framework = new AsyncContainerModule(async (bind) => {
-  bind(TYPES.Connection).toConstantValue(await createConnection());
   bind(TYPES.Config).to(ConfigImpl);
-  bind(TYPES.PublishDiagnosisJob).to(PublishDiagnosisJob);
-  bind(TYPES.ProcessDiagnosisJob).to(ProcessDiagnosisJob);
+  bind(TYPES.Connection).toConstantValue(await createConnection());
+  bind(TYPES.ProcessDiagnosisQueue).to(ProcessDiagnosisQueueImpl);
   bind(ProcessDiagnosisWorker).toSelf();
 
   // Context must be initialized for each request

@@ -1,8 +1,10 @@
+import { validate, ValidationError } from 'class-validator';
+
 import { Diagnosis, Status } from '../diagnosis';
 
 describe('Diagnosis', () => {
-  it('accepts valid entity', () => {
-    expect(() => {
+  it('accepts valid entity', async () => {
+    const err = await validate(
       Diagnosis.from({
         id: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         status: Status.STARTED,
@@ -13,12 +15,14 @@ describe('Diagnosis', () => {
         totalCount: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
-      });
-    }).not.toThrow();
+      }),
+    );
+
+    expect(err.length).toBe(0);
   });
 
-  it('does not accept non-UUID id', () => {
-    expect(() => {
+  it('does not accept non-UUID id', async () => {
+    const error = await validate(
       Diagnosis.from({
         id: '123123',
         status: Status.STARTED,
@@ -29,8 +33,11 @@ describe('Diagnosis', () => {
         totalCount: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
-      });
-    }).toThrow();
+      }),
+    );
+
+    expect(error.length).toBe(1);
+    expect(error[0]).toBeInstanceOf(ValidationError);
   });
 
   test.todo('does not accept non-URL string as a screenshot');

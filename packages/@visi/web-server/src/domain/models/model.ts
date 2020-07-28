@@ -15,11 +15,7 @@ type PropertyNameOf<T> = {
 export type JustProps<T> = Pick<T, PropertyNameOf<T>>;
 
 export abstract class Model {
-  readonly [immerable]: true;
-
-  toJSON() {
-    return JSON.stringify(this);
-  }
+  readonly [immerable] = true;
 
   static from<T>(this: Newable<T>, params: JustProps<T>) {
     const instance = new this();

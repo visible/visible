@@ -8,7 +8,6 @@ import {
   ProcessDiagnosisUseCase,
   SubscribeDiagnosisUseCase,
 } from '../../application/use-cases';
-import { Diagnosis } from '../../domain/models';
 import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
 import { toAsyncIterator } from '../../utils/to-async-iterator';
@@ -58,8 +57,8 @@ export class DiagnosisController {
     return res.id;
   }
 
-  async process(diagnosis: Diagnosis) {
-    return this.processDiagnosis.run({ diagnosis });
+  async process(id: string) {
+    return this.processDiagnosis.run({ id });
   }
 
   subscribe(id: string) {

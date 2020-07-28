@@ -5,7 +5,7 @@ module.exports = {
   overwrite: true,
   schema: path.join(require.resolve('@visi/web-schema'), '..', '**/*.graphql'),
   generates: {
-    './src/frameworks/server/generated/schema.graphql': {
+    './dist/frameworks/server/generated/schema.graphql': {
       plugins: ['schema-ast'],
     },
     './src/frameworks/server/generated/graphql.ts': {
