@@ -14,8 +14,7 @@ export const TYPES = {
   PointerRepository: Symbol.for('PointerRepository'),
   SourceRepository: Symbol.for('SourceRepository'),
 
-  ProcessDiagnosisJob: Symbol.for('ProcessDiagnosisJob'),
-  PublishDiagnosisJob: Symbol.for('PublishDiagnosisJob'),
+  ProcessDiagnosisQueue: Symbol.for('ProcessDiagnosisQueue'),
 
   CreateDiagnosisUseCase: Symbol.for('CreateDiagnosisUseCase'),
   FindDiagnosisUseCase: Symbol.for('FindDiagnosisUseCase'),

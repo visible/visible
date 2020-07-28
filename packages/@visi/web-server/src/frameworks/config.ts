@@ -54,7 +54,7 @@ export class ConfigImpl implements Config {
   db: DbConfig;
   redis: RedisConfig;
 
-  constructor(envPath = path.resolve('../../.env')) {
+  constructor(envPath = path.resolve('../../../.env')) {
     dotenv.config({ path: envPath });
     const e = process.env;
 

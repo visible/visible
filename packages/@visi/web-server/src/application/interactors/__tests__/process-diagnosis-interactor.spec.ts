@@ -1,4 +1,4 @@
-import { minimalDiagnosis as diagnosis } from '../../../__fixtures__/diagnosis';
+import { diagnosis } from '../../../__fixtures__/diagnosis';
 import progress from '../../../__fixtures__/progress.json';
 import { createContainer } from '../../../tests/container';
 import { diagnosis$ } from '../../../tests/core';
@@ -10,10 +10,11 @@ describe('ProcessDiagnosisInteractor', () => {
   let processDiagnosis: ProcessDiagnosisUseCase;
   let diagnosisRepository: DiagnosisRepository;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     const container = createContainer();
     processDiagnosis = container.get(TYPES.ProcessDiagnosisUseCase);
     diagnosisRepository = container.get(TYPES.DiagnosisRepository);
+    await diagnosisRepository.save(diagnosis);
   });
 
   it('processes diagnosis', async () => {
@@ -22,7 +23,7 @@ describe('ProcessDiagnosisInteractor', () => {
       diagnosis$.complete();
     });
 
-    await processDiagnosis.run({ diagnosis });
+    await processDiagnosis.run({ id: diagnosis.id });
 
     expect(await diagnosisRepository.find([diagnosis.id])).toEqual([
       expect.objectContaining({

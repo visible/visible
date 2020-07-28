@@ -1,3 +1,5 @@
+import { validate } from 'class-validator';
+
 import { Location } from '../location';
 import { CSSPointer, HTMLPointer } from '../pointer';
 import { Source } from '../source';
@@ -18,8 +20,8 @@ describe('HTMLPointer', () => {
     url: 'https://example.com',
   });
 
-  it('accepts valid entity', () => {
-    expect(() => {
+  it('accepts valid entity', async () => {
+    const error = await validate(
       HTMLPointer.from({
         id: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         reportId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
@@ -27,8 +29,10 @@ describe('HTMLPointer', () => {
         source,
         location,
         xpath: '/html/body',
-      });
-    }).not.toThrow();
+      }),
+    );
+
+    expect(error.length).toBe(0);
   });
 });
 
@@ -48,8 +52,8 @@ describe('CSSPointer', () => {
     url: 'https://example.com',
   });
 
-  it('accepts valid entity', () => {
-    expect(() => {
+  it('accepts valid entity', async () => {
+    const error = await validate(
       CSSPointer.from({
         id: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         reportId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
@@ -58,7 +62,9 @@ describe('CSSPointer', () => {
         location,
         xpath: '/html/body',
         propertyName: 'color',
-      });
-    }).not.toThrow();
+      }),
+    );
+
+    expect(error.length).toBe(0);
   });
 });

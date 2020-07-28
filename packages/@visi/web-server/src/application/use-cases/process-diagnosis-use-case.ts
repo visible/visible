@@ -1,7 +1,5 @@
-import { Diagnosis } from '../../domain/models';
-
 export interface ProcessDiagnosisRequest {
-  readonly diagnosis: Diagnosis;
+  readonly id: string;
 }
 
 export type ProcessDiagnosisResponse = void;

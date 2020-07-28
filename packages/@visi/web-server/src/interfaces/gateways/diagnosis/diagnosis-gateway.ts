@@ -7,14 +7,20 @@ import { Connection } from 'typeorm';
 import { DiagnosisRepository } from '../../../application/repositories';
 import { Diagnosis } from '../../../domain/models';
 import { Logger } from '../../../domain/services';
-// eslint-disable-next-line
-import { ProcessDiagnosisJob, PublishDiagnosisJob } from '../../../frameworks/jobs';
 import { TYPES } from '../../../types';
 import { DiagnosisTable } from './diagnosis-table';
 
+export interface PublishDiagnosisQueue {
+  add(id: string, data: null): Promise<unknown>;
+}
+
+export interface ProcessDiagnosisQueue {
+  add(id: string, data: null): Promise<unknown>;
+}
+
 @injectable()
 export class DiagnosisGateway implements DiagnosisRepository {
-  private readonly publish$: Subject<Diagnosis>;
+  private readonly publish$ = new Subject<Diagnosis>();
 
   constructor(
     @inject(TYPES.Logger)
@@ -23,19 +29,9 @@ export class DiagnosisGateway implements DiagnosisRepository {
     @inject(TYPES.Connection)
     private readonly connection: Connection,
 
-    @inject(TYPES.PublishDiagnosisJob)
-    private readonly publishDiagnosis: PublishDiagnosisJob,
-
-    @inject(TYPES.ProcessDiagnosisJob)
-    private readonly processDiagnosis: ProcessDiagnosisJob,
-  ) {
-    this.publish$ = new Subject<Diagnosis>();
-    this.publishDiagnosis.queue.process((job, done) => {
-      const diagnosis = Diagnosis.from(JSON.parse(job.data));
-      this.publish$.next(diagnosis);
-      done();
-    });
-  }
+    @inject(TYPES.ProcessDiagnosisQueue)
+    private readonly processDiagnosisQueue: ProcessDiagnosisQueue,
+  ) {}
 
   async find(ids: string[]) {
     const diagnoses = await this.connection
@@ -86,7 +82,7 @@ export class DiagnosisGateway implements DiagnosisRepository {
   }
 
   async queue(diagnosis: Diagnosis) {
-    await this.processDiagnosis.queue.add(diagnosis.toJSON());
+    await this.processDiagnosisQueue.add(diagnosis.id, null);
   }
 
   subscribe(id: string) {
@@ -96,6 +92,7 @@ export class DiagnosisGateway implements DiagnosisRepository {
 
   async publish(diagnosis: Diagnosis) {
     this.logger.debug(`[Repository] Publishing ${diagnosis.id}`);
-    await this.publishDiagnosis.queue.add(diagnosis.toJSON());
+    this.publish$.next(diagnosis);
+    return;
   }
 }

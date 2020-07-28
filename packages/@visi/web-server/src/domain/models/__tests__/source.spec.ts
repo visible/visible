@@ -1,50 +1,60 @@
+import { validate, ValidationError } from 'class-validator';
+
 import { Source } from '../source';
 
 describe('Source', () => {
-  it('accepts valid entity', () => {
-    expect(() => {
+  it('accepts valid entity', async () => {
+    const error = await validate(
       Source.from({
         id: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         pointerId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         content: '<html></html>',
         title: 'index.html',
         url: 'https://example.com',
-      });
-    }).not.toThrow();
+      }),
+    );
+
+    expect(error.length).toBe(0);
   });
 
-  it('accepts null for title and url', () => {
-    expect(() => {
+  it('accepts null for title and url', async () => {
+    const error = await validate(
       Source.from({
         id: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         pointerId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         content: '<html></html>',
-      });
-    }).not.toThrow();
+      }),
+    );
+
+    expect(error.length).toBe(0);
   });
 
-  it('does not accept non-UUID id', () => {
-    expect(() => {
+  it('does not accept non-UUID id', async () => {
+    const error = await validate(
       Source.from({
         id: '123123',
         pointerId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         content: '<html></html>',
         title: 'index.html',
         url: 'https://example.com',
-      });
-    }).toThrow();
+      }),
+    );
+
+    expect(error[0]).toBeInstanceOf(ValidationError);
   });
 
-  it('does not accept empty string', () => {
-    expect(() => {
+  it('does not accept empty string', async () => {
+    const error = await validate(
       Source.from({
         id: '123123',
         pointerId: '08eecb12-75a1-4798-aca2-f9e919b1fd56',
         content: '<html></html>',
         title: '',
         url: 'https://example.com',
-      });
-    }).toThrow();
+      }),
+    );
+
+    expect(error[0]).toBeInstanceOf(ValidationError);
   });
 
   test.todo('does not accept invalid URL');

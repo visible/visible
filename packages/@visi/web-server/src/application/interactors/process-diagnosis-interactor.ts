@@ -106,9 +106,10 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
   }
 
   async run({
-    diagnosis,
+    id,
   }: ProcessDiagnosisRequest): Promise<ProcessDiagnosisResponse> {
-    this.logger.info(`Processing diagnosis`, diagnosis);
+    this.logger.info(`Processing diagnosis`, id);
+    let [diagnosis] = await this.diagnosisRepository.find([id]);
 
     const visible = await Core.Visible.init({
       plugins: ['@visi/plugin-standard'],
