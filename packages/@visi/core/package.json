@@ -20,7 +20,6 @@
     "domutils": "^2.1.0",
     "htmlparser2": "^4.1.0",
     "i18next": "^19.5.3",
-    "mkdirp": "^1.0.4",
     "postcss": "^7.0.32",
     "rxjs": "^6.5.5",
     "xpath-analyzer": "^3.0.0"
@@ -29,7 +28,6 @@
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
-    "@types/mkdirp": "^1.0.1",
     "@types/node": "^13.13.4",
     "rollup": "^2.7.6",
     "rollup-plugin-node-builtins": "^2.1.2",

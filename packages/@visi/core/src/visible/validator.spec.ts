@@ -1,4 +1,4 @@
-import { DriverMock, getSources, open, quit } from '../driver/driver-mock';
+import { DriverMock, getSources, open } from '../driver/driver-mock';
 import { ProviderMock } from '../provider/provider-mock';
 import { createSettings } from '../settings';
 import { Validator } from './validator';
@@ -20,6 +20,5 @@ describe('validator', () => {
     await validator.diagnose(URL);
 
     expect(open).toBeCalledWith(URL);
-    expect(quit).toBeCalled();
   });
 });

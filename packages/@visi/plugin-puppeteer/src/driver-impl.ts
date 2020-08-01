@@ -53,9 +53,9 @@ export class DriverPuppeteerImpl implements Driver {
   }
 
   async quit() {
-    if (this.browser == null) {
-      return;
-    }
+    // if (this.browser == null) {
+    //   return;
+    // }
 
     return this.browser.close();
   }

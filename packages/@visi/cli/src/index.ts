@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { ConfigSchema, init } from '@visi/core';
+import { ConfigSchema } from '@visi/core';
 import chalk from 'chalk';
 import { Presets, SingleBar } from 'cli-progress';
 import { cosmiconfig } from 'cosmiconfig';
@@ -7,6 +7,7 @@ import { promises as fs } from 'fs';
 import { finalize, first } from 'rxjs/operators';
 import yargs from 'yargs';
 
+import { Engine } from './engine';
 import { i18next, initI18next } from './i18next';
 import { print } from './print';
 
@@ -88,23 +89,29 @@ yargs
         Presets.shades_classic,
       );
 
-      const visible = await init(config);
+      const engine = await Engine.init(config);
 
       if (!silent) {
-        visible.progress$.pipe(first()).subscribe((progress) => {
+        engine.validator.progress$.pipe(first()).subscribe((progress) => {
           // eslint-disable-next-line no-console
           console.log(chalk.grey(t('visible.start', '🦉 Diagnosing...')));
           singleBar.start(progress.totalCount, 0);
         });
 
-        visible.progress$
+        engine.validator.progress$
           .pipe(finalize(() => singleBar.stop()))
           .subscribe((progress) => {
             singleBar.update(progress.doneCount);
           });
       }
 
-      const sources = await visible.diagnose(url);
-      print(sources, visible.originals, json, fix);
+      await engine.beforeRun();
+      const sources = await engine.validator.diagnose(url);
+      print(sources, engine.validator.originals, json, fix);
+      await engine.afterRun();
+      const hasAnyReport = sources.some((source) => {
+        return source.reports.length !== 0;
+      });
+      process.exit(hasAnyReport ? 1 : 0);
     },
   ).argv;
