@@ -86,7 +86,6 @@ export class Validator {
     const { delay } = this.settings;
 
     // Open page
-    await this.driver.launch();
     await this.driver.open(url);
 
     // Load gateway libs
@@ -112,7 +111,6 @@ export class Validator {
 
   private async after() {
     await this.driver.close();
-    await this.driver.quit();
   }
 
   async diagnose(url: string) {
