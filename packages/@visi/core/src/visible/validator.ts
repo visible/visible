@@ -9,6 +9,7 @@ import { Provider } from '../provider';
 import { Context, ReportParams, Rule } from '../rule';
 import { Settings } from '../settings';
 import { Report } from '../source';
+import { Website } from '../website';
 import { Progress } from './progress';
 
 export class Validator {
@@ -47,6 +48,24 @@ export class Validator {
         endColumn: node.source.end.column,
       };
     }
+  }
+
+  async capture(url: string) {
+    const { screenshotDir } = this.settings;
+
+    await this.driver.open(url);
+    const screenshot = await this.driver.takeScreenshotForPage({
+      type: 'png',
+      path: path.join(screenshotDir, Date.now().toString()),
+    });
+
+    const website: Website = {
+      title: 'idk',
+      url: 'idk',
+      screenshot,
+    };
+
+    return website;
   }
 
   private async report(params: ReportParams) {

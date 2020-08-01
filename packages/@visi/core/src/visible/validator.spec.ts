@@ -21,4 +21,18 @@ describe('validator', () => {
 
     expect(open).toBeCalledWith(URL);
   });
+
+  it('captures', async () => {
+    const validator = new Validator(
+      createSettings(),
+      new DriverMock(),
+      [],
+      new ProviderMock(),
+    );
+
+    const URL = 'https://example.com';
+    await validator.capture(URL);
+
+    expect(open).toBeCalledWith(URL);
+  });
 });
