@@ -38,7 +38,7 @@
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "gulp-sort": "^2.0.0",
     "i18next-scanner": "^2.10.3",
-    "i18next-scanner-typescript": "^1.0.3",
+    "i18next-scanner-typescript": "^1.0.6",
     "jest": "^26.1.0",
     "jest-config": "^26.1.0",
     "lerna": "^3.20.2",
