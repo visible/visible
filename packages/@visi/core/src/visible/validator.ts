@@ -8,7 +8,7 @@ import { convertIndicesToLocation } from '../indices-to-loc';
 import { Provider } from '../provider';
 import { Context, ReportParams, Rule } from '../rule';
 import { Settings } from '../settings';
-import { Report } from '../source';
+import { Report, SourceType } from '../source';
 import { Website } from '../website';
 import { Progress } from './progress';
 
@@ -32,22 +32,24 @@ export class Validator {
     readonly provider: Provider,
   ) {}
 
-  private getLoc(node: HTML | postcss.Node, sourceId = 'html') {
-    if (node instanceof HTML) {
-      const source = this.originals.get(sourceId);
-      if (source == null) throw new Error();
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return convertIndicesToLocation(source, node.startIndex!, node.endIndex!);
+  private getHTMLLocation(node: HTML) {
+    const source = this.originals.get('html');
+    if (source == null) throw new Error();
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return convertIndicesToLocation(source, node.startIndex!, node.endIndex!);
+  }
+
+  private getCSSLocation(node: postcss.Node) {
+    if (!node.source?.start || !node.source?.end) {
+      return;
     }
 
-    if (node.source?.start && node.source?.end) {
-      return {
-        startLine: node.source.start.line,
-        startColumn: node.source.start.column,
-        endLine: node.source.end.line,
-        endColumn: node.source.end.column,
-      };
-    }
+    return {
+      startLine: node.source.start.line,
+      startColumn: node.source.start.column,
+      endLine: node.source.end.line,
+      endColumn: node.source.end.column,
+    };
   }
 
   async capture(url: string) {
@@ -70,17 +72,22 @@ export class Validator {
 
   private async report(params: ReportParams) {
     const { screenshotDir } = this.settings;
-    const { sourceId, target, node } = params;
+    const { sourceId, target } = params;
 
     const screenshot = await this.driver.takeScreenshotForXPath(target, {
       type: 'png',
       path: path.join(screenshotDir, Date.now().toString()),
     });
 
+    const location =
+      params.sourceType === SourceType.HTML
+        ? this.getHTMLLocation(params.node)
+        : this.getCSSLocation(params.node);
+
     const report = new Report({
       ...params,
       screenshot,
-      location: this.getLoc(node),
+      location,
     });
 
     if (report.fix) {

@@ -4,12 +4,11 @@ import { Node as CSS } from 'postcss';
 import { Driver } from '../driver';
 import { Provider } from '../provider';
 import { Settings } from '../settings';
-import { Fix, Outcome } from '../source';
+import { Fix, Outcome, SourceType } from '../source';
 
-export interface ReportParams {
+export interface BaseReportParams {
   sourceId: string;
   ruleId: string;
-  node: HTML | CSS;
   outcome: Outcome;
   target: string;
   location?: {
@@ -21,6 +20,18 @@ export interface ReportParams {
   message?: string;
   fix?: Fix;
 }
+
+export interface HTMLReportParams extends BaseReportParams {
+  node: HTML;
+  sourceType: SourceType.HTML;
+}
+
+export interface CSSReportParams extends BaseReportParams {
+  node: CSS;
+  sourceType: SourceType.CSS;
+}
+
+export type ReportParams = HTMLReportParams | CSSReportParams;
 
 export interface Context {
   readonly driver: Driver;

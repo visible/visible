@@ -1,4 +1,5 @@
 import { Location, LocationConstructorParams } from './location';
+import { SourceType } from './source';
 
 export enum Outcome {
   INAPPLICABLE = 'inapplicable',
@@ -9,6 +10,7 @@ export enum Outcome {
 export type Fix = () => Promise<void>;
 
 export interface ReportConstructorParams {
+  sourceType: SourceType;
   ruleId: string;
   outcome: Outcome;
   target: string;
@@ -19,6 +21,7 @@ export interface ReportConstructorParams {
 }
 
 export class Report {
+  readonly sourceType: SourceType;
   readonly ruleId: string;
   readonly outcome: Outcome;
   readonly target: string;
@@ -28,6 +31,7 @@ export class Report {
   readonly fix?: Fix;
 
   constructor(params: ReportConstructorParams) {
+    this.sourceType = params.sourceType;
     this.ruleId = params.ruleId;
     this.outcome = params.outcome;
     this.target = params.target;
