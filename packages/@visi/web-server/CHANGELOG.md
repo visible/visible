@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/neet/visible/compare/v0.0.1...v0.1.0) (2020-08-04)
+
+
+### Bug Fixes
+
+* Clean dependencies up ([d292f9f](https://github.com/neet/visible/commit/d292f9f5aa01ef52385dcd9d963128afb11bcc01))
+* Remove [@graphql-tools](https://github.com/graphql-tools) ([7aee5b2](https://github.com/neet/visible/commit/7aee5b2be55029ce55762c1444d1864d09e2ab5e))
+
+
+### Features
+
+* Use bullmq ([692ec2a](https://github.com/neet/visible/commit/692ec2a372ba3ac32294b20ca8bc4c4f701de3b7))
+* Use immer ([9d5e096](https://github.com/neet/visible/commit/9d5e09655ccc11f65ff7f5ac49b982aac487e728))
+
+
+
+
+
 ## [0.0.1](https://github.com/neet/visible/compare/v0.0.1-rc5...v0.0.1) (2020-07-06)
 
 **Note:** Version bump only for package @visi/web-server

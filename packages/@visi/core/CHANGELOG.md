@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/visible/visible/compare/v0.0.1...v0.1.0) (2020-08-04)
+
+
+### Bug Fixes
+
+* Decouple CLI engine from the core ([c8d7916](https://github.com/visible/visible/commit/c8d79164a3b3862187290d3d558d3f79c08941cd))
+
+
+### Features
+
+* Add capture feature ([204acbb](https://github.com/visible/visible/commit/204acbb7f389f7e936166621f41357aed3f67610))
+
+
+
+
+
 ## [0.0.1](https://github.com/visible/visible/compare/v0.0.1-rc5...v0.0.1) (2020-07-06)
 
 

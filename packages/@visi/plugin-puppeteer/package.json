@@ -1,6 +1,6 @@
 {
   "name": "@visi/plugin-puppeteer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "repository": "https://github.com/neet/visible.git",
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
@@ -16,7 +16,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@visi/core": "^0.0.1",
+    "@visi/core": "^0.1.0",
     "devtools-protocol": "^0.0.788664",
     "domhandler": "^3.0.0",
     "htmlparser2": "^4.1.0",
