@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/neet/visible/compare/v0.0.1...v0.1.0) (2020-08-04)
+
+
+### Bug Fixes
+
+* Clean dependencies up ([d292f9f](https://github.com/neet/visible/commit/d292f9f5aa01ef52385dcd9d963128afb11bcc01))
+* Decouple CLI engine from the core ([c8d7916](https://github.com/neet/visible/commit/c8d79164a3b3862187290d3d558d3f79c08941cd))
+* Remove [@graphql-tools](https://github.com/graphql-tools) ([7aee5b2](https://github.com/neet/visible/commit/7aee5b2be55029ce55762c1444d1864d09e2ab5e))
+
+
+### Features
+
+* Add capture feature ([204acbb](https://github.com/neet/visible/commit/204acbb7f389f7e936166621f41357aed3f67610))
+* Implement fixer API ([ac628f4](https://github.com/neet/visible/commit/ac628f464ecead554520e5e2c0c861cfeecb91dc))
+* Use bullmq ([692ec2a](https://github.com/neet/visible/commit/692ec2a372ba3ac32294b20ca8bc4c4f701de3b7))
+* Use immer ([9d5e096](https://github.com/neet/visible/commit/9d5e09655ccc11f65ff7f5ac49b982aac487e728))
+
+
+
+
+
 ## [0.0.1](https://github.com/neet/visible/compare/v0.0.1-rc5...v0.0.1) (2020-07-06)
 
 
