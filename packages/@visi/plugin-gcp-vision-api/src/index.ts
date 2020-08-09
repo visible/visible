@@ -9,7 +9,7 @@ export default {
         image: { source: { imageUri: url } },
       });
       const labels = result.landmarkAnnotations;
-      return labels?.[0].description;
+      return labels?.[0]?.description;
     },
   },
 } as Plugin;

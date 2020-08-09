@@ -16,15 +16,16 @@ export class ButtonAlt implements Rule {
     `);
 
     for (const xpath of xpaths) {
-      const node = ctx.driver.findHtmlNode(xpath);
+      const result = await ctx.driver.findHTML(xpath);
 
-      if (node == null) {
+      if (result == null) {
         continue;
       }
 
-      await ctx.report({
+      const [id, node] = result;
+
+      await ctx.reportHTML(id, {
         outcome: Outcome.FAIL,
-        sourceId: 'html',
         ruleId: this.id,
         node,
         target: xpath,

@@ -12,9 +12,9 @@ export const takeScreenshotForPage = jest.fn();
 export const takeScreenshotForXPath = jest.fn();
 export const findHtmlNode = jest.fn();
 export const findCSSNode = jest.fn();
-export const getSources = jest.fn();
 
 export class DriverMock implements Driver {
+  sources = new Map();
   launch = launch;
   quit = quit;
   open = open;
@@ -29,5 +29,4 @@ export class DriverMock implements Driver {
 
   findHtmlNode = findHtmlNode;
   findCSSNode = findCSSNode;
-  getSources = getSources;
 }

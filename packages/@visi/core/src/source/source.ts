@@ -1,33 +1,55 @@
 import { Node as HTMLNode } from 'domhandler';
 import { getOuterHTML } from 'domutils';
+import { immerable, produce } from 'immer';
 import { Root as CSSRoot } from 'postcss';
 
-import { Report } from './report';
+import { CSSReport, HTMLReport, Report } from './report';
 
 export enum SourceType {
   HTML = 'html',
   CSS = 'css',
 }
 
-export interface HTMLSourceConstructorParams {
+export interface SourceConstructorParams {
   id: string;
-  url: string;
-  content: HTMLNode[];
   reports?: Report[];
+  url?: string;
 }
 
-export class HTMLSource {
-  readonly type = SourceType.HTML;
+export abstract class BaseSource {
+  readonly [immerable] = true;
 
-  readonly id: string;
+  constructor(readonly id: string, readonly url?: string) {}
+
+  abstract readonly text: string;
+  abstract readonly reports: readonly Report[];
+
+  addReport(report: Report) {
+    return produce(this, (draft) => {
+      draft.reports.push(report);
+    });
+  }
+
+  async applyFixes() {
+    for (const report of this.reports) {
+      await report.fix?.();
+    }
+  }
+}
+
+export interface HTMLSourceConstructorParams extends SourceConstructorParams {
+  content: HTMLNode[];
+  reports?: HTMLReport[];
+}
+
+export class HTMLSource extends BaseSource {
+  readonly type = SourceType.HTML;
   readonly content: HTMLNode[];
-  readonly url?: string;
-  reports: Report[]; // todo: mark as readonly
+  readonly reports: readonly HTMLReport[];
 
   constructor(params: HTMLSourceConstructorParams) {
-    this.id = params.id;
+    super(params.id, params.url);
     this.content = params.content;
-    this.url = params.url;
     this.reports = params.reports ?? [];
   }
 
@@ -36,25 +58,19 @@ export class HTMLSource {
   }
 }
 
-export interface CSSSourceConstructorParams {
-  id: string;
-  url: string;
+export interface CSSSourceConstructorParams extends SourceConstructorParams {
   content: CSSRoot;
-  reports?: Report[];
+  reports?: CSSReport[];
 }
 
-export class CSSSource {
+export class CSSSource extends BaseSource {
   readonly type = SourceType.CSS;
-
-  readonly id: string;
   readonly content: CSSRoot;
-  readonly url?: string;
-  reports: Report[]; // todo: mark as readonly
+  readonly reports: readonly CSSReport[];
 
   constructor(params: CSSSourceConstructorParams) {
-    this.id = params.id;
+    super(params.id, params.url);
     this.content = params.content;
-    this.url = params.url;
     this.reports = params.reports ?? [];
   }
 

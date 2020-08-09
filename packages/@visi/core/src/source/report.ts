@@ -1,3 +1,7 @@
+import { Node as HTMLNode } from 'domhandler';
+import { getOuterHTML } from 'domutils';
+import { Node as CSSNode } from 'postcss';
+
 import { Location, LocationConstructorParams } from './location';
 
 export enum Outcome {
@@ -6,8 +10,6 @@ export enum Outcome {
   FAIL = 'fail',
 }
 
-export type Fix = () => Promise<void>;
-
 export interface ReportConstructorParams {
   ruleId: string;
   outcome: Outcome;
@@ -15,17 +17,17 @@ export interface ReportConstructorParams {
   location?: LocationConstructorParams;
   message?: string;
   screenshot?: string;
-  fix?: Fix;
+  fix?(): Promise<void>;
 }
 
-export class Report {
+export abstract class Report {
   readonly ruleId: string;
   readonly outcome: Outcome;
   readonly target: string;
   readonly location?: Location;
   readonly message?: string;
   readonly screenshot?: string;
-  readonly fix?: Fix;
+  fix?(): Promise<void>;
 
   constructor(params: ReportConstructorParams) {
     this.ruleId = params.ruleId;
@@ -38,5 +40,41 @@ export class Report {
     if (params.location != null) {
       this.location = new Location(params.location);
     }
+  }
+
+  abstract readonly text: string;
+}
+
+export interface HTMLReportConstructorParams extends ReportConstructorParams {
+  node: HTMLNode;
+}
+
+export class HTMLReport extends Report {
+  readonly node: HTMLNode;
+
+  constructor(params: HTMLReportConstructorParams) {
+    super(params);
+    this.node = params.node;
+  }
+
+  get text() {
+    return getOuterHTML(this.node);
+  }
+}
+
+export interface CSSReportConstructorParams extends ReportConstructorParams {
+  node: CSSNode;
+}
+
+export class CSSReport extends Report {
+  readonly node: CSSNode;
+
+  constructor(params: CSSReportConstructorParams) {
+    super(params);
+    this.node = params.node;
+  }
+
+  get text() {
+    return this.node.toString();
   }
 }

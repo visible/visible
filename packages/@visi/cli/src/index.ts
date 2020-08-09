@@ -107,7 +107,16 @@ yargs
 
       await engine.beforeRun();
       const sources = await engine.validator.diagnose(url);
-      print(sources, engine.validator.originals, json, fix);
+      const originals = sources.reduce((map, source) => {
+        map.set(source.id, source.text);
+        return map;
+      }, new Map<string, string>());
+
+      for (const source of sources) {
+        await source.applyFixes();
+      }
+
+      print(sources, originals, json, fix);
       await engine.afterRun();
       const hasAnyReport = sources.some((source) => {
         return source.reports.length !== 0;

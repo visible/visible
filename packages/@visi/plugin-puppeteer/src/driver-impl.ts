@@ -9,7 +9,7 @@ import {
   Source,
 } from '@visi/core';
 import { Protocol } from 'devtools-protocol/types/protocol';
-import { Element } from 'domhandler';
+import { Element, Node } from 'domhandler';
 import { promises as fs } from 'fs';
 import { parseDOM } from 'htmlparser2';
 import * as postcss from 'postcss';
@@ -22,9 +22,7 @@ export class DriverPuppeteerImpl implements Driver {
   private cdp!: CDPSession;
   private browser!: Browser;
   private page!: Page;
-
-  // source id と source のマップ
-  private readonly depot = new Map<string, Source>();
+  readonly sources = new Map<string, Source>();
 
   constructor(private readonly settings: Settings) {}
 
@@ -53,9 +51,9 @@ export class DriverPuppeteerImpl implements Driver {
   }
 
   async quit() {
-    // if (this.browser == null) {
-    //   return;
-    // }
+    if (this.browser == null) {
+      return;
+    }
 
     return this.browser.close();
   }
@@ -83,7 +81,7 @@ export class DriverPuppeteerImpl implements Driver {
       url: this.page.url(),
       content: ast,
     });
-    this.depot.set(source.id, source);
+    this.sources.set(source.id, source);
   }
 
   private handleStyleSheetAdded = async (
@@ -102,7 +100,7 @@ export class DriverPuppeteerImpl implements Driver {
       content: postcss.parse(res.text),
     });
 
-    this.depot.set(source.id, source);
+    this.sources.set(source.id, source);
   };
 
   async close() {
@@ -159,8 +157,8 @@ export class DriverPuppeteerImpl implements Driver {
     return params.path ?? process.cwd();
   }
 
-  findHtmlNode(xpath: string) {
-    const html = this.depot.get('html');
+  async findHTML(xpath: string) {
+    const html = this.sources.get('html');
 
     if (html == null || !(html instanceof HTMLSource)) {
       throw new Error(`No html source stored`);
@@ -174,10 +172,13 @@ export class DriverPuppeteerImpl implements Driver {
       throw new Error(`Root must be set for finding node`);
     }
 
-    return findASTByXPath(root, xpath);
+    const node = findASTByXPath(root, xpath);
+    if (node == null) return;
+
+    return ['html', node] as [string, Node];
   }
 
-  async findCSSNode(xpath: string, propertyName: string) {
+  async findCSS(xpath: string, propertyName: string) {
     // 1. find matching css from the depot using CDP
     const node = await findNodeByXPath(this.cdp, xpath);
 
@@ -225,7 +226,7 @@ export class DriverPuppeteerImpl implements Driver {
     }
 
     // 2. traverse and find matching node
-    const file = this.depot.get(rule.styleSheetId);
+    const file = this.sources.get(rule.styleSheetId);
     if (!(file instanceof CSSSource)) {
       throw new Error(`Not source cached for ${rule.styleSheetId}`);
     }
@@ -245,9 +246,5 @@ export class DriverPuppeteerImpl implements Driver {
     }
 
     return [rule.styleSheetId, res] as [string, postcss.Node];
-  }
-
-  getSources() {
-    return [...this.depot.values()];
   }
 }

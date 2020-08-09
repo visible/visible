@@ -17,15 +17,16 @@ export class ImgAlt implements Rule {
     `);
 
     for (const xpath of xpaths) {
-      const node = ctx.driver.findHtmlNode(xpath);
+      const result = await ctx.driver.findHTML(xpath);
 
-      if (node == null) {
+      if (result == null) {
         continue;
       }
 
-      await ctx.report({
+      const [id, node] = result;
+
+      await ctx.reportHTML(id, {
         outcome: Outcome.FAIL,
-        sourceId: 'html',
         ruleId: this.id,
         node,
         target: xpath,
@@ -37,7 +38,9 @@ export class ImgAlt implements Rule {
 
           const { src } = node.attribs;
           const text = await ctx.provider.imageToText(src);
-          node.attribs.alt = text;
+          if (text != null) {
+            node.attribs.alt = text;
+          }
         },
       });
     }

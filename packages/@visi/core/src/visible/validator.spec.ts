@@ -1,13 +1,9 @@
-import { DriverMock, getSources, open } from '../driver/driver-mock';
+import { DriverMock, open } from '../driver/driver-mock';
 import { ProviderMock } from '../provider/provider-mock';
 import { createSettings } from '../settings';
 import { Validator } from './validator';
 
 describe('validator', () => {
-  beforeAll(() => {
-    getSources.mockImplementation(() => []);
-  });
-
   it('runs validations', async () => {
     const validator = new Validator(
       createSettings(),
