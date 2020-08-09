@@ -1,18 +1,22 @@
-import { DriverMock, getSources, open } from '../driver/driver-mock';
+import { DriverMock, open } from '../driver/driver-mock';
 import { ProviderMock } from '../provider/provider-mock';
+import { Rule, RuleType } from '../rule';
 import { createSettings } from '../settings';
 import { Validator } from './validator';
 
-describe('validator', () => {
-  beforeAll(() => {
-    getSources.mockImplementation(() => []);
-  });
+const rule: Rule = {
+  id: 'fake-rule',
+  description: 'fake rule',
+  type: RuleType.ATOMIC,
+  create: jest.fn(),
+};
 
+describe('validator', () => {
   it('runs validations', async () => {
     const validator = new Validator(
       createSettings(),
       new DriverMock(),
-      [],
+      [rule],
       new ProviderMock(),
     );
 
@@ -20,6 +24,7 @@ describe('validator', () => {
     await validator.diagnose(URL);
 
     expect(open).toBeCalledWith(URL);
+    expect(rule.create).toBeCalled();
   });
 
   it('captures', async () => {

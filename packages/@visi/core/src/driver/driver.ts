@@ -22,6 +22,8 @@ export interface ScreenshotParams {
 }
 
 export interface Driver {
+  sources: Map<string, Source>;
+
   // browser
   launch(): Promise<void>;
   quit(): Promise<void>;
@@ -42,12 +44,11 @@ export interface Driver {
   ): Promise<string>;
 
   // depot
-  findHtmlNode(xpath: string): HTMLNode | undefined;
-  findCSSNode(
+  findHTML(xpath: string): Promise<[string, HTMLNode] | undefined>;
+  findCSS(
     xpath: string,
     propertyName: string,
   ): Promise<[string, CSSNode] | undefined>;
-  getSources(): Source[];
 }
 
 export interface DriverConstructor {
