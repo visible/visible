@@ -14,6 +14,7 @@ import {
   Location,
   Report,
   ReportConstructorParams,
+  Source,
 } from '../source';
 import { Progress } from './progress';
 import { Rule } from './rule';
@@ -43,6 +44,12 @@ export class ContextImpl implements Context {
     readonly provider: Provider,
   ) {}
 
+  private addReport(source: Source, report: Report) {
+    const newSource = source.addReport(report);
+    this.driver.sources.set(newSource.id, newSource);
+    this.handleNewReport(report, newSource.id);
+  }
+
   async reportHTML(sourceId: string, params: ReportParams<HTMLNode>) {
     const { node } = params;
     const source = this.driver.sources.get(sourceId);
@@ -68,9 +75,7 @@ export class ContextImpl implements Context {
       screenshot,
     });
 
-    const newSource = source.addReport(report);
-    this.driver.sources.set(newSource.id, newSource);
-    this.handleNewReport(report, newSource.id);
+    this.addReport(source, report);
   }
 
   async reportCSS(sourceId: string, params: ReportParams<CSSNode>) {
@@ -104,9 +109,7 @@ export class ContextImpl implements Context {
       screenshot,
     });
 
-    const newSource = source.addReport(report);
-    this.driver.sources.set(newSource.id, newSource);
-    this.handleNewReport(report, newSource.id);
+    this.addReport(source, report);
   }
 
   private takeScreenshot(target: string) {

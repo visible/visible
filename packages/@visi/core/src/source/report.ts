@@ -74,6 +74,8 @@ export class CSSReport extends Report {
     this.node = params.node;
   }
 
+  // Hard to create a mock for CSS
+  /* istanbul ignore next */
   get text() {
     return this.node.toString();
   }

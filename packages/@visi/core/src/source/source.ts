@@ -53,6 +53,7 @@ export class HTMLSource extends BaseSource {
     this.reports = params.reports ?? [];
   }
 
+  /* istanbul ignore next */
   get text() {
     return getOuterHTML(this.content);
   }
@@ -74,6 +75,7 @@ export class CSSSource extends BaseSource {
     this.reports = params.reports ?? [];
   }
 
+  /* istanbul ignore next */
   get text() {
     return this.content.toString();
   }
