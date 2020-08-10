@@ -1,8 +1,8 @@
-import { Config } from './config';
+import { ConfigLoader } from './config';
 
 describe('config', () => {
   it('creates instance', async () => {
-    const config = await Config.init({
+    const config = await ConfigLoader.init({
       driver: 'foo',
       plugins: ['bar', 'bal'],
       settings: {
@@ -16,8 +16,8 @@ describe('config', () => {
   });
 
   it('merges configs', async () => {
-    const config = await Config.init({
-      extends: ['../__fixtures__/config.json'],
+    const config = await ConfigLoader.init({
+      extends: ['./__fixtures__/config.json'],
     });
 
     expect(config.driver).toBe('@visi/fake-driver');
