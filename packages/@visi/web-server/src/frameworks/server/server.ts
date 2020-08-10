@@ -27,15 +27,6 @@ export class Server {
     this.logger = container.get(TYPES.Logger);
   }
 
-  private async loadSchema() {
-    return fs
-      .readFile(
-        path.resolve('./dist/frameworks/server/generated/schema.graphql'),
-        'utf-8',
-      )
-      .then((code) => gql(code));
-  }
-
   async start() {
     const app = express();
     const server = createServer(app);
@@ -73,5 +64,14 @@ export class Server {
         ${this.config.getSocketUrl()}${apollo.subscriptionsPath}
       `);
     });
+  }
+
+  private async loadSchema() {
+    return fs
+      .readFile(
+        path.resolve('./dist/frameworks/server/generated/schema.graphql'),
+        'utf-8',
+      )
+      .then((code) => gql(code));
   }
 }

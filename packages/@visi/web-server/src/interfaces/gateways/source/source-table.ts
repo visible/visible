@@ -5,26 +5,6 @@ import { PointerTable } from '../pointer';
 
 @Entity('source')
 export class SourceTable {
-  static fromDomain(source: Source) {
-    const entity = new SourceTable();
-    entity.id = source.id;
-    entity.content = source.content;
-    entity.url = source.url;
-    entity.title = source.title;
-    entity.pointerId = source.pointerId;
-    return entity;
-  }
-
-  toDomain() {
-    return Source.from({
-      id: this.id,
-      content: this.content,
-      url: this.url,
-      title: this.title,
-      pointerId: this.pointerId,
-    });
-  }
-
   @PrimaryColumn('uuid')
   id!: string;
 
@@ -44,4 +24,24 @@ export class SourceTable {
     onDelete: 'CASCADE',
   })
   readonly pointer?: PointerTable;
+
+  static fromDomain(source: Source) {
+    const entity = new SourceTable();
+    entity.id = source.id;
+    entity.content = source.content;
+    entity.url = source.url;
+    entity.title = source.title;
+    entity.pointerId = source.pointerId;
+    return entity;
+  }
+
+  toDomain() {
+    return Source.from({
+      id: this.id,
+      content: this.content,
+      url: this.url,
+      title: this.title,
+      pointerId: this.pointerId,
+    });
+  }
 }

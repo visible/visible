@@ -47,6 +47,41 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
     private readonly translator: Translator,
   ) {}
 
+  async run({
+    id,
+  }: ProcessDiagnosisRequest): Promise<ProcessDiagnosisResponse> {
+    this.logger.info(`Processing diagnosis`, id);
+    let [diagnosis] = await this.diagnosisRepository.find([id]);
+
+    const visible = await Core.Visible.init({
+      plugins: ['@visi/plugin-standard'],
+      settings: {
+        screenshot: 'only-fail',
+        screenshotDir: path.join(process.cwd(), 'tmp'),
+      },
+    });
+
+    await visible.open(diagnosis.url);
+    await visible
+      .diagnose()
+      .pipe(
+        concatMap((progress) =>
+          from(this.handleProgress(progress, diagnosis, visible)),
+        ),
+        tap((newDiagnosis) => (diagnosis = newDiagnosis)),
+        catchError(async (error) => {
+          await this.handleError(diagnosis);
+          throw error;
+        }),
+      )
+      .toPromise();
+
+    await this.handleComplete(diagnosis);
+    await visible.close();
+
+    return;
+  }
+
   private async handleProgress(
     progress: Core.Progress,
     base: Diagnosis,
@@ -103,40 +138,5 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
 
     await this.diagnosisRepository.save(diagnosis);
     await this.diagnosisRepository.publish(diagnosis);
-  }
-
-  async run({
-    id,
-  }: ProcessDiagnosisRequest): Promise<ProcessDiagnosisResponse> {
-    this.logger.info(`Processing diagnosis`, id);
-    let [diagnosis] = await this.diagnosisRepository.find([id]);
-
-    const visible = await Core.Visible.init({
-      plugins: ['@visi/plugin-standard'],
-      settings: {
-        screenshot: 'only-fail',
-        screenshotDir: path.join(process.cwd(), 'tmp'),
-      },
-    });
-
-    await visible.open(diagnosis.url);
-    await visible
-      .diagnose()
-      .pipe(
-        concatMap((progress) =>
-          from(this.handleProgress(progress, diagnosis, visible)),
-        ),
-        tap((newDiagnosis) => (diagnosis = newDiagnosis)),
-        catchError(async (error) => {
-          await this.handleError(diagnosis);
-          throw error;
-        }),
-      )
-      .toPromise();
-
-    await this.handleComplete(diagnosis);
-    await visible.close();
-
-    return;
   }
 }

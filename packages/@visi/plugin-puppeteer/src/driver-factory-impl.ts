@@ -6,6 +6,12 @@ import { DriverImpl } from './driver-impl';
 export class DriverFactoryImpl implements DriverFactory {
   constructor(private readonly settings: Settings) {}
 
+  async create() {
+    const options = this.createLaunchOptions();
+    const browser = await launch(options);
+    return new DriverImpl(browser, this.settings);
+  }
+
   private createLaunchOptions() {
     const options: LaunchOptions = {
       args: ['--disable-web-security'],
@@ -28,11 +34,5 @@ export class DriverFactoryImpl implements DriverFactory {
     }
 
     return options;
-  }
-
-  async create() {
-    const options = this.createLaunchOptions();
-    const browser = await launch(options);
-    return new DriverImpl(browser, this.settings);
   }
 }

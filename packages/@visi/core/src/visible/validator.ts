@@ -16,29 +16,6 @@ export class Validator {
     readonly provider: Provider,
   ) {}
 
-  private async createSessionForURL(url: string) {
-    const session = await this.driver.open();
-    await session.goto(url);
-    return session;
-  }
-
-  private async exposeGateway(session: Session) {
-    const gateway = path.resolve(__dirname, '../gateway/index.js');
-    await session.addScript({ path: gateway });
-    await session.waitForFunction('() => visible != null');
-  }
-
-  private createContext(session: Session) {
-    const context = new ContextImpl(
-      this.settings,
-      session,
-      this.rules,
-      this.provider,
-    );
-    context.progress$.subscribe((progress) => this.progress$.next(progress));
-    return context;
-  }
-
   async diagnose(url: string) {
     const { delay } = this.settings;
 
@@ -60,5 +37,28 @@ export class Validator {
     await session.close();
 
     return [...session.sources.values()];
+  }
+
+  private async createSessionForURL(url: string) {
+    const session = await this.driver.open();
+    await session.goto(url);
+    return session;
+  }
+
+  private async exposeGateway(session: Session) {
+    const gateway = path.resolve(__dirname, '../gateway/index.js');
+    await session.addScript({ path: gateway });
+    await session.waitForFunction('() => visible != null');
+  }
+
+  private createContext(session: Session) {
+    const context = new ContextImpl(
+      this.settings,
+      session,
+      this.rules,
+      this.provider,
+    );
+    context.progress$.subscribe((progress) => this.progress$.next(progress));
+    return context;
   }
 }

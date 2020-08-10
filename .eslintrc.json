@@ -42,6 +42,7 @@
         "argsIgnorePattern": "^_"
       }
     ],
+    "@typescript-eslint/member-ordering": "error",
     "import/no-extraneous-dependencies": "error",
     "jsx-a11y/anchor-is-valid": "off",
     "no-console": "error",

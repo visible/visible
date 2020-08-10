@@ -20,8 +20,6 @@ export class Report extends Model {
   @IsEnum(Outcome)
   readonly outcome!: Outcome;
 
-  readonly rule!: Rule;
-
   @IsOptional()
   @Length(1, 255)
   readonly target?: string;
@@ -32,4 +30,6 @@ export class Report extends Model {
 
   @IsOptional()
   readonly pointers?: Pointer[];
+
+  readonly rule!: Rule;
 }

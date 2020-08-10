@@ -9,8 +9,6 @@ export class Source extends Model {
   @IsUUID()
   readonly pointerId!: string;
 
-  readonly content!: string;
-
   @IsOptional()
   @IsUrl()
   readonly url?: string;
@@ -18,4 +16,6 @@ export class Source extends Model {
   @IsOptional()
   @Length(1, 225)
   readonly title?: string;
+
+  readonly content!: string;
 }

@@ -5,6 +5,19 @@ import { Rule, RuleType } from '../../../domain/models';
 @Entity('rule')
 @Unique(['name'])
 export class RuleTable {
+  @PrimaryColumn('varchar', { length: 255 })
+  id!: string;
+
+  @Index()
+  @Column('varchar', { length: 255 })
+  name!: string;
+
+  @Column('varchar', { length: 255 })
+  type!: RuleType;
+
+  @Column('varchar', { length: 255 })
+  description!: string;
+
   static fromDomain(rule: Rule) {
     const entity = new RuleTable();
     entity.id = rule.id;
@@ -22,17 +35,4 @@ export class RuleTable {
       description: this.description,
     });
   }
-
-  @PrimaryColumn('varchar', { length: 255 })
-  id!: string;
-
-  @Index()
-  @Column('varchar', { length: 255 })
-  name!: string;
-
-  @Column('varchar', { length: 255 })
-  type!: RuleType;
-
-  @Column('varchar', { length: 255 })
-  description!: string;
 }

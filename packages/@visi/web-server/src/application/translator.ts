@@ -121,6 +121,27 @@ export class Translator {
     });
   }
 
+  async createReport(
+    report: Core.Report,
+    diagnosisId: string,
+    sourceMapper: Map<string, Core.Source>,
+  ) {
+    const id = uuid.v4();
+
+    return Report.from({
+      id,
+      diagnosisId,
+      outcome: this.createOutcome(report.outcome),
+      rule: await this.createRule(report.rule),
+      target: report.outcome !== 'inapplicable' ? report.target : undefined,
+      message: report.outcome === 'fail' ? report.message : undefined,
+      pointers:
+        report.outcome !== 'inapplicable'
+          ? await this.createPointer(report.pointers, id, sourceMapper)
+          : undefined,
+    });
+  }
+
   private createOutcome(outcome: Core.Report['outcome']) {
     switch (outcome) {
       case 'inapplicable':
@@ -177,26 +198,5 @@ export class Translator {
         throw new TypeError(`Unknown pointer type ${pointer}`);
       }),
     );
-  }
-
-  async createReport(
-    report: Core.Report,
-    diagnosisId: string,
-    sourceMapper: Map<string, Core.Source>,
-  ) {
-    const id = uuid.v4();
-
-    return Report.from({
-      id,
-      diagnosisId,
-      outcome: this.createOutcome(report.outcome),
-      rule: await this.createRule(report.rule),
-      target: report.outcome !== 'inapplicable' ? report.target : undefined,
-      message: report.outcome === 'fail' ? report.message : undefined,
-      pointers:
-        report.outcome !== 'inapplicable'
-          ? await this.createPointer(report.pointers, id, sourceMapper)
-          : undefined,
-    });
   }
 }

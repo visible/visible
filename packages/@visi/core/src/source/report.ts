@@ -27,7 +27,7 @@ export abstract class Report {
   readonly location?: Location;
   readonly message?: string;
   readonly screenshot?: string;
-  fix?(): Promise<void>;
+  abstract readonly text: string;
 
   constructor(params: ReportConstructorParams) {
     this.ruleId = params.ruleId;
@@ -42,7 +42,7 @@ export abstract class Report {
     }
   }
 
-  abstract readonly text: string;
+  fix?(): Promise<void>;
 }
 
 export interface HTMLReportConstructorParams extends ReportConstructorParams {
