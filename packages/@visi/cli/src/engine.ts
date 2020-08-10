@@ -18,7 +18,7 @@ interface Constructor<T, U> {
   new (params: U): T;
 }
 
-const constructIfNewable = <T extends {}, U>(
+const constructIfNewable = <T extends unknown, U>(
   constructorLike: Constructor<T, U> | T,
   params?: U,
 ): T => {
