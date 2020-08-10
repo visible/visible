@@ -7,7 +7,7 @@ export class ImgAlt implements Rule {
   description = 'Check if img element has an alt attribute';
 
   async create(ctx: Context) {
-    const xpaths = await ctx.driver.runScript<string[]>(`
+    const xpaths = await ctx.session.runScript<string[]>(`
       visible.$$('img')
         .filter(elm => {
           const alt = elm.getAttribute('alt');
@@ -17,7 +17,7 @@ export class ImgAlt implements Rule {
     `);
 
     for (const xpath of xpaths) {
-      const result = await ctx.driver.findHTML(xpath);
+      const result = await ctx.session.findHTML(xpath);
 
       if (result == null) {
         continue;

@@ -3,7 +3,7 @@ import path from 'path';
 import { Node as CSSNode } from 'postcss';
 import { Subject } from 'rxjs';
 
-import { Driver } from '../driver';
+import { Session } from '../driver';
 import { Provider } from '../provider';
 import { Settings } from '../settings';
 import {
@@ -26,7 +26,7 @@ export type ReportParams<Node> = Omit<
 
 export interface Context {
   readonly progress$: Subject<Progress>;
-  readonly driver: Driver;
+  readonly session: Session;
   readonly settings: Settings;
   readonly provider: Provider;
   reportHTML(sourceId: string, params: ReportParams<HTMLNode>): Promise<void>;
@@ -39,20 +39,20 @@ export class ContextImpl implements Context {
 
   constructor(
     readonly settings: Settings,
-    readonly driver: Driver,
+    readonly session: Session,
     readonly rules: Rule[],
     readonly provider: Provider,
   ) {}
 
   private addReport(source: Source, report: Report) {
     const newSource = source.addReport(report);
-    this.driver.sources.set(newSource.id, newSource);
+    this.session.sources.set(newSource.id, newSource);
     this.handleNewReport(report, newSource.id);
   }
 
   async reportHTML(sourceId: string, params: ReportParams<HTMLNode>) {
     const { node } = params;
-    const source = this.driver.sources.get(sourceId);
+    const source = this.session.sources.get(sourceId);
 
     if (!(source instanceof HTMLSource)) {
       throw new Error(`Original source for html is not memoised`);
@@ -79,7 +79,7 @@ export class ContextImpl implements Context {
   }
 
   async reportCSS(sourceId: string, params: ReportParams<CSSNode>) {
-    const source = this.driver.sources.get(sourceId);
+    const source = this.session.sources.get(sourceId);
     const { node } = params;
 
     if (!(source instanceof CSSSource)) {
@@ -114,7 +114,7 @@ export class ContextImpl implements Context {
 
   private takeScreenshot(target: string) {
     const { screenshotDir } = this.settings;
-    return this.driver.takeScreenshotForXPath(target, {
+    return this.session.takeScreenshotForXPath(target, {
       type: 'png',
       path: path.join(screenshotDir, Date.now().toString()),
     });
