@@ -34,7 +34,9 @@ export interface Context {
 }
 
 export class ContextImpl implements Context {
+  private readonly reportsCountPerRule = new Map<string, number>();
   private doneCount = 0;
+
   readonly progress$ = new Subject<Progress>();
 
   constructor(
@@ -45,13 +47,28 @@ export class ContextImpl implements Context {
   ) {}
 
   private addReport(source: Source, report: Report) {
+    const reportsCount = this.reportsCountPerRule.get(report.ruleId) ?? 0;
+    this.reportsCountPerRule.set(report.ruleId, reportsCount + 1);
+
     const newSource = source.addReport(report);
     this.session.sources.set(newSource.id, newSource);
+
     this.handleNewReport(report, newSource.id);
   }
 
+  private checkIfRuleHasExceededReportLimit(ruleId: string) {
+    const count = this.reportsCountPerRule.get(ruleId);
+    if (count == null) return false;
+    return count >= this.settings.maxReportsCountPerRule;
+  }
+
   async reportHTML(sourceId: string, params: ReportParams<HTMLNode>) {
-    const { node } = params;
+    const { node, target, ruleId } = params;
+
+    if (this.checkIfRuleHasExceededReportLimit(ruleId)) {
+      return;
+    }
+
     const source = this.session.sources.get(sourceId);
 
     if (!(source instanceof HTMLSource)) {
@@ -67,7 +84,7 @@ export class ContextImpl implements Context {
       node.startIndex,
       node.endIndex,
     );
-    const screenshot = await this.takeScreenshot(params.target);
+    const screenshot = await this.takeScreenshot(target);
 
     const report = new HTMLReport({
       ...params,
@@ -79,8 +96,13 @@ export class ContextImpl implements Context {
   }
 
   async reportCSS(sourceId: string, params: ReportParams<CSSNode>) {
+    const { node, target, ruleId } = params;
+
+    if (this.checkIfRuleHasExceededReportLimit(ruleId)) {
+      return;
+    }
+
     const source = this.session.sources.get(sourceId);
-    const { node } = params;
 
     if (!(source instanceof CSSSource)) {
       throw new Error(`Source for ${sourceId} is not memoised`);
@@ -101,7 +123,7 @@ export class ContextImpl implements Context {
       endColumn: node.source.end.column,
     });
 
-    const screenshot = await this.takeScreenshot(params.target);
+    const screenshot = await this.takeScreenshot(target);
 
     const report = new CSSReport({
       ...params,

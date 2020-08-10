@@ -3,12 +3,15 @@ import os from 'os';
 import path from 'path';
 
 export interface Settings {
-  readonly language: string;
   readonly delay: number;
-  readonly headless: boolean;
-  readonly noSandbox: boolean;
   readonly screenshot: 'always' | 'only-fail' | 'never';
   readonly screenshotDir: string;
+  readonly maxReportsCountPerRule: number;
+
+  // TODO: decouple puppeteer specific things
+  readonly language: string;
+  readonly headless: boolean;
+  readonly noSandbox: boolean;
   readonly userAgent?: string;
   readonly width?: number;
   readonly height?: number;
@@ -16,8 +19,9 @@ export interface Settings {
 }
 
 const DEFAULTS: Settings = {
-  language: 'en',
   delay: 0,
+  maxReportsCountPerRule: Number.POSITIVE_INFINITY,
+  language: 'en',
   headless: true,
   noSandbox: false,
   screenshot: 'only-fail',
