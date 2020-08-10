@@ -8,8 +8,8 @@
   "type": "./index.d.ts",
   "scripts": {
     "build": "yarn run generate:graphql && next build",
-    "watch": "node dist/server.js",
-    "start": "NODE_ENV=production node dist/server.js",
+    "watch": "next dev",
+    "start": "next start",
     "test": "jest --coverage",
     "generate:graphql": "graphql-codegen -s --config codegen.js"
   },
