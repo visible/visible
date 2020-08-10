@@ -11,7 +11,7 @@
     "watch": "node dist/server.js",
     "start": "NODE_ENV=production node dist/server.js",
     "test": "jest --coverage",
-    "generate:graphql": "graphql-codegen --config codegen.js"
+    "generate:graphql": "graphql-codegen -s --config codegen.js"
   },
   "files": [
     "dist"

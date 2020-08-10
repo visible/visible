@@ -9,7 +9,7 @@
     "start": "node ./dist/index.js",
     "build": "yarn run generate:graphql && tsc",
     "test": "jest --coverage",
-    "generate:graphql": "graphql-codegen --config codegen.js"
+    "generate:graphql": "graphql-codegen -s --config codegen.js"
   },
   "files": [
     "dist"
