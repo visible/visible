@@ -1,11 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Navigation matches snapshot 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 18px;
+  font-weight: bold;
+}
+
+.c1:last-child {
+  margin-right: 0;
+}
+
+.c1 > a {
+  display: block;
+  box-sizing: border-box;
+  padding: 12px 0px;
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  color: #333333;
+}
+
+.c1 > a:hover {
+  color: #FF8C00;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1 > a. .sc-AxirZ {
+  visibility: display;
+}
+
 <ul
-  class="sc-AxjAm kEtIvj"
+  class="c0"
 >
   <li
-    class="sc-AxiKw ZMdSr"
+    class="c1"
   >
     test
   </li>

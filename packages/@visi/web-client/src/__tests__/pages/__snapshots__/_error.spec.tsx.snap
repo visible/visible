@@ -1,18 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NotFound matches to the snapshot 1`] = `
+.c0 {
+  box-sizing: border-box;
+  width: 1080px;
+  margin: 24px auto;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 0 24px rgba(0,0,0,0.05);
+}
+
+.c1 {
+  margin: 0;
+  color: #333333;
+  font-size: 28px;
+  font-style: normal;
+  text-transform: none;
+  line-height: 1.6;
+}
+
+.c2 {
+  margin: 0;
+  color: #333333;
+  font-size: 14px;
+  font-style: normal;
+  text-transform: none;
+  line-height: 1.6;
+}
+
 <div>
   <main
-    class="sc-Axmtr LSOvs"
+    class="c0"
   >
     <h1
-      class="sc-fznZeY jOdKoG"
+      class="c1"
     >
       503: 
       name
     </h1>
     <p
-      class="sc-fznZeY Cnwrk"
+      class="c2"
     >
       message
     </p>

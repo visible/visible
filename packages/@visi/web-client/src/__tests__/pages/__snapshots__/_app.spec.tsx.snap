@@ -1,12 +1,118 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App matches to the snapshot 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 1080px;
+  margin: auto;
+  color: white;
+}
+
 .c0 {
+  background-color: #FF8C00;
+  box-shadow: 0 0 3px rgba(255,140,0,0.84);
+}
+
+.c8 {
+  list-style-type: disc;
+}
+
+.c6 {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+.c6 a {
+  color: #666666;
+}
+
+.c6 .c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-around;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: space-around;
+  justify-content: space-around;
+  width: 1080px;
+  margin: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.c6:hover,
+.c6:focus {
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+  opacity: 1;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 18px;
+  font-weight: bold;
+}
+
+.c4:last-child {
+  margin-right: 0;
+}
+
+.c4 > a {
+  display: block;
+  box-sizing: border-box;
+  padding: 12px 0px;
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  color: rgba(255,255,255,0.6);
+}
+
+.c4 > a:hover {
+  color: rgba(255,255,255,0.4);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 > a. {
+  color: rgba(255,255,255,1);
+}
+
+.c4 > a. .sc-fzoLsD {
+  visibility: display;
+}
+
+.c2 {
   margin: 0;
   font-size: 21px;
 }
 
-.c0 img {
+.c2 img {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -17,13 +123,13 @@ exports[`App matches to the snapshot 1`] = `
   transition: 0.15s ease-out;
 }
 
-.c0 a:hover > img {
+.c2 a:hover > img {
   -webkit-transition: 0.15s ease-in;
   transition: 0.15s ease-in;
   opacity: 0.8;
 }
 
-.c1 {
+.c5 {
   display: -webkit-box !important;
   display: -webkit-flex !important;
   display: -ms-flexbox !important;
@@ -34,11 +140,11 @@ exports[`App matches to the snapshot 1`] = `
   align-items: center;
 }
 
-.c1 svg {
+.c5 svg {
   margin-right: 0.5em;
 }
 
-.c2 {
+.c9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -50,7 +156,7 @@ exports[`App matches to the snapshot 1`] = `
   padding: 24px 0;
 }
 
-.c2 svg {
+.c9 svg {
   margin-right: 0.5em;
 }
 
@@ -59,13 +165,13 @@ exports[`App matches to the snapshot 1`] = `
     role="application"
   >
     <header
-      class="fwonqT"
+      class="c0"
     >
       <div
-        class="kzGWpt"
+        class="c1"
       >
         <h1
-          class="c0"
+          class="c2"
         >
           <a
             href="/"
@@ -77,13 +183,13 @@ exports[`App matches to the snapshot 1`] = `
           </a>
         </h1>
         <ul
-          class="sc-fzozJi csZgVm"
+          class="c3"
         >
           <li
-            class="sc-fzpans jtJThK"
+            class="c4"
           >
             <a
-              class="c1"
+              class="c5"
             >
               <svg
                 fill="none"
@@ -107,10 +213,10 @@ exports[`App matches to the snapshot 1`] = `
             </a>
           </li>
           <li
-            class="sc-fzpans jtJThK"
+            class="c4"
           >
             <a
-              class="c1"
+              class="c5"
             >
               <svg
                 fill="none"
@@ -137,17 +243,17 @@ exports[`App matches to the snapshot 1`] = `
       </div>
     </header>
     <footer
-      class="sc-AxheI eMMtTn"
+      class="c6"
       role="contentinfo"
     >
       <ul
-        class="sc-AxhUy jJQfXa"
+        class="c7 c8"
       >
         <li
-          class="sc-AxgMl fFPQpl"
+          class=""
         >
           <a
-            class="c2"
+            class="c9"
             href="mailto:n33t5hin@gmail.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -174,10 +280,10 @@ exports[`App matches to the snapshot 1`] = `
           </a>
         </li>
         <li
-          class="sc-AxgMl fFPQpl"
+          class=""
         >
           <a
-            class="c2"
+            class="c9"
             href="https://github.com/neet/visible"
             rel="noopener noreferrer"
             target="_blank"
@@ -201,10 +307,10 @@ exports[`App matches to the snapshot 1`] = `
           </a>
         </li>
         <li
-          class="sc-AxgMl fFPQpl"
+          class=""
         >
           <a
-            class="c2"
+            class="c9"
             href="https://twitter.com/TheGodOfNeet"
             rel="noopener noreferrer"
             target="_blank"
