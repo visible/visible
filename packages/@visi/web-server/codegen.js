@@ -12,7 +12,7 @@ module.exports = {
       plugins: [
         'typescript',
         'typescript-resolvers',
-        { add: "import { PartialDeep } from 'type-fest';" },
+        { add: { content: "import { PartialDeep } from 'type-fest';" } },
       ],
       config: {
         contextType: '../context#Context',
