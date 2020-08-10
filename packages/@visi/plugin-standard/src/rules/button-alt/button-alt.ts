@@ -6,7 +6,7 @@ export class ButtonAlt implements Rule {
   description = 'Check if button has text content';
 
   async create(ctx: Context) {
-    const xpaths = await ctx.driver.runScript<string[]>(`
+    const xpaths = await ctx.session.runScript<string[]>(`
       visible.$$('button')
         .filter(elm => {
           const alt = elm.textContent;
@@ -16,7 +16,7 @@ export class ButtonAlt implements Rule {
     `);
 
     for (const xpath of xpaths) {
-      const result = await ctx.driver.findHTML(xpath);
+      const result = await ctx.session.findHTML(xpath);
 
       if (result == null) {
         continue;

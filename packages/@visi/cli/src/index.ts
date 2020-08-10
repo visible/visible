@@ -105,7 +105,6 @@ yargs
           });
       }
 
-      await engine.beforeRun();
       const sources = await engine.validator.diagnose(url);
       const originals = sources.reduce((map, source) => {
         map.set(source.id, source.text);
@@ -117,10 +116,11 @@ yargs
       }
 
       print(sources, originals, json, fix);
-      await engine.afterRun();
       const hasAnyReport = sources.some((source) => {
         return source.reports.length !== 0;
       });
+
+      await engine.down();
       process.exit(hasAnyReport ? 1 : 0);
     },
   ).argv;

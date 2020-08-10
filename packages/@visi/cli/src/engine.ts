@@ -2,6 +2,7 @@ import {
   Config,
   ConfigSchema,
   Driver,
+  DriverFactory,
   Plugin,
   Provider,
   ProviderConstructor,
@@ -54,7 +55,7 @@ export class Engine {
     name: string,
     plugins: Map<string, Plugin>,
     settings: Settings,
-  ): Driver {
+  ): DriverFactory {
     const driver = plugins.get(name)?.driver;
 
     if (driver == null) {
@@ -85,7 +86,7 @@ export class Engine {
       .map((rule) => constructIfNewable(rule));
   }
 
-  constructor(readonly validator: Validator) {}
+  constructor(readonly validator: Validator, readonly driver: Driver) {}
 
   static async init(schema: ConfigSchema) {
     const config = await Config.init(schema);
@@ -97,18 +98,16 @@ export class Engine {
       await mkdirp(settings.screenshotDir);
     }
 
-    const driver = this.initDriver(config.driver, plugins, settings);
+    const driverFactory = this.initDriver(config.driver, plugins, settings);
     const rules = this.initRules(plugins);
     const provider = this.initProvider(plugins, settings);
 
-    return new Engine(new Validator(settings, driver, rules, provider));
+    const driver = await driverFactory.create();
+
+    return new Engine(new Validator(settings, driver, rules, provider), driver);
   }
 
-  async beforeRun() {
-    await this.validator.driver.launch();
-  }
-
-  async afterRun() {
-    await this.validator.driver.quit();
+  down() {
+    return this.driver.quit();
   }
 }

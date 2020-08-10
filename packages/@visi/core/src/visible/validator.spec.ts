@@ -1,4 +1,5 @@
-import { DriverMock, open } from '../driver/driver-mock';
+import { DriverMock } from '../driver/driver-mock';
+import { goto } from '../driver/session-mock';
 import { ProviderMock } from '../provider/provider-mock';
 import { Rule, RuleType } from '../rule';
 import { createSettings } from '../settings';
@@ -23,21 +24,7 @@ describe('validator', () => {
     const URL = 'https://example.com';
     await validator.diagnose(URL);
 
-    expect(open).toBeCalledWith(URL);
+    expect(goto).toBeCalledWith(URL);
     expect(rule.create).toBeCalled();
-  });
-
-  it('captures', async () => {
-    const validator = new Validator(
-      createSettings(),
-      new DriverMock(),
-      [],
-      new ProviderMock(),
-    );
-
-    const URL = 'https://example.com';
-    await validator.capture(URL);
-
-    expect(open).toBeCalledWith(URL);
   });
 });

@@ -1,7 +1,7 @@
 import { Plugin } from '@visi/core';
 
-import { DriverPuppeteerImpl } from './driver-impl';
+import { DriverFactoryImpl } from './driver-factory-impl';
 
 export default {
-  driver: DriverPuppeteerImpl,
+  driver: DriverFactoryImpl,
 } as Plugin;

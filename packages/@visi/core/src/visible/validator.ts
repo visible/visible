@@ -1,72 +1,64 @@
 import path from 'path';
 import { Subject } from 'rxjs';
 
-import { Driver } from '../driver';
+import { Driver, Session } from '../driver';
 import { Provider } from '../provider';
-import { Context, ContextImpl, Progress, Rule } from '../rule';
+import { ContextImpl, Progress, Rule } from '../rule';
 import { Settings } from '../settings';
-import { Website } from '../website';
 
 export class Validator {
-  private readonly context: Context;
-  readonly progress$: Subject<Progress>;
+  readonly progress$ = new Subject<Progress>();
 
   constructor(
     readonly settings: Settings,
     readonly driver: Driver,
     readonly rules: Rule[],
     readonly provider: Provider,
-  ) {
-    this.context = new ContextImpl(settings, driver, rules, provider);
-    this.progress$ = this.context.progress$;
+  ) {}
+
+  private async createSessionForURL(url: string) {
+    const session = await this.driver.open();
+    await session.goto(url);
+    return session;
   }
 
-  async capture(url: string) {
-    const { screenshotDir } = this.settings;
-
-    await this.driver.open(url);
-    const screenshot = await this.driver.takeScreenshotForPage({
-      type: 'png',
-      path: path.join(screenshotDir, Date.now().toString()),
-    });
-
-    const website: Website = {
-      title: 'idk',
-      url: 'idk',
-      screenshot,
-    };
-
-    return website;
-  }
-
-  private async before(url: string) {
-    const { delay } = this.settings;
-
-    // Open page
-    await this.driver.open(url);
-
-    // Load gateway libs
+  private async exposeGateway(session: Session) {
     const gateway = path.resolve(__dirname, '../gateway/index.js');
-    await this.driver.addScript({ path: gateway });
-    await this.driver.waitForFunction('() => visible != null');
-
-    if (delay != null) {
-      await this.driver.waitFor(delay);
-    }
+    await session.addScript({ path: gateway });
+    await session.waitForFunction('() => visible != null');
   }
 
-  private async after() {
-    await this.driver.close();
+  private createContext(session: Session) {
+    const context = new ContextImpl(
+      this.settings,
+      session,
+      this.rules,
+      this.provider,
+    );
+    context.progress$.subscribe((progress) => this.progress$.next(progress));
+    return context;
   }
 
   async diagnose(url: string) {
-    await this.before(url);
+    const { delay } = this.settings;
 
-    for (const rule of this.rules) {
-      await rule.create(this.context);
+    const session = await this.createSessionForURL(url);
+    await this.exposeGateway(session);
+    const context = this.createContext(session);
+
+    // Wait for delay
+    if (delay != null) {
+      await session.waitFor(delay);
     }
 
-    await this.after();
-    return [...this.driver.sources.values()];
+    // Run rules
+    for (const rule of this.rules) {
+      await rule.create(context);
+    }
+
+    // Done
+    await session.close();
+
+    return [...session.sources.values()];
   }
 }
