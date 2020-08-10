@@ -21,7 +21,15 @@ export const print = (
   let output = '';
 
   if (json) {
-    output = JSON.stringify(sources, null, 2);
+    output = JSON.stringify(
+      sources,
+      (key, value) => {
+        if (key === 'content') return;
+        if (key === 'node') return;
+        return value;
+      },
+      2,
+    );
   }
 
   for (const source of sources) {
