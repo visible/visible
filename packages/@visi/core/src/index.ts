@@ -1,5 +1,5 @@
 export * from './driver';
-export * from './plugin';
+export * from './extra';
 export * from './provider';
 export * from './rule';
 export * from './settings';

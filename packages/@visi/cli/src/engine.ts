@@ -1,18 +1,18 @@
 import {
   Config,
-  ConfigSchema,
   Driver,
-  DriverFactory,
   Plugin,
   Provider,
   ProviderConstructor,
   Rule,
   RuleConstructor,
   Settings,
-  Validator,
+  Visible,
 } from '@visi/core';
 import deepmerge from 'deepmerge';
 import mkdirp from 'mkdirp';
+
+import { ConfigLoader } from './config';
 
 interface Constructor<T, U> {
   new (params: U): T;
@@ -21,11 +21,10 @@ interface Constructor<T, U> {
 const constructIfNewable = <T extends {}, U>(
   constructorLike: Constructor<T, U> | T,
   params?: U,
-) => {
+): T => {
   if (typeof constructorLike === 'function') {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    return new constructorLike(params);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return new (constructorLike as any)(params);
   }
 
   return constructorLike;
@@ -55,7 +54,7 @@ export class Engine {
     name: string,
     plugins: Map<string, Plugin>,
     settings: Settings,
-  ): DriverFactory {
+  ) {
     const driver = plugins.get(name)?.driver;
 
     if (driver == null) {
@@ -86,10 +85,10 @@ export class Engine {
       .map((rule) => constructIfNewable(rule));
   }
 
-  constructor(readonly validator: Validator, readonly driver: Driver) {}
+  constructor(readonly visible: Visible, readonly driver: Driver) {}
 
-  static async init(schema: ConfigSchema) {
-    const config = await Config.init(schema);
+  static async init(schema: Config) {
+    const config = await ConfigLoader.init(schema);
     const plugins = await this.loadPlugins(config.plugins);
 
     const { settings } = config;
@@ -104,7 +103,7 @@ export class Engine {
 
     const driver = await driverFactory.create();
 
-    return new Engine(new Validator(settings, driver, rules, provider), driver);
+    return new Engine(new Visible(settings, driver, rules, provider), driver);
   }
 
   down() {

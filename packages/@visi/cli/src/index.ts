@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { ConfigSchema } from '@visi/core';
+import { Config } from '@visi/core';
 import chalk from 'chalk';
 import { Presets, SingleBar } from 'cli-progress';
 import { cosmiconfig } from 'cosmiconfig';
@@ -76,7 +76,7 @@ yargs
     async ({ url, json, silent, fix }) => {
       const config = await cosmiconfig('visible')
         .search()
-        .then((result) => result?.config as ConfigSchema | undefined);
+        .then((result) => result?.config as Config | undefined);
 
       if (config === undefined) {
         // eslint-disable-next-line no-console
@@ -92,20 +92,22 @@ yargs
       const engine = await Engine.init(config);
 
       if (!silent) {
-        engine.validator.progress$.pipe(first()).subscribe((progress) => {
-          // eslint-disable-next-line no-console
-          console.log(chalk.grey(t('visible.start', '🦉 Diagnosing...')));
-          singleBar.start(progress.totalCount, 0);
-        });
+        engine.visible.diagnosisProgress$
+          .pipe(first())
+          .subscribe((progress) => {
+            // eslint-disable-next-line no-console
+            console.log(chalk.grey(t('visible.start', '🦉 Diagnosing...')));
+            singleBar.start(progress.totalCount, 0);
+          });
 
-        engine.validator.progress$
+        engine.visible.diagnosisProgress$
           .pipe(finalize(() => singleBar.stop()))
           .subscribe((progress) => {
             singleBar.update(progress.doneCount);
           });
       }
 
-      const sources = await engine.validator.diagnose(url);
+      const sources = await engine.visible.diagnose(url);
       const originals = sources.reduce((map, source) => {
         map.set(source.id, source.text);
         return map;
@@ -121,6 +123,14 @@ yargs
       });
 
       await engine.down();
+
+      // eslint-disable-next-line no-console
+      console.log(
+        chalk.grey(
+          t('visible.end', '🦉 Diagnostics has successfully completed'),
+        ),
+      );
+
       process.exit(hasAnyReport ? 1 : 0);
     },
   ).argv;

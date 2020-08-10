@@ -2,7 +2,7 @@ import path from 'path';
 
 import { Driver } from '../driver';
 import { Settings } from '../settings';
-import { Website } from '../website';
+import { Website } from './website';
 
 export class Capturer {
   constructor(readonly settings: Settings, readonly driver: Driver) {}
