@@ -17,28 +17,28 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/code-frame": "^7.8.3",
+    "@babel/code-frame": "^7.10.4",
     "@visi/core": "^0.1.0",
     "chalk": "^4.1.0",
     "cli-diff": "^1.0.0",
     "cli-progress": "^3.8.2",
-    "cosmiconfig": "^6.0.0",
+    "cosmiconfig": "^7.0.0",
     "deepmerge": "^4.2.2",
-    "i18next": "^19.5.3",
+    "i18next": "^19.6.3",
     "i18next-cli-language-detector": "^1.0.0",
     "i18next-node-fs-backend": "^2.1.3",
     "mkdirp": "^1.0.4",
     "outdent": "^0.7.1",
-    "rxjs": "^6.5.5",
-    "typescript": "^3.9.6",
-    "yargs": "^15.1.0"
+    "rxjs": "^6.6.2",
+    "typescript": "^3.9.7",
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "@types/babel__code-frame": "^7.0.1",
-    "@types/cli-progress": "^3.4.2",
+    "@types/cli-progress": "^3.7.0",
     "@types/i18next-node-fs-backend": "^2.1.0",
     "@types/mkdirp": "^1.0.1",
-    "@types/yargs": "^15.0.0"
+    "@types/yargs": "^15.0.5"
   },
   "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
 }
