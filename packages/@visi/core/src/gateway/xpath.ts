@@ -25,7 +25,7 @@ const getSelfXPath = (node: Node) => {
   let predicate = '';
 
   if (node.parentNode && sameKindNodes.length >= 2) {
-    const index = sameKindNodes.findIndex((child) => child.isEqualNode(node));
+    const index = sameKindNodes.findIndex((child) => child.isSameNode(node));
     predicate = `[position()=${index + 1}]`;
   }
 
