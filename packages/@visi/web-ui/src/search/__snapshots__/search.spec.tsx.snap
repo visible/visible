@@ -1,17 +1,105 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Search matches snapshot 1`] = `
+.c4 {
+  box-sizing: border-box;
+  padding: 8px 14px;
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #FF8C00;
+  box-shadow: 0 1.5px 3px rgba(255,140,0,0.2);
+  color: white;
+}
+
+.c4:hover.c3:not(:disabled) {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  opacity: 0.8;
+}
+
+.c4:focus {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,140,0,0.4);
+}
+
+.c4:active {
+  opacity: 1 !important;
+}
+
+.c4:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.c4 > svg {
+  -webkit-animation: cilQsd 1s infinite linear;
+  animation: cilQsd 1s infinite linear;
+}
+
+.c2 {
+  box-sizing: border-box;
+  padding: 8px 14px;
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.c2:focus {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  border-color: #FF8C00;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,140,0,0.4);
+}
+
+.c2:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 .c3 {
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.c0 .c1 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 <form
-  class="sc-AxiKw hrzzKR"
+  class="c0"
   role="search"
 >
   <input
-    class="sc-AxirZ kJMMOm"
+    class="c1 c2"
     type="text"
     value=""
   />
   <button
-    class="sc-AxjAm czOMqH"
+    class="c3 c4"
     type="submit"
   />
 </form>

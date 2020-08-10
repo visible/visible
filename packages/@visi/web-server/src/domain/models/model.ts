@@ -5,7 +5,8 @@ interface Newable<T> {
 }
 
 type PropertyNameOf<T> = {
-  [K in keyof T]: T[K] extends Function
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [K in keyof T]: T[K] extends () => any
     ? never
     : K extends typeof immerable
     ? never

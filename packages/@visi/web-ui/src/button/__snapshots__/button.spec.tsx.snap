@@ -1,13 +1,94 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button renders primary button 1`] = `
+.c1 {
+  box-sizing: border-box;
+  padding: 8px 14px;
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #FF8C00;
+  box-shadow: 0 1.5px 3px rgba(255,140,0,0.2);
+  color: white;
+}
+
+.c1:hover.c0:not(:disabled) {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  opacity: 0.8;
+}
+
+.c1:focus {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,140,0,0.4);
+}
+
+.c1:active {
+  opacity: 1 !important;
+}
+
+.c1:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.c1 > svg {
+  -webkit-animation: cilQsd 1s infinite linear;
+  animation: cilQsd 1s infinite linear;
+}
+
 <button
-  class="sc-AxjAm czOMqH"
+  class="c0 c1"
 />
 `;
 
 exports[`Button renders skeleton button 1`] = `
+.c1 {
+  box-sizing: border-box;
+  padding: 8px 14px;
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #FF8C00;
+  color: #FF8C00;
+}
+
+.c1:hover.c0:not(:disabled) {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  opacity: 0.8;
+}
+
+.c1:focus {
+  -webkit-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,140,0,0.4);
+}
+
+.c1:active {
+  opacity: 1 !important;
+}
+
+.c1:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.c1 > svg {
+  -webkit-animation: cilQsd 1s infinite linear;
+  animation: cilQsd 1s infinite linear;
+}
+
 <button
-  class="sc-AxjAm bIKwNs"
+  class="c0 c1"
 />
 `;

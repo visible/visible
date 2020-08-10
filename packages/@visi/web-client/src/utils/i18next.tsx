@@ -1,12 +1,11 @@
 import NextI18next, { UseTranslation } from 'next-i18next';
-import config from 'next/config';
-
-config();
+import path from 'path';
 
 const nextI18next = new NextI18next({
   defaultLanguage: 'en',
   otherLanguages: ['ja'],
   defaultNS: 'web-client',
+  localePath: path.resolve('./public/static/locales'),
 });
 
 export default nextI18next;

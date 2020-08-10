@@ -1,8 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Typography matches snapshot 1`] = `
+.c0 {
+  margin: 0;
+  color: #333333;
+  font-size: 14px;
+  font-style: normal;
+  text-transform: none;
+  line-height: 1.6;
+}
+
 <p
-  class="sc-AxjAm ePuaCL"
+  class="c0"
 >
   foo
 </p>
