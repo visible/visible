@@ -58,25 +58,6 @@ export class SessionImpl implements Session {
     return this.page.url();
   }
 
-  private handleStyleSheetAdded = async (
-    e: Protocol.CSS.StyleSheetAddedEvent,
-  ) => {
-    const { styleSheetId, sourceURL } = e.header;
-
-    // StyleSheetHeader doesn't contain the text so we fetch it separately.
-    const res = await this.cdp.send('CSS.getStyleSheetText', {
-      styleSheetId,
-    });
-
-    const source = new CSSSource({
-      id: styleSheetId,
-      url: sourceURL,
-      content: postcss.parse(res.text),
-    });
-
-    this.sources.set(source.id, source);
-  };
-
   async close() {
     if (this.page == null) {
       return;
@@ -221,4 +202,23 @@ export class SessionImpl implements Session {
 
     return [rule.styleSheetId, res] as [string, postcss.Node];
   }
+
+  private handleStyleSheetAdded = async (
+    e: Protocol.CSS.StyleSheetAddedEvent,
+  ) => {
+    const { styleSheetId, sourceURL } = e.header;
+
+    // StyleSheetHeader doesn't contain the text so we fetch it separately.
+    const res = await this.cdp.send('CSS.getStyleSheetText', {
+      styleSheetId,
+    });
+
+    const source = new CSSSource({
+      id: styleSheetId,
+      url: sourceURL,
+      content: postcss.parse(res.text),
+    });
+
+    this.sources.set(source.id, source);
+  };
 }

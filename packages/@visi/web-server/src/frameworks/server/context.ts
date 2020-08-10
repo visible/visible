@@ -11,12 +11,12 @@ export interface Context {
 
 @injectable()
 export class ContextImpl implements Context {
+  readonly diagnosisLoader = new DataLoader<string, DiagnosisAPI>((keys) => {
+    return this.diagnosisController.find(keys);
+  });
+
   constructor(
     @inject(DiagnosisController)
     readonly diagnosisController: DiagnosisController,
   ) {}
-
-  readonly diagnosisLoader = new DataLoader<string, DiagnosisAPI>((keys) => {
-    return this.diagnosisController.find(keys);
-  });
 }

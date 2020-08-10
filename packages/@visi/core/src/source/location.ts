@@ -24,6 +24,13 @@ export class Location {
   readonly startColumn: number;
   readonly endColumn: number;
 
+  constructor(params: LocationConstructorParams) {
+    this.startLine = params.startLine;
+    this.endLine = params.endLine;
+    this.startColumn = params.startColumn;
+    this.endColumn = params.endColumn;
+  }
+
   static fromIndices(source: string, startIndex: number, endIndex: number) {
     const startsAt = convertIndexToLocation(source, startIndex);
     const endsAt = convertIndexToLocation(source, endIndex);
@@ -34,12 +41,5 @@ export class Location {
       endLine: endsAt[0],
       endColumn: endsAt[1],
     });
-  }
-
-  constructor(params: LocationConstructorParams) {
-    this.startLine = params.startLine;
-    this.endLine = params.endLine;
-    this.startColumn = params.startColumn;
-    this.endColumn = params.endColumn;
   }
 }

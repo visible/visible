@@ -18,11 +18,10 @@ export interface SourceConstructorParams {
 
 export abstract class BaseSource {
   readonly [immerable] = true;
-
-  constructor(readonly id: string, readonly url?: string) {}
-
   abstract readonly text: string;
   abstract readonly reports: readonly Report[];
+
+  constructor(readonly id: string, readonly url?: string) {}
 
   addReport(report: Report) {
     return produce(this, (draft) => {

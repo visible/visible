@@ -31,6 +31,27 @@ const constructIfNewable = <T extends unknown, U>(
 };
 
 export class Engine {
+  constructor(readonly visible: Visible, readonly driver: Driver) {}
+
+  static async init(schema: Config) {
+    const config = await ConfigLoader.init(schema);
+    const plugins = await this.loadPlugins(config.plugins);
+
+    const { settings } = config;
+
+    if (settings.screenshotDir) {
+      await mkdirp(settings.screenshotDir);
+    }
+
+    const driverFactory = this.initDriver(config.driver, plugins, settings);
+    const rules = this.initRules(plugins);
+    const provider = this.initProvider(plugins, settings);
+
+    const driver = await driverFactory.create();
+
+    return new Engine(new Visible(settings, driver, rules, provider), driver);
+  }
+
   private static async loadPlugins(names: string[]) {
     const plugins = new Map<string, Plugin>();
 
@@ -83,27 +104,6 @@ export class Engine {
       .flatMap((plugin) => plugin.rules)
       .filter((value): value is Rule | RuleConstructor => value != null)
       .map((rule) => constructIfNewable(rule));
-  }
-
-  constructor(readonly visible: Visible, readonly driver: Driver) {}
-
-  static async init(schema: Config) {
-    const config = await ConfigLoader.init(schema);
-    const plugins = await this.loadPlugins(config.plugins);
-
-    const { settings } = config;
-
-    if (settings.screenshotDir) {
-      await mkdirp(settings.screenshotDir);
-    }
-
-    const driverFactory = this.initDriver(config.driver, plugins, settings);
-    const rules = this.initRules(plugins);
-    const provider = this.initProvider(plugins, settings);
-
-    const driver = await driverFactory.create();
-
-    return new Engine(new Visible(settings, driver, rules, provider), driver);
   }
 
   down() {

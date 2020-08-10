@@ -34,10 +34,9 @@ export interface Context {
 }
 
 export class ContextImpl implements Context {
+  readonly progress$ = new Subject<Progress>();
   private readonly reportsCountPerRule = new Map<string, number>();
   private doneCount = 0;
-
-  readonly progress$ = new Subject<Progress>();
 
   constructor(
     readonly settings: Settings,
@@ -45,22 +44,6 @@ export class ContextImpl implements Context {
     readonly rules: Rule[],
     readonly provider: Provider,
   ) {}
-
-  private addReport(source: Source, report: Report) {
-    const reportsCount = this.reportsCountPerRule.get(report.ruleId) ?? 0;
-    this.reportsCountPerRule.set(report.ruleId, reportsCount + 1);
-
-    const newSource = source.addReport(report);
-    this.session.sources.set(newSource.id, newSource);
-
-    this.handleNewReport(report, newSource.id);
-  }
-
-  private checkIfRuleHasExceededReportLimit(ruleId: string) {
-    const count = this.reportsCountPerRule.get(ruleId);
-    if (count == null) return false;
-    return count >= this.settings.maxReportsCountPerRule;
-  }
 
   async reportHTML(sourceId: string, params: ReportParams<HTMLNode>) {
     const { node, target, ruleId } = params;
@@ -149,5 +132,21 @@ export class ContextImpl implements Context {
       doneCount: this.doneCount++,
       totalCount: this.rules.length,
     });
+  }
+
+  private addReport(source: Source, report: Report) {
+    const reportsCount = this.reportsCountPerRule.get(report.ruleId) ?? 0;
+    this.reportsCountPerRule.set(report.ruleId, reportsCount + 1);
+
+    const newSource = source.addReport(report);
+    this.session.sources.set(newSource.id, newSource);
+
+    this.handleNewReport(report, newSource.id);
+  }
+
+  private checkIfRuleHasExceededReportLimit(ruleId: string) {
+    const count = this.reportsCountPerRule.get(ruleId);
+    if (count == null) return false;
+    return count >= this.settings.maxReportsCountPerRule;
   }
 }

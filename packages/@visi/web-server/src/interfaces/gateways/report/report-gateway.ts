@@ -14,15 +14,6 @@ export class ReportGateway implements ReportRepository {
     private connection: Connection,
   ) {}
 
-  private findOne(id: string) {
-    return this.connection
-      .getRepository(ReportTable)
-      .findOne(id, {
-        relations: ['rule'],
-      })
-      .then((result) => result?.toDomain());
-  }
-
   async save(report: Report) {
     await validateOrReject(report);
     await this.connection
@@ -41,5 +32,14 @@ export class ReportGateway implements ReportRepository {
     });
 
     return reports.map((report) => report.toDomain());
+  }
+
+  private findOne(id: string) {
+    return this.connection
+      .getRepository(ReportTable)
+      .findOne(id, {
+        relations: ['rule'],
+      })
+      .then((result) => result?.toDomain());
   }
 }

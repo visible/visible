@@ -14,6 +14,36 @@ import { SourceTable } from '../source';
  */
 @Entity('pointer')
 export class PointerTable {
+  @PrimaryColumn('uuid')
+  id!: string;
+
+  @Column('varchar', { length: 32 })
+  type!: 'html' | 'css-property';
+
+  @Column('varchar', { length: 255, nullable: true })
+  screenshot?: string;
+
+  @Column('json', { nullable: true })
+  location?: Location;
+
+  @Column('varchar', { length: 255, nullable: true })
+  xpath?: string;
+
+  @Column('varchar', { length: 255, nullable: true })
+  propertyName?: string;
+
+  @Column('uuid', { nullable: true })
+  sourceId?: string;
+
+  @Column('uuid')
+  reportId!: string;
+
+  @ManyToOne(() => SourceTable, { nullable: true })
+  readonly source?: SourceTable;
+
+  @ManyToOne(() => ReportTable, { onDelete: 'CASCADE' })
+  readonly report?: ReportTable;
+
   static fromDomain(pointer: Pointer) {
     if (pointer instanceof HTMLPointer) {
       const entity = new PointerTable();
@@ -69,34 +99,4 @@ export class PointerTable {
 
     throw new TypeError(`Unexpected pointer type ${this.type}`);
   }
-
-  @PrimaryColumn('uuid')
-  id!: string;
-
-  @Column('varchar', { length: 32 })
-  type!: 'html' | 'css-property';
-
-  @Column('varchar', { length: 255, nullable: true })
-  screenshot?: string;
-
-  @Column('json', { nullable: true })
-  location?: Location;
-
-  @Column('varchar', { length: 255, nullable: true })
-  xpath?: string;
-
-  @Column('varchar', { length: 255, nullable: true })
-  propertyName?: string;
-
-  @Column('uuid', { nullable: true })
-  sourceId?: string;
-
-  @Column('uuid')
-  reportId!: string;
-
-  @ManyToOne(() => SourceTable, { nullable: true })
-  readonly source?: SourceTable;
-
-  @ManyToOne(() => ReportTable, { onDelete: 'CASCADE' })
-  readonly report?: ReportTable;
 }
