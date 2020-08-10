@@ -7,7 +7,7 @@
   "main": "./dist/ssr.js",
   "type": "./index.d.ts",
   "scripts": {
-    "build": "yarn run generate:graphql && tsc -p tsconfig.server.json && next build",
+    "build": "yarn run generate:graphql && next build",
     "watch": "node dist/server.js",
     "start": "NODE_ENV=production node dist/server.js",
     "test": "jest --coverage",
@@ -43,7 +43,6 @@
     "react-dom": "^16.12.0",
     "react-feather": "^2.0.8",
     "react-i18next": "^11.7.0",
-    "react-monaco-editor": "^0.39.1",
     "styled-components": "^5.1.1",
     "subscriptions-transport-ws": "^0.9.17"
   },
@@ -60,8 +59,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/styled-components": "^5.1.2",
     "babel-plugin-styled-components": "^1.11.1",
-    "jest-styled-components": "^7.0.2",
-    "monaco-editor-webpack-plugin": "^1.9.0"
+    "jest-styled-components": "^7.0.2"
   },
   "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
 }
