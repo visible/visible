@@ -10,12 +10,12 @@ export class ReportGatewayMock implements ReportRepository {
     private reports = new Map<string, Report>(),
   ) {}
 
-  async save(report: Report) {
+  async save(report: Report): Promise<Report> {
     this.reports.set(report.id, report);
     return report;
   }
 
-  async findByDiagnosisId(id: string) {
+  async findByDiagnosisId(id: string): Promise<Report[]> {
     return [...this.reports.entries()]
       .map(([, value]) => value)
       .filter((report) => report.diagnosisId === id);

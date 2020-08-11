@@ -11,7 +11,7 @@ export class DiagnosisPresenter {
     private readonly reportPresenter: ReportPresenter,
   ) {}
 
-  transformStatus(status: Status) {
+  transformStatus(status: Status): StatusAPI {
     switch (status) {
       case Status.DONE:
         return StatusAPI.DONE;

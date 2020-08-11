@@ -1,2 +1,2 @@
-export const $$ = (query: string) =>
+export const $$ = (query: string): Element[] =>
   Array.from(document.querySelectorAll(query));

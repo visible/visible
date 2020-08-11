@@ -10,12 +10,12 @@ export class RuleGatewayMock implements RuleRepository {
     private readonly rules = new Map<string, Rule>(),
   ) {}
 
-  async save(rule: Rule) {
+  async save(rule: Rule): Promise<Rule> {
     this.rules.set(rule.id, rule);
     return rule;
   }
 
-  async findByName(name: string) {
+  async findByName(name: string): Promise<Rule | undefined> {
     return [...this.rules.values()].find((rule) => rule.name === name);
   }
 }

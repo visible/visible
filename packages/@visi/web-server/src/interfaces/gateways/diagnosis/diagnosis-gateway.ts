@@ -1,6 +1,6 @@
 import { validateOrReject } from 'class-validator';
 import { inject, injectable } from 'inversify';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Connection } from 'typeorm';
 
@@ -33,7 +33,7 @@ export class DiagnosisGateway implements DiagnosisRepository {
     private readonly processDiagnosisQueue: ProcessDiagnosisQueue,
   ) {}
 
-  async save(diagnosis: Diagnosis) {
+  async save(diagnosis: Diagnosis): Promise<Diagnosis> {
     await validateOrReject(diagnosis);
     await this.connection
       .getRepository(DiagnosisTable)
@@ -43,27 +43,26 @@ export class DiagnosisGateway implements DiagnosisRepository {
     return result;
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<string> {
     await this.connection.getRepository(DiagnosisTable).delete(id);
     return id;
   }
 
-  async queue(diagnosis: Diagnosis) {
+  async queue(diagnosis: Diagnosis): Promise<void> {
     await this.processDiagnosisQueue.add(diagnosis.id, null);
   }
 
-  subscribe(id: string) {
+  subscribe(id: string): Observable<Diagnosis> {
     this.logger.debug(`[Repository] Some client has subscribed to ${id}`);
     return this.publish$.pipe(filter((diagnosis) => diagnosis.id === id));
   }
 
-  async publish(diagnosis: Diagnosis) {
+  async publish(diagnosis: Diagnosis): Promise<void> {
     this.logger.debug(`[Repository] Publishing ${diagnosis.id}`);
     this.publish$.next(diagnosis);
-    return;
   }
 
-  async find(ids: string[]) {
+  async find(ids: string[]): Promise<Diagnosis[]> {
     const diagnoses = await this.connection
       .getRepository(DiagnosisTable)
       .findByIds(ids, {

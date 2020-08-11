@@ -1,3 +1,3 @@
 import { ComponentType } from 'react';
 
-export const withApollo = (fn: ComponentType) => fn;
+export const withApollo = (fn: ComponentType): ComponentType => fn;

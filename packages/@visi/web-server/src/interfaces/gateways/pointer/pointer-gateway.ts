@@ -14,7 +14,7 @@ export class PointersGateway implements PointerRepository {
     private connection: Connection,
   ) {}
 
-  async save(pointer: Pointer) {
+  async save(pointer: Pointer): Promise<Pointer> {
     await validateOrReject(pointer);
     return this.connection
       .getRepository(PointerTable)

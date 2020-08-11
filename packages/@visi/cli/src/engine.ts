@@ -33,7 +33,7 @@ const constructIfNewable = <T extends unknown, U>(
 export class Engine {
   constructor(readonly visible: Visible, readonly driver: Driver) {}
 
-  static async init(schema: Config) {
+  static async init(schema: Config): Promise<Engine> {
     const config = await ConfigLoader.init(schema);
     const plugins = await this.loadPlugins(config.plugins);
 
@@ -106,7 +106,7 @@ export class Engine {
       .map((rule) => constructIfNewable(rule));
   }
 
-  down() {
-    return this.driver.quit();
+  async down(): Promise<void> {
+    await this.driver.quit();
   }
 }

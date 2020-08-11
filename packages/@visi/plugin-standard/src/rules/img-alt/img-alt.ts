@@ -6,7 +6,7 @@ export class ImgAlt implements Rule {
   type = RuleType.ATOMIC;
   description = 'Check if img element has an alt attribute';
 
-  async create(ctx: Context) {
+  async create(ctx: Context): Promise<void> {
     const xpaths = await ctx.session.runScript<string[]>(`
       visible.$$('img')
         .filter(elm => {

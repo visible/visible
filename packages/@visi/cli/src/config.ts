@@ -17,7 +17,7 @@ export class ConfigLoader {
     readonly plugins: string[] = [],
   ) {}
 
-  static async init(schema: Config) {
+  static async init(schema: Config): Promise<ConfigLoader> {
     const config = await this.mergeExtensions(schema);
     return new ConfigLoader(
       config.driver,

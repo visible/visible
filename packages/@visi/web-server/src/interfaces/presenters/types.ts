@@ -5,6 +5,7 @@ export enum RuleTypeAPI {
 
 export interface RuleAPI {
   id: string;
+  name: string;
   type: RuleTypeAPI;
   description: string;
 }

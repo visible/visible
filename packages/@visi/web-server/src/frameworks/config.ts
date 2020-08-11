@@ -92,15 +92,15 @@ export class ConfigImpl implements Config {
     };
   }
 
-  getUrl() {
+  getUrl(): string {
     return this.app.url;
   }
 
-  getSocketUrl() {
+  getSocketUrl(): string {
     return this.socket.url;
   }
 
-  getStaticUrl() {
+  getStaticUrl(): string {
     return `${this.getUrl()}${this.static.route}`;
   }
 }

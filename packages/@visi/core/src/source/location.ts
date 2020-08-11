@@ -31,7 +31,11 @@ export class Location {
     this.endColumn = params.endColumn;
   }
 
-  static fromIndices(source: string, startIndex: number, endIndex: number) {
+  static fromIndices(
+    source: string,
+    startIndex: number,
+    endIndex: number,
+  ): Location {
     const startsAt = convertIndexToLocation(source, startIndex);
     const endsAt = convertIndexToLocation(source, endIndex);
 

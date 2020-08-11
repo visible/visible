@@ -107,7 +107,10 @@ const findNode = (
   return findNode(match, restSteps);
 };
 
-export const findNodeByXPath = async (client: CDPSession, xpath: string) => {
+export const findNodeByXPath = async (
+  client: CDPSession,
+  xpath: string,
+): Promise<Protocol.DOM.Node | undefined> => {
   const { root } = await client.send('DOM.getDocument', { depth: -1 });
 
   const rootXPath = new XPathAnalyzer(xpath).parse();

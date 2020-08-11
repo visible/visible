@@ -27,7 +27,7 @@ export class Server {
     this.logger = container.get(TYPES.Logger);
   }
 
-  async start() {
+  async start(): Promise<void> {
     const app = express();
     const server = createServer(app);
 

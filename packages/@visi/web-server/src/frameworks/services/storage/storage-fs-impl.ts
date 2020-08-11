@@ -14,8 +14,8 @@ export class StorageFsImpl implements Storage {
     private readonly config: Config,
   ) {}
 
-  create(stream: ReadStream) {
-    return new Promise<StorageCreateResponse>((resolve) => {
+  create(stream: ReadStream): Promise<StorageCreateResponse> {
+    return new Promise((resolve) => {
       // TODO: file extension support
       const fileName = Date.now().toString() + '.png';
       const pathName = path.join(this.config.static.dir, fileName);

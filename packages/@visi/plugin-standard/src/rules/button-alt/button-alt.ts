@@ -5,7 +5,7 @@ export class ButtonAlt implements Rule {
   type = RuleType.ATOMIC;
   description = 'Check if button has text content';
 
-  async create(ctx: Context) {
+  async create(ctx: Context): Promise<void> {
     const xpaths = await ctx.session.runScript<string[]>(`
       visible.$$('button')
         .filter(elm => {

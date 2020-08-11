@@ -1,11 +1,11 @@
 import { injectable } from 'inversify';
 
 import { Rule, RuleType } from '../../domain/models';
-import { RuleTypeAPI } from './types';
+import { RuleAPI, RuleTypeAPI } from './types';
 
 @injectable()
 export class RulePresenter {
-  transformRuleType(ruleType: RuleType) {
+  transformRuleType(ruleType: RuleType): RuleTypeAPI {
     switch (ruleType) {
       case RuleType.ATOMIC:
         return RuleTypeAPI.ATOMIC;
@@ -14,7 +14,7 @@ export class RulePresenter {
     }
   }
 
-  run(rule: Rule) {
+  run(rule: Rule): RuleAPI {
     return {
       id: rule.id,
       name: rule.name,

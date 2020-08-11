@@ -33,7 +33,7 @@ export class Translator {
     private readonly ruleRepository: RuleRepository,
   ) {}
 
-  async createLocation(location: Core.Location) {
+  async createLocation(location: Core.Location): Promise<Location> {
     return Location.from({
       startLine: location.startLine,
       startColumn: location.startColumn,
@@ -42,7 +42,7 @@ export class Translator {
     });
   }
 
-  async createSource(source: Core.Source, pointerId: string) {
+  async createSource(source: Core.Source, pointerId: string): Promise<Source> {
     return Source.from({
       id: uuid.v4(),
       pointerId,
@@ -56,7 +56,7 @@ export class Translator {
     pointer: Core.HTMLPointer,
     reportId: string,
     sourceMapper: Map<string, Core.Source>,
-  ) {
+  ): Promise<HTMLPointer> {
     const id = uuid.v4();
 
     const file = pointer.screenshot
@@ -88,7 +88,7 @@ export class Translator {
     pointer: Core.CSSPropertyPointer,
     reportId: string,
     sourceMapper: Map<string, Core.Source>,
-  ) {
+  ): Promise<CSSPointer> {
     const id = uuid.v4();
 
     const file = pointer.screenshot
@@ -125,7 +125,7 @@ export class Translator {
     report: Core.Report,
     diagnosisId: string,
     sourceMapper: Map<string, Core.Source>,
-  ) {
+  ): Promise<Report> {
     const id = uuid.v4();
 
     return Report.from({
