@@ -1,0 +1,21 @@
+{
+  "rules": {
+    // Next's <a> tag
+    "jsx-a11y/anchor-is-valid": "off"
+  },
+  "overrides": [
+    {
+      "files": ["src/hooks/**/*.ts", "**/*.tsx"],
+      "rules": {
+        // TODO: Enable this #175
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+      }
+    }
+    // {
+    //   "files": ["**/*.stories.tsx"],
+    //   "rules": {
+    //     "@typescript-eslint/explicit-module-boundary-types": "off"
+    //   }
+    // }
+  ]
+}

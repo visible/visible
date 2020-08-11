@@ -10,7 +10,7 @@ export class PointerGatewayMock implements PointerRepository {
     private readonly pointers = new Map<string, Pointer>(),
   ) {}
 
-  async save(pointer: Pointer) {
+  async save(pointer: Pointer): Promise<Pointer> {
     this.pointers.set(pointer.id, pointer);
     return pointer;
   }

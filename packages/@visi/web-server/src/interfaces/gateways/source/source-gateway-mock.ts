@@ -10,7 +10,7 @@ export class SourceGatewayMock implements SourceRepository {
     private readonly sources = new Map<string, Source>(),
   ) {}
 
-  async save(source: Source) {
+  async save(source: Source): Promise<Source> {
     this.sources.set(source.id, source);
     return source;
   }

@@ -23,11 +23,11 @@ export class I18nI18nextImpl implements I18n {
       });
   }
 
-  t(key: string, defaultValue: string) {
+  t(key: string, defaultValue: string): string {
     return this.i18next.t(key, defaultValue);
   }
 
-  getI18nextInstance() {
+  getI18nextInstance(): i18n {
     return this.i18next;
   }
 }

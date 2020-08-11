@@ -8,7 +8,11 @@ import { Diagnosis, Status } from '../../domain/models';
 import { Logger, Storage } from '../../domain/services';
 import { TYPES } from '../../types';
 import { DiagnosisRepository } from '../repositories';
-import { CreateDiagnosisRequest, CreateDiagnosisUseCase } from '../use-cases';
+import {
+  CreateDiagnosisRequest,
+  CreateDiagnosisResponse,
+  CreateDiagnosisUseCase,
+} from '../use-cases';
 
 @injectable()
 export class CreateDiagnosisInteractor implements CreateDiagnosisUseCase {
@@ -23,7 +27,7 @@ export class CreateDiagnosisInteractor implements CreateDiagnosisUseCase {
     private readonly repository: DiagnosisRepository,
   ) {}
 
-  async run(params: CreateDiagnosisRequest) {
+  async run(params: CreateDiagnosisRequest): Promise<CreateDiagnosisResponse> {
     this.logger.info(`Creating diagnosis for ${params.url}`);
 
     const visible = await Visible.init({

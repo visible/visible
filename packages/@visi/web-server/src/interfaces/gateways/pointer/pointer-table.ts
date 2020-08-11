@@ -44,7 +44,7 @@ export class PointerTable {
   @ManyToOne(() => ReportTable, { onDelete: 'CASCADE' })
   readonly report?: ReportTable;
 
-  static fromDomain(pointer: Pointer) {
+  static fromDomain(pointer: Pointer): PointerTable {
     if (pointer instanceof HTMLPointer) {
       const entity = new PointerTable();
       entity.id = pointer.id;
@@ -73,7 +73,7 @@ export class PointerTable {
     throw new TypeError(`Unexpected pointer type ${pointer}`);
   }
 
-  toDomain() {
+  toDomain(): Pointer {
     if (this.type === 'html' && this.xpath) {
       return HTMLPointer.from({
         id: this.id,

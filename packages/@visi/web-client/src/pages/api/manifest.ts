@@ -7,7 +7,7 @@ type Request = NextApiRequest & {
   i18n: I18n;
 };
 
-export default (req: Request, res: NextApiResponse) => {
+export default (req: Request, res: NextApiResponse): void => {
   const { i18n } = req;
   const t = i18n.t.bind(i18n);
 

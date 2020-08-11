@@ -36,7 +36,7 @@ export class ReportTable {
   })
   pointers?: PointerTable[];
 
-  static fromDomain(report: Report) {
+  static fromDomain(report: Report): ReportTable {
     const entity = new ReportTable();
     entity.id = report.id;
     entity.outcome = report.outcome;
@@ -50,7 +50,7 @@ export class ReportTable {
     return entity;
   }
 
-  toDomain() {
+  toDomain(): Report {
     if (this.rule == null) {
       throw new TypeError(
         'No value specified for rule property. You may have forgot to JOIN',

@@ -14,7 +14,7 @@ export class RuleGateway implements RuleRepository {
     private readonly connection: Connection,
   ) {}
 
-  async save(rule: Rule) {
+  async save(rule: Rule): Promise<Rule> {
     await validateOrReject(rule);
     return this.connection
       .getRepository(RuleTable)
@@ -22,7 +22,7 @@ export class RuleGateway implements RuleRepository {
       .then((result) => result.toDomain());
   }
 
-  async findByName(name: string) {
+  async findByName(name: string): Promise<Rule | undefined> {
     return this.connection
       .getRepository(RuleTable)
       .findOne({ where: { name } })

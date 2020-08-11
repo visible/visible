@@ -28,5 +28,5 @@ const DEFAULTS: Settings = {
   screenshotDir: path.join(os.tmpdir(), 'visible'),
 };
 
-export const createSettings = (schema: Partial<Settings> = {}) =>
+export const createSettings = (schema: Partial<Settings> = {}): Settings =>
   deepmerge(DEFAULTS, schema);

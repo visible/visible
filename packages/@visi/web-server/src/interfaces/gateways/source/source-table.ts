@@ -25,7 +25,7 @@ export class SourceTable {
   })
   readonly pointer?: PointerTable;
 
-  static fromDomain(source: Source) {
+  static fromDomain(source: Source): SourceTable {
     const entity = new SourceTable();
     entity.id = source.id;
     entity.content = source.content;
@@ -35,7 +35,7 @@ export class SourceTable {
     return entity;
   }
 
-  toDomain() {
+  toDomain(): Source {
     return Source.from({
       id: this.id,
       content: this.content,

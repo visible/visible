@@ -17,7 +17,7 @@ export const print = (
   originals: Map<string, string>,
   json: boolean,
   _fix: boolean,
-) => {
+): void => {
   let output = '';
 
   if (json) {

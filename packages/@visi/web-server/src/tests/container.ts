@@ -30,7 +30,7 @@ import {
 import { TYPES } from '../types';
 
 // prettier-ignore
-export const createContainer = () => {
+export const createContainer = (): Container => {
   const container = new Container();
 
   container.bind(TYPES.Logger).to(LoggerConsoleImpl);

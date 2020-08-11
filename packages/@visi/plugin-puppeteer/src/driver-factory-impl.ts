@@ -1,4 +1,4 @@
-import { DriverFactory, Settings } from '@visi/core';
+import { Driver, DriverFactory, Settings } from '@visi/core';
 import { launch, LaunchOptions } from 'puppeteer';
 
 import { DriverImpl } from './driver-impl';
@@ -6,7 +6,7 @@ import { DriverImpl } from './driver-impl';
 export class DriverFactoryImpl implements DriverFactory {
   constructor(private readonly settings: Settings) {}
 
-  async create() {
+  async create(): Promise<Driver> {
     const options = this.createLaunchOptions();
     const browser = await launch(options);
     return new DriverImpl(browser, this.settings);

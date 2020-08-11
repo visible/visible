@@ -57,7 +57,7 @@ export class HTMLReport extends Report {
     this.node = params.node;
   }
 
-  get text() {
+  get text(): string {
     return getOuterHTML(this.node);
   }
 }
@@ -76,7 +76,7 @@ export class CSSReport extends Report {
 
   // Hard to create a mock for CSS
   /* istanbul ignore next */
-  get text() {
+  get text(): string {
     return this.node.toString();
   }
 }

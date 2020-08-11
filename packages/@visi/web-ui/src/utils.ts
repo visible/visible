@@ -12,7 +12,12 @@ const createPluck = <T extends string>(props: T[]) => {
 const createShouldForwardProp = (props: unknown[]) => (prop: unknown) =>
   !props.includes(prop);
 
-export const createHelpers = <T extends string>(props: T[]) => ({
+export interface Hints<T extends string> {
+  readonly select: { [key in T]: ReturnType<typeof pluck> };
+  shouldForwardProp(prop: unknown): boolean;
+}
+
+export const createHelpers = <T extends string>(props: T[]): Hints<T> => ({
   shouldForwardProp: createShouldForwardProp(props),
   select: createPluck(props),
 });

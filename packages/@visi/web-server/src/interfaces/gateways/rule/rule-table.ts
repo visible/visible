@@ -18,7 +18,7 @@ export class RuleTable {
   @Column('varchar', { length: 255 })
   description!: string;
 
-  static fromDomain(rule: Rule) {
+  static fromDomain(rule: Rule): RuleTable {
     const entity = new RuleTable();
     entity.id = rule.id;
     entity.name = rule.name;
@@ -27,7 +27,7 @@ export class RuleTable {
     return entity;
   }
 
-  toDomain() {
+  toDomain(): Rule {
     return Rule.from({
       id: this.id,
       name: this.name,

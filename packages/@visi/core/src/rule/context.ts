@@ -45,7 +45,10 @@ export class ContextImpl implements Context {
     readonly provider: Provider,
   ) {}
 
-  async reportHTML(sourceId: string, params: ReportParams<HTMLNode>) {
+  async reportHTML(
+    sourceId: string,
+    params: ReportParams<HTMLNode>,
+  ): Promise<void> {
     const { node, target, ruleId } = params;
 
     if (this.checkIfRuleHasExceededReportLimit(ruleId)) {
@@ -78,7 +81,10 @@ export class ContextImpl implements Context {
     this.addReport(source, report);
   }
 
-  async reportCSS(sourceId: string, params: ReportParams<CSSNode>) {
+  async reportCSS(
+    sourceId: string,
+    params: ReportParams<CSSNode>,
+  ): Promise<void> {
     const { node, target, ruleId } = params;
 
     if (this.checkIfRuleHasExceededReportLimit(ruleId)) {

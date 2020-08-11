@@ -14,7 +14,7 @@ export class SourceGateway implements SourceRepository {
     private connection: Connection,
   ) {}
 
-  async save(source: Source) {
+  async save(source: Source): Promise<Source> {
     await validateOrReject(source);
     return this.connection
       .getRepository(SourceTable)

@@ -27,7 +27,7 @@ export class SessionImpl implements Session {
     private readonly cdp: CDPSession,
   ) {}
 
-  async goto(url: string) {
+  async goto(url: string): Promise<void> {
     // Create CDP session
     await this.cdp.send('DOM.enable');
     await this.cdp.send('CSS.enable');
@@ -50,30 +50,26 @@ export class SessionImpl implements Session {
     this.sources.set(source.id, source);
   }
 
-  getTitle() {
+  getTitle(): Promise<string> {
     return this.page.title();
   }
 
-  async getURL() {
+  async getURL(): Promise<string> {
     return this.page.url();
   }
 
-  async close() {
-    if (this.page == null) {
-      return;
-    }
-
-    return this.page.close();
+  async close(): Promise<void> {
+    await this.page.close();
   }
 
-  async addScript(params: AddScriptParams) {
-    return this.page.addScriptTag(params);
+  async addScript(params: AddScriptParams): Promise<void> {
+    await this.page.addScriptTag(params);
   }
 
   async runScript<T>(params: string): Promise<T>;
   async runScript<T>(params: RunScriptParams): Promise<T>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async runScript<T>(params: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  async runScript<T>(params: any): Promise<T> {
     const content = typeof params === 'string' ? params : params.content;
 
     if (content != null) {
@@ -88,20 +84,23 @@ export class SessionImpl implements Session {
     throw new Error(`You must provide either content or path`);
   }
 
-  async waitFor(ms: number) {
-    return this.page.waitFor(ms);
+  async waitFor(ms: number): Promise<void> {
+    await this.page.waitFor(ms);
   }
 
-  async waitForFunction(fn: string) {
+  async waitForFunction(fn: string): Promise<void> {
     await this.page.waitForFunction(fn);
   }
 
-  async takeScreenshotForPage(params: ScreenshotParams) {
+  async takeScreenshotForPage(params: ScreenshotParams): Promise<string> {
     await this.page.screenshot(params);
     return params.path ?? process.cwd();
   }
 
-  async takeScreenshotForXPath(xpath: string, params: ScreenshotParams) {
+  async takeScreenshotForXPath(
+    xpath: string,
+    params: ScreenshotParams,
+  ): Promise<string> {
     const [elementHandle] = await this.page.$x(xpath);
 
     if (elementHandle == null) {
@@ -112,7 +111,7 @@ export class SessionImpl implements Session {
     return params.path ?? process.cwd();
   }
 
-  async findHTML(xpath: string) {
+  async findHTML(xpath: string): Promise<[string, Node] | undefined> {
     const html = this.sources.get('html');
 
     if (html == null || !(html instanceof HTMLSource)) {
@@ -130,10 +129,13 @@ export class SessionImpl implements Session {
     const node = findASTByXPath(root, xpath);
     if (node == null) return;
 
-    return ['html', node] as [string, Node];
+    return ['html', node];
   }
 
-  async findCSS(xpath: string, propertyName: string) {
+  async findCSS(
+    xpath: string,
+    propertyName: string,
+  ): Promise<[string, postcss.Node] | undefined> {
     // 1. find matching css from the depot using CDP
     const node = await findNodeByXPath(this.cdp, xpath);
 
@@ -200,7 +202,7 @@ export class SessionImpl implements Session {
       return;
     }
 
-    return [rule.styleSheetId, res] as [string, postcss.Node];
+    return [rule.styleSheetId, res];
   }
 
   private handleStyleSheetAdded = async (

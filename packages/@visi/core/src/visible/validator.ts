@@ -5,6 +5,7 @@ import { Driver, Session } from '../driver';
 import { Provider } from '../provider';
 import { ContextImpl, Progress, Rule } from '../rule';
 import { Settings } from '../settings';
+import { Source } from '../source';
 
 export class Validator {
   readonly progress$ = new Subject<Progress>();
@@ -16,7 +17,7 @@ export class Validator {
     readonly provider: Provider,
   ) {}
 
-  async diagnose(url: string) {
+  async diagnose(url: string): Promise<Source[]> {
     const { delay } = this.settings;
 
     const session = await this.createSessionForURL(url);

@@ -15,7 +15,7 @@ export class ReportPresenter {
     private readonly pointerPresenter: PointerPresenter,
   ) {}
 
-  transformOutcome(outcome: Outcome) {
+  transformOutcome(outcome: Outcome): OutcomeAPI {
     switch (outcome) {
       case Outcome.FAIL:
         return OutcomeAPI.FAIL;

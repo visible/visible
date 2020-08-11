@@ -34,7 +34,8 @@ export class DiagnosisTable {
 
   @OneToMany(() => ReportTable, (report) => report.diagnosis)
   readonly reports?: ReportTable[];
-  static fromDomain(diagnosis: Diagnosis) {
+
+  static fromDomain(diagnosis: Diagnosis): DiagnosisTable {
     const entity = new DiagnosisTable();
     entity.id = diagnosis.id;
     entity.url = diagnosis.url;
@@ -47,7 +48,7 @@ export class DiagnosisTable {
     return entity;
   }
 
-  toDomain() {
+  toDomain(): Diagnosis {
     if (this.reports == null) {
       throw new TypeError(
         'No value specified for reports property. You may have forgot JOIN?',

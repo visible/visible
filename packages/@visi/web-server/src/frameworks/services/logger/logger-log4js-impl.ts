@@ -22,23 +22,23 @@ export class LoggerLog4jsImpl implements Logger {
     })
     .getLogger();
 
-  log(...args: unknown[]) {
+  log(...args: unknown[]): void {
     this.logger.log(...args);
   }
 
-  debug(message: unknown, ...args: unknown[]) {
+  debug(message: unknown, ...args: unknown[]): void {
     this.logger.debug(message, ...args);
   }
 
-  info(message: unknown, ...args: unknown[]) {
+  info(message: unknown, ...args: unknown[]): void {
     this.logger.info(message, ...args);
   }
 
-  warn(message: unknown, ...args: unknown[]) {
+  warn(message: unknown, ...args: unknown[]): void {
     this.logger.warn(message, ...args);
   }
 
-  error(message: unknown, ...args: unknown[]) {
+  error(message: unknown, ...args: unknown[]): void {
     this.logger.error(message, ...args);
   }
 }

@@ -23,13 +23,13 @@ export abstract class BaseSource {
 
   constructor(readonly id: string, readonly url?: string) {}
 
-  addReport(report: Report) {
+  addReport(report: Report): this {
     return produce(this, (draft) => {
       draft.reports.push(report);
     });
   }
 
-  async applyFixes() {
+  async applyFixes(): Promise<void> {
     for (const report of this.reports) {
       await report.fix?.();
     }
@@ -53,7 +53,7 @@ export class HTMLSource extends BaseSource {
   }
 
   /* istanbul ignore next */
-  get text() {
+  get text(): string {
     return getOuterHTML(this.content);
   }
 }
@@ -75,7 +75,7 @@ export class CSSSource extends BaseSource {
   }
 
   /* istanbul ignore next */
-  get text() {
+  get text(): string {
     return this.content.toString();
   }
 }

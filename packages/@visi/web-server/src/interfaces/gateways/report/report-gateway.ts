@@ -14,7 +14,7 @@ export class ReportGateway implements ReportRepository {
     private connection: Connection,
   ) {}
 
-  async save(report: Report) {
+  async save(report: Report): Promise<Report> {
     await validateOrReject(report);
     await this.connection
       .getRepository(ReportTable)
@@ -24,7 +24,7 @@ export class ReportGateway implements ReportRepository {
     return result;
   }
 
-  async findByDiagnosisId(id: string) {
+  async findByDiagnosisId(id: string): Promise<Report[]> {
     const reports = await this.connection.getRepository(ReportTable).find({
       where: {
         diagnosisId: id,
