@@ -21,6 +21,10 @@ describe('CreateDiagnosisInteractor', () => {
     diagnosisRepository = container.get(TYPES.DiagnosisRepository);
   });
 
+  afterAll(() => {
+    mockFs.restore();
+  });
+
   it('creates diagnosis', async () => {
     const { diagnosis } = await createDiagnosis.run({
       url: 'https://example.com',
