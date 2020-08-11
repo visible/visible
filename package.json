@@ -13,7 +13,7 @@
     "start": "lerna run start --stream",
     "build": "lerna run build --stream",
     "watch": "lerna run watch --parallel",
-    "test": "lerna run test --concurrency 1",
+    "test": "lerna run test --stream --concurrency 1",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint --cache --cache-location .cache/eslint/cache './packages/**/*.{ts,tsx}'",
     "lint:stylelint": "stylelint --cache --cache-location .cache/stylelint/cache './packages/@visi/{web-client,web-ui}/**/*.{ts,tsx}'",

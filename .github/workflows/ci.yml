@@ -18,7 +18,7 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -63,12 +63,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-next-
 
-      - name: build, lint and test
-        run: |
-          yarn --frozen-lockfile
-          yarn run build
-          yarn run lint
-          yarn run test
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: yarn run build
+
+      - name: Lint
+        run: yarn run lint
+
+      - name: Test
+        run: yarn run test
         env:
           CI: true
 
