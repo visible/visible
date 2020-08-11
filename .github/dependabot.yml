@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    versioning-strategy: increase
+    open-pull-requests-limit: 30
+    target-branch: develop
+    directory: /
+    schedule:
+      interval: monthly
+    ignore:
+      - dependency-name: "@babel/*"
+      - dependency-name: "@type/*"
+      - dependency-name: react-dom
+
