@@ -62,7 +62,7 @@ jobs:
             ${{ runner.os }}-next-
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: yarn --immutable
 
       - name: Build
         run: yarn run build
