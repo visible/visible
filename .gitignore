@@ -60,6 +60,16 @@ typings/
 # next.js build output
 .next
 
+# Yarn v2 Berry
+# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# Misc
 .DS_Store
 dist
 generated
