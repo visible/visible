@@ -1,5 +1,6 @@
 version: 2
 updates:
+
   - package-ecosystem: npm
     versioning-strategy: increase
     open-pull-requests-limit: 30
@@ -12,3 +13,7 @@ updates:
       - dependency-name: "@type/*"
       - dependency-name: react-dom
 
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

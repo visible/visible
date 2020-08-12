@@ -15,8 +15,8 @@
     "watch": "lerna run watch --parallel",
     "test": "lerna run test --stream --concurrency 1",
     "lint": "run-s lint:*",
-    "lint:eslint": "eslint --cache --cache-location .cache/eslint/cache './packages/**/*.{ts,tsx}'",
-    "lint:stylelint": "stylelint --cache --cache-location .cache/stylelint/cache './packages/@visi/{web-client,web-ui}/**/*.{ts,tsx}'",
+    "lint:eslint": "eslint --cache './packages/**/*.{ts,tsx}'",
+    "lint:stylelint": "stylelint --cache './packages/@visi/{web-client,web-ui}/**/*.{ts,tsx}'",
     "lint:spellcheck": "cspell './{packages,docs,scripts}/**/*.{ts,tsx,md,js,json,graphql}'",
     "storybook": "lerna exec start-storybook --scope @visi/web-ui -- -p 6006",
     "manage-translations": "node ./scripts/manage-translations.js"

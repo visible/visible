@@ -67,3 +67,4 @@ postgres
 redis
 tmp
 .cache
+.stylelintcache
