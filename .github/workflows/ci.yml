@@ -49,7 +49,7 @@ jobs:
       - name: Restore .next/cache
         uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}/packages/web-client/.next/cache
+          path: ${{ github.workspace }}/packages/@visi/web-client/.next/cache
           key: ${{ runner.os }}-next-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-next-
