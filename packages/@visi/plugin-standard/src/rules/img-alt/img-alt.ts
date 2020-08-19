@@ -17,23 +17,14 @@ export class ImgAlt implements Rule {
     `);
 
     for (const xpath of xpaths) {
-      const result = await ctx.session.findHTML(xpath);
-
-      if (result == null) {
-        continue;
-      }
-
-      const [id, node] = result;
-
-      await ctx.reportHTML(id, {
+      await ctx.reportHTML({
         outcome: Outcome.FAIL,
         ruleId: this.id,
-        node,
         target: xpath,
         message: 'Img element must have an alt attribute',
-        async fix() {
+        async fix(node) {
           if (!(node instanceof Element) || !ctx.provider.imageToText) {
-            return;
+            return node;
           }
 
           const { src } = node.attribs;
@@ -41,6 +32,8 @@ export class ImgAlt implements Rule {
           if (text != null) {
             node.attribs.alt = text;
           }
+
+          return node;
         },
       });
     }

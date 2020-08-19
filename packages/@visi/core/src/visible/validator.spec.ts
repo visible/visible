@@ -22,7 +22,7 @@ describe('validator', () => {
     );
 
     const URL = 'https://example.com';
-    await validator.diagnose(URL);
+    await validator.diagnose(URL).toPromise();
 
     expect(goto).toBeCalledWith(URL);
     expect(rule.create).toBeCalled();

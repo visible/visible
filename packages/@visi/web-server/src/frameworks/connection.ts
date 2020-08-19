@@ -20,7 +20,7 @@ export const createConnection = async (): Promise<Connection> => {
 
   const connection = await defaultCreateConnection({
     ...connectionOptions,
-    entities: [path.join(cwd, ctx, './interfaces/gateways/**/*-table.js')],
+    entities: [path.join(cwd, ctx, './interfaces/gateways/**/*-db-entity.js')],
     migrations: [path.join(cwd, ctx, './migrations/**/*.js')],
     subscribers: [path.join(cwd, ctx, './subscribers/**/*.js')],
   });

@@ -1,21 +1,11 @@
-import * as Core from '@visi/core';
-import { produce } from 'immer';
 import { inject, injectable } from 'inversify';
-import path from 'path';
-import { from } from 'rxjs';
-import { catchError, concatMap, tap } from 'rxjs/operators';
+import { defer } from 'rxjs';
+import { concatMap, throttleTime } from 'rxjs/operators';
 
-import { Diagnosis, Status } from '../../domain/models';
-import { Logger } from '../../domain/services';
+import { Diagnosis, Progress, Status } from '../../domain/models';
+import { Analyzer, Logger } from '../../domain/services';
 import { TYPES } from '../../types';
-import {
-  DiagnosisRepository,
-  PointerRepository,
-  ReportRepository,
-  RuleRepository,
-  SourceRepository,
-} from '../repositories';
-import { Translator } from '../translator';
+import { DiagnosisRepository } from '../repositories';
 import {
   ProcessDiagnosisRequest,
   ProcessDiagnosisResponse,
@@ -31,20 +21,8 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
     @inject(TYPES.DiagnosisRepository)
     private readonly diagnosisRepository: DiagnosisRepository,
 
-    @inject(TYPES.RuleRepository)
-    private readonly ruleRepository: RuleRepository,
-
-    @inject(TYPES.ReportRepository)
-    private readonly reportsRepository: ReportRepository,
-
-    @inject(TYPES.PointerRepository)
-    private readonly pointersRepository: PointerRepository,
-
-    @inject(TYPES.SourceRepository)
-    private readonly sourceRepository: SourceRepository,
-
-    @inject(Translator)
-    private readonly translator: Translator,
+    @inject(TYPES.Analyzer)
+    private readonly analyzer: Analyzer,
   ) {}
 
   async run({
@@ -52,91 +30,82 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
   }: ProcessDiagnosisRequest): Promise<ProcessDiagnosisResponse> {
     this.logger.info(`Processing diagnosis`, id);
     let [diagnosis] = await this.diagnosisRepository.find([id]);
+    diagnosis = await this.handleStart(diagnosis);
 
-    const visible = await Core.Visible.init({
-      plugins: ['@visi/plugin-standard'],
-      settings: {
-        screenshot: 'only-fail',
-        screenshotDir: path.join(process.cwd(), 'tmp'),
-      },
+    return new Promise((resolve) => {
+      this.analyzer
+        .validate({ url: diagnosis.url, diagnosisId: diagnosis.id })
+        .pipe(
+          throttleTime(3000, undefined, { leading: true, trailing: true }),
+          concatMap((progress) =>
+            defer(async () => {
+              const newDiagnosis = await this.handleProgress(
+                progress,
+                diagnosis,
+              );
+              return (diagnosis = newDiagnosis);
+            }),
+          ),
+        )
+        .subscribe({
+          complete: () => {
+            this.handleComplete(diagnosis);
+            resolve();
+          },
+          error: (error) => {
+            this.handleError(diagnosis, error);
+          },
+        });
     });
-
-    await visible.open(diagnosis.url);
-    await visible
-      .diagnose()
-      .pipe(
-        concatMap((progress) =>
-          from(this.handleProgress(progress, diagnosis, visible)),
-        ),
-        tap((newDiagnosis) => (diagnosis = newDiagnosis)),
-        catchError(async (error) => {
-          await this.handleError(diagnosis);
-          throw error;
-        }),
-      )
-      .toPromise();
-
-    await this.handleComplete(diagnosis);
-    await visible.close();
-
-    return;
   }
 
-  private async handleProgress(
-    progress: Core.Progress,
-    base: Diagnosis,
-    visible: Core.Visible,
-  ) {
+  private async handleStart(base: Diagnosis) {
+    this.logger.info(`Taking screenshot for ${base.url}`);
+
+    const website = await this.analyzer.capture({ url: base.url });
+
+    const diagnosis = base
+      .setScreenshot(website.screenshot)
+      .setURL(website.url)
+      .setStatus(Status.STARTED);
+
+    await this.diagnosisRepository.save(diagnosis);
+    await this.diagnosisRepository.publish(diagnosis);
+
+    return diagnosis;
+  }
+
+  private async handleProgress(progress: Progress, oldDiagnosis: Diagnosis) {
     this.logger.info(
       `Diagnosing in progress ${progress.doneCount}/${progress.totalCount}`,
     );
 
     // Update
-    const report = await this.translator.createReport(
-      progress.report,
-      base.id,
-      visible.getSources(),
-    );
-
-    const diagnosis = produce(base, (draft) => {
-      draft.updatedAt = new Date();
-      draft.status = Status.PROCESSING;
-      draft.doneCount = progress.doneCount;
-      draft.totalCount = progress.totalCount;
-      draft.reports.push(report);
-    });
+    const diagnosis = oldDiagnosis
+      .setTotalCount(progress.totalCount)
+      .setDoneCount(progress.doneCount)
+      .setStatus(Status.PROCESSING)
+      .setSources(progress.sources)
+      .setUpdatedAt(new Date());
 
     // Save
-    await this.ruleRepository.save(report.rule);
     await this.diagnosisRepository.save(diagnosis);
-    await this.reportsRepository.save(report);
-    for (const pointer of report.pointers ?? []) {
-      if (pointer.source) {
-        await this.sourceRepository.save(pointer.source);
-      }
-      await this.pointersRepository.save(pointer);
-    }
     await this.diagnosisRepository.publish(diagnosis);
     return diagnosis;
   }
 
   private async handleComplete(base: Diagnosis) {
-    const diagnosis = produce(base, (draft) => {
-      draft.status = Status.DONE;
-      draft.updatedAt = new Date();
-    });
-
+    const diagnosis = base.setStatus(Status.DONE).setUpdatedAt(new Date());
     await this.diagnosisRepository.save(diagnosis);
     await this.diagnosisRepository.publish(diagnosis);
+    this.logger.info(`Diagnosis for ${base.id} has successfully completed`);
   }
 
-  private async handleError(base: Diagnosis) {
-    const diagnosis = produce(base, (draft) => {
-      draft.status = Status.FAILED;
-      draft.updatedAt = new Date();
-    });
-
+  private async handleError(base: Diagnosis, error: Error) {
+    this.logger.error(error);
+    const diagnosis = base.setStatus(Status.FAILED).setUpdatedAt(new Date());
     await this.diagnosisRepository.save(diagnosis);
     await this.diagnosisRepository.publish(diagnosis);
+    this.logger.info(`Diagnosis for ${base.id} was ended with an error`);
   }
 }

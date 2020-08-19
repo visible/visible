@@ -1,8 +1,7 @@
-import { Report } from '../source';
+import { Source } from '../source';
 
 export interface Progress {
   readonly totalCount: number;
   readonly doneCount: number;
-  readonly sourceId: string;
-  readonly report: Report;
+  readonly sources: Map<string, Source>;
 }

@@ -90,11 +90,13 @@ const Diagnoses: NextPage = () => {
         )}
 
         <ReportList>
-          {diagnosis.reports.map((report) => (
-            <ReportListItem key={report.id}>
-              <Report report={report} />
-            </ReportListItem>
-          ))}
+          {diagnosis.sources.map((source) =>
+            source.reports.map((report) => (
+              <ReportListItem key={report.id}>
+                <Report report={report} />
+              </ReportListItem>
+            )),
+          )}
         </ReportList>
       </Content>
     </Layout>

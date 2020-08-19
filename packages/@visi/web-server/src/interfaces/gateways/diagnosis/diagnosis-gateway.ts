@@ -1,4 +1,4 @@
-import { validateOrReject } from 'class-validator';
+import { validate } from 'class-validator';
 import { inject, injectable } from 'inversify';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -8,7 +8,9 @@ import { DiagnosisRepository } from '../../../application/repositories';
 import { Diagnosis } from '../../../domain/models';
 import { Logger } from '../../../domain/services';
 import { TYPES } from '../../../types';
-import { DiagnosisTable } from './diagnosis-table';
+import { DiagnosisDBEntity } from './diagnosis-db-entity';
+import { ReportDBEntity } from './report-db-entity';
+import { SourceDBEntity } from './source-db-entity';
 
 export interface PublishDiagnosisQueue {
   add(id: string, data: null): Promise<unknown>;
@@ -34,17 +36,31 @@ export class DiagnosisGateway implements DiagnosisRepository {
   ) {}
 
   async save(diagnosis: Diagnosis): Promise<Diagnosis> {
-    await validateOrReject(diagnosis);
+    const errors = await validate(diagnosis);
+    if (errors.length > 0) throw JSON.stringify(errors[0], null, 2);
+
+    for (const source of diagnosis.sources) {
+      await this.connection
+        .getRepository(SourceDBEntity)
+        .save(SourceDBEntity.fromDomain(source));
+
+      for (const report of source.reports) {
+        await this.connection
+          .getRepository(ReportDBEntity)
+          .save(ReportDBEntity.fromDomain(report));
+      }
+    }
+
     await this.connection
-      .getRepository(DiagnosisTable)
-      .save(DiagnosisTable.fromDomain(diagnosis));
-    const result = await this.findOne(diagnosis.id);
-    if (result == null) throw new Error('Save failed');
+      .getRepository(DiagnosisDBEntity)
+      .save(DiagnosisDBEntity.fromDomain(diagnosis));
+
+    const [result] = await this.find([diagnosis.id]);
     return result;
   }
 
   async delete(id: string): Promise<string> {
-    await this.connection.getRepository(DiagnosisTable).delete(id);
+    await this.connection.getRepository(DiagnosisDBEntity).delete(id);
     return id;
   }
 
@@ -64,34 +80,15 @@ export class DiagnosisGateway implements DiagnosisRepository {
 
   async find(ids: string[]): Promise<Diagnosis[]> {
     const diagnoses = await this.connection
-      .getRepository(DiagnosisTable)
+      .getRepository(DiagnosisDBEntity)
       .findByIds(ids, {
-        relations: [
-          'reports',
-          'reports.rule',
-          'reports.pointers',
-          'reports.pointers.source',
-        ],
+        relations: ['sources', 'sources.reports', 'sources.reports.source'],
       });
 
-    this.logger.debug(diagnoses);
-    this.logger.debug(diagnoses.length);
-    if (!diagnoses.length) throw new Error('Entry not found');
+    if (diagnoses.length === 0) {
+      throw new Error('Entry not found');
+    }
 
     return diagnoses.map((diagnosis) => diagnosis.toDomain());
-  }
-
-  private async findOne(id: string) {
-    return this.connection
-      .getRepository(DiagnosisTable)
-      .findOne(id, {
-        relations: [
-          'reports',
-          'reports.rule',
-          'reports.pointers',
-          'reports.pointers.source',
-        ],
-      })
-      .then((result) => result?.toDomain());
   }
 }

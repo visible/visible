@@ -1,28 +1,32 @@
-import { Config, createSettings, Settings } from '@visi/core';
+import { Config, Settings } from '@visi/core';
 import merge from 'deepmerge';
 
-export type ConfigDefaults = Required<Config>;
-
 export class ConfigLoader {
-  private static readonly DEFAULT_CONFIG: ConfigDefaults = {
+  private static readonly DEFAULT_CONFIG: Required<Config> = {
     extends: [],
     driver: '@visi/plugin-puppeteer',
     plugins: ['@visi/plugin-puppeteer'],
     settings: {},
+    providers: [],
+    rules: [],
   };
 
   private constructor(
     readonly driver: string,
-    readonly settings: Settings,
+    readonly settings: Partial<Settings>,
     readonly plugins: string[] = [],
+    readonly providers: string[] = [],
+    readonly rules: string[] = [],
   ) {}
 
   static async init(schema: Config): Promise<ConfigLoader> {
     const config = await this.mergeExtensions(schema);
     return new ConfigLoader(
       config.driver,
-      createSettings(config.settings),
+      config.settings,
       config.plugins,
+      config.providers,
+      config.rules,
     );
   }
 
@@ -33,6 +37,7 @@ export class ConfigLoader {
     const extensions: Config[] = [base];
 
     // Load config schemas from their names
+    // TODO: Support recursion
     for (const name of names) {
       const extension: Config = await import(name);
       extensions.push(extension);
@@ -42,6 +47,6 @@ export class ConfigLoader {
     return extensions.reduce(
       (a, c) => merge(a, c),
       this.DEFAULT_CONFIG,
-    ) as ConfigDefaults;
+    ) as Required<Config>;
   }
 }

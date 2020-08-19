@@ -2,16 +2,16 @@ import DataLoader from 'dataloader';
 import { inject, injectable } from 'inversify';
 
 import { DiagnosisController } from '../../interfaces/controllers';
-import { DiagnosisAPI } from '../../interfaces/presenters';
+import { API } from '../../interfaces/presenters';
 
 export interface Context {
-  diagnosisLoader: DataLoader<string, DiagnosisAPI>;
+  diagnosisLoader: DataLoader<string, API.Diagnosis>;
   diagnosisController: DiagnosisController;
 }
 
 @injectable()
 export class ContextImpl implements Context {
-  readonly diagnosisLoader = new DataLoader<string, DiagnosisAPI>((keys) => {
+  readonly diagnosisLoader = new DataLoader<string, API.Diagnosis>((keys) => {
     return this.diagnosisController.find(keys);
   });
 

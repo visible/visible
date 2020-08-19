@@ -1,37 +1,39 @@
 import { inject, injectable } from 'inversify';
 
 import { Diagnosis, Status } from '../../domain/models';
-import { ReportPresenter } from './report-presenter';
-import { DiagnosisAPI, StatusAPI } from './types';
+import { SourcePresenter } from './source-presenter';
+import { API } from './types';
 
 @injectable()
 export class DiagnosisPresenter {
   constructor(
-    @inject(ReportPresenter)
-    private readonly reportPresenter: ReportPresenter,
+    @inject(SourcePresenter)
+    private readonly sourcePresenter: SourcePresenter,
   ) {}
 
-  transformStatus(status: Status): StatusAPI {
+  transformStatus(status: Status): API.Status {
     switch (status) {
+      case Status.QUEUED:
+        return API.Status.Queued;
       case Status.DONE:
-        return StatusAPI.DONE;
+        return API.Status.Done;
       case Status.FAILED:
-        return StatusAPI.FAILED;
+        return API.Status.Failed;
       case Status.PROCESSING:
-        return StatusAPI.PROCESSING;
+        return API.Status.Processing;
       case Status.STARTED:
-        return StatusAPI.STARTED;
+        return API.Status.Started;
     }
   }
 
-  run(diagnosis: Diagnosis): DiagnosisAPI {
+  run(diagnosis: Diagnosis): API.Diagnosis {
     return {
       id: diagnosis.id,
       url: diagnosis.url,
       status: this.transformStatus(diagnosis.status),
       screenshot: diagnosis.screenshot,
-      reports: diagnosis.reports.map((report) =>
-        this.reportPresenter.run(report),
+      sources: diagnosis.sources.map((source) =>
+        this.sourcePresenter.run(source),
       ),
       doneCount: diagnosis.doneCount,
       totalCount: diagnosis.totalCount,

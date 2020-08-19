@@ -1,15 +1,13 @@
 import path from 'path';
-import { Subject } from 'rxjs';
+import { defer, Observable } from 'rxjs';
+import { flatMap, publish, refCount } from 'rxjs/operators';
 
 import { Driver, Session } from '../driver';
 import { Provider } from '../provider';
-import { ContextImpl, Progress, Rule } from '../rule';
+import { Context, ContextImpl, Progress, Rule } from '../rule';
 import { Settings } from '../settings';
-import { Source } from '../source';
 
 export class Validator {
-  readonly progress$ = new Subject<Progress>();
-
   constructor(
     readonly settings: Settings,
     readonly driver: Driver,
@@ -17,27 +15,33 @@ export class Validator {
     readonly provider: Provider,
   ) {}
 
-  async diagnose(url: string): Promise<Source[]> {
+  diagnose(url: string): Observable<Progress> {
     const { delay } = this.settings;
 
-    const session = await this.createSessionForURL(url);
-    await this.exposeGateway(session);
-    const context = this.createContext(session);
+    return defer(async () => {
+      const session = await this.createSessionForURL(url);
+      await this.exposeGateway(session);
+      const context = this.createContext(session);
 
-    // Wait for delay
-    if (delay != null) {
-      await session.waitFor(delay);
-    }
+      if (delay != null) {
+        await session.waitFor(delay);
+      }
 
-    // Run rules
+      this.runRules(session, context);
+      return context;
+    }).pipe(
+      flatMap((context) => context.progress$),
+      publish(),
+      refCount(),
+    );
+  }
+
+  private async runRules(session: Session, context: Context) {
     for (const rule of this.rules) {
       await rule.create(context);
     }
-
-    // Done
     await session.close();
-
-    return [...session.sources.values()];
+    context.progress$.complete();
   }
 
   private async createSessionForURL(url: string) {
@@ -53,13 +57,6 @@ export class Validator {
   }
 
   private createContext(session: Session) {
-    const context = new ContextImpl(
-      this.settings,
-      session,
-      this.rules,
-      this.provider,
-    );
-    context.progress$.subscribe((progress) => this.progress$.next(progress));
-    return context;
+    return new ContextImpl(this.settings, session, this.rules, this.provider);
   }
 }

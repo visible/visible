@@ -12,25 +12,34 @@ import {
   HTMLReport,
   HTMLSource,
   Location,
+  Outcome,
   Report,
-  ReportConstructorParams,
   Source,
 } from '../source';
 import { Progress } from './progress';
 import { Rule } from './rule';
 
-export type ReportParams<Node> = Omit<
-  ReportConstructorParams,
-  'location' | 'screenshot'
-> & { node: Node };
+export interface BaseReportParams<T> {
+  ruleId: string;
+  outcome: Outcome;
+  target: string;
+  message?: string;
+  fix?(node: T): Promise<T>;
+}
+
+export type ReportHTMLParams = BaseReportParams<HTMLNode>;
+
+export interface ReportCSSParams extends BaseReportParams<CSSNode> {
+  propertyName: string;
+}
 
 export interface Context {
   readonly progress$: Subject<Progress>;
   readonly session: Session;
   readonly settings: Settings;
   readonly provider: Provider;
-  reportHTML(sourceId: string, params: ReportParams<HTMLNode>): Promise<void>;
-  reportCSS(sourceId: string, params: ReportParams<CSSNode>): Promise<void>;
+  reportHTML(params: ReportHTMLParams): Promise<void>;
+  reportCSS(params: ReportCSSParams): Promise<void>;
 }
 
 export class ContextImpl implements Context {
@@ -45,16 +54,19 @@ export class ContextImpl implements Context {
     readonly provider: Provider,
   ) {}
 
-  async reportHTML(
-    sourceId: string,
-    params: ReportParams<HTMLNode>,
-  ): Promise<void> {
-    const { node, target, ruleId } = params;
+  async reportHTML(params: ReportHTMLParams): Promise<void> {
+    const { target, ruleId } = params;
 
     if (this.checkIfRuleHasExceededReportLimit(ruleId)) {
       return;
     }
 
+    const result = await this.session.findHTML(target);
+    if (result == null) {
+      throw new Error(`Not matching xpath found for ${target}`);
+    }
+
+    const [sourceId, node] = result;
     const source = this.session.sources.get(sourceId);
 
     if (!(source instanceof HTMLSource)) {
@@ -74,23 +86,29 @@ export class ContextImpl implements Context {
 
     const report = new HTMLReport({
       ...params,
-      location,
+      node,
       screenshot,
+      location,
     });
 
     this.addReport(source, report);
   }
 
-  async reportCSS(
-    sourceId: string,
-    params: ReportParams<CSSNode>,
-  ): Promise<void> {
-    const { node, target, ruleId } = params;
+  async reportCSS(params: ReportCSSParams): Promise<void> {
+    const { target, ruleId, propertyName } = params;
 
     if (this.checkIfRuleHasExceededReportLimit(ruleId)) {
       return;
     }
 
+    const result = await this.session.findCSS(target, propertyName);
+    if (result == null) {
+      throw new Error(
+        `No CSS declaration with propertyName ${propertyName} for ${target} found`,
+      );
+    }
+
+    const [sourceId, node] = result;
     const source = this.session.sources.get(sourceId);
 
     if (!(source instanceof CSSSource)) {
@@ -116,6 +134,7 @@ export class ContextImpl implements Context {
 
     const report = new CSSReport({
       ...params,
+      node,
       location,
       screenshot,
     });
@@ -131,12 +150,11 @@ export class ContextImpl implements Context {
     });
   }
 
-  private handleNewReport(report: Report, sourceId: string) {
+  private handleNewReport() {
     this.progress$.next({
-      report,
-      sourceId,
       doneCount: this.doneCount++,
       totalCount: this.rules.length,
+      sources: this.session.sources,
     });
   }
 
@@ -144,10 +162,17 @@ export class ContextImpl implements Context {
     const reportsCount = this.reportsCountPerRule.get(report.ruleId) ?? 0;
     this.reportsCountPerRule.set(report.ruleId, reportsCount + 1);
 
-    const newSource = source.addReport(report);
-    this.session.sources.set(newSource.id, newSource);
+    const newSource =
+      source instanceof HTMLSource && report instanceof HTMLReport
+        ? source.addReport(report)
+        : source instanceof CSSSource && report instanceof CSSReport
+        ? source.addReport(report)
+        : (() => {
+            throw new Error(`Unknown source type ${source.type}`);
+          })();
 
-    this.handleNewReport(report, newSource.id);
+    this.session.sources.set(newSource.id, newSource);
+    this.handleNewReport();
   }
 
   private checkIfRuleHasExceededReportLimit(ruleId: string) {

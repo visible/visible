@@ -19,10 +19,14 @@ export class Capturer {
       path: path.join(screenshotDir, Date.now().toString()),
     });
 
-    return {
+    const website = {
       title: await session.getTitle(),
       url: await session.getURL(),
       screenshot,
     };
+
+    await session.close();
+
+    return website;
   }
 }

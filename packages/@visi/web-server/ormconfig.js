@@ -11,7 +11,7 @@ module.exports = {
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [path.resolve(ctx, './interfaces/gateways/**/*-table.js')],
+  entities: [path.resolve(ctx, './interfaces/gateways/**/*-db-entity.js')],
   migrations: [path.resolve(ctx, './migrations/**/*.js')],
   subscribers: [path.resolve(ctx, './subscribers/**/*.js')],
   // cli: {

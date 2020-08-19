@@ -40,34 +40,27 @@ export const Report = ({ report }: ReportProps) => {
       ? 'red'
       : 'grey';
 
-  // やめたほうがいい
-  const [pointer] = report.pointers ?? [];
-
   return (
     <Wrapper>
-      {pointer?.screenshot && (
-        <Image src={pointer.screenshot} alt={pointer.xpath} size={80} />
+      {report.screenshot && (
+        <Image
+          src={report.screenshot}
+          alt={report.target ?? t('report.no-desc', 'no description provided')}
+          size={80}
+        />
       )}
 
       <Content>
         <Badge variant={variant}>{report.outcome}</Badge>
-        <Typography variant="h4" textTransform="uppercase">
+        {/* <Typography variant="h4" textTransform="uppercase">
           {report.rule.name}
-        </Typography>
+        </Typography> */}
 
         <Typography
           variant="body"
           fontStyle={report.message == null ? 'italic' : 'normal'}
         >
           {report.message ?? 'No message'}
-        </Typography>
-
-        <Typography variant="body" color="wash" fontStyle="italic">
-          {t('report.location', {
-            defaultValue: 'Reported from {{fileName}}:{{startLine}}',
-            fileName: pointer?.source?.url ?? 'Unknown file',
-            startLine: pointer?.location?.startLine ?? '0',
-          })}
         </Typography>
       </Content>
     </Wrapper>

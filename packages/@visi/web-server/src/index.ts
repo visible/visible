@@ -18,8 +18,12 @@ import { ProcessDiagnosisWorker } from './frameworks/workers';
 
   // Start server
   const server = new Server(container);
-  server.start();
 
-  // Start worker
-  container.get(ProcessDiagnosisWorker);
+  try {
+    server.start();
+    container.get(ProcessDiagnosisWorker);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(JSON.stringify(error, null, 2));
+  }
 })();

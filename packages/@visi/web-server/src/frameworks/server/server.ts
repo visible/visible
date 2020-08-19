@@ -68,10 +68,7 @@ export class Server {
 
   private async loadSchema() {
     return fs
-      .readFile(
-        path.resolve('./dist/frameworks/server/generated/schema.graphql'),
-        'utf-8',
-      )
+      .readFile(path.resolve(require.resolve('@visi/web-schema')), 'utf-8')
       .then((code) => gql(code));
   }
 }

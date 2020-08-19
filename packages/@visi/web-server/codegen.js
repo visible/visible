@@ -1,13 +1,7 @@
-const path = require('path');
-const ctx = '../../../interfaces/presenters/types';
-
 module.exports = {
   overwrite: true,
-  schema: path.join(require.resolve('@visi/web-schema'), '..', '**/*.graphql'),
+  schema: require.resolve('@visi/web-schema'),
   generates: {
-    './dist/frameworks/server/generated/schema.graphql': {
-      plugins: ['schema-ast'],
-    },
     './src/frameworks/server/generated/graphql.ts': {
       plugins: [
         'typescript',
@@ -21,20 +15,21 @@ module.exports = {
         immutableTypes: true,
         scalars: {
           Date: 'Date',
+          URL: 'String',
         },
-        mappers: {
-          RuleType: ctx + '#RuleTypeAPI',
-          Rule: ctx + '#RuleAPI',
-          Source: ctx + '#SourceAPI',
-          Location: ctx + '#LocationAPI',
-          HTMLPointer: ctx + '#HTMLPointerAPI',
-          CSSPointer: ctx + '#CSSPointerAPI',
-          Pointer: ctx + '#PointerAPI',
-          Outcome: ctx + '#OutcomeAPI',
-          Report: ctx + '#ReportAPI',
-          Status: ctx + '#StatusAPI',
-          Diagnosis: ctx + '#DiagnosisAPI',
-        },
+        // mappers: {
+        //   RuleType: ctx + '#RuleTypeAPI',
+        //   Rule: ctx + '#RuleAPI',
+        //   Source: ctx + '#SourceAPI',
+        //   Location: ctx + '#LocationAPI',
+        //   HTMLPointer: ctx + '#HTMLPointerAPI',
+        //   CSSPointer: ctx + '#CSSPointerAPI',
+        //   Pointer: ctx + '#PointerAPI',
+        //   Outcome: ctx + '#OutcomeAPI',
+        //   Report: ctx + '#ReportAPI',
+        //   Status: ctx + '#StatusAPI',
+        //   Diagnosis: ctx + '#DiagnosisAPI',
+        // },
       },
     },
   },

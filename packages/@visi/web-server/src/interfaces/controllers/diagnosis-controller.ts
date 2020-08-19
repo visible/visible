@@ -11,7 +11,7 @@ import {
 import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
 import { toAsyncIterator } from '../../utils/to-async-iterator';
-import { DiagnosisAPI, DiagnosisPresenter } from '../presenters';
+import { API, DiagnosisPresenter } from '../presenters';
 
 @injectable()
 export class DiagnosisController {
@@ -38,7 +38,7 @@ export class DiagnosisController {
     private readonly logger: Logger,
   ) {}
 
-  async find(ids: readonly string[]): Promise<DiagnosisAPI[]> {
+  async find(ids: readonly string[]): Promise<API.Diagnosis[]> {
     const { diagnoses } = await this.findDiagnosis.run({ ids });
     const output = diagnoses.map((diagnosis) =>
       this.diagnosisPresenter.run(diagnosis),
@@ -46,7 +46,7 @@ export class DiagnosisController {
     return output;
   }
 
-  async create(url: string): Promise<DiagnosisAPI> {
+  async create(url: string): Promise<API.Diagnosis> {
     const { diagnosis } = await this.createDiagnosis.run({ url });
     const output = this.diagnosisPresenter.run(diagnosis);
     return output;
@@ -61,7 +61,7 @@ export class DiagnosisController {
     return this.processDiagnosis.run({ id });
   }
 
-  subscribe(id: string): AsyncIterableIterator<{ diagnosis: DiagnosisAPI }> {
+  subscribe(id: string): AsyncIterableIterator<{ diagnosis: API.Diagnosis }> {
     const stream$ = this.subscribeDiagnosis.run({ id }).pipe(
       tap(() => this.logger.debug(`got ${id}, publishing...`)),
       map((diagnosis) => this.diagnosisPresenter.run(diagnosis)),

@@ -46,4 +46,13 @@ export class Location {
       endColumn: endsAt[1],
     });
   }
+
+  equals(that: Location): boolean {
+    return (
+      this.startColumn === that.startColumn &&
+      this.startLine === that.startLine &&
+      this.endLine === that.endLine &&
+      this.endColumn === that.endColumn
+    );
+  }
 }

@@ -10,7 +10,12 @@ export class ProcessDiagnosisWorker extends Worker {
     private readonly diagnosisController: DiagnosisController,
   ) {
     super('ProcessDiagnosis', async (job) => {
-      this.diagnosisController.process(job.name);
+      try {
+        this.diagnosisController.process(job.name);
+      } catch (error) {
+        // eslint-disable-next-line
+        console.error(JSON.stringify(error, null, 2));
+      }
     });
   }
 }
