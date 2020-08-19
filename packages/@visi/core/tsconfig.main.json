@@ -4,6 +4,5 @@
     "module": "esnext",
     "outDir": "./dist/main",
   },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules", "./src/gateway/**/*"]
+  "include": ["./src/**/*", "!./src/gateway/**/*"],
 }

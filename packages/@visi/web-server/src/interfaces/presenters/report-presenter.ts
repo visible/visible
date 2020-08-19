@@ -1,41 +1,36 @@
 import { inject, injectable } from 'inversify';
 
 import { Outcome, Report } from '../../domain/models';
-import { PointerPresenter } from './pointer-presenter';
-import { RulePresenter } from './rule-presenter';
-import { OutcomeAPI, ReportAPI } from './types';
+import { LocationPresenter } from './location-presenter';
+import { API } from './types';
 
 @injectable()
 export class ReportPresenter {
   constructor(
-    @inject(RulePresenter)
-    private readonly rulePresenter: RulePresenter,
-
-    @inject(PointerPresenter)
-    private readonly pointerPresenter: PointerPresenter,
+    @inject(LocationPresenter)
+    private readonly locationPresenter: LocationPresenter,
   ) {}
 
-  transformOutcome(outcome: Outcome): OutcomeAPI {
+  transformOutcome(outcome: Outcome): API.Outcome {
     switch (outcome) {
       case Outcome.FAIL:
-        return OutcomeAPI.FAIL;
+        return API.Outcome.Fail;
       case Outcome.PASSED:
-        return OutcomeAPI.PASSED;
+        return API.Outcome.Passed;
       case Outcome.INAPPLICABLE:
-        return OutcomeAPI.INAPPLICABLE;
+        return API.Outcome.Inapplicable;
     }
   }
 
-  run(report: Report): ReportAPI {
+  run(report: Report): API.Report {
     return {
       id: report.id,
-      target: report.target,
       outcome: this.transformOutcome(report.outcome),
+      target: report.target,
+      screenshot: report.screenshot,
       message: report.message,
-      rule: this.rulePresenter.run(report.rule),
-      pointers: report.pointers?.map((pointer) =>
-        this.pointerPresenter.run(pointer),
-      ),
+      diffHunk: report.diffHunk,
+      location: report.location && this.locationPresenter.run(report.location),
     };
   }
 }

@@ -1,0 +1,6 @@
+type Location {
+  startLine: Int!
+  endLine: Int!
+  startColumn: Int!
+  endColumn: Int!
+}

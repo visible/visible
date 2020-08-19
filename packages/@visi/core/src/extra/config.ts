@@ -5,4 +5,6 @@ export interface Config {
   readonly extends?: string[];
   readonly plugins?: string[];
   readonly settings?: Partial<Settings>;
+  readonly providers?: string[];
+  readonly rules?: string[];
 }

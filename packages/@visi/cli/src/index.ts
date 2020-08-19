@@ -1,14 +1,16 @@
 #!/usr/bin/env node
-import { Config } from '@visi/core';
+import { Config, PluginResolver, Visible } from '@visi/core';
 import chalk from 'chalk';
 import { Presets, SingleBar } from 'cli-progress';
 import { cosmiconfig } from 'cosmiconfig';
 import { promises as fs } from 'fs';
-import { finalize, first } from 'rxjs/operators';
+import mkdirp from 'mkdirp';
+import { finalize, first, last } from 'rxjs/operators';
 import yargs from 'yargs';
 
-import { Engine } from './engine';
+import { ConfigLoader } from './config';
 import { i18next, initI18next } from './i18next';
+import { loadPlugins } from './load-plugins';
 import { print } from './print';
 
 initI18next();
@@ -74,11 +76,11 @@ yargs
         }),
 
     async ({ url, json, silent, fix }) => {
-      const config = await cosmiconfig('visible')
+      const rawConfig = await cosmiconfig('visible')
         .search()
         .then((result) => result?.config as Config | undefined);
 
-      if (config === undefined) {
+      if (rawConfig === undefined) {
         // eslint-disable-next-line no-console
         console.error(t('visible.no-rc', 'No visiblerc file found'));
         process.exit(1);
@@ -89,40 +91,53 @@ yargs
         Presets.shades_classic,
       );
 
-      const engine = await Engine.init(config);
+      // Create config object from raw config
+      const config = await ConfigLoader.init(rawConfig);
+
+      // Load plugins from its names
+      const plugins = await loadPlugins(config.plugins);
+
+      // Make resolver: a factory that instantiates a plugin
+      const resolver = new PluginResolver(plugins, config.settings);
+      await mkdirp(resolver.settings.screenshotDir);
+
+      // Up driver
+      const driver = await resolver.getDriverFactory(config.driver).create();
+
+      // Finally, init Visible
+      const visible = new Visible(
+        resolver.settings,
+        driver,
+        resolver.getRules(config.rules),
+        resolver.getProvider(config.providers),
+      );
+
+      const diagnosis$ = visible.diagnose(url);
 
       if (!silent) {
-        engine.visible.diagnosisProgress$
-          .pipe(first())
-          .subscribe((progress) => {
-            // eslint-disable-next-line no-console
-            console.log(chalk.grey(t('visible.start', '🦉 Diagnosing...')));
-            singleBar.start(progress.totalCount, 0);
-          });
+        diagnosis$.pipe(first()).subscribe((progress) => {
+          // eslint-disable-next-line no-console
+          console.log(chalk.grey(t('visible.start', '🦉 Diagnosing...')));
+          singleBar.start(progress.totalCount, 0);
+        });
 
-        engine.visible.diagnosisProgress$
+        diagnosis$
           .pipe(finalize(() => singleBar.stop()))
           .subscribe((progress) => {
             singleBar.update(progress.doneCount);
           });
       }
 
-      const sources = await engine.visible.diagnose(url);
-      const originals = sources.reduce((map, source) => {
-        map.set(source.id, source.text);
-        return map;
-      }, new Map<string, string>());
+      const { sources: sourcesMap } = await diagnosis$.pipe(last()).toPromise();
+      const sources = [...sourcesMap.values()];
+      await print(sources, json, fix);
 
-      for (const source of sources) {
-        await source.applyFixes();
-      }
-
-      print(sources, originals, json, fix);
       const hasAnyReport = sources.some((source) => {
         return source.reports.length !== 0;
       });
 
-      await engine.down();
+      // Down driver so that chromium process exits
+      // await driver.quit();
 
       // eslint-disable-next-line no-console
       console.log(

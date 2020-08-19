@@ -56,7 +56,10 @@ export const Project = (props: ProjectProps) => {
 
   return (
     <Wrapper>
-      <Image src={diagnosis.screenshot} alt={diagnosis.id} />
+      {diagnosis.screenshot && (
+        <Image src={diagnosis.screenshot} alt={diagnosis.id} />
+      )}
+
       <Typography variant="h1">{domain}</Typography>
 
       <Typography variant="body" color="wash">

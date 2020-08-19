@@ -2,12 +2,12 @@ import { ContainerModule } from 'inversify';
 
 import {
   CreateDiagnosisInteractor,
+  CreateRulesInteractor,
   DeleteDiagnosisInteractor,
   FindDiagnosisInteractor,
   ProcessDiagnosisInteractor,
   SubscribeDiagnosisInteractor,
 } from '../application/interactors';
-import { Translator } from '../application/translator';
 import { TYPES } from '../types';
 
 export const application = new ContainerModule((bind) => {
@@ -16,5 +16,5 @@ export const application = new ContainerModule((bind) => {
   bind(TYPES.DeleteDiagnosisUseCase).to(DeleteDiagnosisInteractor);
   bind(TYPES.SubscribeDiagnosisUseCase).to(SubscribeDiagnosisInteractor);
   bind(TYPES.ProcessDiagnosisUseCase).to(ProcessDiagnosisInteractor);
-  bind(Translator).toSelf();
+  bind(TYPES.CreateRuleUseCase).to(CreateRulesInteractor);
 });

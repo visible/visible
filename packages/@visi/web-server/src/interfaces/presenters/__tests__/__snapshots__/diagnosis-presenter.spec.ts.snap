@@ -5,40 +5,25 @@ Object {
   "createdAt": 2020-05-17T08:28:59.186Z,
   "doneCount": 1,
   "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
-  "reports": Array [
+  "screenshot": "https://example.com",
+  "sources": Array [
     Object {
+      "content": "<html></html>",
       "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
-      "message": "Error!",
-      "outcome": "FAIL",
-      "pointers": Array [
+      "reports": Array [
         Object {
+          "diffHunk": undefined,
           "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
-          "location": Object {
-            "endColumn": 1,
-            "endLine": 1,
-            "startColumn": 1,
-            "startLine": 1,
-          },
-          "screenshot": "https://example.com",
-          "source": Object {
-            "content": "<html></html>",
-            "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
-            "title": "index.html",
-            "url": "https://example.com",
-          },
-          "xpath": "/html/body",
+          "location": undefined,
+          "message": "Error!",
+          "outcome": "FAIL",
+          "screenshot": undefined,
+          "target": "/html/body",
         },
       ],
-      "rule": Object {
-        "description": "foo",
-        "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
-        "name": "img-alt",
-        "type": "ATOMIC",
-      },
-      "target": "/html/body",
+      "url": "https://example.com",
     },
   ],
-  "screenshot": "https://example.com",
   "status": "STARTED",
   "totalCount": 1,
   "updatedAt": 2020-05-17T08:28:59.186Z,

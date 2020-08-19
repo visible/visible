@@ -1,6 +1,7 @@
 import { ContainerModule } from 'inversify';
 
 import {
+  AnalyzerVisibleImpl,
   I18nI18nextImpl,
   LoggerConsoleImpl,
   StorageFsImpl,
@@ -11,4 +12,5 @@ export const services = new ContainerModule((bind) => {
   bind(TYPES.I18n).to(I18nI18nextImpl);
   bind(TYPES.Logger).to(LoggerConsoleImpl);
   bind(TYPES.Storage).to(StorageFsImpl);
+  bind(TYPES.Analyzer).to(AnalyzerVisibleImpl);
 });

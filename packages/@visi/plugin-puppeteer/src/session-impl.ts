@@ -20,6 +20,8 @@ import { findNodeByXPath } from './find-node-by-xpath';
 
 export class SessionImpl implements Session {
   readonly sources = new Map<string, Source>();
+  private readonly htmlIdsMap = new Map<string, string>();
+  private readonly cssIdsMap = new Map<string, string>();
 
   constructor(
     private readonly settings: Settings,
@@ -43,10 +45,10 @@ export class SessionImpl implements Session {
       withStartIndices: true,
     });
     const source = new HTMLSource({
-      id: 'html',
       url: this.page.url(),
       content: ast,
     });
+    this.htmlIdsMap.set('main', source.id);
     this.sources.set(source.id, source);
   }
 
@@ -112,7 +114,12 @@ export class SessionImpl implements Session {
   }
 
   async findHTML(xpath: string): Promise<[string, Node] | undefined> {
-    const html = this.sources.get('html');
+    const sourceId = this.htmlIdsMap.get('main');
+    if (sourceId == null) {
+      throw new Error(`No source found for html id main`);
+    }
+
+    const html = this.sources.get(sourceId);
 
     if (html == null || !(html instanceof HTMLSource)) {
       throw new Error(`No html source stored`);
@@ -129,7 +136,7 @@ export class SessionImpl implements Session {
     const node = findASTByXPath(root, xpath);
     if (node == null) return;
 
-    return ['html', node];
+    return [sourceId, node];
   }
 
   async findCSS(
@@ -183,9 +190,16 @@ export class SessionImpl implements Session {
     }
 
     // 2. traverse and find matching node
-    const file = this.sources.get(rule.styleSheetId);
+    const sourceId = this.cssIdsMap.get(rule.styleSheetId);
+    if (sourceId == null) {
+      throw new Error(
+        `No corresponding source id found for stylesheet ${rule.styleSheetId}`,
+      );
+    }
+
+    const file = this.sources.get(sourceId);
     if (!(file instanceof CSSSource)) {
-      throw new Error(`Not source cached for ${rule.styleSheetId}`);
+      throw new Error(`No source cached for ${rule.styleSheetId}`);
     }
 
     const selector = rule.selectorList.selectors[matchingSelectors[0]].text;
@@ -202,7 +216,7 @@ export class SessionImpl implements Session {
       return;
     }
 
-    return [rule.styleSheetId, res];
+    return [sourceId, res];
   }
 
   private handleStyleSheetAdded = async (
@@ -216,11 +230,11 @@ export class SessionImpl implements Session {
     });
 
     const source = new CSSSource({
-      id: styleSheetId,
       url: sourceURL,
       content: postcss.parse(res.text),
     });
 
     this.sources.set(source.id, source);
+    this.cssIdsMap.set(styleSheetId, source.id);
   };
 }

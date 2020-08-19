@@ -4,7 +4,6 @@ import { Driver } from '../driver';
 import { Provider } from '../provider';
 import { Progress, Rule } from '../rule';
 import { Settings } from '../settings';
-import { Source } from '../source';
 import { Capturer } from './capturer';
 import { Validator } from './validator';
 import { Website } from './website';
@@ -24,11 +23,7 @@ export class Visible {
     this.capturer = new Capturer(settings, driver);
   }
 
-  get diagnosisProgress$(): Observable<Progress> {
-    return this.validator.progress$;
-  }
-
-  diagnose(url: string): Promise<Source[]> {
+  diagnose(url: string): Observable<Progress> {
     return this.validator.diagnose(url);
   }
 

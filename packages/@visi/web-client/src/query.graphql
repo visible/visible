@@ -5,38 +5,6 @@ fragment LocationLarge on Location {
   endColumn
 }
 
-fragment SourceLarge on Source {
-  id
-  title
-  url
-}
-
-fragment HTMLPointerLarge on HTMLPointer {
-  id
-  source {
-    ...SourceLarge
-  }
-  screenshot
-  xpath
-  location {
-    ...LocationLarge
-  }
-}
-
-fragment CSSPointerLarge on CSSPointer {
-  id
-  source {
-    ...SourceLarge
-  }
-  screenshot
-  xpath
-  location {
-    ...LocationLarge
-  }
-  xpath
-  propertyName
-}
-
 fragment RuleLarge on Rule {
   id
   name
@@ -49,16 +17,19 @@ fragment ReportLarge on Report {
   outcome
   target
   message
-  rule {
-    ...RuleLarge
+  screenshot
+  diffHunk
+  location {
+    ...LocationLarge
   }
-  pointers {
-    ...on HTMLPointer {
-      ...HTMLPointerLarge
-    }
-    ...on CSSPointer {
-      ...CSSPointerLarge
-    }
+}
+
+fragment SourceLarge on Source {
+  id
+  url
+  content
+  reports {
+    ...ReportLarge
   }
 }
 
@@ -70,8 +41,8 @@ fragment DiagnosisLarge on Diagnosis {
   doneCount
   totalCount
   createdAt
-  reports {
-    ...ReportLarge
+  sources {
+    ...SourceLarge
   }
 }
 

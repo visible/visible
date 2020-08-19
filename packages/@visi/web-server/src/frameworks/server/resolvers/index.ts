@@ -1,8 +1,11 @@
+import { resolvers as Scalars } from 'graphql-scalars';
+
 import { Resolvers } from '../generated/graphql';
 import * as diagnosis from './diagnoses';
-import * as pointer from './pointer';
 
 export const resolvers: Resolvers = {
+  URL: Scalars.URL,
+  Date: Scalars.Date,
   Query: {
     diagnosis: diagnosis.rootDiagnosis,
   },
@@ -12,8 +15,5 @@ export const resolvers: Resolvers = {
   },
   Subscription: {
     diagnosis: diagnosis.diagnosisSubscription,
-  },
-  Pointer: {
-    __resolveType: pointer.resolveType,
   },
 };

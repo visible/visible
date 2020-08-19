@@ -5,7 +5,7 @@ import { Connection } from 'typeorm';
 import { RuleRepository } from '../../../application/repositories';
 import { Rule } from '../../../domain/models';
 import { TYPES } from '../../../types';
-import { RuleTable } from './rule-table';
+import { RuleDBEntity } from './rule-db-entity';
 
 @injectable()
 export class RuleGateway implements RuleRepository {
@@ -17,14 +17,14 @@ export class RuleGateway implements RuleRepository {
   async save(rule: Rule): Promise<Rule> {
     await validateOrReject(rule);
     return this.connection
-      .getRepository(RuleTable)
-      .save(RuleTable.fromDomain(rule))
+      .getRepository(RuleDBEntity)
+      .save(RuleDBEntity.fromDomain(rule))
       .then((result) => result.toDomain());
   }
 
   async findByName(name: string): Promise<Rule | undefined> {
     return this.connection
-      .getRepository(RuleTable)
+      .getRepository(RuleDBEntity)
       .findOne({ where: { name } })
       .then((rule) => rule?.toDomain());
   }
