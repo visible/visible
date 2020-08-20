@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-import { Diagnosis } from '../../domain/models/diagnosis';
+import { Diagnosis, Report } from '../../domain/models/diagnosis';
 
 export interface DiagnosisRepository {
   find(id: readonly string[]): Promise<Diagnosis[]>;
@@ -9,4 +9,5 @@ export interface DiagnosisRepository {
   queue(diagnosis: Diagnosis): Promise<void>;
   publish(diagnosis: Diagnosis): Promise<void>;
   subscribe(id: string): Observable<Diagnosis>;
+  findReport(id: string): Promise<Report | undefined>;
 }

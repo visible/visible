@@ -12,22 +12,12 @@ import { useDiagnosis } from '../../hooks/use-diagnosis';
 import { useTranslation } from '../../utils/i18next';
 import { withApollo } from '../../utils/with-apollo';
 
-const Layout = styled.main`
-  display: flex;
-  width: 1080px;
-  margin: 24px auto;
-`;
-
-const Aside = styled.div`
-  position: sticky;
-  top: 24px;
-  width: 300px;
-  height: min-content;
-  margin-right: 24px;
-`;
+const Layout = styled.main``;
 
 const Content = styled.div`
-  flex: 1 0 auto;
+  box-sizing: border-box;
+  width: 1080px;
+  margin: 24px auto;
   padding: 24px;
   border-radius: 8px;
   background-color: white;
@@ -40,6 +30,7 @@ const ReportList = styled.ul`
 `;
 
 const ReportListItem = styled.li`
+  display: block;
   list-style-type: none;
 
   &:not(:last-child) {
@@ -79,10 +70,7 @@ const Diagnoses: NextPage = () => {
   return (
     <Layout>
       <NextSeo title={title} description={description} openGraph={{ title }} />
-
-      <Aside>
-        <Project diagnosis={diagnosis} />
-      </Aside>
+      <Project diagnosis={diagnosis} />
 
       <Content>
         {diagnosis.status !== Status.Done && (
@@ -93,7 +81,7 @@ const Diagnoses: NextPage = () => {
           {diagnosis.sources.map((source) =>
             source.reports.map((report) => (
               <ReportListItem key={report.id}>
-                <Report report={report} />
+                <Report report={report} original={source.content} />
               </ReportListItem>
             )),
           )}

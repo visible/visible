@@ -13,7 +13,7 @@ export const factory = async (): Promise<Visible> => {
     {
       screenshot: 'only-fail',
       delay: 1000,
-      headless: process.env.NODE_ENV === 'production',
+      headless: true,
       maxReportsCountPerRule: 5,
     },
   );

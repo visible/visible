@@ -1513,7 +1513,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.11.0":
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
@@ -3560,6 +3560,14 @@
   version "1.5.8"
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.5.8.tgz#cbadda0378af899c17ce1aa69c677015cab28448"
   integrity sha512-a7Gjjw8bfBSertA/pTWBA/9WKEhgaSxvQE2NTSUzaknrzGFOhs4alZSHh3RHmSFdSWv5pUuzAgsWseMLhWEVkQ==
+
+"@monaco-editor/react@^3.6.2":
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@monaco-editor/react/-/react-3.6.2.tgz#7b6310c28fe681f0fea5165dfa1a0e22f0a611cc"
+  integrity sha512-KA91FasOYLJwPz2Sp4ANoEZp9+9wCglF/f3p/aENjcG/v3s4vzcUxKEWI6X5S9z+tz0s79tUy8JTZ5gT/WCsSA==
+  dependencies:
+    "@babel/runtime" "^7.11.0"
+    state-local "^1.0.1"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -17079,6 +17087,11 @@ moment@^2.22.1:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
+monaco-editor@0.19.x:
+  version "0.19.3"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.19.3.tgz#1c994b3186c00650dbcd034d5370d46bf56c0663"
+  integrity sha512-2n1vJBVQF2Hhi7+r1mMeYsmlf18hjVb6E0v5SoMZyb4aeOmYPKun+CE3gYpiNA1KEvtSdaDHFBqH9d7Wd9vREg==
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -21820,6 +21833,11 @@ standard-as-callback@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.0.1.tgz#ed8bb25648e15831759b6023bdb87e6b60b38126"
   integrity sha512-NQOxSeB8gOI5WjSaxjBgog2QFw55FV8TkS6Y07BiB3VJ8xNTvUYm0wl0s8ObgQ5NhdpnNfigMIKjgPESzgr4tg==
+
+state-local@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/state-local/-/state-local-1.0.1.tgz#0d3c0a2bb610d3b81699b30e98fafa00bcf4ac9c"
+  integrity sha512-CkiwT61ZhZd0/z183fcceu7+RSws/Sq5BT3RNQ2xK/Se9A/jn/4Z/eIe1bawoI9wNYC9wrcG2Drz+6GnjtKynA==
 
 state-toggle@^1.0.0:
   version "1.0.3"

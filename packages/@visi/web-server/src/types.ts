@@ -17,6 +17,7 @@ export const TYPES = {
 
   CreateDiagnosisUseCase: Symbol.for('CreateDiagnosisUseCase'),
   CreateRuleUseCase: Symbol.for('CreateRuleUseCase'),
+  FindRuleByReportIdUseCase: Symbol.for('FindRuleByReportIdUseCase'),
   FindDiagnosisUseCase: Symbol.for('FindDiagnosisUseCase'),
   DeleteDiagnosisUseCase: Symbol.for('DeleteDiagnosisUseCase'),
   ProcessDiagnosisUseCase: Symbol.for('ProcessDiagnosisUseCase'),

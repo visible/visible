@@ -19,6 +19,9 @@ fragment ReportLarge on Report {
   message
   screenshot
   diffHunk
+  rule {
+    ...RuleLarge
+  }
   location {
     ...LocationLarge
   }

@@ -1,11 +1,12 @@
-import { resolvers as Scalars } from 'graphql-scalars';
+import { resolvers as scalars } from 'graphql-scalars';
 
 import { Resolvers } from '../generated/graphql';
 import * as diagnosis from './diagnoses';
+import * as report from './report';
 
 export const resolvers: Resolvers = {
-  URL: Scalars.URL,
-  Date: Scalars.Date,
+  URL: scalars.URL,
+  Date: scalars.Date,
   Query: {
     diagnosis: diagnosis.rootDiagnosis,
   },
@@ -15,5 +16,8 @@ export const resolvers: Resolvers = {
   },
   Subscription: {
     diagnosis: diagnosis.diagnosisSubscription,
+  },
+  Report: {
+    rule: report.reportRule,
   },
 };
