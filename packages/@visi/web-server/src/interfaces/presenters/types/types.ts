@@ -38,13 +38,13 @@ export enum Outcome {
 export type Report = {
   readonly id: string;
   readonly outcome: Outcome;
-  // readonly rule: Rule;
-  // readonly source: Source;
   readonly target?: string;
   readonly screenshot?: string;
   readonly message?: string;
   readonly diffHunk?: string;
   readonly location?: Location;
+  // readonly rule: Rule;
+  // readonly source: Source;
 };
 
 export enum Status {

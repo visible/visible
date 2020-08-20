@@ -1,6 +1,6 @@
 import { ContainerModule } from 'inversify';
 
-import { DiagnosisController } from '../interfaces/controllers';
+import { DiagnosisController, RuleController } from '../interfaces/controllers';
 import { DiagnosisGateway, RuleGateway } from '../interfaces/gateways';
 import {
   DiagnosisPresenter,
@@ -18,6 +18,7 @@ export const interfaces = new ContainerModule((bind) => {
 
   // Controller
   bind(DiagnosisController).toSelf();
+  bind(RuleController).toSelf();
 
   // Presenter
   bind(DiagnosisPresenter).toSelf();

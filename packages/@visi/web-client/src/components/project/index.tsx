@@ -11,8 +11,15 @@ import { DiagnosisLargeFragment } from '../../generated/graphql';
 */
 
 const Wrapper = styled.div`
+  background-color: ${({ theme }) => theme?.background.wash};
+`;
+
+const Inner = styled.div`
   display: flex;
-  flex-direction: column;
+  /* box-sizing: border-box; */
+  width: 1080px;
+  margin: auto;
+  padding: 56px 0;
 
   h1 {
     margin-bottom: 8px;
@@ -39,7 +46,8 @@ const Wrapper = styled.div`
 
 const Image = styled.img`
   flex: 0 0 auto;
-  max-width: 100%;
+  width: 300px;
+  margin-right: 56px;
   border: 1px solid #dddddd;
   border-radius: 8px;
 `;
@@ -56,27 +64,31 @@ export const Project = (props: ProjectProps) => {
 
   return (
     <Wrapper>
-      {diagnosis.screenshot && (
-        <Image src={diagnosis.screenshot} alt={diagnosis.id} />
-      )}
+      <Inner>
+        {diagnosis.screenshot && (
+          <Image src={diagnosis.screenshot} alt={diagnosis.id} />
+        )}
 
-      <Typography variant="h1">{domain}</Typography>
+        <div>
+          <Typography variant="h1">{domain}</Typography>
 
-      <Typography variant="body" color="wash">
-        <Clock size={16} />
+          <Typography variant="body" color="wash">
+            <Clock size={16} />
 
-        <time dateTime={createdAt.toISOString()}>
-          {createdAt.toLocaleString()}
-        </time>
-      </Typography>
+            <time dateTime={createdAt.toISOString()}>
+              {createdAt.toLocaleString()}
+            </time>
+          </Typography>
 
-      <Typography variant="body" color="wash">
-        <ExternalLink size={16} />
+          <Typography variant="body" color="wash">
+            <ExternalLink size={16} />
 
-        <a href={diagnosis.url} target="_blank" rel="noopener noreferrer">
-          {diagnosis.url}
-        </a>
-      </Typography>
+            <a href={diagnosis.url} target="_blank" rel="noopener noreferrer">
+              {diagnosis.url}
+            </a>
+          </Typography>
+        </div>
+      </Inner>
     </Wrapper>
   );
 };

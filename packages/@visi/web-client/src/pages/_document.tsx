@@ -8,17 +8,10 @@ import Document, {
 import React from 'react';
 import { ServerStyleSheet } from 'styled-components';
 
-import { I18n, TFunction } from '../utils/i18next';
+import { NextI18NextRequest } from '../utils/i18next';
 
-interface NextI18nextContext {
-  res?: {
-    locals: {
-      language: string;
-      languageDir: 'ltr' | 'rtl';
-      t: TFunction;
-      i18n: I18n;
-    };
-  };
+interface I18nextContext {
+  req: NextI18NextRequest;
 }
 
 interface CustomDocumentProps {
@@ -28,8 +21,8 @@ interface CustomDocumentProps {
 }
 
 class CustomDocument extends Document<CustomDocumentProps> {
-  static async getInitialProps(ctx: DocumentContext & NextI18nextContext) {
-    const { res } = ctx;
+  static async getInitialProps(ctx: DocumentContext & I18nextContext) {
+    const { req } = ctx;
 
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
@@ -45,8 +38,8 @@ class CustomDocument extends Document<CustomDocumentProps> {
 
       return {
         ...initialProps,
-        lang: res?.locals.language,
-        dir: res?.locals.languageDir,
+        lang: req.lng,
+        dir: req.i18n?.dir,
         styleTags: (
           <>
             {initialProps.styles}

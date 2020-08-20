@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import { Connection } from 'typeorm';
 
 import { DiagnosisRepository } from '../../../application/repositories';
-import { Diagnosis } from '../../../domain/models';
+import { Diagnosis, Report } from '../../../domain/models';
 import { Logger } from '../../../domain/services';
 import { TYPES } from '../../../types';
 import { DiagnosisDBEntity } from './diagnosis-db-entity';
@@ -82,7 +82,7 @@ export class DiagnosisGateway implements DiagnosisRepository {
     const diagnoses = await this.connection
       .getRepository(DiagnosisDBEntity)
       .findByIds(ids, {
-        relations: ['sources', 'sources.reports', 'sources.reports.source'],
+        relations: ['sources', 'sources.reports'],
       });
 
     if (diagnoses.length === 0) {
@@ -90,5 +90,13 @@ export class DiagnosisGateway implements DiagnosisRepository {
     }
 
     return diagnoses.map((diagnosis) => diagnosis.toDomain());
+  }
+
+  async findReport(id: string): Promise<Report | undefined> {
+    const report = await this.connection
+      .getRepository(ReportDBEntity)
+      .findOne({ where: { id } });
+
+    return report?.toDomain();
   }
 }

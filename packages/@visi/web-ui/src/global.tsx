@@ -13,7 +13,7 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-  background-color: ${({ theme }) => theme.background.wash};
+  /* background-color: ${({ theme }) => theme.background.wash}; */
   color: ${({ theme }) => theme.foreground.normal};
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;

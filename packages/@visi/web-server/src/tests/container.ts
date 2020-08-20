@@ -4,6 +4,7 @@ import {
   CreateDiagnosisInteractor,
   DeleteDiagnosisInteractor,
   FindDiagnosisInteractor,
+  FindRuleByReportIdInteractor,
   ProcessDiagnosisInteractor,
 } from '../application/interactors';
 import { ConfigImpl } from '../frameworks/config';
@@ -13,7 +14,7 @@ import {
   MockAnalyzer,
   StorageMock,
 } from '../frameworks/services';
-import { DiagnosisController } from '../interfaces/controllers';
+import { DiagnosisController, RuleController } from '../interfaces/controllers';
 import { DiagnosisGatewayMock, RuleGatewayMock } from '../interfaces/gateways';
 import {
   DiagnosisPresenter,
@@ -40,10 +41,12 @@ export const createContainer = (): Container => {
   container.bind(TYPES.CreateDiagnosisUseCase).to(CreateDiagnosisInteractor);
   container.bind(TYPES.DeleteDiagnosisUseCase).to(DeleteDiagnosisInteractor);
   container.bind(TYPES.ProcessDiagnosisUseCase).to(ProcessDiagnosisInteractor);
+  container.bind(TYPES.FindRuleByReportIdUseCase).to(FindRuleByReportIdInteractor);
 
   container.bind(TYPES.Config).to(ConfigImpl).inSingletonScope();
 
   container.bind(DiagnosisController).toSelf();
+  container.bind(RuleController).toSelf();
   container.bind(DiagnosisPresenter).toSelf();
   container.bind(LocationPresenter).toSelf();
   container.bind(ReportPresenter).toSelf();

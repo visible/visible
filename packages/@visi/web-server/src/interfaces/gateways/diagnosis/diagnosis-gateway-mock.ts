@@ -1,8 +1,9 @@
 import { injectable, unmanaged } from 'inversify';
 import { Observable, Subject } from 'rxjs';
 
+import { report } from '../../../__fixtures__/report';
 import { DiagnosisRepository } from '../../../application/repositories';
-import { Diagnosis } from '../../../domain/models';
+import { Diagnosis, Report } from '../../../domain/models';
 
 @injectable()
 export class DiagnosisGatewayMock implements DiagnosisRepository {
@@ -41,5 +42,9 @@ export class DiagnosisGatewayMock implements DiagnosisRepository {
 
   subscribe(): Observable<Diagnosis> {
     return this.update$;
+  }
+
+  async findReport(_id: string): Promise<Report> {
+    return report;
   }
 }

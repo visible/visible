@@ -1,8 +1,6 @@
-import { API } from '../../../interfaces/presenters';
 import {
   MutationResolvers,
   QueryResolvers,
-  // Report,
   SubscriptionResolvers,
 } from '../generated/graphql';
 
@@ -33,8 +31,5 @@ export const deleteDiagnosis: MutationResolvers['deleteDiagnosis'] = (
 export const diagnosisSubscription: SubscriptionResolvers['diagnosis'] = {
   subscribe(_, { id }, { diagnosisController }) {
     return diagnosisController.subscribe(id);
-  },
-  resolve(diagnosis: API.Diagnosis) {
-    return diagnosis;
   },
 };

@@ -5,6 +5,7 @@ import {
   CreateRulesInteractor,
   DeleteDiagnosisInteractor,
   FindDiagnosisInteractor,
+  FindRuleByReportIdInteractor,
   ProcessDiagnosisInteractor,
   SubscribeDiagnosisInteractor,
 } from '../application/interactors';
@@ -17,4 +18,5 @@ export const application = new ContainerModule((bind) => {
   bind(TYPES.SubscribeDiagnosisUseCase).to(SubscribeDiagnosisInteractor);
   bind(TYPES.ProcessDiagnosisUseCase).to(ProcessDiagnosisInteractor);
   bind(TYPES.CreateRuleUseCase).to(CreateRulesInteractor);
+  bind(TYPES.FindRuleByReportIdUseCase).to(FindRuleByReportIdInteractor);
 });

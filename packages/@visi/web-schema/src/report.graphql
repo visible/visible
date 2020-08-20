@@ -12,12 +12,12 @@ enum Outcome {
 
 type Report implements Node {
   id: ID!
-  # source: Source!
-  # rule: Rule!
+  rule: Rule!
   outcome: Outcome!
   target: String
   message: String
   diffHunk: String
   screenshot: URL
   location: Location
+  # source: Source!
 }

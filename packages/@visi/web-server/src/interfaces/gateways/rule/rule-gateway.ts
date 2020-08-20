@@ -28,4 +28,11 @@ export class RuleGateway implements RuleRepository {
       .findOne({ where: { name } })
       .then((rule) => rule?.toDomain());
   }
+
+  async findOne(id: string): Promise<Rule | undefined> {
+    return this.connection
+      .getRepository(RuleDBEntity)
+      .findOne({ where: { id } })
+      .then((rule) => rule?.toDomain());
+  }
 }
