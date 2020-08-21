@@ -1,12 +1,12 @@
 import { ContainerModule } from 'inversify';
 
+import { TYPES } from '../../types';
 import {
   AnalyzerVisibleImpl,
   I18nI18nextImpl,
   LoggerConsoleImpl,
   StorageFsImpl,
-} from '../frameworks/services';
-import { TYPES } from '../types';
+} from '../services';
 
 export const services = new ContainerModule((bind) => {
   bind(TYPES.I18n).to(I18nI18nextImpl);

@@ -1,12 +1,12 @@
 import { AsyncContainerModule } from 'inversify';
 
-import { ConfigImpl } from '../frameworks/config';
-import { createConnection } from '../frameworks/connection';
-import { ProcessDiagnosisQueueImpl } from '../frameworks/queues';
-import { ContextImpl } from '../frameworks/server';
-import { TranslatorImpl } from '../frameworks/services/analyzer/translator';
-import { ProcessDiagnosisWorker } from '../frameworks/workers';
-import { TYPES } from '../types';
+import { TYPES } from '../../types';
+import { ConfigImpl } from '../config';
+import { createConnection } from '../connection';
+import { ProcessDiagnosisQueueImpl } from '../queues';
+import { ContextImpl } from '../server';
+import { TranslatorImpl } from '../services/analyzer/translator';
+import { ProcessDiagnosisWorker } from '../workers';
 import { factory } from './visible-factory';
 
 export const framework = new AsyncContainerModule(async (bind) => {

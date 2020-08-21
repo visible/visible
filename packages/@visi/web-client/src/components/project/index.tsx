@@ -1,6 +1,6 @@
 import { Typography } from '@visi/web-ui';
 import React from 'react';
-import { Clock, ExternalLink } from 'react-feather';
+import { Clock, ExternalLink, Tag } from 'react-feather';
 import styled from 'styled-components';
 
 import { DiagnosisLargeFragment } from '../../generated/graphql';
@@ -86,6 +86,11 @@ export const Project = (props: ProjectProps) => {
             <a href={diagnosis.url} target="_blank" rel="noopener noreferrer">
               {diagnosis.url}
             </a>
+          </Typography>
+
+          <Typography variant="body" color="wash">
+            <Tag size={16} />
+            {diagnosis.status}
           </Typography>
         </div>
       </Inner>

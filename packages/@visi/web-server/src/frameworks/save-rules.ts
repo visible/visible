@@ -5,9 +5,9 @@ import pluginStandard from '@visi/plugin-standard';
 import { Container } from 'inversify';
 
 import { CreateRuleUseCase } from '../application/use-cases/create-rule-use-case';
-import { application, framework, interfaces, services } from '../containers';
 import { Logger } from '../domain/services';
 import { TYPES } from '../types';
+import { application, framework, interfaces, services } from './containers';
 
 (async () => {
   const container = new Container({ skipBaseClassChecks: true });

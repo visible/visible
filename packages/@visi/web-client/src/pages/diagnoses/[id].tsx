@@ -73,19 +73,28 @@ const Diagnoses: NextPage = () => {
       <Project diagnosis={diagnosis} />
 
       <Content>
-        {diagnosis.status !== Status.Done && (
+        {diagnosis.status === Status.Processing && (
           <Progress max={diagnosis.totalCount} value={diagnosis.doneCount} />
         )}
 
-        <ReportList>
-          {diagnosis.sources.map((source) =>
-            source.reports.map((report) => (
-              <ReportListItem key={report.id}>
-                <Report report={report} original={source.content} />
-              </ReportListItem>
-            )),
-          )}
-        </ReportList>
+        {diagnosis.sources.flatMap((source) => source.reports).length !== 0 ? (
+          <ReportList>
+            {diagnosis.sources.map((source) =>
+              source.reports.map((report) => (
+                <ReportListItem key={report.id}>
+                  <Report report={report} original={source.content} />
+                </ReportListItem>
+              )),
+            )}
+          </ReportList>
+        ) : diagnosis.status === Status.Done ? (
+          <p>
+            {t(
+              'diagnoses.no-reports',
+              'Awesome! No issue found for this website',
+            )}
+          </p>
+        ) : null}
       </Content>
     </Layout>
   );

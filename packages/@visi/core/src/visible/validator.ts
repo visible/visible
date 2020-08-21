@@ -27,7 +27,10 @@ export class Validator {
         await session.waitFor(delay);
       }
 
-      this.runRules(session, context);
+      this.runRules(session, context).catch((error) => {
+        context.progress$.error(error);
+      });
+
       return context;
     }).pipe(
       flatMap((context) => context.progress$),
@@ -37,11 +40,14 @@ export class Validator {
   }
 
   private async runRules(session: Session, context: Context) {
-    for (const rule of this.rules) {
-      await rule.create(context);
+    try {
+      for (const rule of this.rules) {
+        await rule.create(context);
+      }
+      context.progress$.complete();
+    } finally {
+      await session.close();
     }
-    await session.close();
-    context.progress$.complete();
   }
 
   private async createSessionForURL(url: string) {

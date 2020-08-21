@@ -11,6 +11,8 @@ import XPathAnalyzer, {
   StepNode,
 } from 'xpath-analyzer';
 
+import { findHTML } from './find-html';
+
 const isSameKind = (a: Node, b: Node) => {
   if (a instanceof Element && b instanceof Element) {
     return a.tagName === b.tagName;
@@ -109,7 +111,20 @@ const findNode = (
   return findNode(match, restSteps);
 };
 
-export const findASTByXPath = (root: Node, xpath: string): Node | undefined => {
+export const findASTByXPath = (
+  _root: Node | Node[],
+  xpath: string,
+): Node | undefined => {
+  const root = Array.isArray(_root)
+    ? _root.length > 1
+      ? findHTML(_root)
+      : _root[0]
+    : _root;
+
+  if (root == null) {
+    throw new Error(`No HTML tag found in the given nodes`);
+  }
+
   const rootXPath = new XPathAnalyzer(xpath).parse();
   if (rootXPath.type !== ABSOLUTE_LOCATION_PATH) {
     throw new Error('Given Xpath must start with /, got' + xpath);

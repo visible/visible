@@ -5,8 +5,8 @@ import { inject, injectable } from 'inversify';
 
 import { RuleRepository } from '../../../application/repositories';
 import * as App from '../../../domain/models';
-import { Progress, Website } from '../../../domain/models';
-import { Storage } from '../../../domain/services';
+import { Progress } from '../../../domain/models';
+import { Logger, Storage } from '../../../domain/services';
 import { TYPES } from '../../../types';
 import { panic } from '../../../utils/panic';
 
@@ -33,6 +33,9 @@ export class TranslatorImpl implements Translator {
 
     @inject(TYPES.RuleRepository)
     private readonly ruleRepository: RuleRepository,
+
+    @inject(TYPES.Logger)
+    private readonly logger: Logger,
   ) {}
 
   createLocation(core: Core.Location): App.Location {
@@ -54,15 +57,24 @@ export class TranslatorImpl implements Translator {
       throw new Error(`Rule ${core.ruleId} is not saved`);
     }
 
-    // subtype issue
-    // eslint-disable-next-line
-    const patched = await source.clone().apply(core.clone() as any);
-    const diffHunk = createTwoFilesPatch(
-      source.id,
-      `patched-${source.id}`,
-      source.text,
-      patched.text,
-    );
+    let patched: Core.Source = source;
+
+    try {
+      // eslint-disable-next-line
+      patched = await source.clone().apply(core.clone() as any);
+    } catch (error) {
+      this.logger.error(error);
+    }
+
+    const diffHunk =
+      source.text !== patched.text
+        ? createTwoFilesPatch(
+            source.id,
+            `patched-${source.id}`,
+            source.text,
+            patched.text,
+          )
+        : undefined;
 
     const screenshot =
       core.screenshot != null

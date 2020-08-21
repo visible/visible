@@ -1,3 +1,4 @@
+import { isURL } from 'class-validator';
 import { inject, injectable } from 'inversify';
 import * as uuid from 'uuid';
 
@@ -23,6 +24,10 @@ export class CreateDiagnosisInteractor implements CreateDiagnosisUseCase {
 
   async run(params: CreateDiagnosisRequest): Promise<CreateDiagnosisResponse> {
     this.logger.info(`Creating diagnosis for ${params.url}`);
+
+    if (!isURL(params.url, { require_protocol: true })) {
+      throw new Error(`Invalid URL ${params.url} given`);
+    }
 
     const diagnosis = Diagnosis.from({
       id: uuid.v4(),

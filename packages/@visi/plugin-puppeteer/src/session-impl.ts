@@ -1,6 +1,7 @@
 import {
   AddScriptParams,
   CSSSource,
+  findASTByXPath,
   HTMLSource,
   RunScriptParams,
   ScreenshotParams,
@@ -15,7 +16,6 @@ import { parseDOM } from 'htmlparser2';
 import * as postcss from 'postcss';
 import { CDPSession, Page } from 'puppeteer';
 
-import { findASTByXPath } from './find-ast-by-xpath';
 import { findNodeByXPath } from './find-node-by-xpath';
 
 export class SessionImpl implements Session {

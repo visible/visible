@@ -4,4 +4,5 @@ export * from './provider';
 export * from './rule';
 export * from './settings';
 export * from './source';
+export * from './utils';
 export * from './visible';

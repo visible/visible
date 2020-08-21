@@ -67,7 +67,8 @@ export const Report = ({ report, original }: ReportProps) => {
       ? 'red'
       : 'grey';
 
-  const patch = report.diffHunk && applyPatch(original, report.diffHunk);
+  const patch =
+    report.diffHunk != null ? applyPatch(original, report.diffHunk) : undefined;
 
   return (
     <Wrapper>
@@ -97,7 +98,7 @@ export const Report = ({ report, original }: ReportProps) => {
       </Content>
 
       <EditorWrapper>
-        {patch != original ? (
+        {patch != null ? (
           <DiffEditor
             options={{
               renderSideBySide: false,
@@ -112,6 +113,10 @@ export const Report = ({ report, original }: ReportProps) => {
             line={report.location?.startLine}
             editorDidMount={(_, editor) => {
               if (report.location == null) return;
+              editor.revealPositionInCenterIfOutsideViewport({
+                lineNumber: report.location.startLine,
+                column: report.location.startColumn,
+              });
               editor.deltaDecorations(
                 [],
                 [

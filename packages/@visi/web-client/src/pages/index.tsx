@@ -34,7 +34,10 @@ const Index: NextPage = () => {
   const [value, setValue] = useState('');
   const router = useRouter();
 
-  const [createDiagnosis, { data, loading }] = useCreateDiagnosisMutation({
+  const [
+    createDiagnosis,
+    { data, loading, error },
+  ] = useCreateDiagnosisMutation({
     variables: {
       url: value,
     },
@@ -79,7 +82,14 @@ const Index: NextPage = () => {
             onChange={handleChange}
             onSubmit={handleSubmit}
             loading={loading}
+            required
           />
+
+          {error && (
+            <Typography color="inverse" fontStyle="italic">
+              {error.message}
+            </Typography>
+          )}
 
           <Typography color="inverse">{description}</Typography>
         </Inner>

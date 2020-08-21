@@ -55,4 +55,8 @@ export class Location {
       this.endColumn === that.endColumn
     );
   }
+
+  toString(): string {
+    return `(${this.startLine}, ${this.startColumn}), (${this.endLine}, ${this.endColumn})`;
+  }
 }
