@@ -55,4 +55,17 @@ export class Location {
       this.endColumn === that.endColumn
     );
   }
+
+  toJSON() {
+    return {
+      startLine: this.startLine,
+      startColumn: this.startColumn,
+      endLine: this.endLine,
+      endColumn: this.endColumn,
+    }
+  }
+
+  toString() {
+    return `(${this.startLine}, ${this.startColumn}), (${this.endLine}, ${this.endColumn})`;
+  }
 }

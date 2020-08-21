@@ -5,7 +5,7 @@ import { castDraft, immerable, produce } from 'immer';
 import { Node as CSSNode, Root as CSSRoot } from 'postcss';
 import * as uuid from 'uuid';
 
-import { flattenNodes } from '../utils/flatten-nodes';
+import { findASTByXPath } from '../utils';
 import { Location } from './location';
 import { BaseReport, CSSReport, HTMLReport } from './report';
 
@@ -69,11 +69,20 @@ export class HTMLSource implements BaseSource<HTMLNode[], HTMLNode> {
   }
 
   async apply(report: HTMLReport): Promise<this> {
-    if (report.location == null) throw '??';
-    const target = this.findAt(report.location);
-    if (target == null) throw 'html, ????';
+    if (report.location == null) {
+      throw new Error(`No location given for report ${report.id}`);
+    }
+
+    const target = findASTByXPath(this.content, report.target);
+    if (target == null) {
+      throw new Error(`No matching node found for ${report.location}`);
+    }
+
     const patch = await report.fix();
-    if (patch == null) return this;
+    if (patch == null) {
+      return this;
+    }
+
     replaceElement(target, patch);
     return this;
   }
@@ -90,15 +99,6 @@ export class HTMLSource implements BaseSource<HTMLNode[], HTMLNode> {
     }
 
     return this;
-  }
-
-  private findAt(location: Location): HTMLNode | undefined {
-    return flattenNodes(this.content).find((node) => {
-      return location.equals(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        Location.fromIndices(this.text, node.startIndex!, node.endIndex!),
-      );
-    });
   }
 }
 
