@@ -56,16 +56,7 @@ export class Location {
     );
   }
 
-  toJSON() {
-    return {
-      startLine: this.startLine,
-      startColumn: this.startColumn,
-      endLine: this.endLine,
-      endColumn: this.endColumn,
-    }
-  }
-
-  toString() {
+  toString(): string {
     return `(${this.startLine}, ${this.startColumn}), (${this.endLine}, ${this.endColumn})`;
   }
 }
