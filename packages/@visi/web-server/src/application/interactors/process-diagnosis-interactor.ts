@@ -69,10 +69,14 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
       .setURL(website.url)
       .setStatus(Status.STARTED);
 
-    await this.diagnosisRepository.save(diagnosis);
-    await this.diagnosisRepository.publish(diagnosis);
-
-    return diagnosis;
+    try {
+      await this.diagnosisRepository.save(diagnosis);
+      await this.diagnosisRepository.publish(diagnosis);
+      return diagnosis;
+    } catch (error) {
+      this.logger.error(error);
+      return diagnosis.setStatus(Status.FAILED);
+    }
   }
 
   private async handleProgress(progress: Progress, oldDiagnosis: Diagnosis) {
@@ -89,16 +93,26 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
       .setUpdatedAt(new Date());
 
     // Save
-    await this.diagnosisRepository.save(diagnosis);
-    await this.diagnosisRepository.publish(diagnosis);
-    return diagnosis;
+    try {
+      await this.diagnosisRepository.save(diagnosis);
+      await this.diagnosisRepository.publish(diagnosis);
+      return diagnosis;
+    } catch (error) {
+      this.logger.error(error);
+    }
   }
 
   private async handleComplete(base: Diagnosis) {
     const diagnosis = base.setStatus(Status.DONE).setUpdatedAt(new Date());
-    await this.diagnosisRepository.save(diagnosis);
-    await this.diagnosisRepository.publish(diagnosis);
     this.logger.info(`Diagnosis for ${base.id} has successfully completed`);
+
+    try {
+      await this.diagnosisRepository.save(diagnosis);
+      await this.diagnosisRepository.publish(diagnosis);
+      return diagnosis;
+    } catch (error) {
+      this.logger.error(error);
+    }
   }
 
   private async handleError(base: Diagnosis, error: Error) {
