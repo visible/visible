@@ -2,6 +2,7 @@ import { PluginResolver, Visible } from '@visi/core';
 import pluginGCPVisionAPI from '@visi/plugin-gcp-vision-api';
 import pluginPuppeteer from '@visi/plugin-puppeteer';
 import pluginStandard from '@visi/plugin-standard';
+import mkdirp from 'mkdirp';
 
 export const factory = async (): Promise<Visible> => {
   const resolver = new PluginResolver(
@@ -21,6 +22,8 @@ export const factory = async (): Promise<Visible> => {
   const driver = await resolver
     .getDriverFactory('@visi/plugin-puppeteer')
     .create();
+
+  await mkdirp(resolver.settings.screenshotDir);
 
   return new Visible(
     resolver.settings,
