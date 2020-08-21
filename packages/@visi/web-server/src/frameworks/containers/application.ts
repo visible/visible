@@ -8,8 +8,8 @@ import {
   FindRuleByReportIdInteractor,
   ProcessDiagnosisInteractor,
   SubscribeDiagnosisInteractor,
-} from '../application/interactors';
-import { TYPES } from '../types';
+} from '../../application/interactors';
+import { TYPES } from '../../types';
 
 export const application = new ContainerModule((bind) => {
   bind(TYPES.FindDiagnosisUseCase).to(FindDiagnosisInteractor);

@@ -3,7 +3,12 @@ import 'reflect-metadata';
 import { Queue, Worker } from 'bullmq';
 import { Container, decorate, injectable } from 'inversify';
 
-import { application, framework, interfaces, services } from './containers';
+import {
+  application,
+  framework,
+  interfaces,
+  services,
+} from './frameworks/containers';
 import { Server } from './frameworks/server';
 import { ProcessDiagnosisWorker } from './frameworks/workers';
 
