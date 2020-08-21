@@ -8,8 +8,8 @@
   "type": "./index.d.ts",
   "scripts": {
     "build": "yarn run generate:graphql && next build",
-    "watch": "next dev -p 8080",
-    "start": "next start",
+    "watch": "next dev -p 4000",
+    "start": "next start -p 4000",
     "test": "jest --coverage",
     "generate:graphql": "graphql-codegen -s --config codegen.js"
   },
