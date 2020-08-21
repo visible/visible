@@ -43,6 +43,7 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
                 progress,
                 diagnosis,
               );
+              if (newDiagnosis == null) throw new Error();
               return (diagnosis = newDiagnosis);
             }),
           ),
