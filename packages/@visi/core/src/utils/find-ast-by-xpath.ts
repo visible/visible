@@ -115,7 +115,11 @@ export const findASTByXPath = (
   _root: Node | Node[],
   xpath: string,
 ): Node | undefined => {
-  const root = Array.isArray(_root) ? findHTML(_root) : _root;
+  const root = Array.isArray(_root)
+    ? _root.length > 1
+      ? findHTML(_root)
+      : _root[0]
+    : _root;
 
   if (root == null) {
     throw new Error(`No HTML tag found in the given nodes`);
