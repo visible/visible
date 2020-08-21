@@ -32,7 +32,7 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
     let [diagnosis] = await this.diagnosisRepository.find([id]);
     diagnosis = await this.handleStart(diagnosis);
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.analyzer
         .validate({ url: diagnosis.url, diagnosisId: diagnosis.id })
         .pipe(
@@ -55,6 +55,7 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
           },
           error: (error) => {
             this.handleError(diagnosis, error);
+            reject();
           },
         });
     });

@@ -25,7 +25,7 @@ export class CreateDiagnosisInteractor implements CreateDiagnosisUseCase {
   async run(params: CreateDiagnosisRequest): Promise<CreateDiagnosisResponse> {
     this.logger.info(`Creating diagnosis for ${params.url}`);
 
-    if (!isURL(params.url)) {
+    if (!isURL(params.url, { require_protocol: true })) {
       throw new Error(`Invalid URL ${params.url} given`);
     }
 
