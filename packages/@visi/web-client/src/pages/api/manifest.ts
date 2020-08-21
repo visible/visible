@@ -8,8 +8,10 @@ type Request = NextApiRequest & {
 };
 
 export default (req: Request, res: NextApiResponse): void => {
-  const { i18n } = req;
-  const t = i18n.t.bind(i18n);
+  // const { i18n } = req;
+  // const t = i18n.t.bind(i18n);
+  // TODO: Use i18next
+  const t = (_a: string, b: string) => b;
 
   res.json({
     name: t('meta.title', 'Visible'),
