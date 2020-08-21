@@ -27,7 +27,7 @@ export class ReportDBEntity {
   @Column('json', { nullable: true })
   location?: Location;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   diffHunk?: string;
 
   @Column('varchar', { length: 255, nullable: true })
