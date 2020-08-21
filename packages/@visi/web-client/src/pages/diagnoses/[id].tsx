@@ -73,7 +73,7 @@ const Diagnoses: NextPage = () => {
       <Project diagnosis={diagnosis} />
 
       <Content>
-        {diagnosis.status !== Status.Done && (
+        {diagnosis.status === Status.Processing && (
           <Progress max={diagnosis.totalCount} value={diagnosis.doneCount} />
         )}
 
