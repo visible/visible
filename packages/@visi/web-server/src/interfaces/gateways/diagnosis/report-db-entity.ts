@@ -30,7 +30,7 @@ export class ReportDBEntity {
   @Column('text', { nullable: true })
   diffHunk?: string;
 
-  @Column('varchar', { length: 255, nullable: true })
+  @Column('text', { nullable: true })
   screenshot?: string;
 
   @ManyToOne(() => SourceDBEntity, { onDelete: 'CASCADE' })

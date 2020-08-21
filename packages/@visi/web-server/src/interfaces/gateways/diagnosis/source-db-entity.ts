@@ -12,7 +12,7 @@ export class SourceDBEntity {
   @Column('text')
   content!: string;
 
-  @Column('varchar', { length: 255, nullable: true })
+  @Column('text', { nullable: true })
   url?: string;
 
   @Column('uuid')

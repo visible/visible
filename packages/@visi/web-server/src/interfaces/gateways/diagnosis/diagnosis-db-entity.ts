@@ -11,11 +11,11 @@ export class DiagnosisDBEntity {
   @Column('varchar', { length: 255 })
   status!: Status;
 
-  @Column('varchar', { length: 255, nullable: true })
+  @Column('text', { nullable: true })
   screenshot?: string;
 
   @Index()
-  @Column('varchar', { length: 255 })
+  @Column('text')
   url!: string;
 
   @Column('int')
