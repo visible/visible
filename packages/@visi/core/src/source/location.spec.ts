@@ -22,7 +22,6 @@ mno pqr`;
   const indices = [12, 19] as const;
   const location = Location.fromIndices(target, ...indices);
 
-  // cspell: disable-next-line
   expect(location.startLine).toBe(2);
   expect(location.startColumn).toBe(5);
   expect(location.endLine).toBe(3);

@@ -1,4 +1,5 @@
 import * as Core from '@visi/core';
+import { immutableFix } from '@visi/core';
 import { createTwoFilesPatch } from 'diff';
 import fs from 'fs';
 import { inject, injectable } from 'inversify';
@@ -8,7 +9,6 @@ import * as App from '../../../domain/models';
 import { Progress } from '../../../domain/models';
 import { Logger, Storage } from '../../../domain/services';
 import { TYPES } from '../../../types';
-import { panic } from '../../../utils/panic';
 
 export interface Translator {
   createLocation(location: Core.Location): App.Location;
@@ -48,67 +48,64 @@ export class TranslatorImpl implements Translator {
   }
 
   async createReport(
-    core: Core.Report,
+    report: Core.Report,
     source: Core.Source,
   ): Promise<App.Report> {
-    const rule = await this.ruleRepository.findByName(core.ruleId);
+    const rule = await this.ruleRepository.findByName(report.ruleId);
 
     if (rule == null) {
-      throw new Error(`Rule ${core.ruleId} is not saved`);
+      throw new Error(`Rule ${report.ruleId} is not saved`);
     }
 
     let patched: Core.Source = source;
 
     try {
       // eslint-disable-next-line
-      patched = await source.clone().apply(core.clone() as any);
+      patched = await immutableFix(source, report);
     } catch (error) {
       this.logger.error(error);
     }
 
     const diffHunk =
-      source.text !== patched.text
+      source.node.text !== patched.node.text
         ? createTwoFilesPatch(
             source.id,
             `patched-${source.id}`,
-            source.text,
-            patched.text,
+            source.node.text,
+            patched.node.text,
           )
         : undefined;
 
     const screenshot =
-      core.screenshot != null
-        ? (await this.storage.create(fs.createReadStream(core.screenshot))).file
+      report.screenshot != null
+        ? (await this.storage.create(fs.createReadStream(report.screenshot)))
+            .file
         : undefined;
 
     return App.Report.from({
-      id: core.id,
+      id: report.id,
       sourceId: source.id,
       ruleId: rule.id,
-      outcome: core.outcome,
-      target: core.target,
-      message: core.message,
+      outcome: report.outcome,
+      target: report.target,
+      message: report.message,
       screenshot,
       diffHunk,
-      location: core.location && this.createLocation(core.location),
+      location: report.location && this.createLocation(report.location),
     });
   }
 
   async createSource(
-    core: Core.Source,
+    source: Core.Source,
     diagnosisId: string,
   ): Promise<App.Source> {
     return App.Source.from({
-      id: core.id,
+      id: source.id,
       diagnosisId,
-      content: core.text,
-      url: core.url,
+      content: source.node.text,
+      url: source.url,
       reports: await Promise.all(
-        core instanceof Core.HTMLSource
-          ? core.reports.map((report) => this.createReport(report, core))
-          : core instanceof Core.CSSSource
-          ? core.reports.map((report) => this.createReport(report, core))
-          : panic(new Error(`Unknown source type ${core}`)),
+        source.reports.map((report) => this.createReport(report, source)),
       ),
     });
   }

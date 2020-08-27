@@ -1,5 +1,5 @@
 import { codeFrameColumns } from '@babel/code-frame';
-import { Outcome, Source } from '@visi/core';
+import { immutableFix, Outcome, Source } from '@visi/core';
 import chalk from 'chalk';
 import diff from 'cli-diff';
 
@@ -38,20 +38,20 @@ export const print = async (
 
       output += `${title} ${message}\n`;
 
-      if (report.location == null) {
+      if (report.node.location == null) {
         continue;
       }
 
       const frame = codeFrameColumns(
-        source.text,
+        source.node.text,
         {
           start: {
-            line: report.location.startLine,
-            column: report.location.startColumn,
+            line: report.node.location.startLine,
+            column: report.node.location.startColumn,
           },
           end: {
-            line: report.location.endLine,
-            column: report.location.endColumn,
+            line: report.node.location.endLine,
+            column: report.node.location.endColumn,
           },
         },
         { highlightCode: true },
@@ -59,14 +59,14 @@ export const print = async (
 
       output += frame + '\n';
 
-      if (!fix) {
+      if (fix) {
         continue;
       }
 
       // eslint-disable-next-line
-      const patch = await source.clone().apply(report.clone() as any);
+      const patch = await immutableFix(source, report);
       output += chalk.grey(`Suggested change for ${source.url ?? source.id}\n`);
-      output += diff(source.text, patch.text) + '\n';
+      output += diff(source.node.text, patch.node.text) + '\n';
     }
   }
 
