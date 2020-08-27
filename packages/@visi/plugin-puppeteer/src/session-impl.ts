@@ -1,8 +1,8 @@
 import {
   AddScriptParams,
-  CSSSource,
+  CSSNode,
   findASTByXPath,
-  HTMLSource,
+  HTMLRootNode,
   RunScriptParams,
   ScreenshotParams,
   Session,
@@ -44,9 +44,9 @@ export class SessionImpl implements Session {
       withEndIndices: true,
       withStartIndices: true,
     });
-    const source = new HTMLSource({
+    const source = new Source({
       url: this.page.url(),
-      content: ast,
+      node: new HTMLRootNode(ast),
     });
     this.htmlIdsMap.set('main', source.id);
     this.sources.set(source.id, source);
@@ -121,11 +121,11 @@ export class SessionImpl implements Session {
 
     const html = this.sources.get(sourceId);
 
-    if (html == null || !(html instanceof HTMLSource)) {
+    if (html == null || !(html.node instanceof HTMLRootNode)) {
       throw new Error(`No html source stored`);
     }
 
-    const root = html.content.find(
+    const root = html.node.value.find(
       (node) => node instanceof Element && node.name === 'html',
     );
 
@@ -198,7 +198,11 @@ export class SessionImpl implements Session {
     }
 
     const file = this.sources.get(sourceId);
-    if (!(file instanceof CSSSource)) {
+    if (
+      file == null ||
+      !(file.node instanceof CSSNode) ||
+      file.node.value.type !== 'root'
+    ) {
       throw new Error(`No source cached for ${rule.styleSheetId}`);
     }
 
@@ -206,7 +210,7 @@ export class SessionImpl implements Session {
     let res: postcss.Declaration | undefined;
 
     // todo: better searching for the selector
-    file.content.walkRules(selector, (rule) => {
+    file.node.value.walkRules(selector, (rule) => {
       res = rule.nodes
         ?.filter((node): node is postcss.Declaration => node.type === 'decl')
         .find((decl) => decl.prop === propertyName);
@@ -229,9 +233,9 @@ export class SessionImpl implements Session {
       styleSheetId,
     });
 
-    const source = new CSSSource({
+    const source = new Source({
       url: sourceURL,
-      content: postcss.parse(res.text),
+      node: new CSSNode(postcss.parse(res.text)),
     });
 
     this.sources.set(source.id, source);

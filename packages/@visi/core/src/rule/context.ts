@@ -1,16 +1,14 @@
-import { Node as HTMLNode } from 'domhandler';
+// import { Node as HTMLNode } from 'domhandler';
 import path from 'path';
-import { Node as CSSNode } from 'postcss';
+// import { Node as CSSNode } from 'postcss';
 import { Subject } from 'rxjs';
 
 import { Session } from '../driver';
 import { Provider } from '../provider';
 import { Settings } from '../settings';
 import {
-  CSSReport,
-  CSSSource,
-  HTMLReport,
-  HTMLSource,
+  CSSNode,
+  HTMLNode,
   Location,
   Outcome,
   Report,
@@ -69,7 +67,7 @@ export class ContextImpl implements Context {
     const [sourceId, node] = result;
     const source = this.session.sources.get(sourceId);
 
-    if (!(source instanceof HTMLSource)) {
+    if (source == null) {
       throw new Error(`Original source for html is not memoised`);
     }
 
@@ -78,15 +76,15 @@ export class ContextImpl implements Context {
     }
 
     const location = Location.fromIndices(
-      source.text,
+      source.node.text,
       node.startIndex,
       node.endIndex,
     );
     const screenshot = await this.takeScreenshot(target);
 
-    const report = new HTMLReport({
+    const report = new Report({
       ...params,
-      node,
+      node: new HTMLNode(node),
       screenshot,
       location,
     });
@@ -111,7 +109,7 @@ export class ContextImpl implements Context {
     const [sourceId, node] = result;
     const source = this.session.sources.get(sourceId);
 
-    if (!(source instanceof CSSSource)) {
+    if (source == null) {
       throw new Error(`Source for ${sourceId} is not memoised`);
     }
 
@@ -120,7 +118,7 @@ export class ContextImpl implements Context {
       node.source.start == null ||
       node.source.end == null
     ) {
-      throw new Error(`Node indices is not give for node ${node}`);
+      throw new Error('No indices provided');
     }
 
     const location = new Location({
@@ -132,9 +130,9 @@ export class ContextImpl implements Context {
 
     const screenshot = await this.takeScreenshot(target);
 
-    const report = new CSSReport({
+    const report = new Report({
       ...params,
-      node,
+      node: new CSSNode(node),
       location,
       screenshot,
     });
@@ -150,29 +148,19 @@ export class ContextImpl implements Context {
     });
   }
 
+  private addReport(source: Source, report: Report) {
+    const reportsCount = this.reportsCountPerRule.get(report.ruleId) ?? 0;
+    this.reportsCountPerRule.set(report.ruleId, reportsCount + 1);
+    source.addReport(report);
+    this.handleNewReport();
+  }
+
   private handleNewReport() {
     this.progress$.next({
       doneCount: this.doneCount++,
       totalCount: this.rules.length,
       sources: this.session.sources,
     });
-  }
-
-  private addReport(source: Source, report: Report) {
-    const reportsCount = this.reportsCountPerRule.get(report.ruleId) ?? 0;
-    this.reportsCountPerRule.set(report.ruleId, reportsCount + 1);
-
-    const newSource =
-      source instanceof HTMLSource && report instanceof HTMLReport
-        ? source.addReport(report)
-        : source instanceof CSSSource && report instanceof CSSReport
-        ? source.addReport(report)
-        : (() => {
-            throw new Error(`Unknown source type ${source.type}`);
-          })();
-
-    this.session.sources.set(newSource.id, newSource);
-    this.handleNewReport();
   }
 
   private checkIfRuleHasExceededReportLimit(ruleId: string) {
