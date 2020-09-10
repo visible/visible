@@ -1,4 +1,4 @@
-import { Context, Outcome, Rule, RuleType } from '@visi/core';
+import { Context, HTMLNode, Outcome, Rule, RuleType } from '@visi/core';
 import { Element } from 'domhandler';
 
 export class ImgAlt implements Rule {
@@ -23,14 +23,19 @@ export class ImgAlt implements Rule {
         target: xpath,
         message: 'Img element must have an alt attribute',
         async fix(node) {
-          if (!(node instanceof Element) || !ctx.provider.imageToText) {
+          if (
+            !(node instanceof HTMLNode) ||
+            !(node.value instanceof Element) ||
+            !ctx.provider.imageToText
+          ) {
             return node;
           }
 
-          const { src } = node.attribs;
+          const { src } = node.value.attribs;
           const text = await ctx.provider.imageToText(src);
+
           if (text != null) {
-            node.attribs.alt = text;
+            node.value.attribs.alt = text;
           }
 
           return node;
