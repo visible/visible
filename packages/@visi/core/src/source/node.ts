@@ -66,7 +66,10 @@ export class HTMLRootNode implements BaseNode<DomNode[]> {
   }
 
   clone(): HTMLRootNode {
-    const newNode = parseDOM(this.text);
+    const newNode = parseDOM(this.text, {
+      withEndIndices: true,
+      withStartIndices: true,
+    });
     return new HTMLRootNode(newNode);
   }
 }

@@ -8,7 +8,9 @@ export enum RuleType {
 export interface Rule {
   readonly id: string;
   readonly type: RuleType;
+  readonly name: string;
   readonly description: string;
+  readonly keywords?: readonly string[];
   create(context: Context): Promise<void>;
 }
 

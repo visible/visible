@@ -21,7 +21,7 @@ const resourceMap = {
     './packages/@visi/web-server/src/frameworks/locale/{{lng}}.json',
   'web-client':
     './packages/@visi/web-client/public/static/locales/{{lng}}/{{ns}}.json',
-  'plugin-standard': './packages/@visi/plugin-standard/src/locale/{{lng}}.json',
+  'plugin-wcag': './packages/@visi/plugin-wcag/src/locale/{{lng}}.json',
 };
 
 const workspaces = Object.keys(resourceMap);

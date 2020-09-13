@@ -1,4 +1,5 @@
 import { Element, Node } from 'domhandler';
+import { find } from 'domutils';
 import XPathAnalyzer, {
   ABSOLUTE_LOCATION_PATH,
   EQUALITY,
@@ -10,8 +11,6 @@ import XPathAnalyzer, {
   PredicateNode,
   StepNode,
 } from 'xpath-analyzer';
-
-import { findHTML } from './find-html';
 
 const isSameKind = (a: Node, b: Node) => {
   if (a instanceof Element && b instanceof Element) {
@@ -82,57 +81,41 @@ const testNodeName = (
   return false;
 };
 
-const findNode = (
-  node: Node,
-  [step, ...restSteps]: StepNode[],
-): Node | undefined => {
-  if (step == null) return node;
-
-  if (!(node instanceof Element)) {
-    throw new Error('node must be an element');
+const testNode = ([head, ...tail]: StepNode[]) => (
+  node: Node | null,
+): boolean => {
+  if (head == null || node == null) {
+    return true;
   }
 
-  const { test } = step;
+  if (
+    head.test.type === NODE_NAME_TEST &&
+    testNodeName(node, head.test.name, head.predicates)
+  ) {
+    return testNode(tail)(node.parent);
+  }
 
-  const match = node.children.find((child) => {
-    switch (test.type) {
-      case NODE_NAME_TEST:
-        return testNodeName(child, test.name, step.predicates);
-      case NODE_TYPE_TEST:
-        return testNodeType(child, test.name, step.predicates);
-      default:
-        // eslint-disable-next-line
-        console.warn(`Test type ${test.type} is not implemented yet`);
-        return false;
-    }
-  });
-  if (match == null) return;
+  if (
+    head.test.type === NODE_TYPE_TEST &&
+    testNodeType(node, head.test.name, head.predicates)
+  ) {
+    return testNode(tail)(node.parent);
+  }
 
-  return findNode(match, restSteps);
+  return false;
 };
 
 export const findASTByXPath = (
-  _root: Node | Node[],
-  xpath: string,
+  nodes: Node | Node[],
+  xpathStr: string,
 ): Node | undefined => {
-  const root = Array.isArray(_root)
-    ? _root.length > 1
-      ? findHTML(_root)
-      : _root[0]
-    : _root;
+  const root = Array.isArray(nodes) ? nodes : [nodes];
+  const xpath = new XPathAnalyzer(xpathStr).parse();
 
-  if (root == null) {
-    throw new Error(`No HTML tag found in the given nodes`);
+  if (xpath.type !== ABSOLUTE_LOCATION_PATH) {
+    throw new Error(`Expected absolute xpath, but got ${xpathStr}`);
   }
 
-  const rootXPath = new XPathAnalyzer(xpath).parse();
-  if (rootXPath.type !== ABSOLUTE_LOCATION_PATH) {
-    throw new Error('Given Xpath must start with /, got' + xpath);
-  }
-
-  // Drop /html because we know we have
-  const [, ...steps] = rootXPath.steps;
-  const node = findNode(root, steps);
-
-  return node;
+  const steps = xpath.steps.reverse();
+  return find(testNode(steps), root, true, Number.POSITIVE_INFINITY)?.[0];
 };

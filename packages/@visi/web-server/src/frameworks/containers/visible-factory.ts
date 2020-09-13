@@ -1,15 +1,17 @@
 import { PluginResolver, Visible } from '@visi/core';
+import pluginGCPTranslationAPI from '@visi/plugin-gcp-translation-api';
 import pluginGCPVisionAPI from '@visi/plugin-gcp-vision-api';
 import pluginPuppeteer from '@visi/plugin-puppeteer';
-import pluginStandard from '@visi/plugin-standard';
+import pluginWCAG from '@visi/plugin-wcag';
 import mkdirp from 'mkdirp';
 
 export const factory = async (): Promise<Visible> => {
   const resolver = new PluginResolver(
     new Map([
       ['@visi/plugin-puppeteer', pluginPuppeteer],
-      ['@visi/plugin-standard', pluginStandard],
+      ['@visi/plugin-wcag', pluginWCAG],
       ['@visi/plugin-gcp-vision-api', pluginGCPVisionAPI],
+      ['@visi/plugin-gcp-translation-api', pluginGCPTranslationAPI],
     ]),
     {
       screenshot: 'only-fail',
@@ -28,7 +30,10 @@ export const factory = async (): Promise<Visible> => {
   return new Visible(
     resolver.settings,
     driver,
-    resolver.getRules(['@visi/plugin-standard']),
-    resolver.getProvider(['@visi/plugin-gcp-vision-api']),
+    resolver.getRules(['@visi/plugin-wcag']),
+    resolver.getProvider([
+      '@visi/plugin-gcp-vision-api',
+      '@visi/plugin-gcp-translation-api',
+    ]),
   );
 };

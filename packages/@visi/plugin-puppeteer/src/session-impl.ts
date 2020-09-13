@@ -10,7 +10,7 @@ import {
   Source,
 } from '@visi/core';
 import { Protocol } from 'devtools-protocol/types/protocol';
-import { Element, Node } from 'domhandler';
+import { Node } from 'domhandler';
 import { promises as fs } from 'fs';
 import { parseDOM } from 'htmlparser2';
 import * as postcss from 'postcss';
@@ -125,15 +125,7 @@ export class SessionImpl implements Session {
       throw new Error(`No html source stored`);
     }
 
-    const root = html.node.value.find(
-      (node) => node instanceof Element && node.name === 'html',
-    );
-
-    if (root == null) {
-      throw new Error(`Root must be set for finding node`);
-    }
-
-    const node = findASTByXPath(root, xpath);
+    const node = findASTByXPath(html.node.value, xpath);
     if (node == null) return;
 
     return [sourceId, node];

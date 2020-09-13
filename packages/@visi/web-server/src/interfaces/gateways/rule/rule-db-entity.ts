@@ -10,6 +10,10 @@ export class RuleDBEntity {
 
   @Index()
   @Column('varchar', { length: 255 })
+  coreId!: string;
+
+  @Index()
+  @Column('varchar', { length: 255 })
   name!: string;
 
   @Column('varchar', { length: 255 })
@@ -30,6 +34,7 @@ export class RuleDBEntity {
   toDomain(): Rule {
     return Rule.from({
       id: this.id,
+      coreId: '@visi/plugin-wcag/foo',
       name: this.name,
       type: this.type,
       description: this.description,

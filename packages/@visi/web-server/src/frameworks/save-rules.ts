@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
 import { PluginResolver } from '@visi/core';
-import pluginStandard from '@visi/plugin-standard';
+import pluginStandard from '@visi/plugin-wcag';
 import { Container } from 'inversify';
 
 import { CreateRuleUseCase } from '../application/use-cases/create-rule-use-case';
@@ -15,17 +15,19 @@ import { application, framework, interfaces, services } from './containers';
   await container.loadAsync(framework);
 
   const resolver = new PluginResolver(
-    new Map([['@visi/plugin-standard', pluginStandard]]),
+    new Map([['@visi/plugin-wcag', pluginStandard]]),
     {},
   );
 
   const createRule = container.get<CreateRuleUseCase>(TYPES.CreateRuleUseCase);
 
-  for (const rule of resolver.getRules(['@visi/plugin-standard'])) {
+  for (const rule of resolver.getRules(['@visi/plugin-wcag'])) {
     await createRule.run({
-      name: rule.id,
-      description: rule.description,
+      coreId: rule.id,
+      name: rule.name,
       type: rule.type,
+      description: rule.description,
+      keywords: rule.keywords,
     });
   }
 

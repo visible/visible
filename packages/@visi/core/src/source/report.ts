@@ -9,12 +9,19 @@ export enum Outcome {
   FAIL = 'fail',
 }
 
+export enum Impact {
+  CRITICAL = 'critical',
+  SERIOUS = 'serious',
+  MINOR = 'minor',
+}
+
 export interface ReportConstructorParams {
   id?: string;
   node: Node;
   ruleId: string;
   outcome: Outcome;
   target: string;
+  impact?: Impact;
   location?: LocationConstructorParams;
   message?: string;
   screenshot?: string;
@@ -28,6 +35,7 @@ export class Report {
   readonly outcome: Outcome;
   readonly target: string;
   readonly text: string;
+  readonly impact?: Impact;
   readonly message?: string;
   readonly screenshot?: string;
   readonly location?: Location;
@@ -36,14 +44,16 @@ export class Report {
     this.id = params.id ?? uuid.v4();
     this.ruleId = params.ruleId;
     this.outcome = params.outcome;
+    this.impact = params.impact;
     this.target = params.target;
     this.message = params.message;
     this.screenshot = params.screenshot;
     this.node = params.node;
     this.text = this.node.text;
 
-    if (this.node.location) {
-      this.location = this.node.location;
+    // Without this cause a bug for some reasons
+    if (params.location) {
+      this.location = new Location(params.location);
     }
 
     this.fixer = params.fix && params.fix.bind(params);
@@ -53,6 +63,7 @@ export class Report {
     return new Report({
       id: this.id,
       ruleId: this.ruleId,
+      impact: this.impact,
       outcome: this.outcome,
       target: this.target,
       location: this.location,
