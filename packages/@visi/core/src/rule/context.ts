@@ -1,6 +1,4 @@
-// import { Node as HTMLNode } from 'domhandler';
 import path from 'path';
-// import { Node as CSSNode } from 'postcss';
 import { Subject } from 'rxjs';
 
 import { Session } from '../driver';
@@ -9,6 +7,7 @@ import { Settings } from '../settings';
 import {
   CSSNode,
   HTMLNode,
+  Impact,
   Location,
   Outcome,
   Report,
@@ -17,19 +16,37 @@ import {
 import { Progress } from './progress';
 import { Rule } from './rule';
 
-export interface BaseReportParams<T> {
+export interface InapplicableReportParams {
   ruleId: string;
-  outcome: Outcome;
+  outcome: Outcome.INAPPLICABLE;
   target: string;
-  message?: string;
+}
+
+export interface PassedReportParams {
+  ruleId: string;
+  outcome: Outcome.PASSED;
+  target: string;
+}
+
+export interface FailReportParams<T> {
+  ruleId: string;
+  outcome: Outcome.FAIL;
+  impact: Impact;
+  target: string;
+  message: string;
   fix?(node: T): Promise<T>;
 }
 
-export type ReportHTMLParams = BaseReportParams<HTMLNode>;
+export type ReportHTMLParams =
+  | InapplicableReportParams
+  | PassedReportParams
+  | FailReportParams<HTMLNode>;
 
-export interface ReportCSSParams extends BaseReportParams<CSSNode> {
-  propertyName: string;
-}
+export type ReportCSSParams = (
+  | InapplicableReportParams
+  | PassedReportParams
+  | FailReportParams<CSSNode>
+) & { propertyName: string };
 
 export interface Context {
   readonly progress$: Subject<Progress>;

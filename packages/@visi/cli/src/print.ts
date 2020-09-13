@@ -38,7 +38,12 @@ export const print = async (
 
       output += `${title} ${message}\n`;
 
-      if (report.node.location == null) {
+      if (report.outcome !== Outcome.FAIL) {
+        continue;
+      }
+
+      if (report.location == null) {
+        output += chalk.grey(`Code frame is not available for this report\n`);
         continue;
       }
 
@@ -46,12 +51,12 @@ export const print = async (
         source.node.text,
         {
           start: {
-            line: report.node.location.startLine,
-            column: report.node.location.startColumn,
+            line: report.location.startLine,
+            column: report.location.startColumn,
           },
           end: {
-            line: report.node.location.endLine,
-            column: report.node.location.endColumn,
+            line: report.location.endLine,
+            column: report.location.endColumn,
           },
         },
         { highlightCode: true },
@@ -59,7 +64,7 @@ export const print = async (
 
       output += frame + '\n';
 
-      if (fix) {
+      if (!fix) {
         continue;
       }
 

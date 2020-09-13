@@ -35,7 +35,7 @@ export const ContentInfo = ({ ref: _ref, ...props }: ContentInfoProps) => {
         </ListItem>
         <ListItem>
           <Item
-            href="https://github.com/neet/visible"
+            href="https://github.com/visible/visible"
             target="_blank"
             rel="noopener noreferrer"
           >

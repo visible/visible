@@ -24,9 +24,11 @@ export class CreateRulesInteractor implements CreateRuleUseCase {
     await this.ruleRepository.save(
       Rule.from({
         id: uuid.v4(),
+        coreId: req.coreId,
         name: req.name,
         type: req.type,
         description: req.name,
+        keywords: req.keywords,
       }),
     );
   }

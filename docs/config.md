@@ -14,17 +14,17 @@ The schema is looked as following:
     "@visi/config-recommended",
   ],
   "plugins": [
-    "@visi/plugin-standard"
+    "@visi/plugin-wcag"
   ],
   "rules": {
-    "@visi/plugin-standard/img-alt": {
+    "@visi/plugin-wcag/img-alt": {
       "use": true,
       "level": "error",
       "options": {
         ...
       }
     },
-    "@visi/plugin-standard/button-alt": {
+    "@visi/plugin-wcag/button-alt": {
       "use": false,
     }
   }

@@ -13,7 +13,7 @@ Visible makes the web better in a perspective of accessibility
 Make sure you have installed npm and Node.js then run this on your terminal
 
 ```
-$ npm i -g @visi/cli@next @visi/plugin-standard@next
+$ npm i -g @visi/cli@next @visi/plugin-wcag@next
 ```
 
 You may need to create `.visiblerc.json` when you try this for the first time. You can use `init` to generated the default config.

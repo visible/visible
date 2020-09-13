@@ -12,6 +12,9 @@ export class Rule extends Model {
   readonly id!: string;
 
   @Length(1, 255)
+  readonly coreId!: string;
+
+  @Length(1, 255)
   readonly name!: string;
 
   @IsEnum(RuleType)
@@ -19,4 +22,6 @@ export class Rule extends Model {
 
   @Length(0, 225)
   readonly description!: string;
+
+  readonly keywords?: readonly string[];
 }

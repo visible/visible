@@ -7,6 +7,7 @@ import { Validator } from './validator';
 
 const rule: Rule = {
   id: 'fake-rule',
+  name: 'Fake Rule',
   description: 'fake rule',
   type: RuleType.ATOMIC,
   create: jest.fn(),

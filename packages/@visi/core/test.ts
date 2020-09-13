@@ -11,7 +11,7 @@ import { getOuterHTML } from 'domutils';
     extends: [],
     plugins: [
       '@visi/plugin-puppeteer',
-      '@visi/plugin-standard',
+      '@visi/plugin-wcag',
     ],
     // settings: {
     //   headless: false,

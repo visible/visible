@@ -18,6 +18,11 @@ const html = parseDOM(
 )[2];
 
 describe('findNodeByXPath', () => {
+  it('finds root', () => {
+    const node = findASTByXPath(html, '/html');
+    expect(node?.startIndex).toBe(16);
+  });
+
   it('finds an element', () => {
     const node = findASTByXPath(html, '/html/body/p');
     expect(node?.startIndex).toBe(181);

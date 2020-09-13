@@ -24,7 +24,7 @@ yargs
     async () => {
       const defaultConfig = {
         extends: [],
-        plugins: ['@visi/plugin-standard'],
+        plugins: ['@visi/plugin-wcag'],
         settings: {},
         rules: {},
       };
