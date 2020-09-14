@@ -1,4 +1,12 @@
-import { Context, HTMLNode, Impact, Outcome, Rule, RuleType } from '@visi/core';
+import {
+  Context,
+  Difficulty,
+  HTMLNode,
+  Impact,
+  Outcome,
+  Rule,
+  RuleType,
+} from '@visi/core';
 import { Element } from 'domhandler';
 
 import { BLINDNESS, BOT, LOW_VISION } from '../keywords';
@@ -49,6 +57,7 @@ export class ImgAlt implements Rule {
         ruleId: this.id,
         target: xpath,
         impact: Impact.CRITICAL,
+        difficulty: Difficulty.EASY,
         message:
           'You must set an `alt` attribute for the `img` element for ' +
           'providing a description of the image for user agents such as ' +

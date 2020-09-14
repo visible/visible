@@ -1,4 +1,12 @@
-import { Context, CSSNode, Impact, Outcome, Rule, RuleType } from '@visi/core';
+import {
+  Context,
+  CSSNode,
+  Difficulty,
+  Impact,
+  Outcome,
+  Rule,
+  RuleType,
+} from '@visi/core';
 import polished from 'polished';
 
 import { COLOR_BLINDNESS } from '../keywords';
@@ -51,8 +59,9 @@ export class Contrast implements Rule {
           outcome: Outcome.FAIL,
           ruleId: this.id,
           target: elm.xpath,
-          impact: Impact.SERIOUS,
           propertyName: 'background-color',
+          impact: Impact.SERIOUS,
+          difficulty: Difficulty.DIFFICULT,
           message:
             'The color contrast ratio must be 4.5 or higher, ' +
             'as users with color blindness may not be able to identify the content.',

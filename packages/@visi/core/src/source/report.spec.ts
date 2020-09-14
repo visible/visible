@@ -4,7 +4,7 @@ import { ElementType } from 'htmlparser2';
 import dom from '../__fixture__/dom';
 import { Location } from './location';
 import { HTMLNode } from './node';
-import { Outcome, Report } from './report';
+import { Difficulty, Impact, Outcome, Report } from './report';
 
 const location = new Location({
   startColumn: 1,
@@ -13,7 +13,7 @@ const location = new Location({
   endLine: 1,
 });
 
-describe('HTMLReport', () => {
+describe('Report', () => {
   it('creates html instance', () => {
     const report = new Report({
       ruleId: 'foo',
@@ -49,6 +49,8 @@ describe('HTMLReport', () => {
     const report = new Report({
       ruleId: 'foo',
       outcome: Outcome.FAIL,
+      impact: Impact.SERIOUS,
+      difficulty: Difficulty.DIFFICULT,
       target: '/html/body',
       location,
       node: new HTMLNode(dom[0]),
@@ -57,6 +59,18 @@ describe('HTMLReport', () => {
     });
 
     expect(report.clone()).not.toBe(report);
+    expect(report.clone()).toEqual(
+      expect.objectContaining({
+        ruleId: 'foo',
+        outcome: Outcome.FAIL,
+        impact: Impact.SERIOUS,
+        difficulty: Difficulty.DIFFICULT,
+        target: '/html/body',
+        location,
+        message: 'hello',
+        screenshot: '/var/tmp/1.png',
+      }),
+    );
   });
 
   it('returns self when fixer is not defined', async () => {

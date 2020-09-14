@@ -1,4 +1,11 @@
-import { Context, Impact, Outcome, Rule, RuleType } from '@visi/core';
+import {
+  Context,
+  Difficulty,
+  Impact,
+  Outcome,
+  Rule,
+  RuleType,
+} from '@visi/core';
 
 import { BOT, DEAFNESS, HARD_OF_HEARING } from '../keywords';
 
@@ -47,6 +54,7 @@ export class VideoCaptions implements Rule {
       ctx.reportHTML({
         outcome: Outcome.FAIL,
         impact: Impact.CRITICAL,
+        difficulty: Difficulty.DIFFICULT,
         ruleId: this.id,
         target: xpath,
         message:
