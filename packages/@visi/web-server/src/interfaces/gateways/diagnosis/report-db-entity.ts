@@ -18,10 +18,10 @@ export class ReportDBEntity {
   @Column('varchar', { length: 255 })
   outcome!: Outcome;
 
-  @Column('varchar', { length: 255 })
+  @Column('varchar', { length: 255, nullable: true })
   impact?: Impact;
 
-  @Column('varchar', { length: 255 })
+  @Column('varchar', { length: 255, nullable: true })
   difficulty?: Difficulty;
 
   @Column('varchar', { length: 255, nullable: true })

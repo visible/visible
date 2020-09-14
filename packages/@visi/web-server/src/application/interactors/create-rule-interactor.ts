@@ -27,7 +27,7 @@ export class CreateRulesInteractor implements CreateRuleUseCase {
         coreId: req.coreId,
         name: req.name,
         type: req.type,
-        description: req.name,
+        description: req.description,
         keywords: req.keywords,
       }),
     );
