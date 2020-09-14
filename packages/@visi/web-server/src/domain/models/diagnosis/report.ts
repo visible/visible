@@ -17,6 +17,18 @@ export enum Outcome {
   INAPPLICABLE = 'inapplicable',
 }
 
+export enum Impact {
+  CRITICAL = 'critical',
+  SERIOUS = 'serious',
+  MINOR = 'minor',
+}
+
+export enum Difficulty {
+  EASY = 'easy',
+  MEDIUM = 'medium',
+  DIFFICULT = 'difficult',
+}
+
 export class Report extends Model {
   @IsUUID()
   readonly id!: string;
@@ -29,6 +41,12 @@ export class Report extends Model {
 
   @IsEnum(Outcome)
   readonly outcome!: Outcome;
+
+  @IsEnum(Impact)
+  readonly impact?: Impact;
+
+  @IsEnum(Difficulty)
+  readonly difficulty?: Difficulty;
 
   @IsOptional()
   @Length(1, 255)

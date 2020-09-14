@@ -6,6 +6,7 @@ import { Provider } from '../provider';
 import { Settings } from '../settings';
 import {
   CSSNode,
+  Difficulty,
   HTMLNode,
   Impact,
   Location,
@@ -32,6 +33,7 @@ export interface FailReportParams<T> {
   ruleId: string;
   outcome: Outcome.FAIL;
   impact: Impact;
+  difficulty: Difficulty;
   target: string;
   message: string;
   fix?(node: T): Promise<T>;

@@ -1,4 +1,12 @@
-import { Context, HTMLNode, Impact, Outcome, Rule, RuleType } from '@visi/core';
+import {
+  Context,
+  Difficulty,
+  HTMLNode,
+  Impact,
+  Outcome,
+  Rule,
+  RuleType,
+} from '@visi/core';
 import { ElementType } from 'domelementtype';
 import { DataNode, Element } from 'domhandler';
 import { replaceElement } from 'domutils';
@@ -48,6 +56,7 @@ export class InputLabel implements Rule {
         ruleId: this.id,
         target: xpath,
         impact: Impact.CRITICAL,
+        difficulty: Difficulty.MEDIUM,
         message:
           'You must add `label` element and either set `id` in the `for` ' +
           'attribute or nest as a child, to describe the roles of the `input` element to users.',

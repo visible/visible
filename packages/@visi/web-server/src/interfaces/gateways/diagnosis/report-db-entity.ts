@@ -1,6 +1,12 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 
-import { Location, Outcome, Report } from '../../../domain/models';
+import {
+  Difficulty,
+  Impact,
+  Location,
+  Outcome,
+  Report,
+} from '../../../domain/models';
 import { RuleDBEntity } from '../rule';
 import { SourceDBEntity } from './source-db-entity';
 
@@ -11,6 +17,12 @@ export class ReportDBEntity {
 
   @Column('varchar', { length: 255 })
   outcome!: Outcome;
+
+  @Column('varchar', { length: 255 })
+  impact?: Impact;
+
+  @Column('varchar', { length: 255 })
+  difficulty?: Difficulty;
 
   @Column('varchar', { length: 255, nullable: true })
   target?: string;
@@ -43,6 +55,8 @@ export class ReportDBEntity {
     const entity = new ReportDBEntity();
     entity.id = report.id;
     entity.outcome = report.outcome;
+    entity.difficulty = report.difficulty;
+    entity.impact = report.impact;
     entity.target = report.target;
     entity.message = report.message;
     entity.sourceId = report.sourceId;
@@ -57,6 +71,8 @@ export class ReportDBEntity {
     return Report.from({
       id: this.id,
       outcome: this.outcome,
+      impact: this.impact,
+      difficulty: this.difficulty,
       ruleId: this.ruleId,
       target: this.target,
       message: this.message,

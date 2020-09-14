@@ -1,4 +1,12 @@
-import { Context, HTMLNode, Impact, Outcome, Rule, RuleType } from '@visi/core';
+import {
+  Context,
+  Difficulty,
+  HTMLNode,
+  Impact,
+  Outcome,
+  Rule,
+  RuleType,
+} from '@visi/core';
 import { ElementType } from 'domelementtype';
 import { DataNode, Element } from 'domhandler';
 
@@ -39,6 +47,7 @@ export class BypassBlocks implements Rule {
       ruleId: this.id,
       target: '/html/body',
       impact: Impact.CRITICAL,
+      difficulty: Difficulty.MEDIUM,
       message:
         'You must use landmarks in markups or provide a bypass to prevent' +
         'screen readers from reading repeated content in multiple pages. ' +

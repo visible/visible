@@ -1,4 +1,11 @@
-import { Context, Impact, Outcome, Rule, RuleType } from '@visi/core';
+import {
+  Context,
+  Difficulty,
+  Impact,
+  Outcome,
+  Rule,
+  RuleType,
+} from '@visi/core';
 
 import { BLINDNESS, BOT, LOW_VISION } from '../keywords';
 
@@ -49,6 +56,7 @@ export class ButtonAlt implements Rule {
         ruleId: this.id,
         target: xpath,
         impact: Impact.CRITICAL,
+        difficulty: Difficulty.EASY,
         message:
           'You must include texts to describe the role of the button ' +
           'for user agents where icons or images are not available.',

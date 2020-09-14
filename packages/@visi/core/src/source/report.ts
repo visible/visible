@@ -15,6 +15,12 @@ export enum Impact {
   MINOR = 'minor',
 }
 
+export enum Difficulty {
+  EASY = 'easy',
+  MEDIUM = 'medium',
+  DIFFICULT = 'difficult',
+}
+
 export interface ReportConstructorParams {
   id?: string;
   node: Node;
@@ -22,6 +28,7 @@ export interface ReportConstructorParams {
   outcome: Outcome;
   target: string;
   impact?: Impact;
+  difficulty?: Difficulty;
   location?: LocationConstructorParams;
   message?: string;
   screenshot?: string;
@@ -36,6 +43,7 @@ export class Report {
   readonly target: string;
   readonly text: string;
   readonly impact?: Impact;
+  readonly difficulty?: Difficulty;
   readonly message?: string;
   readonly screenshot?: string;
   readonly location?: Location;
@@ -45,6 +53,7 @@ export class Report {
     this.ruleId = params.ruleId;
     this.outcome = params.outcome;
     this.impact = params.impact;
+    this.difficulty = params.difficulty;
     this.target = params.target;
     this.message = params.message;
     this.screenshot = params.screenshot;
@@ -64,6 +73,7 @@ export class Report {
       id: this.id,
       ruleId: this.ruleId,
       impact: this.impact,
+      difficulty: this.difficulty,
       outcome: this.outcome,
       target: this.target,
       location: this.location,

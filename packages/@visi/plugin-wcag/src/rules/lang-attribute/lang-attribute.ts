@@ -1,4 +1,12 @@
-import { Context, HTMLNode, Impact, Outcome, Rule, RuleType } from '@visi/core';
+import {
+  Context,
+  Difficulty,
+  HTMLNode,
+  Impact,
+  Outcome,
+  Rule,
+  RuleType,
+} from '@visi/core';
 import { Element } from 'domhandler';
 
 import { BLINDNESS, BOT, DYSLEXIA } from '../keywords';
@@ -33,6 +41,7 @@ export class LangAttribute implements Rule {
     await ctx.reportHTML({
       outcome: Outcome.FAIL,
       impact: Impact.CRITICAL,
+      difficulty: Difficulty.EASY,
       ruleId: this.id,
       target: '/html',
       message:
