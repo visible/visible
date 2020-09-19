@@ -16,8 +16,9 @@ services:
       - postgres
       - redis
     volumes:
-      - ./logs:/home/packages/@visi/web-server/logs
-      - ./static:/home/packages/@visi/web-server/static
+      - ./logs:/home/visible/app/packages/@visi/web-server/logs
+      - ./static:/home/visible/app/packages/@visi/web-server/static
+      - ./credentials:/home/visible/credentials
 
   postgres:
     image: postgres:12.2
