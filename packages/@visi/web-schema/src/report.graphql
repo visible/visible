@@ -10,10 +10,24 @@ enum Outcome {
   INAPPLICABLE
 }
 
+enum Impact {
+  MINOR
+  SERIOUS
+  CRITICAL
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  DIFFICULT
+}
+
 type Report implements Node {
   id: ID!
   rule: Rule!
   outcome: Outcome!
+  impact: Impact
+  difficulty: Difficulty
   target: String
   message: String
   diffHunk: String

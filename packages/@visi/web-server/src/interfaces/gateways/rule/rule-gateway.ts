@@ -22,10 +22,10 @@ export class RuleGateway implements RuleRepository {
       .then((result) => result.toDomain());
   }
 
-  async findByName(name: string): Promise<Rule | undefined> {
+  async findByCoreId(coreId: string): Promise<Rule | undefined> {
     return this.connection
       .getRepository(RuleDBEntity)
-      .findOne({ where: { name } })
+      .findOne({ where: { coreId } })
       .then((rule) => rule?.toDomain());
   }
 

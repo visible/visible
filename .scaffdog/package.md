@@ -2,7 +2,8 @@
 name: 'package'
 description: 'Generates @visi package'
 message: 'Type the name for your package e.g. `core`'
-root: './packages/'
+root: packages/@visi
+output: '**/*'
 ignore: []
 ---
 

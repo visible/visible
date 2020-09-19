@@ -1,7 +1,4 @@
 {
-  "code-frame": {
-    "unavailable": "(Code frame is not available for this node)"
-  },
   "options": {
     "fix": "Prints fixers",
     "json": "Output JSON instead of prettified table",
@@ -11,6 +8,7 @@
   },
   "visible": {
     "description": "The default command",
+    "end": "🦉 Diagnostics has successfully completed",
     "init": {
       "description": "Initialize .visiblerc file",
       "done": "🎉 Initialization completed!!"

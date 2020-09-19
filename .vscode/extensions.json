@@ -3,8 +3,7 @@
     "dbaeumer.vscode-eslint",
     "stylelint.vscode-stylelint",
     "esbenp.prettier-vscode",
-    "jpoissonnier.vscode-styled-components",
-    "orta.vscode-jest",
-    "streetsidesoftware.code-spell-checker"
+    "streetsidesoftware.code-spell-checker",
+    "bradlc.vscode-tailwindcss"
   ]
 }

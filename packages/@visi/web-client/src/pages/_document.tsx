@@ -6,7 +6,6 @@ import Document, {
   NextScript,
 } from 'next/document';
 import React from 'react';
-import { ServerStyleSheet } from 'styled-components';
 
 import { NextI18NextRequest } from '../utils/i18next';
 
@@ -24,40 +23,21 @@ class CustomDocument extends Document<CustomDocumentProps> {
   static async getInitialProps(ctx: DocumentContext & I18nextContext) {
     const { req } = ctx;
 
-    const sheet = new ServerStyleSheet();
-    const originalRenderPage = ctx.renderPage;
+    const initialProps = await Document.getInitialProps(ctx);
 
-    try {
-      ctx.renderPage = () =>
-        originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            sheet.collectStyles(<App {...props} />),
-        });
-
-      const initialProps = await Document.getInitialProps(ctx);
-
-      return {
-        ...initialProps,
-        lang: req.lng,
-        dir: req.i18n?.dir,
-        styleTags: (
-          <>
-            {initialProps.styles}
-            {sheet.getStyleElement()}
-          </>
-        ),
-      };
-    } finally {
-      sheet.seal();
-    }
+    return {
+      ...initialProps,
+      lang: req.lng,
+      dir: req.i18n?.dir,
+    };
   }
 
   render() {
-    const { lang, dir, styleTags } = this.props;
+    const { lang, dir } = this.props;
 
     return (
       <Html lang={lang} dir={dir}>
-        <Head>{styleTags}</Head>
+        <Head />
         <body>
           <Main />
           <NextScript />

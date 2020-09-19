@@ -17,9 +17,11 @@ export class RulePresenter {
   run(rule: Rule): API.Rule {
     return {
       id: rule.id,
+      coreId: rule.coreId,
       name: rule.name,
       type: this.transformRuleType(rule.type),
       description: rule.description,
+      keywords: rule.keywords,
     };
   }
 }

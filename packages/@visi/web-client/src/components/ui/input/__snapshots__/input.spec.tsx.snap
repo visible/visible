@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input matches snapshot 1`] = `
+<input
+  class="border-gray-500 bg-gray-100 border placeholder-gray-600 text-sm py-2 px-4 w-64 focus:outline-none focus:shadow-outline focus:border-primary-500 focus:bg-white disabled:opacity-75 disabled:cursor-not-allowed rounded-full"
+/>
+`;

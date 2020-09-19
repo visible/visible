@@ -47,7 +47,7 @@ const createConfig = (workspace) => {
       lngs,
       plural: shouldUsePlural,
       sort: true,
-      removeUnusedKeys: true,
+      removeUnusedKeys: false,
       defaultNs: workspace,
     },
   };

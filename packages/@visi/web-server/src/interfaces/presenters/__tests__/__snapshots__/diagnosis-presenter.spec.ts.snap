@@ -13,7 +13,9 @@ Object {
       "reports": Array [
         Object {
           "diffHunk": undefined,
+          "difficulty": undefined,
           "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
+          "impact": undefined,
           "location": undefined,
           "message": "Error!",
           "outcome": "FAIL",

@@ -51,7 +51,7 @@ export class TranslatorImpl implements Translator {
     report: Core.Report,
     source: Core.Source,
   ): Promise<App.Report> {
-    const rule = await this.ruleRepository.findByName(report.ruleId);
+    const rule = await this.ruleRepository.findByCoreId(report.ruleId);
 
     if (rule == null) {
       throw new Error(`Rule ${report.ruleId} is not saved`);
@@ -87,6 +87,8 @@ export class TranslatorImpl implements Translator {
       sourceId: source.id,
       ruleId: rule.id,
       outcome: report.outcome,
+      impact: report.impact,
+      difficulty: report.difficulty,
       target: report.target,
       message: report.message,
       screenshot,

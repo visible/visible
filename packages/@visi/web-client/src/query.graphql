@@ -7,15 +7,19 @@ fragment LocationLarge on Location {
 
 fragment RuleLarge on Rule {
   id
+  coreId
   name
   type
   description
+  keywords
 }
 
 fragment ReportLarge on Report {
   id
   outcome
   target
+  impact
+  difficulty
   message
   screenshot
   diffHunk

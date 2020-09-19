@@ -6,6 +6,7 @@ const nextI18next = new NextI18next({
   otherLanguages: ['ja'],
   defaultNS: 'web-client',
   localePath: path.resolve('./public/static/locales'),
+  debug: process.env.NODE_ENV === 'development',
 });
 
 export default nextI18next;

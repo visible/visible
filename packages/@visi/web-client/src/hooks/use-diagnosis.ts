@@ -7,14 +7,16 @@ import {
 } from '../generated/graphql';
 
 export const useDiagnosis = (id: string) => {
-  const { subscribeToMore, ...rest } = useFetchDiagnosisLargeQuery({
+  const result = useFetchDiagnosisLargeQuery({
     variables: {
       id,
     },
   });
 
   useEffect(() => {
-    const unsubscribe = subscribeToMore({
+    if (result == null) return;
+
+    const unsubscribe = result.subscribeToMore({
       document: SubscribeDiagnosisDocument,
       variables: {
         id,
@@ -29,7 +31,7 @@ export const useDiagnosis = (id: string) => {
     });
 
     return unsubscribe;
-  }, [id, subscribeToMore]);
+  }, [id, result]);
 
-  return rest;
+  return result;
 };

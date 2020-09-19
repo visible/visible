@@ -1,10 +1,9 @@
-import { Content, Typography } from '@visi/web-ui';
 import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import Link, { LinkProps } from 'next/link';
 import React from 'react';
-import styled from 'styled-components';
 
+import { Image, Layout, Typography } from '../components/ui';
 import { Trans, useTranslation } from '../utils/i18next';
 
 const L = (props: LinkProps & { children: React.ReactNode }) => {
@@ -12,40 +11,35 @@ const L = (props: LinkProps & { children: React.ReactNode }) => {
 
   return (
     <Link {...rest}>
-      <a>{children}</a>
+      <a className="text-primary-500 hover:underline">{children}</a>
     </Link>
   );
 };
-
-const Inner = styled.div`
-  text-align: center;
-`;
-
-const Image = styled.img`
-  width: 50%;
-`;
 
 const NotFound: NextPage = () => {
   const { t } = useTranslation();
   const title = t('not-found.title', 'You hit the void!');
 
   return (
-    <Content appearance="skeleton">
+    <Layout.Main>
       <NextSeo title={title} description={'foobar'} />
 
-      <Inner>
-        <Image src="/static/404.png" alt={title} />
-        <Typography variant="h1">{title}</Typography>
+      <Layout.Container>
+        <Layout.Content>
+          <Typography variant="h1">{title}</Typography>
 
-        <Typography variant="body">
-          <Trans i18nKey="not-found.content">
-            The page you were looking for was not found. You can{' '}
-            <L href="/">go back to home</L> or{' '}
-            <L href="/search">search contents</L>
-          </Trans>
-        </Typography>
-      </Inner>
-    </Content>
+          <Typography variant="p" className="mb-4">
+            <Trans i18nKey="not-found.content">
+              The page you were looking for was not found. You can{' '}
+              <L href="/">go back to home</L> or{' '}
+              <L href="/search">search contents</L>
+            </Trans>
+          </Typography>
+
+          <Image src="/static/404.png" alt={title} className="w-1/6 m-auto" />
+        </Layout.Content>
+      </Layout.Container>
+    </Layout.Main>
   );
 };
 

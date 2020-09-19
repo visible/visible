@@ -9,6 +9,7 @@ import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import makeWithApollo from 'next-with-apollo';
+import getConfig from 'next/config';
 import React from 'react';
 
 import introspectionResult from '../generated/introspection-result';
@@ -18,16 +19,17 @@ export const withApollo = makeWithApollo(
     const fragmentMatcher = new IntrospectionFragmentMatcher({
       introspectionQueryResultData: introspectionResult,
     });
+    const { publicRuntimeConfig } = getConfig();
 
     const httpLink = new HttpLink({
-      uri: `${process.env.API_URL}/api/v1`,
+      uri: `${publicRuntimeConfig.apiUrl}/api/v1`,
     });
     let link: ApolloLink = httpLink;
 
     // Skip WebSocket initialisation at the server side
     if (process.browser) {
       const wsLink = new WebSocketLink({
-        uri: `${process.env.STREAMING_API_URL}/api/v1`,
+        uri: `${publicRuntimeConfig.streamingApiUrl}/api/v1`,
         options: {
           reconnect: true,
         },

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search matches snapshot 1`] = `
+<form
+  class="inline-flex"
+  role="search"
+>
+  <input
+    class="border-gray-500 bg-gray-100 border placeholder-gray-600 text-sm py-2 px-4 w-64 focus:outline-none focus:shadow-outline focus:border-primary-500 focus:bg-white disabled:opacity-75 disabled:cursor-not-allowed rounded-full border-r-0 rounded-tr-none rounded-br-none"
+    value=""
+  />
+  <button
+    class="rounded-full px-4 py-2 text-sm flex focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-75 bg-primary-500 text-white hover:bg-primary-600 border-l-0 rounded-tl-none rounded-bl-none"
+  >
+    <span>
+      Search
+    </span>
+  </button>
+</form>
+`;

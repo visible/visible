@@ -2,7 +2,8 @@
 name: 'component'
 description: 'Generates @visi/web-ui component'
 message: 'Type the name of your component'
-root: './packages/'
+root: packages/@visi
+output: '**/*'
 ignore: []
 ---
 
@@ -35,7 +36,7 @@ export default {
   component: {{ input | pascal }},
 };
 
-export const normal = () => <{{ input | pascal }} />);
+export const normal = () => <{{ input | pascal }} />;
 
 ```
 

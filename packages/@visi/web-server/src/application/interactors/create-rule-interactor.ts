@@ -17,7 +17,7 @@ export class CreateRulesInteractor implements CreateRuleUseCase {
   ) {}
 
   async run(req: CreateRuleRequest): Promise<void> {
-    if (await this.checkIfRuleExists(req.name)) {
+    if (await this.checkIfRuleExists(req.coreId)) {
       return;
     }
 
@@ -33,8 +33,8 @@ export class CreateRulesInteractor implements CreateRuleUseCase {
     );
   }
 
-  private async checkIfRuleExists(name: string) {
-    const rule = await this.ruleRepository.findByName(name);
+  private async checkIfRuleExists(coreId: string) {
+    const rule = await this.ruleRepository.findByCoreId(coreId);
     return rule != null;
   }
 }
