@@ -5,7 +5,7 @@ updates:
     versioning-strategy: increase
     open-pull-requests-limit: 30
     target-branch: develop
-    directory: /
+    directory: /packages/@visi
     schedule:
       interval: monthly
     ignore:
