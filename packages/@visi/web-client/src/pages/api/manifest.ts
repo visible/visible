@@ -1,13 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiHandler } from 'next';
 
-import { theme } from '../../theme';
-import { I18n } from '../../utils/i18next';
+import tailwind from '../../../tailwind.config';
 
-type Request = NextApiRequest & {
-  i18n: I18n;
-};
-
-export default (req: Request, res: NextApiResponse): void => {
+const manifest: NextApiHandler = (req, res): void => {
   // const { i18n } = req;
   // const t = i18n.t.bind(i18n);
   // TODO: Use i18next
@@ -22,8 +17,8 @@ export default (req: Request, res: NextApiResponse): void => {
     ),
     display: 'standalone',
     start_url: '/',
-    theme_color: theme.highlight.normal,
-    background_color: theme.background.normal,
+    theme_color: tailwind.theme.colors.primary[500],
+    background_color: tailwind.theme.colors.gray[700],
     icons: [
       {
         src: '/static/icon-144x144.png',
@@ -38,3 +33,5 @@ export default (req: Request, res: NextApiResponse): void => {
     ],
   });
 };
+
+export default manifest;

@@ -1,73 +1,73 @@
-import * as UI from '@visi/web-ui';
+import { faBell, faHome } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
 import Link from 'next/link';
 import React from 'react';
-import { Bell, Home } from 'react-feather';
-import styled from 'styled-components';
 
+import pkg from '../.././../package.json';
 import { useTranslation } from '../../utils/i18next';
+import { Image, Layout, Nav, NavItem, Typography } from '../ui';
 
-const Title = styled.h1`
-  margin: 0;
-  font-size: 21px;
+const Logography = () => {
+  return (
+    <div className="flex items-center">
+      <Image alt="Visible" src="/static/logo-white.png" height="30px" />
 
-  img {
-    display: flex;
-    height: 1.5em;
-    place-content: center;
-    transition: 0.15s ease-out;
-  }
+      <span
+        className={classNames(
+          'border',
+          'rounded',
+          'border-white',
+          'text-xs',
+          'text-white',
+          'p-1',
+          'font-normal',
+          'ml-2',
+        )}
+      >
+        Insider Preview - {pkg.version}
+      </span>
+    </div>
+  );
+};
 
-  a:hover > img {
-    transition: 0.15s ease-in;
-    opacity: 0.8;
-  }
-`;
-
-const Item = styled.a`
-  display: flex !important;
-  align-items: center;
-
-  svg {
-    margin-right: 0.5em;
-  }
-`;
-
-type BannerProps = JSX.IntrinsicElements['header'];
-
-export const Banner = (props: BannerProps) => {
+export const Banner = () => {
   const { t } = useTranslation();
 
-  const navItems = [
-    { to: '/', text: t('banner.home', 'Home'), icon: Home },
+  const navItems: NavItem[] = [
     {
-      to: '/notifications',
-      text: t('banner.notifications', 'Notifications'),
-      icon: Bell,
+      as: '/',
+      href: '/',
+      children: t('banner.home', 'Home'),
+      icon: <FontAwesomeIcon icon={faHome} />,
+    },
+    {
+      href: '/rules',
+      as: '/rules',
+      children: t('banner.rules', 'Rules'),
+      icon: <FontAwesomeIcon icon={faBell} />,
     },
   ];
 
   return (
-    <UI.Banner {...props}>
-      <Title>
-        <Link href="/">
-          <a>
-            <img alt="Visible" src="/static/logo-white.png" />
-          </a>
-        </Link>
-      </Title>
+    <Layout.Header>
+      <Layout.Container>
+        <div className="flex w-full justify-between">
+          <div>
+            <Typography variant="h1">
+              <Link href="/">
+                <a>
+                  <Logography />
+                </a>
+              </Link>
+            </Typography>
+          </div>
 
-      <UI.Nav>
-        {navItems.map(({ to, text, icon: Icon }) => (
-          <UI.NavItem key={to} appearance="inverse">
-            <Link href={to}>
-              <Item>
-                <Icon size={16} />
-                {text}
-              </Item>
-            </Link>
-          </UI.NavItem>
-        ))}
-      </UI.Nav>
-    </UI.Banner>
+          <div>
+            <Nav items={navItems} variant="invert" />
+          </div>
+        </div>
+      </Layout.Container>
+    </Layout.Header>
   );
 };

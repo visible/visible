@@ -1,7 +1,4 @@
 {
-  "code-frame": {
-    "unavailable": "(Code frame is not available for this node)"
-  },
   "options": {
     "fix": "修正を表示します",
     "json": "整形済みテーブルの代わりにJSONデータを出力します",
@@ -11,6 +8,7 @@
   },
   "visible": {
     "description": "デフォルトのコマンド",
+    "end": "🦉 Diagnostics has successfully completed",
     "init": {
       "description": ".visiblercファイルを生成します",
       "done": "🎉 設定が完了しました!!"

@@ -1,7 +1,7 @@
-import { Code, Content, Typography } from '@visi/web-ui';
 import { NextPage } from 'next';
 import React from 'react';
 
+import { Layout, Typography } from '../components/ui';
 import { useTranslation } from '../utils/i18next';
 
 interface ErrorProps {
@@ -17,18 +17,23 @@ const Error: NextPage<ErrorProps> = (props) => {
   const { t } = useTranslation();
 
   return (
-    <Content>
-      <Typography variant="h1">
-        {statusCode && `${statusCode}: `}
-        {name ?? t('error.default-title', 'An unexpected error has occurred')}
-      </Typography>
+    <Layout.Main>
+      <Layout.Container>
+        <Layout.Content>
+          <Typography variant="h1">
+            {statusCode && `${statusCode}: `}
+            {name ??
+              t('error.default-title', 'An unexpected error has occurred')}
+          </Typography>
 
-      <Typography variant="body">
-        {message ?? t('error.default-message', 'No error message given')}
-      </Typography>
+          <Typography variant="p">
+            {message ?? t('error.default-message', 'No error message given')}
+          </Typography>
 
-      {stack && <Code language="">{stack}</Code>}
-    </Content>
+          {stack && <samp>{stack}</samp>}
+        </Layout.Content>
+      </Layout.Container>
+    </Layout.Main>
   );
 };
 

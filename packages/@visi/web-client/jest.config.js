@@ -14,6 +14,10 @@ module.exports = {
   testMatch: ['<rootDir>/src/**/*.spec.{ts,tsx}'],
   collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
 
+  moduleNameMapper: {
+    '\\.css$': '<rootDir>/src/tests/style-mock.ts',
+  },
+
   coveragePathIgnorePatterns: [
     ...defaults.coveragePathIgnorePatterns,
     'generated',

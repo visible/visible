@@ -15,7 +15,7 @@ export class RuleGatewayMock implements RuleRepository {
     return rule;
   }
 
-  async findByName(name: string): Promise<Rule | undefined> {
+  async findByCoreId(name: string): Promise<Rule | undefined> {
     return [...this.rules.values()].find((rule) => rule.name === name);
   }
 
