@@ -7,6 +7,7 @@ Visible makes the web better in a perspective of accessibility
 [![ci](https://github.com/visible/visible/workflows/CI/badge.svg)](https://github.com/visible/visible/actions)
 [![codecov](https://codecov.io/gh/visible/visible/branch/develop/graph/badge.svg)](https://codecov.io/gh/visible/visible)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d884597fcb0463f492c1/maintainability)](https://codeclimate.com/github/visible/visible/maintainability)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/visiblehq/web)
 
 ## Installation
 
