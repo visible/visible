@@ -9,7 +9,8 @@ export interface ProgressProps {
 export const Progress = (props: ProgressProps) => {
   const { max, value } = props;
 
-  const percentage = max !== 0 ? Math.round((value / max) * 100) : 0;
+  const percentage =
+    max !== 0 ? Math.min(100, Math.round((value / max) * 100)) : 0;
 
   return (
     <div className="inline-flex w-full items-center">

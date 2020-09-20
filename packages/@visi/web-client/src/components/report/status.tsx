@@ -18,9 +18,11 @@ export const Status = ({ report, title }: StatusProps) => {
 
   return (
     <div className={classNames('inline-flex', 'space-x-8', 'overflow-x-auto')}>
-      <div className="inline-flex items-center flex-shrink-0">
-        <Typography variant="p" fontSize="sm" color="wash">
+      <div className="inline-flex items-center flex-shrink-0 space-x-1">
+        <Typography fontSize="sm" color="wash">
           <FontAwesomeIcon icon={faFile} />
+        </Typography>
+        <Typography fontSize="sm" color="wash">
           {t('report.filename', 'Found at')}
         </Typography>
         <Typography variant="code" fontSize="xs">
@@ -28,9 +30,12 @@ export const Status = ({ report, title }: StatusProps) => {
         </Typography>
       </div>
 
-      <div className="inline-flex items-center flex-shrink-0">
-        <Typography variant="p" fontSize="sm" color="wash">
+      <div className="inline-flex items-center flex-shrink-0 space-x-1">
+        <Typography fontSize="sm" color="wash">
           <FontAwesomeIcon icon={faFlag} />
+        </Typography>
+
+        <Typography fontSize="sm" color="wash">
           {t('report.rule-id', 'Reported by')}
         </Typography>
 

@@ -142,12 +142,16 @@ export class SessionImpl implements Session {
       throw new Error(`No matching node found for ${xpath}`);
     }
 
-    const { matchedCSSRules, inherited } = await this.cdp.send(
-      'CSS.getMatchedStylesForNode',
-      {
+    const { matchedCSSRules, inherited } = await this.cdp
+      .send('CSS.getMatchedStylesForNode', {
         nodeId: node.nodeId,
-      },
-    );
+      })
+      .catch(() => {
+        return {
+          matchedCSSRules: undefined,
+          inherited: undefined,
+        };
+      });
 
     const inheritedStyles = inherited
       ?.flatMap((entry) => entry.matchedCSSRules)
@@ -221,9 +225,14 @@ export class SessionImpl implements Session {
     const { styleSheetId, sourceURL } = e.header;
 
     // StyleSheetHeader doesn't contain the text so we fetch it separately.
-    const res = await this.cdp.send('CSS.getStyleSheetText', {
-      styleSheetId,
-    });
+    const res = await this.cdp
+      .send('CSS.getStyleSheetText', {
+        styleSheetId,
+      })
+      // TODO: fix this error
+      .catch(() => undefined);
+
+    if (res == null) return;
 
     const source = new Source({
       url: sourceURL,
