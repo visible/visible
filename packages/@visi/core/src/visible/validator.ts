@@ -6,6 +6,7 @@ import { Driver, Session } from '../driver';
 import { Provider } from '../provider';
 import { Context, ContextImpl, Progress, Rule } from '../rule';
 import { Settings } from '../settings';
+import { Outcome } from '../source';
 
 export class Validator {
   constructor(
@@ -40,14 +41,20 @@ export class Validator {
   }
 
   private async runRules(session: Session, context: Context) {
-    try {
-      for (const rule of this.rules) {
+    for (const rule of this.rules) {
+      try {
         await rule.create(context);
+      } catch {
+        await context.reportHTML({
+          outcome: Outcome.INAPPLICABLE,
+          target: '/html',
+          ruleId: rule.id,
+        });
       }
-      context.progress$.complete();
-    } finally {
-      await session.close();
     }
+
+    context.progress$.complete();
+    await session.close();
   }
 
   private async createSessionForURL(url: string) {
