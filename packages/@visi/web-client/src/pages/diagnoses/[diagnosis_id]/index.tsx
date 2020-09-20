@@ -67,6 +67,8 @@ const Diagnoses: NextPage = () => {
           images: diagnosis.screenshot
             ? [{ url: diagnosis.screenshot, alt: diagnosis.url }]
             : undefined,
+          title,
+          description,
         }}
       />
 
