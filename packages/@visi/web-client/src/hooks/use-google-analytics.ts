@@ -1,10 +1,11 @@
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import ReactGA from 'react-ga';
 
 export const useGoogleAnalytics = () => {
   const router = useRouter();
+  const initialRoute = useRef(router.pathname);
 
   // Initialize Google Analytics
   useEffect(() => {
@@ -13,6 +14,8 @@ export const useGoogleAnalytics = () => {
     ReactGA.initialize(publicRuntimeConfig.gaTrackingId, {
       debug: process.env.NODE_ENV === 'development',
     });
+
+    ReactGA.pageview(initialRoute.current);
   }, []);
 
   // Track page changing with Google Analytics
