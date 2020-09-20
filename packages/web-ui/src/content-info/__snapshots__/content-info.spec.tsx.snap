@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ContentInfo matches snapshot 1`] = `
-<footer
-  class="sc-AxiKw kWeUcQ"
-/>
-`;

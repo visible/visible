@@ -1,0 +1,40 @@
+{
+  "name": "@visi/core",
+  "version": "0.2.0",
+  "license": "AGPL-3.0",
+  "main": "./dist/main/index.js",
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "test": "jest --coverage"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "domelementtype": "^2.0.1",
+    "domhandler": "^3.0.0",
+    "domutils": "^2.1.0",
+    "htmlparser2": "^4.1.0",
+    "i18next": "^19.6.3",
+    "immer": "^7.0.7",
+    "postcss": "^7.0.32",
+    "rxjs": "^6.6.2",
+    "uuid": "^8.3.0",
+    "xpath-analyzer": "^3.0.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@types/node": "^14.0.27",
+    "@types/uuid": "^8.3.0",
+    "rollup": "^2.23.1",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-typescript2": "^0.27.2"
+  },
+  "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
+}

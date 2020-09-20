@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout matches snapshot 1`] = `
+<div>
+  <header
+    class="bg-primary-500"
+  >
+    header
+  </header>
+  <article
+    class="flex-1"
+  >
+    <main
+      class="w-full"
+    >
+      main
+    </main>
+    <aside
+      class="w-full box-border lg:pl-8 lg:w-3/12"
+    >
+      aside
+    </aside>
+  </article>
+  <footer
+    class="bg-gray-300"
+  >
+    footer
+  </footer>
+</div>
+`;

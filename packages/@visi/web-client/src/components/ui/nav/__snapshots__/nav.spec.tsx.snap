@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Nav matches snapshot 1`] = `
+<nav>
+  <ul
+    class="flex flex-row space-x-4"
+  >
+    <li>
+      <a
+        class="p-2 rounded text-sm font-semibold space-x-2 text-gray-600 hover:bg-gray-300"
+        href="/bar"
+      >
+        <span>
+          Click me
+        </span>
+      </a>
+    </li>
+    <li>
+      <a
+        class="p-2 rounded text-sm font-semibold space-x-2 text-gray-600 hover:bg-gray-300"
+        href="/bar"
+      >
+        <span>
+          Click me
+        </span>
+      </a>
+    </li>
+  </ul>
+</nav>
+`;

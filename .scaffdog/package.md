@@ -2,7 +2,8 @@
 name: 'package'
 description: 'Generates @visi package'
 message: 'Type the name for your package e.g. `core`'
-root: './packages/'
+root: packages/@visi
+output: '**/*'
 ignore: []
 ---
 
@@ -11,7 +12,7 @@ ignore: []
 {
   "name": "@visi/{{ input | kebab }}",
   "version": "0.0.0",
-  "repository": "https://github.com/neet/visible.git",
+  "repository": "https://github.com/visible/visible.git",
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
   "main": "./dist/index.js",

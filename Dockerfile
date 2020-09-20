@@ -1,25 +1,30 @@
 FROM node:12-alpine AS build
-ENV NODE_ENV=development
-WORKDIR /home
+ENV NODE_ENV=production
+WORKDIR /home/visible/app
 
 RUN apk add --no-cache git yarn
 
-COPY . /home
+COPY . /home/visible/app
 
-RUN yarn --frozen-lockfile \
+RUN yarn --frozen-lockfile --production false \
   && yarn cache clean \
   && yarn run build
 
+# Isolate monorepo packages
 RUN mv node_modules/@visi node_modules/.tmp \
   && cp -LR node_modules/.tmp node_modules/@visi \
   && rm -rf node_modules/.tmp
 
 FROM node:12-alpine AS production
 ENV NODE_ENV=production \
+  PROJECT=/home/visible/app \
+  SERVER=/home/visible/app/packages/@visi/web-server \
+  CLIENT=/home/visible/app/packages/@visi/web-client \
+  GOOGLE_APPLICATION_CREDENTIALS=/home/visible/credentials/google-application.json \
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
   PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 EXPOSE ${CLIENT_PORT} ${SERVER_PORT}
-WORKDIR /home
+WORKDIR /home/visible/app
 
 RUN apk add --no-cache \
   chromium \
@@ -34,26 +39,28 @@ RUN apk add --no-cache \
 RUN addgroup -S visible \
   && adduser -S -g visible visible \
   && mkdir -p /home/visible/Downloads \
-  && chown -R visible:visible /home/visible/ \
-  && mkdir -p /home/packages/web-server/tmp \
-  && mkdir -p /home/packages/web-server/static \
-  && chown -R visible:visible /home/packages/web-server/tmp/ \
-  && chown -R visible:visible /home/packages/web-server/static/
-
-COPY --from=build /home/package.json /home/lerna.json /home/
-COPY --from=build /home/node_modules /home/node_modules
+  && mkdir -p ${SERVER}/static \
+  && mkdir -p ${SERVER}/logs \
+  && mkdir -p /home/visible/credentials \
+  && chown -R visible:visible /home/visible/
 
 COPY --from=build \
-  /home/packages/web-server/package.json \
-  /home/packages/web-server/ormconfig.js \
-  /home/packages/web-server/
-COPY --from=build /home/packages/web-server/dist /home/packages/web-server/dist
+  ${PROJECT}/package.json \
+  ${PROJECT}/yarn.lock \
+  ${PROJECT}/lerna.json \
+  ${PROJECT}/
+COPY --from=build ${PROJECT}/node_modules ${PROJECT}/node_modules
 
-COPY --from=build /home/packages/web-client/package.json /home/packages/web-client/
-COPY --from=build /home/packages/web-client/dist /home/packages/web-client/dist
-COPY --from=build /home/packages/web-client/public /home/packages/web-client/public
-COPY --from=build /home/packages/web-client/.next /home/packages/web-client/.next
+COPY --from=build \
+  ${SERVER}/package.json \
+  ${SERVER}/ormconfig.js \
+  ${SERVER}/
+COPY --from=build ${SERVER}/dist ${SERVER}/dist
+
+COPY --from=build ${CLIENT}/package.json ${CLIENT}/next.config.js ${CLIENT}/
+COPY --from=build ${CLIENT}/public ${CLIENT}/public
+COPY --from=build ${CLIENT}/.next ${CLIENT}/.next
 
 USER visible
-VOLUME [ "/home/packages/web-server/logs" ]
+VOLUME ["/home/visible/app/packages/@visi/web-server/logs", "/home/visible/app/packages/@visi/web-server/static", "/home/visible/credentials" ]
 ENTRYPOINT [ "yarn", "start" ]

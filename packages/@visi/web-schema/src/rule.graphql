@@ -1,0 +1,15 @@
+# import Node from "./node.graphql"
+
+enum RuleType {
+  ATOMIC
+  COMPOSITE
+}
+
+type Rule implements Node {
+  id: ID!
+  coreId: String!
+  name: String!
+  type: RuleType!
+  description: String!
+  keywords: [String!]
+}

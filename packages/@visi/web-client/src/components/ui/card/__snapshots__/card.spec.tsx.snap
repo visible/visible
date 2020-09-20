@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card matches snapshot 1`] = `
+<section
+  class="rounded p-4 shadow-md bg-gray-300"
+>
+  <header
+    class="mb-2"
+  >
+    <h6
+      class="font-bold text-xl"
+    >
+      Hello world
+    </h6>
+  </header>
+  <div>
+    singing somewhere in the internet
+  </div>
+</section>
+`;

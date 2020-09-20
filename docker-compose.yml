@@ -7,6 +7,8 @@ services:
     restart: always
     env_file: .env
     privileged: true
+    # https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#tips
+    shm_size: '2gb'
     ports:
       - '3000:3000'
       - '4000:4000'
@@ -14,7 +16,9 @@ services:
       - postgres
       - redis
     volumes:
-      - ./logs:/home/packages/web-server/logs
+      - ./logs:/home/visible/app/packages/@visi/web-server/logs
+      - ./static:/home/visible/app/packages/@visi/web-server/static
+      - ./credentials:/home/visible/credentials
 
   postgres:
     image: postgres:12.2

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DiagnosisPresenter transforms diagnosis into API response 1`] = `
+Object {
+  "createdAt": 2020-05-17T08:28:59.186Z,
+  "doneCount": 1,
+  "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
+  "screenshot": "https://example.com",
+  "sources": Array [
+    Object {
+      "content": "<html></html>",
+      "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
+      "reports": Array [
+        Object {
+          "diffHunk": undefined,
+          "difficulty": undefined,
+          "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
+          "impact": undefined,
+          "location": undefined,
+          "message": "Error!",
+          "outcome": "FAIL",
+          "screenshot": undefined,
+          "target": "/html/body",
+        },
+      ],
+      "url": "https://example.com",
+    },
+  ],
+  "status": "STARTED",
+  "totalCount": 1,
+  "updatedAt": 2020-05-17T08:28:59.186Z,
+  "url": "https://exmaple.com",
+}
+`;

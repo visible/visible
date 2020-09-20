@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Content matches snapshot 1`] = `
-<main
-  class="sc-AxjAm ePqRRV"
-/>
-`;

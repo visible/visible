@@ -1,0 +1,19 @@
+version: 2
+updates:
+
+  - package-ecosystem: npm
+    versioning-strategy: increase
+    open-pull-requests-limit: 30
+    target-branch: develop
+    directory: /packages/@visi
+    schedule:
+      interval: monthly
+    ignore:
+      - dependency-name: "@babel/*"
+      - dependency-name: "@type/*"
+      - dependency-name: react-dom
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

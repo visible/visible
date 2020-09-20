@@ -2,7 +2,8 @@
 name: 'rule'
 description: 'Generates rule on @visi/core'
 message: 'Type the name for your rule e.g. `image-alt`'
-root: './packages/'
+root: packages/@visi
+output: '**/*'
 ignore: []
 ---
 

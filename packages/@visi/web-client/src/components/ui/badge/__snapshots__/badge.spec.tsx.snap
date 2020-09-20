@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Badge matches snapshot 1`] = `
+<div
+  class="inline-flex items-center"
+>
+  <div
+    class="w-2 h-2 m-1 mr-2 rounded-full bg-red-600"
+    role="presentation"
+  />
+  <span
+    class="text-sm text-gray-800 leading-none"
+  >
+    test
+  </span>
+</div>
+`;

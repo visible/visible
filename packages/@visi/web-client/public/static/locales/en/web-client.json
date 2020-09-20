@@ -1,0 +1,140 @@
+{
+  "banner": {
+    "home": "Home",
+    "rules": "Rules"
+  },
+  "content-info": {
+    "email": "Contact",
+    "github": "GitHub",
+    "twitter": "Twitter"
+  },
+  "diagnoses": {
+    "description": "Accessibility issues and suggestions for {{domain}} provided by Visible",
+    "error": "Error occurred",
+    "files": "Files",
+    "keywords": "Keywords",
+    "loading": "Loading...",
+    "processing": {
+      "description": "Running diagnostics program on the server. This process takes a while to complete...",
+      "title": "Processing diagnostics"
+    },
+    "reports": "Reports",
+    "rules": "Rules",
+    "sources": "Files",
+    "title": "Reports: {{domain}}"
+  },
+  "diagnosis-file": {
+    "description": "Detailed reports for the file {{name}} provided by Visible",
+    "title": "File: {{name}}"
+  },
+  "diagnosis-files": {
+    "description": "Reports for the files that are found at {{domain}}",
+    "title": "Files: {{domain}}"
+  },
+  "diagnosis-rules": {
+    "description": "Rules that are raised issues on {{domain}}",
+    "title": "Rules: {{domain}}"
+  },
+  "difficulty": {
+    "difficult": "Difficult",
+    "easy": "Easy",
+    "medium": "Medium"
+  },
+  "error": {
+    "default-message": "No error message given",
+    "default-title": "An unexpected error has occurred"
+  },
+  "home": {
+    "agenda": {
+      "description": "Visible is not just a linter, we also provide information on how to make your website accessible. We indicate which part you need to fix, give you patches of codes, give you references to the standards — to help you to learn and improve the accessibility of your website.",
+      "image": "Book",
+      "title": "Less pain, more accessible"
+    },
+    "description": "Visible is a tool-chain that helps developers to build websites in the perspective of accessibility",
+    "features": {
+      "automation": {
+        "description": "Unlike other tools, Visible also provides patches to fix the a11y issues so you don’t need to search for information of the error and helps you to focus more on coding",
+        "title": "Automation"
+      },
+      "beta": {
+        "description": "We are working hard to release Visible by November this year. In case if you interested in Visible or accessibility, I'd appreciate you trying it out. Please keep it in mind that the programme is still under development and not guaranteed to work properly.",
+        "title": "Try the beta out, now!"
+      },
+      "ci": {
+        "description": "Visible is also available on command-line, so you can use it on continuous integrations services and monitor the website is fine.",
+        "title": "Continuous Integration"
+      },
+      "learn": {
+        "description": "Visible always inform you which exact codes are violating rules which means you can learn more about accessibility as you code",
+        "title": "Learn about A11y"
+      },
+      "title": "Features"
+    },
+    "introduction": "Introduction",
+    "placeholder": "Type URL of the website",
+    "submit": "Diagnose",
+    "title": "Is your website visible?"
+  },
+  "impact": {
+    "critical": "Critical",
+    "minor": "Minor",
+    "serious": "Serious"
+  },
+  "keyword": {
+    "description": "Documentation and related information for {{keywordId}}",
+    "title": "Keyword: {{keywordId}}"
+  },
+  "keywords": {
+    "adhd": "ADHD",
+    "blindness": "Blindness",
+    "bot": "Bot",
+    "color-blindness": "Color blindness",
+    "deafness": "Deafness",
+    "dyslexia": "Dyslexia",
+    "essential-tremor": "Essential tremor",
+    "hard-of-hearing": "Hard of hearing",
+    "low-vision": "Low vision",
+    "rsi": "RSI"
+  },
+  "meta": {
+    "description": "🦉 Visible is an open-source accessibility testing tool works on Node.js and CI",
+    "title": "Visible"
+  },
+  "not-found": {
+    "title": "You hit the void!"
+  },
+  "page-placeholder": {
+    "back": "Go Back",
+    "description": "This feature is implementing in progress. Motivate us by starring the repository on <2>GitHub</2>!",
+    "title": "You are too early..."
+  },
+  "report": {
+    "difficulty": "Difficulty: {{difficulty}}",
+    "filename": "Found at",
+    "impact": "Impact: {{impact}}",
+    "no-desc": "no description provided",
+    "rule-id": "Reported by"
+  },
+  "report-list": {
+    "description": "{{count}} issue was reported from this website. Click to show the details including impacts and patches",
+    "description_plural": "{{count}} issues were reported from this website. Click to show the details including impacts and patches",
+    "title": "Reports"
+  },
+  "rule": {
+    "title": "Rule"
+  },
+  "rules": {
+    "description": "The list of rules that are available in Visible",
+    "title": "Rules"
+  },
+  "select": {
+    "placeholder": "This feature not implemented yet"
+  },
+  "status": {
+    "done": "Done",
+    "failed": "Failed",
+    "processing": "Processing",
+    "queued": "Queued",
+    "started": "Started"
+  }
+}

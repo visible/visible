@@ -1,0 +1,19 @@
+{
+  "options": {
+    "fix": "修正を表示します",
+    "json": "整形済みテーブルの代わりにJSONデータを出力します",
+    "silent": "プログレスバーを非表示にします",
+    "url": "診断するURL",
+    "verbose": "合格したレポートを含めた全てのレポートを表示する"
+  },
+  "visible": {
+    "description": "デフォルトのコマンド",
+    "end": "🦉 Diagnostics has successfully completed",
+    "init": {
+      "description": ".visiblercファイルを生成します",
+      "done": "🎉 設定が完了しました!!"
+    },
+    "no-rc": "visiblercファイルが見つかりませんでした。",
+    "start": "🦉 {{url}}から「{{name}}」を診断中..."
+  }
+}

@@ -60,9 +60,12 @@ typings/
 # next.js build output
 .next
 
+.DS_Store
 dist
+credentials
 generated
 postgres
 redis
 tmp
 .cache
+.stylelintcache

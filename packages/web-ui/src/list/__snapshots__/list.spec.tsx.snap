@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`List matches snapshot 1`] = `
-<ul
-  class="sc-AxjAm bgzbNk"
-/>
-`;

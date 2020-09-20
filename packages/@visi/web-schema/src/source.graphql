@@ -1,0 +1,12 @@
+# import Node from "./node.graphql"
+# import URL from "./scalars.graphql"
+# import Report from "./report.graphql"
+# import Diagnosis from "./diagnosis.graphql"
+
+type Source implements Node {
+  id: ID!
+  diagnosis: Diagnosis
+  content: String!
+  url: URL
+  reports: [Report!]!
+}

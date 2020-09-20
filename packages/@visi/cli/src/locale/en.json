@@ -1,0 +1,19 @@
+{
+  "options": {
+    "fix": "Prints fixers",
+    "json": "Output JSON instead of prettified table",
+    "silent": "Disables progress bar",
+    "url": "URL to diagnose",
+    "verbose": "Prints all reports including passed one"
+  },
+  "visible": {
+    "description": "The default command",
+    "end": "🦉 Diagnostics has successfully completed",
+    "init": {
+      "description": "Initialize .visiblerc file",
+      "done": "🎉 Initialization completed!!"
+    },
+    "no-rc": "No visiblerc file found",
+    "start": "🦉 Diagnosing {{name}} at {{url}}..."
+  }
+}
