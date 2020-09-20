@@ -9,7 +9,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 * Add mockFs.restore() ([5def2e4](https://github.com/visible/visible/commit/5def2e4b519f15b49fe61c60eb3521db5678e5cf))
-* Add URL validation in Usecase ([3960d23](https://github.com/visible/visible/commit/3960d2376d9ca5ab5155947dec1e50ba7c335ffb))
+* Add URL validation in Use-case ([3960d23](https://github.com/visible/visible/commit/3960d2376d9ca5ab5155947dec1e50ba7c335ffb))
 * bubble errors from runRules ([78a731c](https://github.com/visible/visible/commit/78a731c2b47b2fa4f87faf0434acb77aa7330687))
 * Change URL to text ([af7960b](https://github.com/visible/visible/commit/af7960b8907409fb0d4272322f03f2f46d94603e))
 * Downgrade rxjs corresponding to rc5 ([5c473ea](https://github.com/visible/visible/commit/5c473ea071bf36fb5ac05d2b46c8888e7fbb665a))
