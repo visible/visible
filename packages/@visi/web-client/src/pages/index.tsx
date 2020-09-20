@@ -51,7 +51,11 @@ const Index: NextPage = () => {
 
   return (
     <Layout.Main>
-      <NextSeo title={title} description={description} />
+      <NextSeo
+        title={title}
+        description={description}
+        openGraph={{ title, description }}
+      />
 
       <Layout.Content>
         <div

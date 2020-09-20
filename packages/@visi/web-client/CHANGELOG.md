@@ -10,8 +10,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * Fix uncaught promise rejections ([a1eb388](https://github.com/visible/visible/commit/a1eb3882288e5b7780887b8efac84e6995994a89))
 * Remove i18next in manifest.json temporarily ([fcae6d5](https://github.com/visible/visible/commit/fcae6d503ed513bd053b2091dad7d9b307bac360))
-* **nextjs:** Use 4000 ([f2abc66](https://github.com/visible/visible/commit/f2abc66eac452878c14b4cea6c8aa6151420629e))
-* Add URL validation in Usecase ([3960d23](https://github.com/visible/visible/commit/3960d2376d9ca5ab5155947dec1e50ba7c335ffb))
+* **next.js:** Use 4000 ([f2abc66](https://github.com/visible/visible/commit/f2abc66eac452878c14b4cea6c8aa6151420629e))
+* Add URL validation in Use-case ([3960d23](https://github.com/visible/visible/commit/3960d2376d9ca5ab5155947dec1e50ba7c335ffb))
 * Change URL to text ([af7960b](https://github.com/visible/visible/commit/af7960b8907409fb0d4272322f03f2f46d94603e))
 * Improve diff hunk view ([8660149](https://github.com/visible/visible/commit/8660149e1a3325c863fe0bafb36f1f48bd299ec0))
 * Update snapshots ([383ea15](https://github.com/visible/visible/commit/383ea155a1f3f88544a1814d2d773d4f7868dace))

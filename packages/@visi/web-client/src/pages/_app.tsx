@@ -29,13 +29,20 @@ const CustomApp = (props: CustomAppProps) => {
       <DefaultSeo
         titleTemplate={'%s - Visible'}
         title={title}
+        description={t('meta.description')}
         openGraph={{
           type: 'website',
-          title,
           site_name: title,
           images: [
-            { url: `/static/thumbnail-${i18n.language}.png`, alt: 'Thumbnail' },
+            {
+              url: `https://visi.dev/static/thumbnail-${i18n.language}.png`,
+              alt: 'Thumbnail',
+            },
           ],
+        }}
+        twitter={{
+          site: '@visible_hq',
+          cardType: 'summary_large_image',
         }}
       />
 
