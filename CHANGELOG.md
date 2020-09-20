@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/visible/visible/compare/v0.1.0...v0.2.0) (2020-09-20)
+
+
+### Bug Fixes
+
+* Add --stream to test ([d3eeaa7](https://github.com/visible/visible/commit/d3eeaa706cb06425d9d215a8dededaf970c6457a))
+* Add mockFs.restore() ([5def2e4](https://github.com/visible/visible/commit/5def2e4b519f15b49fe61c60eb3521db5678e5cf))
+* Add return type to Location#toString ([b6a3b87](https://github.com/visible/visible/commit/b6a3b874efd83d056d5507b087399e4b6f363d5f))
+* Add tests ([bcdc6fb](https://github.com/visible/visible/commit/bcdc6fb86f498f56324e88ed24ec7983ebe6bd72))
+* Add URL validation in Usecase ([3960d23](https://github.com/visible/visible/commit/3960d2376d9ca5ab5155947dec1e50ba7c335ffb))
+* Check if finding html is needed ([d9f8fc7](https://github.com/visible/visible/commit/d9f8fc72913bab09e37166055536b2ea9a8c5484))
+* Downgrade rxjs corresponding to rc5 ([5c473ea](https://github.com/visible/visible/commit/5c473ea071bf36fb5ac05d2b46c8888e7fbb665a))
+* Fix invalid reference ([8ded883](https://github.com/visible/visible/commit/8ded883b07e866c3c6122b872d6753cddb31a4cc))
+* Fix uncaught promise rejections ([a1eb388](https://github.com/visible/visible/commit/a1eb3882288e5b7780887b8efac84e6995994a89))
+* **docker:** Fix volume dirs ([d3a620e](https://github.com/visible/visible/commit/d3a620eeb23200748bc2becbc915cebac2457791))
+* Fix ESLint errors ([58e0136](https://github.com/visible/visible/commit/58e01365cc9306445b1567750ae6f234c66ae61a))
+* Fix isEqualNode to isSameNode ([8317d79](https://github.com/visible/visible/commit/8317d798d0241063ea5ee4ec7a940ea3018a01dc))
+* Handle error on TranslatorImpl ([1bc6b20](https://github.com/visible/visible/commit/1bc6b201388c153a3a33cbfe9a9278645f7b5d11))
+* Improve diff hunk view ([8660149](https://github.com/visible/visible/commit/8660149e1a3325c863fe0bafb36f1f48bd299ec0))
+* mkdir -p screenshotDir ([e026c86](https://github.com/visible/visible/commit/e026c86771f92b8dd9562a3bfadd3e56fa72af7e))
+* Remove i18next in manifest.json temporarily ([fcae6d5](https://github.com/visible/visible/commit/fcae6d503ed513bd053b2091dad7d9b307bac360))
+* **nextjs:** Use 4000 ([f2abc66](https://github.com/visible/visible/commit/f2abc66eac452878c14b4cea6c8aa6151420629e))
+* bubble errors from runRules ([78a731c](https://github.com/visible/visible/commit/78a731c2b47b2fa4f87faf0434acb77aa7330687))
+* Change URL to text ([af7960b](https://github.com/visible/visible/commit/af7960b8907409fb0d4272322f03f2f46d94603e))
+* Improve node finding algorithm of Source ([5447dd4](https://github.com/visible/visible/commit/5447dd48a04ff7eab1941c13fa838a38187b209b))
+* Remove Plugin / Config implementation from the core ([61d2d10](https://github.com/visible/visible/commit/61d2d10a3e5fa6a182f0495666e620d56209982b))
+* Remove unneeded eslint disable ([39547e8](https://github.com/visible/visible/commit/39547e8eb32ea59532000f901ebd01ff72583b2a))
+* Update snapshots ([383ea15](https://github.com/visible/visible/commit/383ea155a1f3f88544a1814d2d773d4f7868dace))
+* Use redis config ([52b7539](https://github.com/visible/visible/commit/52b7539eef53fcbaf2555477707adf9f00591a23))
+
+
+### Features
+
+* Add deafult GCP credential directory ([a977e0d](https://github.com/visible/visible/commit/a977e0d78d4525fe64ca9ee7e04165cf84029488))
+* Add Diff view to the web client ([a8995d4](https://github.com/visible/visible/commit/a8995d4ecc06d91857ea687c5c94e6aa9242228e))
+* Add difficulty field ([4632098](https://github.com/visible/visible/commit/463209854545546e579c1e2b1702fb93a2aa5a29))
+* Add DriverFactory ([d438b85](https://github.com/visible/visible/commit/d438b8584af1d1ca5bbfeaadc7d9b95b9cbf48b7))
+* Add maxReportsCountPerRule ([70bb86c](https://github.com/visible/visible/commit/70bb86c608f4f994001d99d3e59483f5b61e523a))
+* Add more WCAG rules ([cf531e8](https://github.com/visible/visible/commit/cf531e866f88dace49d921785f032c302705c4d8))
+* Introduce Tailwind CSS ([4cd775c](https://github.com/visible/visible/commit/4cd775ca65407aa40e655808eca2cd79434417a5))
+
+
+
+
+
 # [0.1.0](https://github.com/visible/visible/compare/v0.0.1...v0.1.0) (2020-08-04)
 
 

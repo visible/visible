@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/visible/visible/compare/v0.1.0...v0.2.0) (2020-09-20)
+
+
+### Features
+
+* Add difficulty field ([4632098](https://github.com/visible/visible/commit/463209854545546e579c1e2b1702fb93a2aa5a29))
+* Add more WCAG rules ([cf531e8](https://github.com/visible/visible/commit/cf531e866f88dace49d921785f032c302705c4d8))
+* Introduce Tailwind CSS ([4cd775c](https://github.com/visible/visible/commit/4cd775ca65407aa40e655808eca2cd79434417a5))
+
+
+
+
+
 # [0.1.0](https://github.com/visible/visible/compare/v0.0.1...v0.1.0) (2020-08-04)
 
 **Note:** Version bump only for package @visi/plugin-wcag

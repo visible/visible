@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/visible/visible/compare/v0.1.0...v0.2.0) (2020-09-20)
+
+
+### Bug Fixes
+
+* Fix uncaught promise rejections ([a1eb388](https://github.com/visible/visible/commit/a1eb3882288e5b7780887b8efac84e6995994a89))
+* Remove i18next in manifest.json temporarily ([fcae6d5](https://github.com/visible/visible/commit/fcae6d503ed513bd053b2091dad7d9b307bac360))
+* **nextjs:** Use 4000 ([f2abc66](https://github.com/visible/visible/commit/f2abc66eac452878c14b4cea6c8aa6151420629e))
+* Add URL validation in Usecase ([3960d23](https://github.com/visible/visible/commit/3960d2376d9ca5ab5155947dec1e50ba7c335ffb))
+* Change URL to text ([af7960b](https://github.com/visible/visible/commit/af7960b8907409fb0d4272322f03f2f46d94603e))
+* Improve diff hunk view ([8660149](https://github.com/visible/visible/commit/8660149e1a3325c863fe0bafb36f1f48bd299ec0))
+* Update snapshots ([383ea15](https://github.com/visible/visible/commit/383ea155a1f3f88544a1814d2d773d4f7868dace))
+
+
+### Features
+
+* Add Diff view to the web client ([a8995d4](https://github.com/visible/visible/commit/a8995d4ecc06d91857ea687c5c94e6aa9242228e))
+* Add more WCAG rules ([cf531e8](https://github.com/visible/visible/commit/cf531e866f88dace49d921785f032c302705c4d8))
+* Introduce Tailwind CSS ([4cd775c](https://github.com/visible/visible/commit/4cd775ca65407aa40e655808eca2cd79434417a5))
+
+
+
+
+
 # [0.1.0](https://github.com/visible/visible/compare/v0.0.1...v0.1.0) (2020-08-04)
 
 **Note:** Version bump only for package @visi/web-client

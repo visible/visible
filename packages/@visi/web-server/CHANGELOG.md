@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/visible/visible/compare/v0.1.0...v0.2.0) (2020-09-20)
+
+
+### Bug Fixes
+
+* Add mockFs.restore() ([5def2e4](https://github.com/visible/visible/commit/5def2e4b519f15b49fe61c60eb3521db5678e5cf))
+* Add URL validation in Usecase ([3960d23](https://github.com/visible/visible/commit/3960d2376d9ca5ab5155947dec1e50ba7c335ffb))
+* bubble errors from runRules ([78a731c](https://github.com/visible/visible/commit/78a731c2b47b2fa4f87faf0434acb77aa7330687))
+* Change URL to text ([af7960b](https://github.com/visible/visible/commit/af7960b8907409fb0d4272322f03f2f46d94603e))
+* Downgrade rxjs corresponding to rc5 ([5c473ea](https://github.com/visible/visible/commit/5c473ea071bf36fb5ac05d2b46c8888e7fbb665a))
+* Fix ESLint errors ([58e0136](https://github.com/visible/visible/commit/58e01365cc9306445b1567750ae6f234c66ae61a))
+* Handle error on TranslatorImpl ([1bc6b20](https://github.com/visible/visible/commit/1bc6b201388c153a3a33cbfe9a9278645f7b5d11))
+* Improve diff hunk view ([8660149](https://github.com/visible/visible/commit/8660149e1a3325c863fe0bafb36f1f48bd299ec0))
+* mkdir -p screenshotDir ([e026c86](https://github.com/visible/visible/commit/e026c86771f92b8dd9562a3bfadd3e56fa72af7e))
+* Remove Plugin / Config implementation from the core ([61d2d10](https://github.com/visible/visible/commit/61d2d10a3e5fa6a182f0495666e620d56209982b))
+* Use redis config ([52b7539](https://github.com/visible/visible/commit/52b7539eef53fcbaf2555477707adf9f00591a23))
+
+
+### Features
+
+* Add Diff view to the web client ([a8995d4](https://github.com/visible/visible/commit/a8995d4ecc06d91857ea687c5c94e6aa9242228e))
+* Add difficulty field ([4632098](https://github.com/visible/visible/commit/463209854545546e579c1e2b1702fb93a2aa5a29))
+* Add more WCAG rules ([cf531e8](https://github.com/visible/visible/commit/cf531e866f88dace49d921785f032c302705c4d8))
+* Introduce Tailwind CSS ([4cd775c](https://github.com/visible/visible/commit/4cd775ca65407aa40e655808eca2cd79434417a5))
+
+
+
+
+
 # [0.1.0](https://github.com/visible/visible/compare/v0.0.1...v0.1.0) (2020-08-04)
 
 

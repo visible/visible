@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/visible/visible/compare/v0.1.0...v0.2.0) (2020-09-20)
+
+
+### Bug Fixes
+
+* Fix ESLint errors ([58e0136](https://github.com/visible/visible/commit/58e01365cc9306445b1567750ae6f234c66ae61a))
+* Remove Plugin / Config implementation from the core ([61d2d10](https://github.com/visible/visible/commit/61d2d10a3e5fa6a182f0495666e620d56209982b))
+
+
+### Features
+
+* Add DriverFactory ([d438b85](https://github.com/visible/visible/commit/d438b8584af1d1ca5bbfeaadc7d9b95b9cbf48b7))
+* Add maxReportsCountPerRule ([70bb86c](https://github.com/visible/visible/commit/70bb86c608f4f994001d99d3e59483f5b61e523a))
+* Add more WCAG rules ([cf531e8](https://github.com/visible/visible/commit/cf531e866f88dace49d921785f032c302705c4d8))
+* Introduce Tailwind CSS ([4cd775c](https://github.com/visible/visible/commit/4cd775ca65407aa40e655808eca2cd79434417a5))
+
+
+
+
+
 # [0.1.0](https://github.com/visible/visible/compare/v0.0.1...v0.1.0) (2020-08-04)
 
 
