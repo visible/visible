@@ -44,7 +44,11 @@ RUN addgroup -S visible \
   && mkdir -p /home/visible/credentials \
   && chown -R visible:visible /home/visible/
 
-COPY --from=build ${PROJECT}/package.json ${PROJECT}/lerna.json ${PROJECT}/
+COPY --from=build \
+  ${PROJECT}/package.json \
+  ${PROJECT}/yarn.lock \
+  ${PROJECT}/lerna.json \
+  ${PROJECT}/
 COPY --from=build ${PROJECT}/node_modules ${PROJECT}/node_modules
 
 COPY --from=build \
