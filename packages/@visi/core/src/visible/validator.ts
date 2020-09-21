@@ -1,6 +1,6 @@
 import path from 'path';
-import { defer, identity, Observable, Subject } from 'rxjs';
-import { flatMap, publish, refCount } from 'rxjs/operators';
+import { defer, Observable, Subject } from 'rxjs';
+import { mergeAll, publish, refCount } from 'rxjs/operators';
 
 import { Driver, Session } from '../driver';
 import { Provider } from '../provider';
@@ -33,7 +33,7 @@ export class Validator {
       this.runRules(session);
 
       return this.progress$;
-    }).pipe(flatMap(identity), publish(), refCount());
+    }).pipe(mergeAll(), publish(), refCount());
   }
 
   private async runRules(session: Session) {
