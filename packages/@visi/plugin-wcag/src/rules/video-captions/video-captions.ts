@@ -37,7 +37,6 @@ export class VideoCaptions implements Rule {
     if (!isApplicable) {
       return ctx.reportHTML({
         outcome: Outcome.INAPPLICABLE,
-        ruleId: this.id,
         target: '/html',
       });
     }
@@ -45,7 +44,6 @@ export class VideoCaptions implements Rule {
     if (xpaths.length !== 0) {
       return ctx.reportHTML({
         outcome: Outcome.PASSED,
-        ruleId: this.id,
         target: '/html',
       });
     }
@@ -55,7 +53,6 @@ export class VideoCaptions implements Rule {
         outcome: Outcome.FAIL,
         impact: Impact.CRITICAL,
         difficulty: Difficulty.DIFFICULT,
-        ruleId: this.id,
         target: xpath,
         message:
           'You must include `track` elements as a child of `video` elements ' +

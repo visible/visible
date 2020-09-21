@@ -37,14 +37,12 @@ export class BypassBlocks implements Rule {
     if (hasLandmarks || hasAnchorLinks) {
       return ctx.reportHTML({
         target: '/html',
-        ruleId: this.id,
         outcome: Outcome.PASSED,
       });
     }
 
     await ctx.reportHTML({
       outcome: Outcome.FAIL,
-      ruleId: this.id,
       target: '/html/body',
       impact: Impact.CRITICAL,
       difficulty: Difficulty.MEDIUM,

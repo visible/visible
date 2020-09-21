@@ -29,7 +29,6 @@ export class InputLabel implements Rule {
     if (!isApplicable) {
       return ctx.reportHTML({
         outcome: Outcome.INAPPLICABLE,
-        ruleId: this.id,
         target: '/html',
       });
     }
@@ -45,7 +44,6 @@ export class InputLabel implements Rule {
     if (xpaths.length === 0) {
       return ctx.reportHTML({
         outcome: Outcome.PASSED,
-        ruleId: this.id,
         target: '/html',
       });
     }
@@ -53,7 +51,6 @@ export class InputLabel implements Rule {
     for (const xpath of xpaths) {
       await ctx.reportHTML({
         outcome: Outcome.FAIL,
-        ruleId: this.id,
         target: xpath,
         impact: Impact.CRITICAL,
         difficulty: Difficulty.MEDIUM,
