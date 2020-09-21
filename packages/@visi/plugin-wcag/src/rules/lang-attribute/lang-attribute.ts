@@ -30,7 +30,6 @@ export class LangAttribute implements Rule {
     if (node.attribs.lang != null) {
       return ctx.reportHTML({
         outcome: Outcome.PASSED,
-        ruleId: this.id,
         target: '/html',
       });
     }
@@ -42,7 +41,6 @@ export class LangAttribute implements Rule {
       outcome: Outcome.FAIL,
       impact: Impact.CRITICAL,
       difficulty: Difficulty.EASY,
-      ruleId: this.id,
       target: '/html',
       message:
         'You must set `lang` attribute for the `html` element at the root ' +

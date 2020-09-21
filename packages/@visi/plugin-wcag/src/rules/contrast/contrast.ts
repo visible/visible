@@ -42,7 +42,6 @@ export class Contrast implements Rule {
       try {
         return ctx.reportCSS({
           outcome: Outcome.PASSED,
-          ruleId: this.id,
           target: '/html/body',
           propertyName: 'background-color',
         });
@@ -57,7 +56,6 @@ export class Contrast implements Rule {
       try {
         await ctx.reportCSS({
           outcome: Outcome.FAIL,
-          ruleId: this.id,
           target: elm.xpath,
           propertyName: 'background-color',
           impact: Impact.SERIOUS,
