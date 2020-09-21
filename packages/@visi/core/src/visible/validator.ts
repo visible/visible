@@ -1,14 +1,16 @@
 import path from 'path';
-import { defer, Observable } from 'rxjs';
-import { flatMap, publish, refCount } from 'rxjs/operators';
+import { defer, Observable, Subject } from 'rxjs';
+import { publish, refCount, switchAll } from 'rxjs/operators';
 
 import { Driver, Session } from '../driver';
 import { Provider } from '../provider';
-import { Context, ContextImpl, Progress, Rule } from '../rule';
+import { ContextImpl, Progress, Rule } from '../rule';
 import { Settings } from '../settings';
 import { Outcome } from '../source';
 
 export class Validator {
+  private readonly progress$ = new Subject<Progress>();
+
   constructor(
     readonly settings: Settings,
     readonly driver: Driver,
@@ -22,38 +24,39 @@ export class Validator {
     return defer(async () => {
       const session = await this.createSessionForURL(url);
       await this.exposeGateway(session);
-      const context = this.createContext(session);
 
       if (delay != null) {
         await session.waitFor(delay);
       }
 
-      this.runRules(session, context).catch((error) => {
-        context.progress$.error(error);
-      });
-
-      return context;
-    }).pipe(
-      flatMap((context) => context.progress$),
-      publish(),
-      refCount(),
-    );
+      await this.runRules(session);
+      return this.progress$;
+    }).pipe(switchAll(), publish(), refCount());
   }
 
-  private async runRules(session: Session, context: Context) {
+  private async runRules(session: Session) {
+    let doneCount = 0;
+
     for (const rule of this.rules) {
+      const context = this.createContext(session, rule.id);
+
       try {
         await rule.create(context);
       } catch {
         await context.reportHTML({
           outcome: Outcome.INAPPLICABLE,
           target: '/html',
-          ruleId: rule.id,
         });
       }
+
+      doneCount += 1;
+      this.progress$.next({
+        doneCount,
+        totalCount: this.rules.length,
+        sources: session.sources,
+      });
     }
 
-    context.progress$.complete();
     await session.close();
   }
 
@@ -69,7 +72,13 @@ export class Validator {
     await session.waitForFunction('() => visible != null');
   }
 
-  private createContext(session: Session) {
-    return new ContextImpl(this.settings, session, this.rules, this.provider);
+  private createContext(session: Session, ruleId: string) {
+    return new ContextImpl(
+      ruleId,
+      this.settings,
+      session,
+      this.rules,
+      this.provider,
+    );
   }
 }

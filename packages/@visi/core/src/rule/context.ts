@@ -1,5 +1,4 @@
 import path from 'path';
-import { Subject } from 'rxjs';
 
 import { Session } from '../driver';
 import { Provider } from '../provider';
@@ -12,25 +11,20 @@ import {
   Location,
   Outcome,
   Report,
-  Source,
 } from '../source';
-import { Progress } from './progress';
 import { Rule } from './rule';
 
 export interface InapplicableReportParams {
-  ruleId: string;
   outcome: Outcome.INAPPLICABLE;
   target: string;
 }
 
 export interface PassedReportParams {
-  ruleId: string;
   outcome: Outcome.PASSED;
   target: string;
 }
 
 export interface FailReportParams<T> {
-  ruleId: string;
   outcome: Outcome.FAIL;
   impact: Impact;
   difficulty: Difficulty;
@@ -51,7 +45,6 @@ export type ReportCSSParams = (
 ) & { propertyName: string };
 
 export interface Context {
-  readonly progress$: Subject<Progress>;
   readonly session: Session;
   readonly settings: Settings;
   readonly provider: Provider;
@@ -60,11 +53,10 @@ export interface Context {
 }
 
 export class ContextImpl implements Context {
-  readonly progress$ = new Subject<Progress>();
-  private readonly reportsCountPerRule = new Map<string, number>();
   private doneCount = 0;
 
   constructor(
+    readonly ruleId: string,
     readonly settings: Settings,
     readonly session: Session,
     readonly rules: Rule[],
@@ -72,9 +64,9 @@ export class ContextImpl implements Context {
   ) {}
 
   async reportHTML(params: ReportHTMLParams): Promise<void> {
-    const { target, ruleId } = params;
+    const { target } = params;
 
-    if (this.checkIfRuleHasExceededReportLimit(ruleId)) {
+    if (this.doneCount >= this.settings.maxReportsCountPerRule) {
       return;
     }
 
@@ -103,18 +95,19 @@ export class ContextImpl implements Context {
 
     const report = new Report({
       ...params,
+      ruleId: this.ruleId,
       node: new HTMLNode(node),
       screenshot,
       location,
     });
 
-    this.addReport(source, report);
+    source.addReport(report);
   }
 
   async reportCSS(params: ReportCSSParams): Promise<void> {
-    const { target, ruleId, propertyName } = params;
+    const { target, propertyName } = params;
 
-    if (this.checkIfRuleHasExceededReportLimit(ruleId)) {
+    if (this.doneCount >= this.settings.maxReportsCountPerRule) {
       return;
     }
 
@@ -151,12 +144,13 @@ export class ContextImpl implements Context {
 
     const report = new Report({
       ...params,
+      ruleId: this.ruleId,
       node: new CSSNode(node),
       location,
       screenshot,
     });
 
-    this.addReport(source, report);
+    source.addReport(report);
   }
 
   private takeScreenshot(target: string) {
@@ -165,26 +159,5 @@ export class ContextImpl implements Context {
       type: 'png',
       path: path.join(screenshotDir, Date.now().toString()),
     });
-  }
-
-  private addReport(source: Source, report: Report) {
-    const reportsCount = this.reportsCountPerRule.get(report.ruleId) ?? 0;
-    this.reportsCountPerRule.set(report.ruleId, reportsCount + 1);
-    source.addReport(report);
-    this.handleNewReport();
-  }
-
-  private handleNewReport() {
-    this.progress$.next({
-      doneCount: this.doneCount++,
-      totalCount: this.rules.length,
-      sources: this.session.sources,
-    });
-  }
-
-  private checkIfRuleHasExceededReportLimit(ruleId: string) {
-    const count = this.reportsCountPerRule.get(ruleId);
-    if (count == null) return false;
-    return count >= this.settings.maxReportsCountPerRule;
   }
 }
