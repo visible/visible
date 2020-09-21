@@ -39,25 +39,27 @@ export class Validator {
   private async runRules(session: Session) {
     let doneCount = 0;
 
-    for (const rule of this.rules) {
-      const context = this.createContext(session, rule.id);
+    await Promise.all(
+      this.rules.map(async (rule) => {
+        const context = this.createContext(session, rule.id);
 
-      try {
-        await rule.create(context);
-      } catch {
-        await context.reportHTML({
-          outcome: Outcome.INAPPLICABLE,
-          target: '/html',
+        try {
+          await rule.create(context);
+        } catch {
+          await context.reportHTML({
+            outcome: Outcome.INAPPLICABLE,
+            target: '/html',
+          });
+        }
+
+        doneCount += 1;
+        this.progress$.next({
+          doneCount,
+          totalCount: this.rules.length,
+          sources: session.sources,
         });
-      }
-
-      doneCount += 1;
-      this.progress$.next({
-        doneCount,
-        totalCount: this.rules.length,
-        sources: session.sources,
-      });
-    }
+      }),
+    );
 
     this.progress$.complete();
     await session.close();
