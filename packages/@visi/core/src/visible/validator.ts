@@ -1,6 +1,6 @@
 import path from 'path';
-import { defer, Observable, Subject } from 'rxjs';
-import { publish, refCount, switchAll } from 'rxjs/operators';
+import { defer, identity, Observable, Subject } from 'rxjs';
+import { flatMap, publish, refCount } from 'rxjs/operators';
 
 import { Driver, Session } from '../driver';
 import { Provider } from '../provider';
@@ -29,9 +29,11 @@ export class Validator {
         await session.waitFor(delay);
       }
 
-      await this.runRules(session);
+      // consciously float promise
+      this.runRules(session);
+
       return this.progress$;
-    }).pipe(switchAll(), publish(), refCount());
+    }).pipe(flatMap(identity), publish(), refCount());
   }
 
   private async runRules(session: Session) {
@@ -57,6 +59,7 @@ export class Validator {
       });
     }
 
+    this.progress$.complete();
     await session.close();
   }
 
