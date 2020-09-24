@@ -1,4 +1,8 @@
-import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faQuestion,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useState } from 'react';
@@ -50,6 +54,37 @@ const mapDifficulty = (difficulty?: Difficulty | null): BadgeVariant => {
   }
 };
 
+const OutcomeIcon = ({ outcome }: { outcome: Outcome }) => {
+  const baseClass = classNames(
+    'text-xl',
+    'absolute',
+    'top-0',
+    'left-0',
+    '-ml-8',
+  );
+
+  switch (outcome) {
+    case Outcome.Fail:
+      return (
+        <span className={classNames('text-red-600', baseClass)}>
+          <FontAwesomeIcon icon={faTimes} />
+        </span>
+      );
+    case Outcome.Passed:
+      return (
+        <span className={classNames('text-green-600', baseClass)}>
+          <FontAwesomeIcon icon={faCheck} />
+        </span>
+      );
+    case Outcome.Inapplicable:
+      return (
+        <span className={classNames('text-gray-800', baseClass)}>
+          <FontAwesomeIcon icon={faQuestion} />
+        </span>
+      );
+  }
+};
+
 export const Report = ({
   report,
   original,
@@ -59,24 +94,20 @@ export const Report = ({
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
-  const shouldProvideDetails = report.outcome === Outcome.Fail;
   const impactVariant = mapImpact(report.impact);
   const difficultyVariant = mapDifficulty(report.difficulty);
 
-  const wrapper = classNames(
-    'space-y-4',
-    'pl-4',
-    report.outcome !== Outcome.Fail && 'opacity-25',
-  );
+  const wrapper = classNames('space-y-4');
 
   const content = classNames(
     'flex',
-    'relative',
     'items-center',
-    'hover:bg-gray-200',
-    'cursor-pointer',
-    'p-3',
+    'p-2',
+    'pl-10',
+    'space-x-8',
     'rounded-md',
+    'cursor-pointer',
+    'hover:bg-gray-200',
   );
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -94,19 +125,44 @@ export const Report = ({
   return (
     <details className={wrapper} open={open}>
       <summary className={content} onClick={handleClick}>
-        {shouldProvideDetails && (
-          <div className="absolute flex flex-col items-center -mx-8">
-            <Typography color="wash">
-              <FontAwesomeIcon
-                icon={open ? faCaretDown : faCaretRight}
-                fixedWidth
-              />
-            </Typography>
-          </div>
-        )}
+        <div className="flex-1 relative">
+          <OutcomeIcon outcome={report.outcome} />
+
+          <Typography variant="h4" fontSize="lg">
+            {report.rule.name}
+          </Typography>
+
+          <Typography
+            variant="p"
+            fontStyle={report.message == null ? 'italic' : 'normal'}
+            color="wash"
+          >
+            {report.message ?? 'No message'}
+          </Typography>
+        </div>
+
+        <div
+          className={classNames('inline-flex', 'flex-col', 'space-y-3', 'w-40')}
+        >
+          {report.impact && (
+            <Badge variant={impactVariant} className="flex-shrink-0">
+              {t('report.impact', 'Impact: {{impact}}', {
+                impact: t(`impact.${report.impact.toLowerCase()}`),
+              })}
+            </Badge>
+          )}
+
+          {report.difficulty && (
+            <Badge variant={difficultyVariant} className="flex-shrink-0">
+              {t('report.difficulty', 'Difficulty: {{difficulty}}', {
+                difficulty: t(`difficulty.${report.difficulty.toLowerCase()}`),
+              })}
+            </Badge>
+          )}
+        </div>
 
         {report.screenshot && (
-          <div className="flex-shrink-0 mr-5">
+          <div className="flex-shrink-0 ml-5">
             <Image
               src={report.screenshot}
               alt={
@@ -119,55 +175,17 @@ export const Report = ({
             />
           </div>
         )}
-
-        <div className="flex-1">
-          <Typography variant="h4" fontSize="lg">
-            {report.rule.name}
-          </Typography>
-
-          <Typography
-            variant="p"
-            fontStyle={report.message == null ? 'italic' : 'normal'}
-            color="wash"
-          >
-            {report.message ?? 'No message'}
-          </Typography>
-
-          <div className={classNames('inline-flex', 'space-x-8', 'mt-3')}>
-            {report.impact && (
-              <Badge variant={impactVariant} className="flex-shrink-0">
-                {t('report.impact', 'Impact: {{impact}}', {
-                  impact: t(`impact.${report.impact.toLowerCase()}`),
-                })}
-              </Badge>
-            )}
-
-            {report.difficulty && (
-              <Badge variant={difficultyVariant} className="flex-shrink-0">
-                {t('report.difficulty', 'Difficulty: {{difficulty}}', {
-                  difficulty: t(
-                    `difficulty.${report.difficulty.toLowerCase()}`,
-                  ),
-                })}
-              </Badge>
-            )}
-          </div>
-        </div>
       </summary>
 
-      {shouldProvideDetails && (
-        <>
-          <Status report={report} title={title} />
+      <Status report={report} title={title} />
 
-          {withEditor && (
-            <Editor
-              value={original}
-              patch={report.diffHunk ?? undefined}
-              message={report.message ?? undefined}
-              location={report.location ?? undefined}
-            />
-          )}
-        </>
+      {withEditor && (
+        <Editor
+          value={original}
+          patch={report.diffHunk ?? undefined}
+          message={report.message ?? undefined}
+          location={report.location ?? undefined}
+        />
       )}
     </details>
   );
