@@ -1,6 +1,6 @@
 import { faFilter, faSort } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useMemo } from 'react';
 import ReactGA from 'react-ga';
 
 import { Outcome, SourceLargeFragment } from '../../generated/graphql';
@@ -19,9 +19,33 @@ const filename = (url: string) => {
   return '/' + names[names.length - 1];
 };
 
+// prettier-ignore
+const order = (outcome: Outcome) =>
+  outcome === Outcome.Fail ? 0
+  : outcome === Outcome.Passed ? 1
+  : 2;
+
 export const ReportList = (props: ReportListProps) => {
   const { sources, diagnosisId } = props;
   const { t } = useTranslation();
+  const reports = useMemo(
+    () =>
+      sources
+        .flatMap((source) => source.reports)
+        .sort((a, b) => order(a.outcome) - order(b.outcome)),
+    [sources],
+  );
+
+  const sourceMap = useMemo(
+    () =>
+      sources.reduce<Record<string, SourceLargeFragment>>((m, source) => {
+        source.reports.forEach((report) => {
+          m[report.id] = source;
+        });
+        return m;
+      }, {}),
+    [sources],
+  );
 
   return (
     <>
@@ -64,32 +88,29 @@ export const ReportList = (props: ReportListProps) => {
             'report-list.description',
             '{{count}} issues were reported from this website. Click to show the details including impacts and patches',
             {
-              count: sources
-                .flatMap((source) => source.reports)
-                .filter((report) => report.outcome === Outcome.Fail).length,
+              count: reports.filter((report) => report.outcome === Outcome.Fail)
+                .length,
             },
           )}
         </Typography>
       </header>
 
       <ul>
-        {sources.map((source) =>
-          source.reports.map((report) => (
-            <li
-              key={report.id}
-              className="border-t border-gray-200 first:border-t-0 py-4"
-            >
-              <Report
-                diagnosisId={diagnosisId}
-                report={report}
-                original={source.content}
-                title={filename(source.url)}
-                withKeywords
-                withEditor
-              />
-            </li>
-          )),
-        )}
+        {reports.map((report) => (
+          <li
+            key={report.id}
+            className="border-t border-gray-200 first:border-t-0 py-4"
+          >
+            <Report
+              diagnosisId={diagnosisId}
+              report={report}
+              original={sourceMap[report.id].id}
+              title={filename(sourceMap[report.id].url)}
+              withKeywords
+              withEditor
+            />
+          </li>
+        ))}
       </ul>
     </>
   );
