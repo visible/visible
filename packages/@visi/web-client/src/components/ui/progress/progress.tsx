@@ -18,14 +18,23 @@ export const Progress = (props: ProgressProps) => {
         className={classNames(
           'rounded-full',
           'h-2',
-          'bg-gray-300',
+          'bg-gray-100',
           'flex-grow',
           'mr-2',
+          'shadow-xs',
         )}
       >
         <div
           aria-hidden
-          className={classNames('bg-primary-500', 'rounded-full', 'h-full')}
+          className={classNames(
+            'bg-primary-500',
+            'animate-pulse',
+            'transition-all',
+            'duration-100',
+            'ease-out',
+            'rounded-full',
+            'h-full',
+          )}
           style={{ width: `${percentage}%` }}
         />
 

@@ -255,4 +255,4 @@ Index.getInitialProps = async () => ({
   namespacesRequired: ['web-client'],
 });
 
-export default withApollo(Index);
+export default withApollo({ ssr: true })(Index);

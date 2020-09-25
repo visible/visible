@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import { useTranslation } from '../../../utils/i18next';
@@ -28,7 +29,24 @@ export const Select = ({ children, icon, onOpen, onClose }: SelectProps) => {
   return (
     <details className="relative" open={open}>
       <summary
-        className="text-sm border border-gray-400 rounded text-gray-700 py-1 px-3 w-24 text-left cursor-pointer block"
+        className={classNames(
+          'text-sm',
+          'border',
+          'border-gray-400',
+          'rounded',
+          'text-gray-700',
+          'py-1',
+          'px-3',
+          'w-24',
+          'hover:bg-gray-100',
+          'active:bg-gray-200',
+          'transition-all',
+          'duration-75',
+          'ease-in',
+          'text-left',
+          'cursor-pointer',
+          'select-none',
+        )}
         onClick={handleClick}
         onBlur={() => setOpen(false)}
       >

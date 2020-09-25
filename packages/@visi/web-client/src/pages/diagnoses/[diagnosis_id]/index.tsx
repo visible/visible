@@ -72,8 +72,9 @@ const Diagnoses: NextPage = () => {
         }}
       />
 
-      <div className={classNames('bg-gray-100')}>
-        <Layout.Container>
+      <div className={classNames('border-b', 'border-gray-300', 'bg-gray-200')}>
+        {/* TODO: Better handling for lg:pb-4 */}
+        <Layout.Container className="lg:pb-4">
           <Project diagnosis={diagnosis} />
 
           <Nav
@@ -176,4 +177,4 @@ Diagnoses.getInitialProps = async () => ({
   namespacesRequired: ['web-client'],
 });
 
-export default withApollo(Diagnoses);
+export default withApollo({ ssr: true })(Diagnoses);

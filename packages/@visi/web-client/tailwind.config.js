@@ -12,7 +12,7 @@ module.exports = {
     }),
   },
   variants: {
-    backgroundColor: ['responsive', 'hover', 'focus', 'disabled'],
+    backgroundColor: ['responsive', 'hover', 'focus', 'disabled', 'active'],
     cursor: ['responsive', 'disabled'],
     opacity: ['responsive', 'hover', 'focus', 'disabled'],
     margin: ['responsive', 'first'],

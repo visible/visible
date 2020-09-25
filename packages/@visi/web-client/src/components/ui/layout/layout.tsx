@@ -5,7 +5,10 @@ export type HeaderProps = JSX.IntrinsicElements['header'];
 
 const Header = ({ children, className, ...rest }: HeaderProps) => {
   return (
-    <header className={classNames('bg-primary-500', className)} {...rest}>
+    <header
+      className={classNames('bg-primary-500', 'shadow', 'z-10', className)}
+      {...rest}
+    >
       {children}
     </header>
   );
@@ -15,7 +18,15 @@ export type FooterProps = JSX.IntrinsicElements['footer'];
 
 const Footer = ({ children, className, ...rest }: FooterProps) => {
   return (
-    <footer className={classNames('bg-gray-300', className)} {...rest}>
+    <footer
+      className={classNames(
+        'border-t',
+        'border-gray-300',
+        'bg-gray-200',
+        className,
+      )}
+      {...rest}
+    >
       {children}
     </footer>
   );
@@ -31,9 +42,16 @@ const Main = ({ children, className, ...rest }: MainProps) => {
   );
 };
 
-export type ContainerProps = JSX.IntrinsicElements['div'];
+export type ContainerProps = JSX.IntrinsicElements['div'] & {
+  padding: boolean;
+};
 
-const Container = ({ children, ...rest }: ContainerProps) => {
+const Container = ({
+  children,
+  padding,
+  className,
+  ...rest
+}: ContainerProps) => {
   return (
     <div
       className={classNames(
@@ -41,16 +59,22 @@ const Container = ({ children, ...rest }: ContainerProps) => {
         'flex-wrap',
         'w-full',
         'mx-auto',
-        'p-4',
+        'p-3',
+        padding && 'lg:py-8',
         'md:max-w-screen-md',
         'lg:max-w-screen-lg',
         'xl:max-w-screen-xl',
+        className,
       )}
       {...rest}
     >
       {children}
     </div>
   );
+};
+
+Container.defaultProps = {
+  padding: true,
 };
 
 export type ContentProps = JSX.IntrinsicElements['div'];

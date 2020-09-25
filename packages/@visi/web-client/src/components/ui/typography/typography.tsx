@@ -124,7 +124,9 @@ export const Typography = (props: TypographyProps) => {
   const className = classNames(
     {
       italic: fontStyle === 'italic',
-      'font-bold': isHeading(variant) || fontWeight === 'bold',
+      'font-bold':
+        (isHeading(variant) && fontWeight === undefined) ||
+        fontWeight === 'bold',
       'font-mono': variant === 'code',
     },
     variant === 'code' && [
