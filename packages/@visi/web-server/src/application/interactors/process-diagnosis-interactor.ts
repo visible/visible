@@ -5,6 +5,7 @@ import { concatMap, throttleTime } from 'rxjs/operators';
 import { Diagnosis, Progress, Status } from '../../domain/models';
 import { Analyzer, Logger } from '../../domain/services';
 import { TYPES } from '../../types';
+import { delay } from '../../utils/delay';
 import { DiagnosisRepository } from '../repositories';
 import {
   ProcessDiagnosisRequest,
@@ -49,8 +50,11 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
           ),
         )
         .subscribe({
-          complete: () => {
-            this.handleComplete(diagnosis);
+          complete: async () => {
+            // Put delay to wait for client to receive the last data
+            // and ready for the next stream
+            await delay(1000);
+            await this.handleComplete(diagnosis);
             resolve();
           },
           error: (error) => {
@@ -73,7 +77,6 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
 
     try {
       await this.diagnosisRepository.save(diagnosis);
-      await this.diagnosisRepository.publish(diagnosis);
       return diagnosis;
     } catch (error) {
       this.logger.error(error);
@@ -97,7 +100,6 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
     // Save
     try {
       await this.diagnosisRepository.save(diagnosis);
-      await this.diagnosisRepository.publish(diagnosis);
       return diagnosis;
     } catch (error) {
       this.logger.error(error);
@@ -110,7 +112,6 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
 
     try {
       await this.diagnosisRepository.save(diagnosis);
-      await this.diagnosisRepository.publish(diagnosis);
       return diagnosis;
     } catch (error) {
       this.logger.error(error);
@@ -121,7 +122,6 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
     this.logger.error(error);
     const diagnosis = base.setStatus(Status.FAILED).setUpdatedAt(new Date());
     await this.diagnosisRepository.save(diagnosis);
-    await this.diagnosisRepository.publish(diagnosis);
     this.logger.info(`Diagnosis for ${base.id} was ended with an error`);
   }
 }

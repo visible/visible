@@ -24,6 +24,7 @@ export class DiagnosisGatewayMock implements DiagnosisRepository {
     this.diagnoses.set(diagnosis.id, diagnosis);
     const result = this.diagnoses.get(diagnosis.id);
     if (!result) throw new Error('No entry found');
+    this.update$.next(result);
     return result;
   }
 
@@ -34,10 +35,6 @@ export class DiagnosisGatewayMock implements DiagnosisRepository {
 
   async queue(): Promise<void> {
     return;
-  }
-
-  async publish(diagnosis: Diagnosis): Promise<void> {
-    this.update$.next(diagnosis);
   }
 
   subscribe(): Observable<Diagnosis> {

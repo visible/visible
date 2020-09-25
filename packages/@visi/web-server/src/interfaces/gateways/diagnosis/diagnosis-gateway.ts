@@ -56,6 +56,7 @@ export class DiagnosisGateway implements DiagnosisRepository {
       .save(DiagnosisDBEntity.fromDomain(diagnosis));
 
     const [result] = await this.find([diagnosis.id]);
+    this.publish$.next(result);
     return result;
   }
 
@@ -71,11 +72,6 @@ export class DiagnosisGateway implements DiagnosisRepository {
   subscribe(id: string): Observable<Diagnosis> {
     this.logger.debug(`[Repository] Some client has subscribed to ${id}`);
     return this.publish$.pipe(filter((diagnosis) => diagnosis.id === id));
-  }
-
-  async publish(diagnosis: Diagnosis): Promise<void> {
-    this.logger.debug(`[Repository] Publishing ${diagnosis.id}`);
-    this.publish$.next(diagnosis);
   }
 
   async find(ids: string[]): Promise<Diagnosis[]> {
