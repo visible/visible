@@ -95,7 +95,9 @@ const Index: NextPage = () => {
 
               <div>
                 {error && (
-                  <Typography fontStyle="italic">{error.message}</Typography>
+                  <Typography fontStyle="italic" color="invert">
+                    {error.message}
+                  </Typography>
                 )}
 
                 <Typography color="invert">{description}</Typography>
