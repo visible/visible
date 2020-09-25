@@ -2,6 +2,7 @@ import { Session } from './session';
 
 export const getTitle = jest.fn();
 export const getURL = jest.fn();
+export const resolveURL = jest.fn();
 export const goto = jest.fn();
 export const close = jest.fn();
 export const addScript = jest.fn();
@@ -17,6 +18,7 @@ export class SessionMock implements Session {
   sources = new Map();
   getTitle = getTitle;
   getURL = getURL;
+  resolveURL = resolveURL;
   goto = goto;
   close = close;
   addScript = addScript;
