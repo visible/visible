@@ -9,6 +9,21 @@ export interface BadgeProps {
   className?: string;
 }
 
+const mapVariant = (variant: BadgeVariant) => {
+  switch (variant) {
+    case 'red':
+      return 'bg-red-600';
+    case 'green':
+      return 'bg-green-600';
+    case 'grey':
+      return 'bg-gray-600';
+    case 'purple':
+      return 'bg-purple-600';
+    case 'yellow':
+      return 'bg-yellow-600';
+  }
+};
+
 export const Badge = ({
   children,
   variant,
@@ -22,7 +37,7 @@ export const Badge = ({
     'm-1',
     'mr-2',
     'rounded-full',
-    `bg-${variant}-600`,
+    mapVariant(variant),
   );
 
   return (

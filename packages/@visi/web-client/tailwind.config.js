@@ -1,6 +1,9 @@
 const { colors, boxShadow } = require('tailwindcss/defaultTheme');
 
 module.exports = {
+  purge: [
+    './src/**/*.tsx',
+  ],
   theme: {
     colors: {
       ...colors,
