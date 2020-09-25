@@ -15,6 +15,7 @@ import { promises as fs } from 'fs';
 import { parseDOM } from 'htmlparser2';
 import * as postcss from 'postcss';
 import { CDPSession, Page } from 'puppeteer';
+import { URL } from 'url';
 
 import { findNodeByXPath } from './find-node-by-xpath';
 
@@ -58,6 +59,11 @@ export class SessionImpl implements Session {
 
   async getURL(): Promise<string> {
     return this.page.url();
+  }
+
+  async resolveURL(path: string): Promise<string> {
+    if (/.+?:\/\//.test(path)) return path;
+    return new URL(path, await this.getURL()).href;
   }
 
   async close(): Promise<void> {
