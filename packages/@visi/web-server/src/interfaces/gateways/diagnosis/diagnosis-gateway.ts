@@ -81,16 +81,9 @@ export class DiagnosisGateway implements DiagnosisRepository {
   async find(ids: string[]): Promise<Diagnosis[]> {
     const diagnoses = await this.connection
       .getRepository(DiagnosisDBEntity)
-      .createQueryBuilder()
-      .whereInIds(ids)
-      .loadAllRelationIds({
+      .findByIds(ids, {
         relations: ['sources', 'sources.reports'],
-      })
-      .orderBy(
-        `CASE "report"."outcome"\nWHEN 'fail' THEN 0\nWHEN 'passed' THEN 1\nWHEN 'inapplicable' THEN 2\nEND`,
-        'ASC',
-      )
-      .getMany();
+      });
 
     if (diagnoses.length === 0) {
       throw new Error('Entry not found');
