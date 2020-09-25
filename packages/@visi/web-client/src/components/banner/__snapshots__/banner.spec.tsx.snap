@@ -3,23 +3,23 @@
 exports[`Banner matches to the snapshot 1`] = `
 <div>
   <header
-    class="bg-primary-500"
+    class="bg-primary-500 shadow z-10"
   >
     <div
-      class="flex flex-wrap w-full mx-auto p-4 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
+      class="flex flex-wrap w-full mx-auto p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
     >
       <div
         class="flex w-full justify-between"
       >
         <div>
           <h1
-            class="font-bold text-6xl"
+            class="text-6xl"
           >
             <a
               href="/"
             >
               <div
-                class="flex items-center"
+                class="flex items-center space-x-3"
               >
                 <img
                   alt="Visible"
@@ -28,9 +28,9 @@ exports[`Banner matches to the snapshot 1`] = `
                   style="height: 30px;"
                 />
                 <span
-                  class="border rounded border-white text-xs text-white p-1 font-normal ml-2"
+                  class="border rounded p-1 font-mono text-xs border-white text-white"
                 >
-                  Insider Preview - 
+                  preview - 
                   0.2.0
                 </span>
               </div>
