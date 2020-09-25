@@ -50,6 +50,14 @@ export class ImgAlt implements Rule {
     }
 
     for (const xpath of xpaths) {
+      // TODO: Would be better if we could handle this on the fixer
+      // but session closes before fix to be invoked.
+      const result = await ctx.session.findHTML(xpath);
+      if (result == null) continue;
+      const [, node] = result;
+      if (!(node instanceof Element) || node.attribs.src == null) continue;
+      const url = await ctx.session.resolveURL(node.attribs.src);
+
       await ctx.reportHTML({
         outcome: Outcome.FAIL,
         target: xpath,
@@ -68,12 +76,8 @@ export class ImgAlt implements Rule {
             return node;
           }
 
-          const { src } = node.value.attribs;
-          const text = await ctx.provider.imageToText(src);
-
-          if (text != null) {
-            node.value.attribs.alt = text;
-          }
+          const text = await ctx.provider.imageToText(url);
+          node.value.attribs.alt = text ?? 'Put your description here';
 
           return node;
         },

@@ -102,6 +102,7 @@ export class ContextImpl implements Context {
     });
 
     source.addReport(report);
+    this.doneCount++;
   }
 
   async reportCSS(params: ReportCSSParams): Promise<void> {
@@ -151,6 +152,7 @@ export class ContextImpl implements Context {
     });
 
     source.addReport(report);
+    this.doneCount++;
   }
 
   private takeScreenshot(target: string) {

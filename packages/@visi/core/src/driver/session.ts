@@ -25,6 +25,8 @@ export interface Session {
 
   getTitle(): Promise<string>;
   getURL(): Promise<string>;
+  resolveURL(path: string): Promise<string>;
+
   goto(url: string): Promise<void>;
   close(): Promise<void>;
 
