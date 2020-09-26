@@ -41,7 +41,7 @@ const Diagnoses: NextPage = () => {
     return <p>{t('diagnoses.loading', 'Loading...')}</p>;
   }
 
-  if (error || !data) {
+  if (error != null || data == null) {
     return <p>{t('diagnoses.error', 'Error occurred')}</p>;
   }
 
