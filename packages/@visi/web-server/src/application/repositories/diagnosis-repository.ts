@@ -7,7 +7,6 @@ export interface DiagnosisRepository {
   save(diagnosis: Diagnosis): Promise<Diagnosis>;
   delete(id: string): Promise<string>;
   queue(diagnosis: Diagnosis): Promise<void>;
-  publish(diagnosis: Diagnosis): Promise<void>;
   subscribe(id: string): Observable<Diagnosis>;
   findReport(id: string): Promise<Report | undefined>;
 }

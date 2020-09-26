@@ -26,7 +26,7 @@ export const Image = ({
       alt={alt}
       style={{ width, height }}
       className={classNames(
-        variant === 'shadow' && ['rounded', 'shadow-lg'],
+        variant === 'shadow' && ['rounded-md', 'shadow-md'],
         'object-contain',
         className,
       )}

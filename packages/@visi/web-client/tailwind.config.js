@@ -1,6 +1,9 @@
 const { colors, boxShadow } = require('tailwindcss/defaultTheme');
 
 module.exports = {
+  purge: [
+    './src/**/*.tsx',
+  ],
   theme: {
     colors: {
       ...colors,
@@ -12,7 +15,7 @@ module.exports = {
     }),
   },
   variants: {
-    backgroundColor: ['responsive', 'hover', 'focus', 'disabled'],
+    backgroundColor: ['responsive', 'hover', 'focus', 'disabled', 'active'],
     cursor: ['responsive', 'disabled'],
     opacity: ['responsive', 'hover', 'focus', 'disabled'],
     margin: ['responsive', 'first'],

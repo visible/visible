@@ -104,7 +104,7 @@ export const ReportList = (props: ReportListProps) => {
             <Report
               diagnosisId={diagnosisId}
               report={report}
-              original={sourceMap[report.id].id}
+              original={sourceMap[report.id].content}
               title={filename(sourceMap[report.id].url)}
               withKeywords
               withEditor

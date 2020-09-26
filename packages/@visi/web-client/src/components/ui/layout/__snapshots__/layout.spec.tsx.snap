@@ -3,7 +3,7 @@
 exports[`Layout matches snapshot 1`] = `
 <div>
   <header
-    class="bg-primary-500"
+    class="bg-primary-500 shadow z-10"
   >
     header
   </header>
@@ -22,7 +22,7 @@ exports[`Layout matches snapshot 1`] = `
     </aside>
   </article>
   <footer
-    class="bg-gray-300"
+    class="border-t border-gray-300 bg-gray-200"
   >
     footer
   </footer>

@@ -1,7 +1,7 @@
 import { Visible } from '@visi/core';
 import { inject, injectable } from 'inversify';
 import { from, Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
 
 import { Progress, Website } from '../../../domain/models';
 import {
@@ -31,7 +31,7 @@ export class AnalyzerVisibleImpl implements Analyzer {
     return this.visible
       .diagnose(url)
       .pipe(
-        mergeMap((progress) =>
+        concatMap((progress) =>
           from(this.translator.createProgress(progress, diagnosisId)),
         ),
       );

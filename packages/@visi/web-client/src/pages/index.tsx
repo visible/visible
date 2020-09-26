@@ -14,7 +14,10 @@ const Index: NextPage = () => {
   const [value, setValue] = useState('');
   const router = useRouter();
 
-  const [createDiagnosis, { data, error }] = useCreateDiagnosisMutation({
+  const [
+    createDiagnosis,
+    { data, error, loading },
+  ] = useCreateDiagnosisMutation({
     variables: {
       url: value,
     },
@@ -80,9 +83,11 @@ const Index: NextPage = () => {
               </div>
 
               <Search
+                type="url"
                 placeholder={t('home.placeholder', 'Type URL of the website')}
                 onChange={(v: string) => void setValue(v)}
                 onSubmit={handleSubmit}
+                disabled={loading}
                 required
               >
                 {t('home.submit', 'Diagnose')}
@@ -90,7 +95,9 @@ const Index: NextPage = () => {
 
               <div>
                 {error && (
-                  <Typography fontStyle="italic">{error.message}</Typography>
+                  <Typography fontStyle="italic" color="invert">
+                    {error.message}
+                  </Typography>
                 )}
 
                 <Typography color="invert">{description}</Typography>
@@ -248,4 +255,4 @@ Index.getInitialProps = async () => ({
   namespacesRequired: ['web-client'],
 });
 
-export default withApollo(Index);
+export default withApollo({ ssr: true })(Index);

@@ -23,7 +23,7 @@ const Statuses = ({ diagnosis }: { diagnosis: DiagnosisLargeFragment }) => {
       : 'yellow';
 
   return (
-    <div className="flex flex-col space-y-2 mb-4 md:flex-row md:space-x-8">
+    <div className="flex flex-col space-y-2 mb-4 md:flex-row md:space-x-8 md:space-y-0">
       <Badge variant={variant}>
         {t(`status.${diagnosis.status.toLowerCase()}`)}
       </Badge>

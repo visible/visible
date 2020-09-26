@@ -56,6 +56,7 @@ export class DiagnosisGateway implements DiagnosisRepository {
       .save(DiagnosisDBEntity.fromDomain(diagnosis));
 
     const [result] = await this.find([diagnosis.id]);
+    this.publish$.next(result);
     return result;
   }
 
@@ -73,24 +74,12 @@ export class DiagnosisGateway implements DiagnosisRepository {
     return this.publish$.pipe(filter((diagnosis) => diagnosis.id === id));
   }
 
-  async publish(diagnosis: Diagnosis): Promise<void> {
-    this.logger.debug(`[Repository] Publishing ${diagnosis.id}`);
-    this.publish$.next(diagnosis);
-  }
-
   async find(ids: string[]): Promise<Diagnosis[]> {
     const diagnoses = await this.connection
       .getRepository(DiagnosisDBEntity)
-      .createQueryBuilder()
-      .whereInIds(ids)
-      .loadAllRelationIds({
+      .findByIds(ids, {
         relations: ['sources', 'sources.reports'],
-      })
-      .orderBy(
-        `CASE "report"."outcome"\nWHEN 'fail' THEN 0\nWHEN 'passed' THEN 1\nWHEN 'inapplicable' THEN 2\nEND`,
-        'ASC',
-      )
-      .getMany();
+      });
 
     if (diagnoses.length === 0) {
       throw new Error('Entry not found');

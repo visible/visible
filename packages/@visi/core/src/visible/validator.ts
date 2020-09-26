@@ -1,6 +1,12 @@
 import path from 'path';
-import { defer, Observable, Subject } from 'rxjs';
-import { mergeAll, publish, refCount } from 'rxjs/operators';
+import { defer, from, Observable } from 'rxjs';
+import {
+  concatMap,
+  finalize,
+  mergeAll,
+  publish,
+  refCount,
+} from 'rxjs/operators';
 
 import { Driver, Session } from '../driver';
 import { Provider } from '../provider';
@@ -9,8 +15,6 @@ import { Settings } from '../settings';
 import { Outcome } from '../source';
 
 export class Validator {
-  private readonly progress$ = new Subject<Progress>();
-
   constructor(
     readonly settings: Settings,
     readonly driver: Driver,
@@ -29,40 +33,36 @@ export class Validator {
         await session.waitFor(delay);
       }
 
-      // consciously float promise
-      this.runRules(session);
-
-      return this.progress$;
+      return this.runRules(session);
     }).pipe(mergeAll(), publish(), refCount());
   }
 
   private async runRules(session: Session) {
-    let doneCount = 0;
+    return from(this.rules).pipe(
+      concatMap((rule, i) =>
+        defer(
+          async (): Promise<Progress> => {
+            const context = this.createContext(session, rule.id);
 
-    await Promise.all(
-      this.rules.map(async (rule) => {
-        const context = this.createContext(session, rule.id);
+            try {
+              await rule.create(context);
+            } catch {
+              await context.reportHTML({
+                outcome: Outcome.INAPPLICABLE,
+                target: '/html',
+              });
+            }
 
-        try {
-          await rule.create(context);
-        } catch {
-          await context.reportHTML({
-            outcome: Outcome.INAPPLICABLE,
-            target: '/html',
-          });
-        }
-
-        doneCount += 1;
-        this.progress$.next({
-          doneCount,
-          totalCount: this.rules.length,
-          sources: session.sources,
-        });
-      }),
+            return {
+              doneCount: i + 1,
+              totalCount: this.rules.length,
+              sources: session.sources,
+            };
+          },
+        ),
+      ),
+      finalize(() => void session.close()),
     );
-
-    this.progress$.complete();
-    await session.close();
   }
 
   private async createSessionForURL(url: string) {

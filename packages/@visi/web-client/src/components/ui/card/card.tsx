@@ -45,10 +45,13 @@ export const Card = (props: CardProps) => {
     <CardContext.Provider value={{ variant }}>
       <section
         className={classNames(
-          'rounded',
+          'rounded-lg',
           'p-4',
-          'shadow-md',
-          variant === 'solid' && ['bg-gray-300'],
+          'px-5',
+          'shadow-lg',
+          variant === 'solid' && ['bg-gray-200'],
+          'border',
+          'border-gray-300',
           className,
         )}
       >

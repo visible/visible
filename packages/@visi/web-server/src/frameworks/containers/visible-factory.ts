@@ -15,9 +15,9 @@ export const factory = async (): Promise<Visible> => {
     ]),
     {
       screenshot: 'only-fail',
-      delay: 1000,
+      delay: 3000,
       headless: true,
-      maxReportsCountPerRule: 5,
+      maxReportsCountPerRule: 10,
     },
   );
 

@@ -10,22 +10,21 @@ import { Image, Layout, Nav, NavItem, Typography } from '../ui';
 
 const Logography = () => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center space-x-3">
       <Image alt="Visible" src="/static/logo-white.png" height="30px" />
 
       <span
         className={classNames(
           'border',
           'rounded',
-          'border-white',
-          'text-xs',
-          'text-white',
           'p-1',
-          'font-normal',
-          'ml-2',
+          'font-mono',
+          'text-xs',
+          'border-white',
+          'text-white',
         )}
       >
-        Insider Preview - {pkg.version}
+        preview - {pkg.version}
       </span>
     </div>
   );
@@ -51,10 +50,10 @@ export const Banner = () => {
 
   return (
     <Layout.Header>
-      <Layout.Container>
+      <Layout.Container padding={false}>
         <div className="flex w-full justify-between">
           <div>
-            <Typography variant="h1">
+            <Typography variant="h1" fontWeight="normal">
               <Link href="/">
                 <a>
                   <Logography />
