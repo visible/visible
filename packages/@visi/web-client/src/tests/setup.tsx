@@ -6,6 +6,10 @@ jest.mock('../utils/with-apollo');
 
 jest.mock('*.css', () => '');
 
+jest.mock('../../package.json', () => ({
+  version: '0.0.1',
+}));
+
 jest.mock('next/router', () => ({
   useRouter() {
     return {

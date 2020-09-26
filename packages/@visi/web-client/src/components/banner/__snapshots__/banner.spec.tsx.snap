@@ -31,7 +31,7 @@ exports[`Banner matches to the snapshot 1`] = `
                   class="border rounded p-1 font-mono text-xs border-white text-white"
                 >
                   preview - 
-                  0.2.0
+                  0.0.1
                 </span>
               </div>
             </a>
