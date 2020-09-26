@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import {
   Status,
@@ -12,11 +12,10 @@ export const useDiagnosis = (id: string) => {
       id,
     },
   });
+  const subscribeToMore = useRef(result.subscribeToMore);
 
   useEffect(() => {
-    if (result == null) return;
-
-    const unsubscribe = result.subscribeToMore({
+    const unsubscribe = subscribeToMore.current({
       document: SubscribeDiagnosisDocument,
       variables: {
         id,
@@ -24,14 +23,13 @@ export const useDiagnosis = (id: string) => {
       updateQuery: (_, { subscriptionData }) => {
         if (subscriptionData.data.diagnosis.status === Status.Done) {
           unsubscribe();
-          return subscriptionData.data;
         }
         return subscriptionData.data;
       },
     });
 
     return unsubscribe;
-  }, [id, result]);
+  }, [id]);
 
   return result;
 };
