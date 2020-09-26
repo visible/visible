@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/visible/visible/compare/v0.2.0...v0.2.1) (2020-09-26)
+
+
+### Bug Fixes
+
+* Add resolveURL mock ([6e53e19](https://github.com/visible/visible/commit/6e53e1971c39f5690cb66adde8549d878c2aa0e2))
+* Fix procedure ([a4a522c](https://github.com/visible/visible/commit/a4a522c5bfeb8fb152ccd28075450a8f667660a3))
+* Fix report's streaming issues ([51459bb](https://github.com/visible/visible/commit/51459bb9c7389b0b8ef01ffb9a8143e34eb1d409))
+* Improve fix for img-alt  ([09c9dc0](https://github.com/visible/visible/commit/09c9dc0cfe9f940c2e444bf005d67718c7ce2382))
+* Use mergeAll instead of flatMap ([8829f65](https://github.com/visible/visible/commit/8829f6537648af54e7976f9370c3ff26345c8156))
+
+
+
+
+
 # [0.2.0](https://github.com/visible/visible/compare/v0.1.0...v0.2.0) (2020-09-20)
 
 

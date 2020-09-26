@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/visible/visible/compare/v0.2.0...v0.2.1) (2020-09-26)
+
+
+### Bug Fixes
+
+* Add type attribute to the form ([abdc3d2](https://github.com/visible/visible/commit/abdc3d20cdba6da62c2295182441650fb9d7216b))
+* Fix report's streaming issues ([51459bb](https://github.com/visible/visible/commit/51459bb9c7389b0b8ef01ffb9a8143e34eb1d409))
+* Improve web-ui ([5cb0a07](https://github.com/visible/visible/commit/5cb0a0731c52c1b11158299f3dbb83a780e910d7))
+* Purge CSS ([ce31647](https://github.com/visible/visible/commit/ce316475a994f6b146d1182907b19e7a06648bf4))
+* Restore visual hints for outcome ([abdec6c](https://github.com/visible/visible/commit/abdec6c578b26fbf41cd07c33541d46495399545))
+* Send initial page view event ([d2c7a4e](https://github.com/visible/visible/commit/d2c7a4e560403a61a97ff4bb3d39d06832461f2d))
+* Update snapshots ([ffd2c7f](https://github.com/visible/visible/commit/ffd2c7f29f0bf253c0f16d16e25fe92b3739e96f))
+* Use invert colour for error message ([0dce402](https://github.com/visible/visible/commit/0dce402bfa9196ab915d5612eeb0bbc546eec54a))
+* **web-client:** Sort reports by outcome ([5c4f69a](https://github.com/visible/visible/commit/5c4f69adbe949a2569fb05ca5723dac099d55939))
+
+
+
+
+
 # [0.2.0](https://github.com/visible/visible/compare/v0.1.0...v0.2.0) (2020-09-20)
 
 

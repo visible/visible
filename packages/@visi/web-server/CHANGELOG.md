@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/visible/visible/compare/v0.2.0...v0.2.1) (2020-09-26)
+
+
+### Bug Fixes
+
+* Fix report's streaming issues ([51459bb](https://github.com/visible/visible/commit/51459bb9c7389b0b8ef01ffb9a8143e34eb1d409))
+* Revert changes on DiagnosisGateway ([eb641d3](https://github.com/visible/visible/commit/eb641d39fdcaf6a3275fb104efa58125dbe357f3))
+* Use mergeMap instead of switchMap ([8a7bda8](https://github.com/visible/visible/commit/8a7bda8707bf728c2914a1500bce399b978bd2f2))
+* **web-client:** Sort reports by outcome ([5c4f69a](https://github.com/visible/visible/commit/5c4f69adbe949a2569fb05ca5723dac099d55939))
+
+
+
+
+
 # [0.2.0](https://github.com/visible/visible/compare/v0.1.0...v0.2.0) (2020-09-20)
 
 

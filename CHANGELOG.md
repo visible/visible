@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/visible/visible/compare/v0.2.0...v0.2.1) (2020-09-26)
+
+
+### Bug Fixes
+
+* Add resolveURL mock ([6e53e19](https://github.com/visible/visible/commit/6e53e1971c39f5690cb66adde8549d878c2aa0e2))
+* Add type attribute to the form ([abdc3d2](https://github.com/visible/visible/commit/abdc3d20cdba6da62c2295182441650fb9d7216b))
+* Fix procedure ([a4a522c](https://github.com/visible/visible/commit/a4a522c5bfeb8fb152ccd28075450a8f667660a3))
+* Fix report's streaming issues ([51459bb](https://github.com/visible/visible/commit/51459bb9c7389b0b8ef01ffb9a8143e34eb1d409))
+* Improve fix for img-alt  ([09c9dc0](https://github.com/visible/visible/commit/09c9dc0cfe9f940c2e444bf005d67718c7ce2382))
+* Improve web-ui ([5cb0a07](https://github.com/visible/visible/commit/5cb0a0731c52c1b11158299f3dbb83a780e910d7))
+* Purge CSS ([ce31647](https://github.com/visible/visible/commit/ce316475a994f6b146d1182907b19e7a06648bf4))
+* Restore visual hints for outcome ([abdec6c](https://github.com/visible/visible/commit/abdec6c578b26fbf41cd07c33541d46495399545))
+* Revert changes on DiagnosisGateway ([eb641d3](https://github.com/visible/visible/commit/eb641d39fdcaf6a3275fb104efa58125dbe357f3))
+* Send initial page view event ([d2c7a4e](https://github.com/visible/visible/commit/d2c7a4e560403a61a97ff4bb3d39d06832461f2d))
+* Update snapshots ([ffd2c7f](https://github.com/visible/visible/commit/ffd2c7f29f0bf253c0f16d16e25fe92b3739e96f))
+* Use invert colour for error message ([0dce402](https://github.com/visible/visible/commit/0dce402bfa9196ab915d5612eeb0bbc546eec54a))
+* Use mergeMap instead of switchMap ([8a7bda8](https://github.com/visible/visible/commit/8a7bda8707bf728c2914a1500bce399b978bd2f2))
+* **web-client:** Sort reports by outcome ([5c4f69a](https://github.com/visible/visible/commit/5c4f69adbe949a2569fb05ca5723dac099d55939))
+* Use mergeAll instead of flatMap ([8829f65](https://github.com/visible/visible/commit/8829f6537648af54e7976f9370c3ff26345c8156))
+
+
+
+
+
 # [0.2.0](https://github.com/visible/visible/compare/v0.1.0...v0.2.0) (2020-09-20)
 
 

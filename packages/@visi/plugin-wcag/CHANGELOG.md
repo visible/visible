@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/visible/visible/compare/v0.2.0...v0.2.1) (2020-09-26)
+
+
+### Bug Fixes
+
+* Improve fix for img-alt  ([09c9dc0](https://github.com/visible/visible/commit/09c9dc0cfe9f940c2e444bf005d67718c7ce2382))
+
+
+
+
+
 # [0.2.0](https://github.com/visible/visible/compare/v0.1.0...v0.2.0) (2020-09-20)
 
 
