@@ -124,57 +124,68 @@ export const Report = ({
 
   return (
     <details className={wrapper} open={open}>
-      <summary className={content} onClick={handleClick}>
-        <div className="flex-1 relative">
-          <OutcomeIcon outcome={report.outcome} />
+      <summary onClick={handleClick}>
+        {/* Wrap by div due to Safari's bug */}
+        <div className={content}>
+          <div className="flex-1 relative">
+            <OutcomeIcon outcome={report.outcome} />
 
-          <Typography variant="h4" fontSize="lg">
-            {report.rule.name}
-          </Typography>
+            <Typography variant="h4" fontSize="lg">
+              {report.rule.name}
+            </Typography>
 
-          <Typography
-            variant="p"
-            fontStyle={report.message == null ? 'italic' : 'normal'}
-            color="wash"
-          >
-            {report.message ?? 'No message'}
-          </Typography>
-        </div>
-
-        <div
-          className={classNames('inline-flex', 'flex-col', 'space-y-3', 'w-40')}
-        >
-          {report.impact && (
-            <Badge variant={impactVariant} className="flex-shrink-0">
-              {t('report.impact', 'Impact: {{impact}}', {
-                impact: t(`impact.${report.impact.toLowerCase()}`),
-              })}
-            </Badge>
-          )}
-
-          {report.difficulty && (
-            <Badge variant={difficultyVariant} className="flex-shrink-0">
-              {t('report.difficulty', 'Difficulty: {{difficulty}}', {
-                difficulty: t(`difficulty.${report.difficulty.toLowerCase()}`),
-              })}
-            </Badge>
-          )}
-        </div>
-
-        {report.screenshot && (
-          <div className="flex-shrink-0 ml-5">
-            <Image
-              src={report.screenshot}
-              alt={
-                report.target ?? t('report.no-desc', 'no description provided')
-              }
-              className="bg-black"
-              variant="shadow"
-              width="100px"
-              height="100px"
-            />
+            <Typography
+              variant="p"
+              fontStyle={report.message == null ? 'italic' : 'normal'}
+              color="wash"
+            >
+              {report.message ?? 'No message'}
+            </Typography>
           </div>
-        )}
+
+          <div
+            className={classNames(
+              'inline-flex',
+              'flex-col',
+              'space-y-3',
+              'w-40',
+            )}
+          >
+            {report.impact && (
+              <Badge variant={impactVariant} className="flex-shrink-0">
+                {t('report.impact', 'Impact: {{impact}}', {
+                  impact: t(`impact.${report.impact.toLowerCase()}`),
+                })}
+              </Badge>
+            )}
+
+            {report.difficulty && (
+              <Badge variant={difficultyVariant} className="flex-shrink-0">
+                {t('report.difficulty', 'Difficulty: {{difficulty}}', {
+                  difficulty: t(
+                    `difficulty.${report.difficulty.toLowerCase()}`,
+                  ),
+                })}
+              </Badge>
+            )}
+          </div>
+
+          {report.screenshot && (
+            <div className="flex-shrink-0 ml-5">
+              <Image
+                src={report.screenshot}
+                alt={
+                  report.target ??
+                  t('report.no-desc', 'no description provided')
+                }
+                className="bg-black"
+                variant="shadow"
+                width="100px"
+                height="100px"
+              />
+            </div>
+          )}
+        </div>
       </summary>
 
       <Status report={report} title={title} />
