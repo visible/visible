@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     build: .
-    image: visiblehq/web
+    image: visiblehq/web:latest
     restart: always
     env_file: .env
     privileged: true
