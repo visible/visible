@@ -29,7 +29,7 @@ export class AnalyzerVisibleImpl implements Analyzer {
 
   validate({ url, diagnosisId }: ValidateParams): Observable<Progress> {
     return this.visible
-      .diagnose(url)
+      .diagnose({ url })
       .pipe(
         concatMap((progress) =>
           from(this.translator.createProgress(progress, diagnosisId)),

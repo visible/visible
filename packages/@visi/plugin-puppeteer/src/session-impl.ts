@@ -1,25 +1,21 @@
 import {
   AddScriptParams,
+  BaseSession,
   CSSNode,
-  findASTByXPath,
   HTMLRootNode,
-  RunScriptParams,
   ScreenshotParams,
   Session,
   Settings,
   Source,
 } from '@visi/core';
 import { Protocol } from 'devtools-protocol/types/protocol';
-import { Node } from 'domhandler';
-import { promises as fs } from 'fs';
 import { parseDOM } from 'htmlparser2';
 import * as postcss from 'postcss';
 import { CDPSession, Page } from 'puppeteer';
-import { URL } from 'url';
 
 import { findNodeByXPath } from './find-node-by-xpath';
 
-export class SessionImpl implements Session {
+export class SessionImpl extends BaseSession implements Session {
   readonly sources = new Map<string, Source>();
   private readonly htmlIdsMap = new Map<string, string>();
   private readonly cssIdsMap = new Map<string, string>();
@@ -28,7 +24,32 @@ export class SessionImpl implements Session {
     private readonly settings: Settings,
     private readonly page: Page,
     private readonly cdp: CDPSession,
-  ) {}
+  ) {
+    super();
+  }
+
+  async render(html: string): Promise<void> {
+    // Create CDP session
+    await this.cdp.send('DOM.enable');
+    await this.cdp.send('CSS.enable');
+    this.cdp.on('CSS.styleSheetAdded', this.handleStyleSheetAdded);
+
+    // navigate
+    await this.page.setContent(html);
+
+    // Parse HTML as an AST and cache
+    const content = await this.page.content();
+    const ast = parseDOM(content, {
+      withEndIndices: true,
+      withStartIndices: true,
+    });
+    const source = new Source({
+      url: this.page.url(),
+      node: new HTMLRootNode(ast),
+    });
+    this.htmlIdsMap.set('main', source.id);
+    this.sources.set(source.id, source);
+  }
 
   async goto(url: string): Promise<void> {
     // Create CDP session
@@ -61,11 +82,6 @@ export class SessionImpl implements Session {
     return this.page.url();
   }
 
-  async resolveURL(path: string): Promise<string> {
-    if (/.+?:\/\//.test(path)) return path;
-    return new URL(path, await this.getURL()).href;
-  }
-
   async close(): Promise<void> {
     await this.page.close();
   }
@@ -74,22 +90,8 @@ export class SessionImpl implements Session {
     await this.page.addScriptTag(params);
   }
 
-  async runScript<T>(params: string): Promise<T>;
-  async runScript<T>(params: RunScriptParams): Promise<T>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  async runScript<T>(params: any): Promise<T> {
-    const content = typeof params === 'string' ? params : params.content;
-
-    if (content != null) {
-      return this.page.evaluate(content) as Promise<T>;
-    }
-
-    if (params.path != null) {
-      const code = await fs.readFile(params.path, 'utf-8');
-      return this.page.evaluate(code) as Promise<T>;
-    }
-
-    throw new Error(`You must provide either content or path`);
+  async eval<T>(script: string): Promise<T> {
+    return this.page.evaluate(script) as Promise<T>;
   }
 
   async waitFor(ms: number): Promise<void> {
@@ -117,24 +119,6 @@ export class SessionImpl implements Session {
 
     await elementHandle.screenshot(params);
     return params.path ?? process.cwd();
-  }
-
-  async findHTML(xpath: string): Promise<[string, Node] | undefined> {
-    const sourceId = this.htmlIdsMap.get('main');
-    if (sourceId == null) {
-      throw new Error(`No source found for html id main`);
-    }
-
-    const html = this.sources.get(sourceId);
-
-    if (html == null || !(html.node instanceof HTMLRootNode)) {
-      throw new Error(`No html source stored`);
-    }
-
-    const node = findASTByXPath(html.node.value, xpath);
-    if (node == null) return;
-
-    return [sourceId, node];
   }
 
   async findCSS(

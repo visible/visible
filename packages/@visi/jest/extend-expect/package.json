@@ -1,0 +1,4 @@
+{
+  "main": "../dist/extend-expect.js",
+  "types": "../dist/extend-expect.d.ts"
+}
