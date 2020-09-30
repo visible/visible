@@ -37,6 +37,10 @@ export class Source {
     this.reports.push(report);
   }
 
+  select(xpath: string): Report | undefined {
+    return this.reports.find((report) => report.target === xpath);
+  }
+
   async applyAllPatches(): Promise<void> {
     for (const report of this.reports) {
       await report.fix();

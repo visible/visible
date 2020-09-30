@@ -16,7 +16,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@visi/core": "^0.2.1",
     "devtools-protocol": "^0.0.795450",
     "domhandler": "^3.0.0",
     "htmlparser2": "^4.1.0",
@@ -25,6 +24,10 @@
     "xpath-analyzer": "^3.0.1"
   },
   "devDependencies": {
+    "@visi/core": "^0.2.1",
     "@types/puppeteer": "^3.0.1"
+  },
+  "peerDependencies": {
+    "@visi/core": "*"
   }
 }

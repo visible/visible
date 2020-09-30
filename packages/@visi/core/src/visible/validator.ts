@@ -14,6 +14,14 @@ import { ContextImpl, Progress, Rule } from '../rule';
 import { Settings } from '../settings';
 import { Outcome } from '../source';
 
+export type DiagnoseParam =
+  | {
+      url: string;
+    }
+  | {
+      html: string;
+    };
+
 export class Validator {
   constructor(
     readonly settings: Settings,
@@ -22,11 +30,11 @@ export class Validator {
     readonly provider: Provider,
   ) {}
 
-  diagnose(url: string): Observable<Progress> {
+  diagnose(params: DiagnoseParam): Observable<Progress> {
     const { delay } = this.settings;
 
     return defer(async () => {
-      const session = await this.createSessionForURL(url);
+      const session = await this.createSessionFor(params);
       await this.exposeGateway(session);
 
       if (delay != null) {
@@ -65,9 +73,15 @@ export class Validator {
     );
   }
 
-  private async createSessionForURL(url: string) {
+  private async createSessionFor(params: DiagnoseParam) {
     const session = await this.driver.open();
-    await session.goto(url);
+
+    if ('html' in params) {
+      await session.render(params.html);
+    } else {
+      await session.goto(params.url);
+    }
+
     return session;
   }
 

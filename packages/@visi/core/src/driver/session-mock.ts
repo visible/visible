@@ -4,6 +4,7 @@ export const getTitle = jest.fn();
 export const getURL = jest.fn();
 export const resolveURL = jest.fn();
 export const goto = jest.fn();
+export const render = jest.fn();
 export const close = jest.fn();
 export const addScript = jest.fn();
 export const runScript = jest.fn();
@@ -20,6 +21,7 @@ export class SessionMock implements Session {
   getURL = getURL;
   resolveURL = resolveURL;
   goto = goto;
+  render = render;
   close = close;
   addScript = addScript;
   runScript = runScript;

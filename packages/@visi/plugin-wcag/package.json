@@ -10,25 +10,31 @@
   ],
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "test": "exit 0"
+    "test": "jest --coverage"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@visi/core": "^0.2.1",
     "domelementtype": "^2.0.1",
     "domhandler": "^3.0.0",
     "domutils": "^2.2.0",
     "polished": "^3.6.6"
   },
   "devDependencies": {
+    "@visi/core": "^0.2.1",
+    "@visi/jest": "^0.0.0",
+    "@visi/plugin-jsdom": "^0.2.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
+    "outdent": "^0.7.1",
     "rollup": "^2.23.1",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-typescript2": "^0.27.2"
+  },
+  "peerDependencies": {
+    "@visi/core": "*"
   },
   "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d"
 }

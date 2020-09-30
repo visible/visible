@@ -112,7 +112,7 @@ yargs
         resolver.getProvider(config.providers),
       );
 
-      const diagnosis$ = visible.diagnose(url);
+      const diagnosis$ = visible.diagnose({ url });
 
       if (!silent) {
         diagnosis$.pipe(first()).subscribe((progress) => {

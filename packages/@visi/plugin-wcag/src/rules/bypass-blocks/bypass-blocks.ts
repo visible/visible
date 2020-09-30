@@ -63,7 +63,7 @@ export class BypassBlocks implements Rule {
 
         const id = firstElm.attribs.id;
         const anchor = new Element('a', { href: `#${id}` });
-        const text = new DataNode(ElementType.Text, 'Jump to content');
+        const text = new DataNode(ElementType.Text, 'Jump to the content');
         anchor.children.push(text);
         body.children.unshift(anchor);
 

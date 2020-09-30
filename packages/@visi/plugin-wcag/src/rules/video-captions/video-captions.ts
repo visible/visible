@@ -25,7 +25,7 @@ export class VideoCaptions implements Rule {
 
         const violations = videos
           .filter((video) => {
-            const childrenTags = Array.from(video.children.map((child) => child.tagName));
+            const childrenTags = Array.from(video.children).map((child) => child.tagName);
             return !childrenTags.includes('TRACK');
           })
           .map((video) => visible.createXPath(video));
@@ -41,7 +41,7 @@ export class VideoCaptions implements Rule {
       });
     }
 
-    if (xpaths.length !== 0) {
+    if (xpaths.length === 0) {
       return ctx.reportHTML({
         outcome: Outcome.PASSED,
         target: '/html',
