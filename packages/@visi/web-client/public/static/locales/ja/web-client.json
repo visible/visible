@@ -111,10 +111,16 @@
   },
   "report": {
     "difficulty": "難易度: {{difficulty}}",
-    "filename": "Found at",
     "impact": "重要度: {{impact}}",
-    "no-desc": "no description provided",
-    "rule-id": "Reported by"
+    "no-desc": "説明は提供されていません",
+    "outcome": {
+      "fail": "失敗",
+      "inapplicable": "診断不能",
+      "passed": "合格"
+    },
+    "reference": "参考",
+    "filename": "<1>{{filename}}</1>で発見",
+    "rule-id": "<1>{{ruleId}}</1>によって報告"
   },
   "report-list": {
     "description": "{{count}}件の問題が報告されました。クリックで重要度や修正方法を含む詳細を表示できます。",

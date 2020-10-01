@@ -9,6 +9,8 @@ import { RuleDBEntity } from './rule-db-entity';
 
 @injectable()
 export class RuleGateway implements RuleRepository {
+  update = this.save;
+
   constructor(
     @inject(TYPES.Connection)
     private readonly connection: Connection,

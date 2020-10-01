@@ -18,6 +18,7 @@ export class LangAttribute implements Rule {
   name = 'Lang Attribute';
   description = 'Check if html element has proper lang attribute';
   keywords = [BLINDNESS, BOT, DYSLEXIA];
+  mapping = ['WCAG21:language-of-page'];
 
   async create(ctx: Context): Promise<void> {
     const result = await ctx.session.findHTML('/html');

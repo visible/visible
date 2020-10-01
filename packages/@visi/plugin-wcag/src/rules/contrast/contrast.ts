@@ -20,6 +20,7 @@ export class Contrast implements Rule {
   name = 'Contrast';
   description = 'Checks if elements has enough color contrasts';
   keywords = [COLOR_BLINDNESS];
+  mapping = ['WCAG21:contrast-minimum'];
 
   async create(ctx: Context): Promise<void> {
     const elms = await ctx.session.runScript<DTO[]>(`
@@ -78,8 +79,10 @@ export class Contrast implements Rule {
             return node;
           },
         });
-      } catch {
+      } catch (error) {
         // TODO: Property returned from getComputedStyle might be inherited from its parent
+        // eslint-disable-next-line
+        console.error(error);
       }
     }
   }

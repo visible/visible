@@ -17,24 +17,27 @@ export class CreateRulesInteractor implements CreateRuleUseCase {
   ) {}
 
   async run(req: CreateRuleRequest): Promise<void> {
-    if (await this.checkIfRuleExists(req.coreId)) {
+    const rule = await this.ruleRepository.findByCoreId(req.coreId);
+
+    if (rule != null) {
+      const newRule = Rule.from({
+        id: rule.id,
+        ...req,
+      });
+      await this.ruleRepository.update(newRule);
       return;
     }
 
-    await this.ruleRepository.save(
-      Rule.from({
-        id: uuid.v4(),
-        coreId: req.coreId,
-        name: req.name,
-        type: req.type,
-        description: req.description,
-        keywords: req.keywords,
-      }),
-    );
-  }
+    const newRule = Rule.from({
+      id: uuid.v4(),
+      coreId: req.coreId,
+      name: req.name,
+      type: req.type,
+      description: req.description,
+      keywords: req.keywords,
+      mapping: req.mapping,
+    });
 
-  private async checkIfRuleExists(coreId: string) {
-    const rule = await this.ruleRepository.findByCoreId(coreId);
-    return rule != null;
+    await this.ruleRepository.save(newRule);
   }
 }

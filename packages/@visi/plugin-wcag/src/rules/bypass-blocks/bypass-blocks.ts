@@ -20,6 +20,7 @@ export class BypassBlocks implements Rule {
   description =
     'Check if the webpage has either landmark elements or bypass links';
   keywords = [BLINDNESS, RSI, ADHD, ESSENTIAL_TREMOR];
+  mapping = ['WCAG21:bypass-blocks'];
 
   async create(ctx: Context): Promise<void> {
     const hasLandmarks = await ctx.session.runScript(`

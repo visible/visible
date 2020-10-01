@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { ReportLargeFragment } from '../../generated/graphql';
-import { useTranslation } from '../../utils/i18next';
+import { Trans } from '../../utils/i18next';
 import { KeywordList } from '../keyword-list/keyword-list';
 import { Typography } from '../ui';
 
@@ -14,33 +14,37 @@ export interface StatusProps {
 }
 
 export const Status = ({ report, title }: StatusProps) => {
-  const { t } = useTranslation();
-
   return (
     <div className={classNames('inline-flex', 'space-x-8', 'overflow-x-auto')}>
-      <div className="inline-flex items-center flex-shrink-0 space-x-1">
+      <div className="inline-flex items-center flex-shrink-0 space-x-2">
         <Typography fontSize="sm" color="wash">
           <FontAwesomeIcon icon={faFile} />
         </Typography>
         <Typography fontSize="sm" color="wash">
-          {t('report.filename', 'Found at')}
-        </Typography>
-        <Typography variant="code" fontSize="xs">
-          {title}
+          <Trans i18nKey="report.filename" values={{ filename: title }}>
+            Found at
+            <Typography variant="code" fontSize="xs">
+              {title}
+            </Typography>
+          </Trans>
         </Typography>
       </div>
 
-      <div className="inline-flex items-center flex-shrink-0 space-x-1">
+      <div className="inline-flex items-center flex-shrink-0 space-x-2">
         <Typography fontSize="sm" color="wash">
           <FontAwesomeIcon icon={faFlag} />
         </Typography>
 
         <Typography fontSize="sm" color="wash">
-          {t('report.rule-id', 'Reported by')}
-        </Typography>
-
-        <Typography variant="code" fontSize="xs">
-          {report.rule.coreId}
+          <Trans
+            i18nKey="report.rule-id"
+            values={{ ruleId: report.rule.coreId }}
+          >
+            Reported by
+            <Typography variant="code" fontSize="xs">
+              {report.rule.coreId}
+            </Typography>
+          </Trans>
         </Typography>
       </div>
 
