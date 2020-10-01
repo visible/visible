@@ -35,7 +35,7 @@ describe(VideoCaptions, () => {
     `,
     );
 
-    expect(source.select('/html')).toBePassed();
+    expect(source.select('/html/body/video')).toBePassed();
   });
 
   it('reports inapplicable when the page has no video', async () => {

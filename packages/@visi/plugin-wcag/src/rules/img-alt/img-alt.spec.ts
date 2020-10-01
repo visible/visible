@@ -2,7 +2,7 @@ import { run } from '../../tests/run';
 import { ImgAlt } from './img-alt';
 
 describe('ImgAlt', () => {
-  it('detects non text content errors', async () => {
+  it('reports fail when alt is not set', async () => {
     const [source] = await run(
       ImgAlt,
       `
@@ -24,6 +24,22 @@ describe('ImgAlt', () => {
     );
   });
 
+  it('reports fail when alt has no text', async () => {
+    const [source] = await run(
+      ImgAlt,
+      `
+        <!DOCTYPE html>
+        <html lang="en">
+          <body>
+            <img src="https://example.com" alt=" " />
+          </body>
+        </html>
+      `,
+    );
+
+    expect(source.select('/html/body/img')).toBeFail();
+  });
+
   it("doesn't report an error when img has an alt", async () => {
     const [source] = await run(
       ImgAlt,
@@ -37,8 +53,7 @@ describe('ImgAlt', () => {
       `,
     );
 
-    const report = source.select('/html');
-    expect(report).toBePassed();
+    expect(source.select('/html/body/img')).toBePassed();
   });
 
   it('returns inapplicable when page does not have any image', async () => {
@@ -54,7 +69,6 @@ describe('ImgAlt', () => {
       `,
     );
 
-    const report = source.select('/html');
-    expect(report).toBeInapplicable();
+    expect(source.select('/html')).toBeInapplicable();
   });
 });

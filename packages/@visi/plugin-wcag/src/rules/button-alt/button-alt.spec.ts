@@ -37,8 +37,7 @@ describe('ButtonAlt', () => {
     `,
     );
 
-    const report = source.select('/html');
-    expect(report).toBePassed();
+    expect(source.select('/html/body/button')).toBePassed();
   });
 
   it('reports inapplicable when the page does not have any button', async () => {
@@ -52,7 +51,6 @@ describe('ButtonAlt', () => {
     `,
     );
 
-    const report = source.select('/html');
-    expect(report).toBeInapplicable();
+    expect(source.select('/html')).toBeInapplicable();
   });
 });

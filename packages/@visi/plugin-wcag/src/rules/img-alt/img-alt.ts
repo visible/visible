@@ -8,7 +8,10 @@ import {
   RuleType,
 } from '@visi/core';
 import { Element } from 'domhandler';
+import { outdent } from 'outdent';
 
+import { isAccessibleName } from '../../utils/is-accessible-name';
+import { truncate } from '../../utils/truncate';
 import { BLINDNESS, BOT, LOW_VISION } from '../keywords';
 
 export class ImgAlt implements Rule {
@@ -19,32 +22,15 @@ export class ImgAlt implements Rule {
   keywords = [BLINDNESS, LOW_VISION, BOT];
 
   async create(ctx: Context): Promise<void> {
-    const [isApplicable, xpaths] = await ctx.session.runScript<
-      [boolean, string[]]
-    >(`
-      (() => {
-        const images = visible.$$('img')
-
-        const violations = images.filter(elm => {
-            const alt = elm.getAttribute('alt');
-            return alt == null || alt === '';
-          })
-          .map(elm => visible.createXPath(elm));
-
-        return [images.length, violations];
-      })();
+    const xpaths = await ctx.session.runScript<string[]>(`
+      visible
+        .$$('img')
+        .map((elm) => visible.createXPath(elm));
     `);
-
-    if (!isApplicable) {
-      return ctx.reportHTML({
-        outcome: Outcome.INAPPLICABLE,
-        target: '/html',
-      });
-    }
 
     if (xpaths.length === 0) {
       return ctx.reportHTML({
-        outcome: Outcome.PASSED,
+        outcome: Outcome.INAPPLICABLE,
         target: '/html',
       });
     }
@@ -57,6 +43,20 @@ export class ImgAlt implements Rule {
       const [, node] = result;
       if (!(node instanceof Element) || node.attribs.src == null) continue;
       const url = await ctx.session.resolveURL(node.attribs.src);
+
+      if (isAccessibleName(node.attribs.alt)) {
+        const truncatedAlt = truncate(node.attribs.alt);
+
+        await ctx.reportHTML({
+          outcome: Outcome.PASSED,
+          target: xpath,
+          message: outdent({ newline: ' ' })`
+           The caption "${truncatedAlt}" is used as an alternative of the
+           image by user-agents where images are not available.
+          `,
+        });
+        continue;
+      }
 
       await ctx.reportHTML({
         outcome: Outcome.FAIL,

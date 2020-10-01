@@ -8,6 +8,7 @@ import {
   RuleType,
 } from '@visi/core';
 import { Element } from 'domhandler';
+import { outdent } from 'outdent';
 
 import { BLINDNESS, BOT, DYSLEXIA } from '../keywords';
 
@@ -31,6 +32,11 @@ export class LangAttribute implements Rule {
       return ctx.reportHTML({
         outcome: Outcome.PASSED,
         target: '/html',
+        message: outdent({ newline: ' ' })`
+          The \`html\` element has a \`lang\` attribute "${node.attribs.lang}"
+          so user-agents such as screen readers are able to recognize
+          the language of the website and read the contents properly.
+        `,
       });
     }
 
@@ -42,10 +48,11 @@ export class LangAttribute implements Rule {
       impact: Impact.CRITICAL,
       difficulty: Difficulty.EASY,
       target: '/html',
-      message:
-        'You must set `lang` attribute for the `html` element at the root ' +
-        'to describe the language of the website explicitly to user agents. ' +
-        'This information would also be used by screen readers as a language to use in speaking.',
+      message: outdent({ newline: ' ' })`
+        You must set \`lang\` attribute for the \`html\` element at the root
+        to describe the language of the website explicitly to user agents.
+        This information would also be used by screen readers as a language to use in speaking.
+      `,
       async fix(node: HTMLNode) {
         if (
           ctx.provider.textToLanguage == null ||

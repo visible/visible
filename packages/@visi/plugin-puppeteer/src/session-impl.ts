@@ -51,6 +51,14 @@ export class SessionImpl extends BaseSession implements Session {
     this.sources.set(source.id, source);
   }
 
+  getActiveHTML(): Source {
+    const id = this.htmlIdsMap.get('main');
+    if (id == null) throw new Error('No HTML stored with key main');
+    const source = this.sources.get(id);
+    if (source == null) throw new Error(`No source stored with id ${id}`);
+    return source;
+  }
+
   async goto(url: string): Promise<void> {
     // Create CDP session
     await this.cdp.send('DOM.enable');

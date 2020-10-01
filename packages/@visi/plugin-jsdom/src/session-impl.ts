@@ -6,6 +6,7 @@ const HTML_ID = 'main';
 
 export class SessionJsdomImpl extends BaseSession implements Session {
   readonly sources = new Map<string, Source>();
+  private htmlIdsMap = new Map<string, string>();
   private domWindow!: JSDOM;
   private url!: string;
 
@@ -21,13 +22,12 @@ export class SessionJsdomImpl extends BaseSession implements Session {
       withEndIndices: true,
       withStartIndices: true,
     });
-    this.sources.set(
-      HTML_ID,
-      new Source({
-        url: this.url,
-        node: new HTMLRootNode(node),
-      }),
-    );
+    const source = new Source({
+      url: this.url,
+      node: new HTMLRootNode(node),
+    });
+    this.htmlIdsMap.set(HTML_ID, source.id);
+    this.sources.set(source.id, source);
   }
 
   async goto(url: string): Promise<void> {
@@ -42,13 +42,20 @@ export class SessionJsdomImpl extends BaseSession implements Session {
       withEndIndices: true,
       withStartIndices: true,
     });
-    this.sources.set(
-      HTML_ID,
-      new Source({
-        url,
-        node: new HTMLRootNode(node),
-      }),
-    );
+    const source = new Source({
+      url,
+      node: new HTMLRootNode(node),
+    });
+    this.htmlIdsMap.set(HTML_ID, source.id);
+    this.sources.set(source.id, source);
+  }
+
+  getActiveHTML(): Source {
+    const id = this.htmlIdsMap.get(HTML_ID);
+    if (id == null) throw new Error('No html stored with id main');
+    const source = this.sources.get(id);
+    if (source == null) throw new Error(`No source stored with id ${id}`);
+    return source;
   }
 
   async getTitle(): Promise<string> {
