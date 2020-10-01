@@ -1,9 +1,7 @@
 const { colors, boxShadow } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  purge: [
-    './src/**/*.tsx',
-  ],
+  purge: ['./src/**/*.tsx'],
   theme: {
     colors: {
       ...colors,
@@ -14,11 +12,13 @@ module.exports = {
       outline: `0 0 0 3px ${theme('colors.orange.300')}`,
     }),
   },
-  variants: {
-    backgroundColor: ['responsive', 'hover', 'focus', 'disabled', 'active'],
-    cursor: ['responsive', 'disabled'],
-    opacity: ['responsive', 'hover', 'focus', 'disabled'],
-    margin: ['responsive', 'first'],
-    borderWidth: ['responsive', 'first', 'hover', 'focus'],
-  },
+  // https://tailwindcss.com/docs/configuring-variants#enabling-variants-globally
+  variants: [
+    'responsive',
+    'group-hover',
+    'disabled',
+    'hover',
+    'focus',
+    'active',
+  ],
 };
