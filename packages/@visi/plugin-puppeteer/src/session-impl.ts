@@ -2,11 +2,13 @@ import {
   AddScriptParams,
   BaseSession,
   CSSNode,
+  format,
   HTMLRootNode,
   ScreenshotParams,
   Session,
   Settings,
   Source,
+  SourceType,
 } from '@visi/core';
 import { Protocol } from 'devtools-protocol/types/protocol';
 import { parseDOM } from 'htmlparser2';
@@ -29,26 +31,9 @@ export class SessionImpl extends BaseSession implements Session {
   }
 
   async render(html: string): Promise<void> {
-    // Create CDP session
-    await this.cdp.send('DOM.enable');
-    await this.cdp.send('CSS.enable');
-    this.cdp.on('CSS.styleSheetAdded', this.handleStyleSheetAdded);
-
-    // navigate
+    this.connectCDP();
     await this.page.setContent(html);
-
-    // Parse HTML as an AST and cache
-    const content = await this.page.content();
-    const ast = parseDOM(content, {
-      withEndIndices: true,
-      withStartIndices: true,
-    });
-    const source = new Source({
-      url: this.page.url(),
-      node: new HTMLRootNode(ast),
-    });
-    this.htmlIdsMap.set('main', source.id);
-    this.sources.set(source.id, source);
+    await this.storeHTML(await this.page.content());
   }
 
   getActiveHTML(): Source {
@@ -60,26 +45,9 @@ export class SessionImpl extends BaseSession implements Session {
   }
 
   async goto(url: string): Promise<void> {
-    // Create CDP session
-    await this.cdp.send('DOM.enable');
-    await this.cdp.send('CSS.enable');
-    this.cdp.on('CSS.styleSheetAdded', this.handleStyleSheetAdded);
-
-    // navigate
+    this.connectCDP();
     await this.page.goto(url);
-
-    // Parse HTML as an AST and cache
-    const content = await this.page.content();
-    const ast = parseDOM(content, {
-      withEndIndices: true,
-      withStartIndices: true,
-    });
-    const source = new Source({
-      url: this.page.url(),
-      node: new HTMLRootNode(ast),
-    });
-    this.htmlIdsMap.set('main', source.id);
-    this.sources.set(source.id, source);
+    await this.storeHTML(await this.page.content());
   }
 
   getTitle(): Promise<string> {
@@ -222,22 +190,54 @@ export class SessionImpl extends BaseSession implements Session {
   ) => {
     const { styleSheetId, sourceURL } = e.header;
 
-    // StyleSheetHeader doesn't contain the text so we fetch it separately.
-    const res = await this.cdp
-      .send('CSS.getStyleSheetText', {
+    try {
+      const res = await this.cdp.send('CSS.getStyleSheetText', {
         styleSheetId,
-      })
-      // TODO: fix this error
-      .catch(() => undefined);
+      });
 
-    if (res == null) return;
+      if (res == null) return;
 
-    const source = new Source({
-      url: sourceURL,
-      node: new CSSNode(postcss.parse(res.text)),
-    });
+      const text = this.settings.format
+        ? format(SourceType.CSS, res.text)
+        : res.text;
 
-    this.sources.set(source.id, source);
-    this.cssIdsMap.set(styleSheetId, source.id);
+      const source = new Source({
+        type: SourceType.CSS,
+        url: sourceURL,
+        node: new CSSNode(postcss.parse(text)),
+      });
+
+      this.sources.set(source.id, source);
+      this.cssIdsMap.set(styleSheetId, source.id);
+    } catch (error) {
+      // eslint-disable-next-line
+      console.error(error);
+    }
   };
+
+  private async connectCDP() {
+    // Create CDP session
+    await this.cdp.send('DOM.enable');
+    await this.cdp.send('CSS.enable');
+    this.cdp.on('CSS.styleSheetAdded', this.handleStyleSheetAdded);
+  }
+
+  private async storeHTML(rawContent: string) {
+    // Parse HTML as an AST and cache
+    const content = this.settings.format
+      ? format(SourceType.HTML, rawContent)
+      : rawContent;
+
+    const ast = parseDOM(content, {
+      withEndIndices: true,
+      withStartIndices: true,
+    });
+    const source = new Source({
+      type: SourceType.HTML,
+      url: this.page.url(),
+      node: new HTMLRootNode(ast),
+    });
+    this.htmlIdsMap.set('main', source.id);
+    this.sources.set(source.id, source);
+  }
 }

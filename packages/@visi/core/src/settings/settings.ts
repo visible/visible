@@ -4,6 +4,7 @@ import path from 'path';
 
 export interface Settings {
   readonly delay: number;
+  readonly format: boolean;
   readonly screenshot: 'always' | 'only-fail' | 'never';
   readonly screenshotDir: string;
   readonly maxReportsCountPerRule: number;
@@ -20,6 +21,7 @@ export interface Settings {
 
 const DEFAULTS: Settings = {
   delay: 0,
+  format: false,
   maxReportsCountPerRule: Number.POSITIVE_INFINITY,
   language: 'en',
   headless: true,
