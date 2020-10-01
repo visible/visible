@@ -5,7 +5,7 @@ import ReactGA from 'react-ga';
 
 export const useGoogleAnalytics = () => {
   const router = useRouter();
-  const initialRoute = useRef(router.pathname);
+  const initialRoute = useRef(router.asPath);
 
   // Initialize Google Analytics
   useEffect(() => {
