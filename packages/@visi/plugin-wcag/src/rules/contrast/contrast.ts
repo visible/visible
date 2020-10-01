@@ -7,6 +7,7 @@ import {
   Rule,
   RuleType,
 } from '@visi/core';
+import { outdent } from 'outdent';
 import polished from 'polished';
 
 import { COLOR_BLINDNESS } from '../keywords';
@@ -23,35 +24,41 @@ export class Contrast implements Rule {
   async create(ctx: Context): Promise<void> {
     const elms = await ctx.session.runScript<DTO[]>(`
       visible
-        .$$('html > body > *')
+        .$$('*')
+        .filter((elm) => elm.textContent !== '')
         .map((elm) => {
           const style = getComputedStyle(elm);
-          const fg = style.getPropertyValue('color');
-          const bg = style.getPropertyValue('background-color');
 
           return {
             xpath: visible.createXPath(elm),
-            fg,
-            bg,
+            fg: style.getPropertyValue('color'),
+            bg: style.getPropertyValue('background-color'),
           };
         })
         .filter((dto) => dto.fg && dto.bg);
     `);
 
     if (elms.length === 0) {
-      try {
-        return ctx.reportCSS({
-          outcome: Outcome.PASSED,
-          target: '/html/body',
-          propertyName: 'background-color',
-        });
-      } catch {
-        // TODO: What propertyName should be here?
-      }
+      return ctx.reportHTML({
+        outcome: Outcome.INAPPLICABLE,
+        target: '/html',
+      });
     }
 
     for (const elm of elms) {
-      if (polished.getContrast(elm.fg, elm.bg) >= 4.5) return;
+      if (polished.getContrast(elm.fg, elm.bg) >= 4.5) {
+        await ctx.reportCSS({
+          outcome: Outcome.PASSED,
+          target: elm.xpath,
+          propertyName: 'background-color',
+          message: outdent({ newline: ' ' })`
+            The color contrast ratio of the background \`${elm.bg}\`
+            to the foreground \`${elm.fg}\` complies 4.5 color contrast ratio
+            so users who have color blindness can identify the content easier.
+          `,
+        });
+        continue;
+      }
 
       try {
         await ctx.reportCSS({
@@ -60,9 +67,11 @@ export class Contrast implements Rule {
           propertyName: 'background-color',
           impact: Impact.SERIOUS,
           difficulty: Difficulty.DIFFICULT,
-          message:
-            'The color contrast ratio must be 4.5 or higher, ' +
-            'as users with color blindness may not be able to identify the content.',
+          message: outdent({ newline: ' ' })`
+            The color contrast ratio of foreground \`${elm.fg}\` to
+            background ${elm.bg} is must be greater than 4.5
+            as users with color blindness may not be able to identify the content.
+          `,
           async fix(node: CSSNode) {
             if (node.value.type !== 'decl') return node;
             node.value.value = polished.darken(0.8, node.value.value);

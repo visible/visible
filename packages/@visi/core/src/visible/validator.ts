@@ -54,7 +54,9 @@ export class Validator {
 
             try {
               await rule.create(context);
-            } catch {
+            } catch (error) {
+              // eslint-disable-next-line
+              console.error(error);
               await context.reportHTML({
                 outcome: Outcome.INAPPLICABLE,
                 target: '/html',

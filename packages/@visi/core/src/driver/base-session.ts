@@ -1,17 +1,12 @@
 import { Node } from 'domhandler';
 import { promises as fs } from 'fs';
 import fetch from 'node-fetch';
-import { URL } from 'url';
 
 import { HTMLRootNode, Source } from '../source';
 import { findASTByXPath } from '../utils';
 import { AddScriptParams, RunScriptParams } from './session';
 
-const HTML_ID = 'main';
-
 export abstract class BaseSession {
-  abstract sources: Map<string, Source>;
-
   async resolveURL(path: string): Promise<string> {
     if (/.+?:\/\//.test(path)) return path;
     return new URL(path, await this.getURL()).href;
@@ -31,16 +26,16 @@ export abstract class BaseSession {
   }
 
   async findHTML(xpath: string): Promise<[string, Node] | undefined> {
-    const html = this.sources.get(HTML_ID);
+    const source = this.getActiveHTML();
 
-    if (html == null || !(html.node instanceof HTMLRootNode)) {
-      throw new Error(`No html source stored`);
+    if (!(source.node instanceof HTMLRootNode)) {
+      throw new Error('Malformed node of html source');
     }
 
-    const node = findASTByXPath(html.node.value, xpath);
+    const node = findASTByXPath(source.node.value, xpath);
     if (node == null) return;
 
-    return [HTML_ID, node];
+    return [source.id, node];
   }
 
   async runScript<T>(params: string | RunScriptParams): Promise<T> {
@@ -69,6 +64,7 @@ export abstract class BaseSession {
     this.runScript(params);
   }
 
+  abstract getActiveHTML(): Source;
   abstract getURL(): Promise<string>;
   abstract eval<T>(script: string): Promise<T>;
 }

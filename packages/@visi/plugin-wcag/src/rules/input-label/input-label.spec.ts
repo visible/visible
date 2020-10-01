@@ -45,8 +45,7 @@ describe(InputLabel, () => {
     `,
     );
 
-    const report = source.select('/html');
-    expect(report).toBePassed();
+    expect(source.select('/html/body/label/input')).toBePassed();
   });
 
   it('reports passed when input has label associated with its id', async () => {
@@ -63,8 +62,7 @@ describe(InputLabel, () => {
     `,
     );
 
-    const report = source.select('/html');
-    expect(report).toBePassed();
+    expect(source.select('/html/body/input')).toBePassed();
   });
 
   it('reports inapplicable when the page has no input', async () => {
@@ -78,7 +76,6 @@ describe(InputLabel, () => {
     `,
     );
 
-    const report = source.select('/html');
-    expect(report).toBeInapplicable();
+    expect(source.select('/html')).toBeInapplicable();
   });
 });

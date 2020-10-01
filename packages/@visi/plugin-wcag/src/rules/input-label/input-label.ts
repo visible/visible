@@ -10,6 +10,7 @@ import {
 import { ElementType } from 'domelementtype';
 import { DataNode, Element } from 'domhandler';
 import { replaceElement } from 'domutils';
+import { outdent } from 'outdent';
 
 import { BLINDNESS, BOT, LOW_VISION } from '../keywords';
 
@@ -24,9 +25,9 @@ export class InputLabel implements Rule {
   // 2. labelの子要素に来ていないinput
   // ¬親のタグ名がlabel ∧ ¬forで指定されていない ==> inaccessible
   async create(ctx: Context): Promise<void> {
-    const isApplicable = await this.checkApplicability(ctx);
+    const inputs = await this.findAllInputs(ctx);
 
-    if (!isApplicable) {
+    if (inputs.length === 0) {
       return ctx.reportHTML({
         outcome: Outcome.INAPPLICABLE,
         target: '/html',
@@ -37,26 +38,34 @@ export class InputLabel implements Rule {
     const independentInputs = await this.findIndependentInputs(ctx);
 
     // get superset
-    const xpaths = unboundInputs.filter((input) => {
+    const violations = unboundInputs.filter((input) => {
       return independentInputs.includes(input);
     });
 
-    if (xpaths.length === 0) {
-      return ctx.reportHTML({
+    // complement
+    const passed = inputs.filter((input) => !violations.includes(input));
+
+    for (const xpath of passed) {
+      await ctx.reportHTML({
         outcome: Outcome.PASSED,
-        target: '/html',
+        target: xpath,
+        message: outdent({ newline: ' ' })`
+          This input element has a label so user-agents,
+          where cannot provide visual hints, are able to refer the label
+        `,
       });
     }
 
-    for (const xpath of xpaths) {
+    for (const xpath of violations) {
       await ctx.reportHTML({
         outcome: Outcome.FAIL,
         target: xpath,
         impact: Impact.CRITICAL,
         difficulty: Difficulty.MEDIUM,
-        message:
-          'You must add `label` element and either set `id` in the `for` ' +
-          'attribute or nest as a child, to describe the roles of the `input` element to users.',
+        message: outdent({ newline: ' ' })`
+          You must add \`label\` element and either set \`id\` in the \`for\`
+          attribute or nest as a child, to describe the roles of the \`input\` element to users.
+        `,
         async fix(node: HTMLNode) {
           if (!(node instanceof HTMLNode) || !(node.value instanceof Element)) {
             return node;
@@ -79,9 +88,11 @@ export class InputLabel implements Rule {
     }
   }
 
-  private checkApplicability(ctx: Context) {
-    return ctx.session.runScript<boolean>(`
-      visible.$$('input').length !== 0;
+  private findAllInputs(ctx: Context) {
+    return ctx.session.runScript<string[]>(`
+      visible
+        .$$('input')
+        .map((elm) => visible.createXPath(elm))
     `);
   }
 

@@ -1,10 +1,4 @@
-import {
-  Plugin,
-  PluginResolver,
-  RuleConstructor,
-  Source,
-  Visible,
-} from '@visi/core';
+import { PluginResolver, RuleConstructor, Source, Visible } from '@visi/core';
 import pluginJSDOM from '@visi/plugin-jsdom';
 
 import { echoProvider } from './mock-provider';
@@ -25,7 +19,7 @@ export const run = async (
   const pluginResolver = new PluginResolver(
     new Map([
       ['@visi/plugin-jsdom', pluginJSDOM],
-      ['@visi/jest/echo-provider', { provider: echoProvider } as Plugin],
+      ['@visi/jest/echo-provider', { provider: echoProvider }],
     ]),
     {},
   );

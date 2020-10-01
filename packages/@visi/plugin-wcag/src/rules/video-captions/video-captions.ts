@@ -6,6 +6,7 @@ import {
   Rule,
   RuleType,
 } from '@visi/core';
+import { outdent } from 'outdent';
 
 import { BOT, DEAFNESS, HARD_OF_HEARING } from '../keywords';
 
@@ -17,46 +18,44 @@ export class VideoCaptions implements Rule {
   keywords = [BOT, HARD_OF_HEARING, DEAFNESS];
 
   async create(ctx: Context): Promise<void> {
-    const [isApplicable, xpaths] = await ctx.session.runScript<
-      [boolean, string[]]
-    >(`
-      (() => {
-        const videos = visible.$$('video');
-
-        const violations = videos
-          .filter((video) => {
-            const childrenTags = Array.from(video.children).map((child) => child.tagName);
-            return !childrenTags.includes('TRACK');
-          })
-          .map((video) => visible.createXPath(video));
-
-        return [videos.length !== 0, violations];
-      })();
+    const dto = await ctx.session.runScript<[string, boolean][]>(`
+      visible
+        .$$('video')
+        .map((video) => [
+          visible.createXPath(video),
+          Array.from(video.children).map((child) => child.tagName).includes('TRACK'),
+        ]);
     `);
 
-    if (!isApplicable) {
+    if (dto.length === 0) {
       return ctx.reportHTML({
         outcome: Outcome.INAPPLICABLE,
         target: '/html',
       });
     }
 
-    if (xpaths.length === 0) {
-      return ctx.reportHTML({
-        outcome: Outcome.PASSED,
-        target: '/html',
-      });
-    }
+    for (const [xpath, isAccessible] of dto) {
+      if (isAccessible) {
+        await ctx.reportHTML({
+          outcome: Outcome.PASSED,
+          target: xpath,
+          message: outdent({ newline: ' ' })`
+            The \`video\` element has \`track\` elements so users and user-agents
+            that are not able to use audio can refer captions instead.
+          `,
+        });
+        continue;
+      }
 
-    for (const xpath of xpaths) {
-      ctx.reportHTML({
+      await ctx.reportHTML({
         outcome: Outcome.FAIL,
         impact: Impact.CRITICAL,
         difficulty: Difficulty.DIFFICULT,
         target: xpath,
-        message:
-          'You must include `track` elements as a child of `video` elements ' +
-          'to providing the alternative of audios for user agents that cannot use audios.',
+        message: outdent({ newline: ' ' })`
+          You must include \`track\` elements as a child of \`video\` elements
+          to providing the alternative of audios for user agents that cannot use audios.
+        `,
       });
     }
   }
