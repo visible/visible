@@ -14,6 +14,7 @@ export interface Rule extends Node {
   readonly type: RuleType;
   readonly description: string;
   readonly keywords?: readonly string[];
+  readonly mapping?: readonly string[];
 }
 
 export interface Source extends Node {

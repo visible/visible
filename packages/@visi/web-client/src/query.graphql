@@ -12,6 +12,7 @@ fragment RuleLarge on Rule {
   type
   description
   keywords
+  mapping
 }
 
 fragment ReportLarge on Report {

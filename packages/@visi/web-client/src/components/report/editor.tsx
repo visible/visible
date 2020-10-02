@@ -66,6 +66,19 @@ export const Editor = (props: EditorProps) => {
     );
   };
 
+  const handleDiffEditorDidMount = (
+    _1: unknown,
+    _2: unknown,
+    editor: editor.IDiffEditor,
+  ) => {
+    if (location == null) return;
+
+    editor.revealPositionInCenterIfOutsideViewport({
+      lineNumber: location.startLine,
+      column: location.startColumn,
+    });
+  };
+
   if (modified != null) {
     return (
       <EditorWrapper>
@@ -74,6 +87,7 @@ export const Editor = (props: EditorProps) => {
             renderSideBySide: false,
             readOnly: true,
           }}
+          editorDidMount={handleDiffEditorDidMount}
           original={value}
           modified={modified}
         />
@@ -88,7 +102,6 @@ export const Editor = (props: EditorProps) => {
         line={location?.startLine}
         editorDidMount={handleEditorDidMount}
         options={{
-          cursorSurroundingLines: 5,
           minimap: { enabled: false },
           readOnly: true,
         }}

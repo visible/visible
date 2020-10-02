@@ -28,6 +28,7 @@ import { application, framework, interfaces, services } from './containers';
       type: rule.type,
       description: rule.description,
       keywords: rule.keywords,
+      mapping: rule.mapping,
     });
   }
 

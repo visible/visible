@@ -1,4 +1,12 @@
-import { BaseSession, HTMLRootNode, Session, Source } from '@visi/core';
+import {
+  BaseSession,
+  format,
+  HTMLRootNode,
+  Session,
+  Settings,
+  Source,
+  SourceType,
+} from '@visi/core';
 import { parseDOM } from 'htmlparser2';
 import { JSDOM } from 'jsdom';
 
@@ -10,24 +18,17 @@ export class SessionJsdomImpl extends BaseSession implements Session {
   private domWindow!: JSDOM;
   private url!: string;
 
+  constructor(private readonly settings: Settings) {
+    super();
+  }
+
   async render(_html: string): Promise<void> {
     this.url = 'https://localhost';
     this.domWindow = new JSDOM(_html, {
       resources: 'usable',
       runScripts: 'dangerously',
     });
-
-    const html = this.domWindow.serialize();
-    const node = parseDOM(html, {
-      withEndIndices: true,
-      withStartIndices: true,
-    });
-    const source = new Source({
-      url: this.url,
-      node: new HTMLRootNode(node),
-    });
-    this.htmlIdsMap.set(HTML_ID, source.id);
-    this.sources.set(source.id, source);
+    this.storeHTML();
   }
 
   async goto(url: string): Promise<void> {
@@ -36,18 +37,7 @@ export class SessionJsdomImpl extends BaseSession implements Session {
       resources: 'usable',
       runScripts: 'dangerously',
     });
-
-    const html = this.domWindow.serialize();
-    const node = parseDOM(html, {
-      withEndIndices: true,
-      withStartIndices: true,
-    });
-    const source = new Source({
-      url,
-      node: new HTMLRootNode(node),
-    });
-    this.htmlIdsMap.set(HTML_ID, source.id);
-    this.sources.set(source.id, source);
+    this.storeHTML();
   }
 
   getActiveHTML(): Source {
@@ -91,5 +81,23 @@ export class SessionJsdomImpl extends BaseSession implements Session {
 
   async findCSS(_xpath: string, _propertyName: string): Promise<undefined> {
     throw new Error('stub');
+  }
+
+  private storeHTML() {
+    const html = this.settings.format
+      ? format(SourceType.HTML, this.domWindow.serialize())
+      : this.domWindow.serialize();
+
+    const node = parseDOM(html, {
+      withEndIndices: true,
+      withStartIndices: true,
+    });
+    const source = new Source({
+      type: SourceType.HTML,
+      url: this.url,
+      node: new HTMLRootNode(node),
+    });
+    this.htmlIdsMap.set(HTML_ID, source.id);
+    this.sources.set(source.id, source);
   }
 }

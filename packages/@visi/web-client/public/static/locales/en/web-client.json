@@ -110,10 +110,16 @@
   },
   "report": {
     "difficulty": "Difficulty: {{difficulty}}",
-    "filename": "Found at",
     "impact": "Impact: {{impact}}",
+    "filename": "Found at <1>{{filename}}</1>",
+    "rule-id": "Reported by <1>{{ruleId}}</1>",
     "no-desc": "no description provided",
-    "rule-id": "Reported by"
+    "outcome": {
+      "fail": "Fail",
+      "inapplicable": "Inapplicable",
+      "passed": "Passed"
+    },
+    "reference": "Reference: "
   },
   "report-list": {
     "description": "{{count}} issue was reported from this website. Click to show the details including impacts and patches",

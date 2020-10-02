@@ -18,6 +18,7 @@ export class ButtonAlt implements Rule {
   name = 'Button Alternative Text';
   description = 'Check if button has text content';
   keywords = [BLINDNESS, LOW_VISION, BOT];
+  mapping = ['WCAG21:text-alternatives'];
 
   async create(ctx: Context): Promise<void> {
     const dto = await ctx.session.runScript<[string, string][]>(`

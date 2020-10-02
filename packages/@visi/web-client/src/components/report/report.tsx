@@ -1,9 +1,3 @@
-import {
-  faCheck,
-  faQuestion,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import ReactGA from 'react-ga';
@@ -11,12 +5,13 @@ import ReactGA from 'react-ga';
 import {
   Difficulty,
   Impact,
-  Outcome,
   ReportLargeFragment,
 } from '../../generated/graphql';
 import { useTranslation } from '../../utils/i18next';
 import { Badge, BadgeVariant, Image, Typography } from '../ui';
 import { Editor } from './editor';
+import { OutcomeIcon } from './outcome';
+import { Reference } from './reference';
 import { Status } from './status';
 
 export interface ReportProps {
@@ -54,37 +49,6 @@ const mapDifficulty = (difficulty?: Difficulty | null): BadgeVariant => {
   }
 };
 
-const OutcomeIcon = ({ outcome }: { outcome: Outcome }) => {
-  const baseClass = classNames(
-    'text-xl',
-    'absolute',
-    'top-0',
-    'left-0',
-    '-ml-8',
-  );
-
-  switch (outcome) {
-    case Outcome.Fail:
-      return (
-        <span className={classNames('text-red-600', baseClass)}>
-          <FontAwesomeIcon icon={faTimes} />
-        </span>
-      );
-    case Outcome.Passed:
-      return (
-        <span className={classNames('text-green-600', baseClass)}>
-          <FontAwesomeIcon icon={faCheck} />
-        </span>
-      );
-    case Outcome.Inapplicable:
-      return (
-        <span className={classNames('text-gray-800', baseClass)}>
-          <FontAwesomeIcon icon={faQuestion} />
-        </span>
-      );
-  }
-};
-
 export const Report = ({
   report,
   original,
@@ -97,9 +61,10 @@ export const Report = ({
   const impactVariant = mapImpact(report.impact);
   const difficultyVariant = mapDifficulty(report.difficulty);
 
-  const wrapper = classNames('space-y-4');
+  const wrapper = classNames('space-y-2');
 
   const content = classNames(
+    'group',
     'flex',
     'items-center',
     'p-2',
@@ -130,7 +95,11 @@ export const Report = ({
           <div className="flex-1 relative">
             <OutcomeIcon outcome={report.outcome} />
 
-            <Typography variant="h4" fontSize="lg">
+            <Typography
+              className="group-hover:text-primary-500"
+              variant="h4"
+              fontSize="lg"
+            >
               {report.rule.name}
             </Typography>
 
@@ -197,6 +166,10 @@ export const Report = ({
           message={report.message ?? undefined}
           location={report.location ?? undefined}
         />
+      )}
+
+      {report.rule.mapping?.[0] && (
+        <Reference name={report.rule.mapping?.[0]} />
       )}
     </details>
   );

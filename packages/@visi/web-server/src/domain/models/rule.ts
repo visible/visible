@@ -24,4 +24,5 @@ export class Rule extends Model {
   readonly description!: string;
 
   readonly keywords?: readonly string[];
+  readonly mapping?: readonly string[];
 }

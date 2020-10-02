@@ -130,10 +130,10 @@ export const Typography = (props: TypographyProps) => {
       'font-mono': variant === 'code',
     },
     variant === 'code' && [
-      'rounded',
+      'rounded-sm',
       'bg-gray-300',
-      'p-1',
-      // 'mx-2',
+      'px-1',
+      'leading-relaxed',
       'text-indigo-900',
     ],
     mapFontSizeToClassName(fontSize ?? inferFontSizeFromVariant(variant)),

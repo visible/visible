@@ -20,6 +20,7 @@ export class InputLabel implements Rule {
   type = RuleType.ATOMIC;
   description = 'Check if an input element has label element';
   keywords = [BLINDNESS, BOT, LOW_VISION];
+  mapping = ['WCAG21:label-in-name'];
 
   // 1. forで指定されていないIDを持つinput
   // 2. labelの子要素に来ていないinput

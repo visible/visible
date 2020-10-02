@@ -12,4 +12,5 @@ type Rule implements Node {
   type: RuleType!
   description: String!
   keywords: [String!]
+  mapping: [String!]
 }

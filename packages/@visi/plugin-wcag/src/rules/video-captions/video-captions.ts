@@ -16,6 +16,7 @@ export class VideoCaptions implements Rule {
   name = 'Video Captions';
   description = 'Check if a video has captions';
   keywords = [BOT, HARD_OF_HEARING, DEAFNESS];
+  mapping = ['WCAG21:captions-prerecorded'];
 
   async create(ctx: Context): Promise<void> {
     const dto = await ctx.session.runScript<[string, boolean][]>(`

@@ -6,6 +6,7 @@ export interface CreateRuleRequest {
   readonly type: RuleType;
   readonly description: string;
   readonly keywords?: readonly string[];
+  readonly mapping?: readonly string[];
 }
 
 export interface CreateRuleUseCase {

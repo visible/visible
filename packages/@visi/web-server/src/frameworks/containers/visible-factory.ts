@@ -14,6 +14,7 @@ export const factory = async (): Promise<Visible> => {
       ['@visi/plugin-gcp-translation-api', pluginGCPTranslationAPI],
     ]),
     {
+      format: true,
       screenshot: 'only-fail',
       delay: 3000,
       headless: true,

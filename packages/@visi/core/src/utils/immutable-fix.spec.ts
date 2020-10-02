@@ -11,6 +11,7 @@ import {
   Outcome,
   Report,
   Source,
+  SourceType,
 } from '../source';
 import { immutableFix } from './immutable-fix';
 
@@ -21,6 +22,7 @@ it('applies fix to HTML without modifying the original', async () => {
   });
 
   const source = new Source({
+    type: SourceType.HTML,
     node: new HTMLRootNode(dom),
   });
 
@@ -52,6 +54,7 @@ it('applies fix to HTML without modifying the original', async () => {
 
 it('applies fix to CSS without modifying the original', async () => {
   const source = new Source({
+    type: SourceType.CSS,
     node: new CSSNode(root),
   });
 

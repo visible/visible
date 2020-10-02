@@ -4,11 +4,12 @@ import { ElementType } from 'htmlparser2';
 import dom from '../__fixture__/dom';
 import { HTMLNode, HTMLRootNode } from './node';
 import { Outcome, Report } from './report';
-import { Source } from './source';
+import { Source, SourceType } from './source';
 
 describe('Source', () => {
   it('creates html source instance', () => {
     const html = new Source({
+      type: SourceType.HTML,
       url: 'https://example.com',
       node: new HTMLRootNode(dom),
     });
@@ -17,6 +18,7 @@ describe('Source', () => {
 
   it('is able to add reports', () => {
     const html = new Source({
+      type: SourceType.HTML,
       node: new HTMLRootNode(dom),
     });
 
@@ -35,6 +37,7 @@ describe('Source', () => {
 
   it('clones', () => {
     const html = new Source({
+      type: SourceType.HTML,
       node: new HTMLRootNode(dom),
     });
     expect(html).not.toBe(html.clone());

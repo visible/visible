@@ -5,6 +5,8 @@ import { Rule } from '../../../domain/models';
 
 @injectable()
 export class RuleGatewayMock implements RuleRepository {
+  update = this.save;
+
   constructor(
     @unmanaged()
     private readonly rules = new Map<string, Rule>(),
