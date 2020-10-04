@@ -1,25 +1,40 @@
 import classNames from 'classnames';
 import React from 'react';
 
-export type InputProps = JSX.IntrinsicElements['input'] & {
-  variant: 'input' | 'textbox';
+export type InputShape = 'rounded' | 'circle';
+export type InputSize = 'small' | 'middle';
+
+const mapSize = (size: InputSize) => {
+  switch (size) {
+    case 'small':
+      return ['py-1', 'px-2'];
+    case 'middle':
+      return ['py-2', 'px-4'];
+  }
 };
 
-export const Input = (props: InputProps) => {
-  const { variant, className, ...rest } = props;
+const mapShape = (shape: InputShape) => {
+  switch (shape) {
+    case 'circle':
+      return 'rounded-full';
+    case 'rounded':
+      return 'rounded';
+  }
+};
 
-  variant;
+export type InputProps = Omit<JSX.IntrinsicElements['input'], 'size'> & {
+  shape: InputShape;
+  size: InputSize;
+};
 
+export const Input = ({ shape, size, className, ...rest }: InputProps) => {
   return (
     <input
       className={classNames(
-        'border-gray-500',
-        'bg-gray-100',
+        'border-gray-400',
         'border',
         'placeholder-gray-600',
         'text-sm',
-        'py-2',
-        'px-4',
         'w-64',
         'focus:outline-none',
         'focus:shadow-outline',
@@ -27,7 +42,9 @@ export const Input = (props: InputProps) => {
         'focus:bg-white',
         'disabled:opacity-75',
         'disabled:cursor-not-allowed',
-        'rounded-full',
+        'rounded',
+        mapSize(size),
+        mapShape(shape),
         className,
       )}
       {...rest}
@@ -36,5 +53,6 @@ export const Input = (props: InputProps) => {
 };
 
 Input.defaultProps = {
-  variant: 'input',
+  shape: 'rounded',
+  size: 'middle',
 };

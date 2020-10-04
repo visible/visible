@@ -6,7 +6,7 @@ exports[`NotFound matches to the snapshot 1`] = `
     class="w-full"
   >
     <div
-      class="flex flex-wrap w-full mx-auto p-3 lg:py-8 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
+      class="flex flex-wrap w-full mx-auto box-border p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
     >
       <article
         class="flex-1"

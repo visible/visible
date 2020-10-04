@@ -1,62 +1,44 @@
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React from 'react';
 
-import { useTranslation } from '../../../utils/i18next';
-
-export interface SelectProps {
-  icon?: React.ReactNode;
+export type SelectProps = JSX.IntrinsicElements['select'] & {
   children: React.ReactNode;
   onOpen?(): void;
   onClose?(): void;
-}
+};
 
-export const Select = ({ children, icon, onOpen, onClose }: SelectProps) => {
-  const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
-
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-
-    if (open) {
-      onClose?.();
-    } else {
-      onOpen?.();
-    }
-
-    setOpen(!open);
-  };
-
+export const Select = ({ children, ...rest }: SelectProps) => {
   return (
-    <details className="relative" open={open}>
-      <summary
+    <div className={classNames('relative', 'text-sm', 'text-gray-700')}>
+      <select
         className={classNames(
-          'text-sm',
-          'border',
-          'border-gray-400',
-          'rounded',
-          'text-gray-700',
+          'appearance-none',
           'py-1',
-          'px-3',
-          'w-24',
-          'hover:bg-gray-100',
-          'active:bg-gray-200',
-          'transition-all',
-          'duration-75',
-          'ease-in',
+          'px-2',
+          'border',
+          'rounded',
+          'w-64',
           'text-left',
+          'border-gray-400',
           'cursor-pointer',
-          'select-none',
         )}
-        onClick={handleClick}
-        onBlur={() => setOpen(false)}
+        {...rest}
       >
-        {icon && <span className="mr-1 text-xs text-gray-500">{icon}</span>}
-        <span>{children}</span>
-      </summary>
+        {children}
+      </select>
 
-      <div className="absolute border border-gray-400 bg-white p-2 shadow z-10">
-        {t('select.placeholder', 'This feature not implemented yet')}
-      </div>
-    </details>
+      <FontAwesomeIcon
+        className="absolute top-0 right-0 bottom-0 m-auto mr-2"
+        icon={faChevronDown}
+      />
+    </div>
   );
+};
+
+export type OptionProps = JSX.IntrinsicElements['option'];
+
+Select.Option = (props: OptionProps) => {
+  return <option {...props} />;
 };

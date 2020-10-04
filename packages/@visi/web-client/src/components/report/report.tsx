@@ -89,14 +89,14 @@ export const Report = ({
 
   return (
     <details className={wrapper} open={open}>
-      <summary onClick={handleClick}>
+      <summary className="block" onClick={handleClick}>
         {/* Wrap by div due to Safari's bug */}
         <div className={content}>
           <div className="flex-1 relative">
             <OutcomeIcon outcome={report.outcome} />
 
             <Typography
-              className="group-hover:text-primary-500"
+              className="group-hover:text-primary-500 mb-1"
               variant="h4"
               fontSize="lg"
             >
@@ -104,7 +104,6 @@ export const Report = ({
             </Typography>
 
             <Typography
-              variant="p"
               fontStyle={report.message == null ? 'italic' : 'normal'}
               color="wash"
             >

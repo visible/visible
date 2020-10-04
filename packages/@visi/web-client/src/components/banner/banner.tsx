@@ -50,7 +50,7 @@ export const Banner = () => {
 
   return (
     <Layout.Header>
-      <Layout.Container padding={false}>
+      <Layout.Container>
         <div className="flex w-full justify-between">
           <div>
             <Typography variant="h1" fontWeight="normal">

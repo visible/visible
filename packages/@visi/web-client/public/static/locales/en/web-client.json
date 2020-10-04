@@ -44,32 +44,35 @@
     "default-message": "No error message given",
     "default-title": "An unexpected error has occurred"
   },
+  "help-improve": {
+    "description": "Let us know about any of your ideas, suggestions, or comments by reporting issues or creating pull requests on GitHub. You can also send messages via Twitter or Email.",
+    "email": "Email",
+    "new-issue": "Create an issue on GitHub",
+    "title": "How to improve this page",
+    "twitter": "Twitter"
+  },
+  "synopsis": {
+    "description": "Visible is not just a linter, we also provide information on how to make your website accessible. We indicate which part you need to fix, give you patches of codes, give you references to the standards — to help you to learn and improve the accessibility of your website.",
+    "image": "Book",
+    "title": "Less pain, more accessible"
+  },
+  "features": {
+    "automation": {
+      "description": "Unlike other tools, Visible also provides patches to fix the a11y issues so you don’t need to search for information of the error and helps you to focus more on coding",
+      "title": "Suggestion"
+    },
+    "ci": {
+      "description": "Visible is also available on command-line, so you can use it on continuous integrations services and monitor the website is fine.",
+      "title": "Command-line"
+    },
+    "learn": {
+      "description": "Visible always inform you which exact codes are violating rules which means you can learn more about accessibility as you code",
+      "title": "Learn about A11y"
+    },
+    "title": "Features"
+  },
   "home": {
-    "agenda": {
-      "description": "Visible is not just a linter, we also provide information on how to make your website accessible. We indicate which part you need to fix, give you patches of codes, give you references to the standards — to help you to learn and improve the accessibility of your website.",
-      "image": "Book",
-      "title": "Less pain, more accessible"
-    },
     "description": "Visible is a tool-chain that helps developers to build websites in the perspective of accessibility",
-    "features": {
-      "automation": {
-        "description": "Unlike other tools, Visible also provides patches to fix the a11y issues so you don’t need to search for information of the error and helps you to focus more on coding",
-        "title": "Automation"
-      },
-      "beta": {
-        "description": "We are working hard to release Visible by November this year. In case if you interested in Visible or accessibility, I'd appreciate you trying it out. Please keep it in mind that the programme is still under development and not guaranteed to work properly.",
-        "title": "Try the beta out, now!"
-      },
-      "ci": {
-        "description": "Visible is also available on command-line, so you can use it on continuous integrations services and monitor the website is fine.",
-        "title": "Continuous Integration"
-      },
-      "learn": {
-        "description": "Visible always inform you which exact codes are violating rules which means you can learn more about accessibility as you code",
-        "title": "Learn about A11y"
-      },
-      "title": "Features"
-    },
     "introduction": "Introduction",
     "placeholder": "Type URL of the website",
     "submit": "Diagnose",
@@ -100,6 +103,20 @@
     "description": "🦉 Visible is an open-source accessibility testing tool works on Node.js and CI",
     "title": "Visible"
   },
+  "newsletter": {
+    "description": "We will keep you informed of the latest news about the product! In case if you interested in Visible and accessibility, please fill the form below to sign up for the newsletter including announcements of beta testing.",
+    "title": "Sign up for beta, now!"
+  },
+  "newsletter-form": {
+    "a11y-pro": "Accessibility Professional",
+    "description": "We will send an email about once a month. You can unsubscribe from the newsletter anytime you want.",
+    "designer": "Designer",
+    "developer": "Developer",
+    "email": "Email address",
+    "role": "I'm a...",
+    "subscribe": "Subscribe",
+    "title": "Newsletter"
+  },
   "not-found": {
     "title": "You hit the void!"
   },
@@ -110,16 +127,16 @@
   },
   "report": {
     "difficulty": "Difficulty: {{difficulty}}",
-    "impact": "Impact: {{impact}}",
     "filename": "Found at <1>{{filename}}</1>",
-    "rule-id": "Reported by <1>{{ruleId}}</1>",
+    "impact": "Impact: {{impact}}",
     "no-desc": "no description provided",
     "outcome": {
       "fail": "Fail",
       "inapplicable": "Inapplicable",
       "passed": "Passed"
     },
-    "reference": "Reference: "
+    "reference": "Reference: ",
+    "rule-id": "Reported by <1>{{ruleId}}</1>"
   },
   "report-list": {
     "description": "{{count}} issue was reported from this website. Click to show the details including impacts and patches",

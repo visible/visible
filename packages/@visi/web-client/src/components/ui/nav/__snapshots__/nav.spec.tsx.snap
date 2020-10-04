@@ -7,7 +7,7 @@ exports[`Nav matches snapshot 1`] = `
   >
     <li>
       <a
-        class="p-2 rounded text-sm font-semibold space-x-2 text-gray-600 hover:bg-gray-300"
+        class="py-2 px-3 rounded-md text-sm font-semibold space-x-2 transition-colors duration-75 text-gray-600 hover:bg-gray-300"
         href="/bar"
       >
         <span>
@@ -17,7 +17,7 @@ exports[`Nav matches snapshot 1`] = `
     </li>
     <li>
       <a
-        class="p-2 rounded text-sm font-semibold space-x-2 text-gray-600 hover:bg-gray-300"
+        class="py-2 px-3 rounded-md text-sm font-semibold space-x-2 transition-colors duration-75 text-gray-600 hover:bg-gray-300"
         href="/bar"
       >
         <span>

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Divider matches snapshot 1`] = `
+<hr
+  class="block my-8 border bt-2 border-gray-300 w-full"
+/>
+`;

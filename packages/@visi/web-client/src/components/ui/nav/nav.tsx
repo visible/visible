@@ -44,14 +44,17 @@ const Item = (props: NavItem) => {
     <Wrapper>
       <a
         className={classNames(
-          'p-2',
-          'rounded',
+          'py-2',
+          'px-3',
+          'rounded-md',
           'text-sm',
           'font-semibold',
           'space-x-2',
+          'transition-colors',
+          'duration-75',
           variant === 'normal' &&
             (active
-              ? ['bg-primary-300', 'text-primary-500']
+              ? ['text-gray-600', 'bg-gray-300']
               : ['text-gray-600', 'hover:bg-gray-300']),
           variant === 'invert' &&
             (active

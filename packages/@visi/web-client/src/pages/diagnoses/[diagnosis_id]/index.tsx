@@ -8,24 +8,55 @@ import classNames from 'classnames';
 import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useMemo } from 'react';
 
+import { HelpImprove } from '../../../components/help-improve/help-improve';
 import { KeywordList } from '../../../components/keyword-list/keyword-list';
+import { Newsletter } from '../../../components/newsletter';
 import { Project } from '../../../components/project';
 import { ReportList } from '../../../components/report-list';
 import { SourceList } from '../../../components/source-list';
 import {
   Card,
+  Divider,
   Layout,
   Nav,
   Progress,
   Typography,
   Widget,
 } from '../../../components/ui';
-import { Status } from '../../../generated/graphql';
+import { DiagnosisLargeFragment, Status } from '../../../generated/graphql';
 import { useDiagnosis } from '../../../hooks/use-diagnosis';
 import { useTranslation } from '../../../utils/i18next';
 import { withApollo } from '../../../utils/with-apollo';
+
+const LoadingIndicator = ({
+  diagnosis,
+}: {
+  diagnosis: DiagnosisLargeFragment;
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <Card variant="solid" className="w-2/3 mx-auto my-8">
+      <Card.Heading>
+        <Typography variant="h3" fontSize="lg">
+          {t('diagnoses.processing.title', 'Processing diagnostics')}
+        </Typography>
+      </Card.Heading>
+
+      <Card.Body>
+        <Typography color="wash">
+          {t(
+            'diagnoses.processing.description',
+            'Running diagnostics program on the server. This process takes a while to complete...',
+          )}
+        </Typography>
+        <Progress max={diagnosis.totalCount} value={diagnosis.doneCount} />
+      </Card.Body>
+    </Card>
+  );
+};
 
 const Diagnoses: NextPage = () => {
   const { t } = useTranslation();
@@ -36,6 +67,15 @@ const Diagnoses: NextPage = () => {
   }
 
   const { data, loading, error } = useDiagnosis(router.query.diagnosis_id);
+
+  // prettier-ignore
+  const keywords = useMemo(() => [
+    ...new Set(
+      data?.diagnosis.sources
+        .flatMap((source) => source.reports)
+        .flatMap((report) => report.rule.keywords),
+    ).values(),
+  ].filter((v): v is string => v != null), [data?.diagnosis]);
 
   if (loading) {
     return <p>{t('diagnoses.loading', 'Loading...')}</p>;
@@ -59,7 +99,7 @@ const Diagnoses: NextPage = () => {
   );
 
   return (
-    <Layout.Main>
+    <Layout.Main className="space-y-4 mb-12">
       <NextSeo
         title={title}
         description={description}
@@ -72,9 +112,8 @@ const Diagnoses: NextPage = () => {
         }}
       />
 
-      <div className={classNames('border-b', 'border-gray-300', 'bg-gray-200')}>
-        {/* TODO: Better handling for lg:pb-4 */}
-        <Layout.Container className="lg:pb-4">
+      <div className={classNames('border-b', 'border-gray-200', 'bg-gray-100')}>
+        <Layout.Container>
           <Project diagnosis={diagnosis} />
 
           <Nav
@@ -103,31 +142,19 @@ const Diagnoses: NextPage = () => {
       </div>
 
       <Layout.Container>
-        <Layout.Content>
+        <Layout.Content
+          aria-busy={diagnosis.status !== Status.Done}
+          aria-live="polite"
+        >
           {diagnosis.status !== Status.Done && (
-            <Card variant="solid" className="w-2/3 mx-auto my-8">
-              <Card.Heading>
-                <Typography variant="h3" fontSize="lg">
-                  {t('diagnoses.processing.title', 'Processing diagnostics')}
-                </Typography>
-              </Card.Heading>
-
-              <Card.Body>
-                <Typography color="wash">
-                  {t(
-                    'diagnoses.processing.description',
-                    'Running diagnostics program on the server. This process takes a while to complete...',
-                  )}
-                </Typography>
-                <Progress
-                  max={diagnosis.totalCount}
-                  value={diagnosis.doneCount}
-                />
-              </Card.Body>
-            </Card>
+            <LoadingIndicator diagnosis={diagnosis} />
           )}
 
-          <ReportList sources={diagnosis.sources} diagnosisId={diagnosis.id} />
+          <ReportList
+            sources={diagnosis.sources}
+            diagnosisId={diagnosis.id}
+            loading={diagnosis.sources.length === 0}
+          />
         </Layout.Content>
 
         <Layout.Aside>
@@ -142,6 +169,7 @@ const Diagnoses: NextPage = () => {
               <SourceList
                 diagnosisId={diagnosis.id}
                 sources={diagnosis.sources}
+                loading={diagnosis.sources.length === 0}
                 withFailCount
               />
             </Widget.Body>
@@ -157,17 +185,18 @@ const Diagnoses: NextPage = () => {
             <Widget.Body>
               <KeywordList
                 wrap
-                keywords={[
-                  ...new Set(
-                    diagnosis.sources
-                      .flatMap((source) => source.reports)
-                      .flatMap((report) => report.rule.keywords),
-                  ).values(),
-                ].filter((v): v is string => v != null)}
+                keywords={keywords}
+                loading={keywords.length === 0}
               />
             </Widget.Body>
           </Widget>
         </Layout.Aside>
+      </Layout.Container>
+
+      <Layout.Container className="space-y-10 my-4">
+        <Divider className="mt-0 mb-0" />
+        <HelpImprove withImage />
+        <Newsletter withImage />
       </Layout.Container>
     </Layout.Main>
   );

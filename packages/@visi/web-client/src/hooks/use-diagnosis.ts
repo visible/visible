@@ -12,6 +12,7 @@ export const useDiagnosis = (id: string) => {
       id,
     },
   });
+
   const subscribeToMore = useRef(result.subscribeToMore);
 
   useEffect(() => {

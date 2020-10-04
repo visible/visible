@@ -11,7 +11,7 @@ export const Tag = (props: TagProps) => {
   return (
     <span
       className={classNames(
-        'bg-primary-300',
+        'bg-primary-200',
         'text-primary-500',
         'px-2',
         'py-1',

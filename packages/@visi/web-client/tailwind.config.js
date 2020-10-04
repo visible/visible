@@ -19,6 +19,8 @@ module.exports = {
     'disabled',
     'hover',
     'focus',
+    'first',
+    'last',
     'active',
   ],
 };
