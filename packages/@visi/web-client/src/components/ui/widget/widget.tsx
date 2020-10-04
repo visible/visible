@@ -33,18 +33,13 @@ const Body = (props: BodyProps) => {
 export interface WidgetProps {
   id: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export const Widget = (props: WidgetProps) => {
-  const { children, id } = props;
-
+export const Widget = ({ children, id, className }: WidgetProps) => {
   return (
     <WidgetContext.Provider value={{ labelId: id }}>
-      <div
-        role="region"
-        aria-labelledby={id}
-        className={classNames('mt-8', 'first:mt-0')}
-      >
+      <div role="region" className={className} aria-labelledby={id}>
         {children}
       </div>
     </WidgetContext.Provider>

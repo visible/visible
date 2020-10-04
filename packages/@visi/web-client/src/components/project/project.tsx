@@ -11,20 +11,38 @@ export interface ProjectProps {
   diagnosis: DiagnosisLargeFragment;
 }
 
+const mapVariant = (status: Status) => {
+  switch (status) {
+    case Status.Done:
+      return 'green';
+    case Status.Failed:
+      return 'red';
+    default:
+      return 'yellow';
+  }
+};
+
+const ImagePlaceholder = () => {
+  return (
+    <div
+      aria-hidden
+      className="bg-gray-400 animate-pulse rounded-md shadow-md"
+      style={{ width: '300px', height: '225px' }}
+    />
+  );
+};
+
 const Statuses = ({ diagnosis }: { diagnosis: DiagnosisLargeFragment }) => {
   const { t } = useTranslation();
   const createdAt = new Date(diagnosis.createdAt);
 
-  const variant =
-    diagnosis.status === Status.Done
-      ? 'green'
-      : diagnosis.status === Status.Failed
-      ? 'red'
-      : 'yellow';
-
   return (
     <div className="flex flex-col space-y-2 mb-4 md:flex-row md:space-x-8 md:space-y-0">
-      <Badge variant={variant}>
+      <Badge
+        role="status"
+        aria-live="polite"
+        variant={mapVariant(diagnosis.status)}
+      >
         {t(`status.${diagnosis.status.toLowerCase()}`)}
       </Badge>
 
@@ -83,13 +101,15 @@ export const Project = (props: ProjectProps) => {
         <Statuses diagnosis={diagnosis} />
       </div>
 
-      {diagnosis.screenshot && (
+      {diagnosis.screenshot != null ? (
         <Image
           src={diagnosis.screenshot}
           alt={diagnosis.id}
           width="300px"
           variant="shadow"
         />
+      ) : (
+        <ImagePlaceholder />
       )}
     </div>
   );

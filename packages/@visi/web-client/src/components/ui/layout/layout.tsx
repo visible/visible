@@ -42,16 +42,9 @@ const Main = ({ children, className, ...rest }: MainProps) => {
   );
 };
 
-export type ContainerProps = JSX.IntrinsicElements['div'] & {
-  padding: boolean;
-};
+export type ContainerProps = JSX.IntrinsicElements['div'];
 
-const Container = ({
-  children,
-  padding,
-  className,
-  ...rest
-}: ContainerProps) => {
+const Container = ({ children, className, ...rest }: ContainerProps) => {
   return (
     <div
       className={classNames(
@@ -59,8 +52,8 @@ const Container = ({
         'flex-wrap',
         'w-full',
         'mx-auto',
+        'box-border',
         'p-3',
-        padding && 'lg:py-8',
         'md:max-w-screen-md',
         'lg:max-w-screen-lg',
         'xl:max-w-screen-xl',
@@ -73,9 +66,9 @@ const Container = ({
   );
 };
 
-Container.defaultProps = {
-  padding: true,
-};
+// Container.defaultProps = {
+//   padding: true,
+// };
 
 export type ContentProps = JSX.IntrinsicElements['div'];
 
@@ -94,9 +87,9 @@ const Aside = ({ children, className, ...rest }: AsideProps) => {
     <aside
       className={classNames(
         'w-full',
-        'box-border',
-        'lg:pl-8',
+        'lg:ml-8',
         'lg:w-3/12',
+        'space-y-8',
         className,
       )}
       {...rest}

@@ -6,11 +6,32 @@ import ReactGA from 'react-ga';
 import { Outcome, SourceLargeFragment } from '../../generated/graphql';
 import { useTranslation } from '../../utils/i18next';
 import { Report } from '../report';
-import { Select, Typography } from '../ui';
+import { Divider, SelectMock, Typography } from '../ui';
+
+export const ReportPlaceholder = () => {
+  return (
+    <div aria-hidden className="flex mb-3">
+      <div className="flex-1 space-y-2">
+        <div className="bg-gray-300 rounded animate-pulse h-5 w-1/3" />
+
+        <div className="space-y-1">
+          <div className="bg-gray-300 rounded animate-pulse h-4 w-full" />
+          <div className="bg-gray-300 rounded animate-pulse h-4 w-1/2" />
+        </div>
+      </div>
+
+      <div
+        style={{ width: '100px', height: '100px' }}
+        className="bg-gray-300 rounded-lg animate-pulse ml-5"
+      />
+    </div>
+  );
+};
 
 export interface ReportListProps {
   diagnosisId: string;
   sources: SourceLargeFragment[];
+  loading: boolean;
 }
 
 // TODO: Move to backend
@@ -25,9 +46,13 @@ const order = (outcome: Outcome) =>
   : outcome === Outcome.Passed ? 1
   : 2;
 
-export const ReportList = (props: ReportListProps) => {
-  const { sources, diagnosisId } = props;
+export const ReportList = ({
+  sources,
+  diagnosisId,
+  loading,
+}: ReportListProps) => {
   const { t } = useTranslation();
+
   const reports = useMemo(
     () =>
       sources
@@ -47,18 +72,23 @@ export const ReportList = (props: ReportListProps) => {
     [sources],
   );
 
+  const reportCount = useMemo(
+    () => reports.filter((report) => report.outcome === Outcome.Fail).length,
+    [reports],
+  );
+
   return (
     <>
-      <header className="border-b border-gray-200 pb-4">
+      <header>
         <div className="flex justify-between items-center mb-2">
           <div className="flex-1">
-            <Typography variant="h3" fontSize="xl">
+            <Typography variant="h3" fontSize="2xl">
               {t('report-list.title', 'Reports')}
             </Typography>
           </div>
 
           <div className="flex space-x-2">
-            <Select
+            <SelectMock
               icon={<FontAwesomeIcon icon={faFilter} />}
               onOpen={() =>
                 ReactGA.event({
@@ -67,9 +97,9 @@ export const ReportList = (props: ReportListProps) => {
                 })
               }
             >
-              Filter
-            </Select>
-            <Select
+              {t('report.list.filter', 'Filter')}
+            </SelectMock>
+            <SelectMock
               icon={<FontAwesomeIcon icon={faSort} />}
               onOpen={() =>
                 ReactGA.event({
@@ -78,8 +108,8 @@ export const ReportList = (props: ReportListProps) => {
                 })
               }
             >
-              Sort
-            </Select>
+              {t('report.list.sort', 'Sort')}
+            </SelectMock>
           </div>
         </div>
 
@@ -87,31 +117,38 @@ export const ReportList = (props: ReportListProps) => {
           {t(
             'report-list.description',
             '{{count}} issues were reported from this website. Click to show the details including impacts and patches',
-            {
-              count: reports.filter((report) => report.outcome === Outcome.Fail)
-                .length,
-            },
+            { count: reportCount },
           )}
         </Typography>
       </header>
 
+      <Divider />
+
       <ul>
-        {reports.map((report) => (
-          <li
-            key={report.id}
-            className="border-t border-gray-200 first:border-t-0 py-4"
-          >
-            <Report
-              diagnosisId={diagnosisId}
-              report={report}
-              original={sourceMap[report.id].content}
-              title={filename(sourceMap[report.id].url)}
-              withKeywords
-              withEditor
-            />
-          </li>
-        ))}
+        {loading
+          ? Array.from({ length: 8 }, (_, i) => (
+              <ReportPlaceholder key={`item-${i}`} />
+            ))
+          : reports.map((report) => (
+              <li
+                key={report.id}
+                className="border-t first:border-none py-3 first:pt-0 last:pb-0 border-gray-200"
+              >
+                <Report
+                  diagnosisId={diagnosisId}
+                  report={report}
+                  original={sourceMap[report.id].content}
+                  title={filename(sourceMap[report.id].url)}
+                  withKeywords
+                  withEditor
+                />
+              </li>
+            ))}
       </ul>
     </>
   );
+};
+
+ReportList.defaultProps = {
+  loading: false,
 };

@@ -3,7 +3,6 @@
 exports[`Widget matches snapshot 1`] = `
 <div
   aria-labelledby="test"
-  class="mt-8 first:mt-0"
   role="region"
 >
   <div

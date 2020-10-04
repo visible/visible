@@ -43,6 +43,7 @@ export const Search = (props: SearchProps) => {
         disabled={rest.disabled}
         required={rest.required}
         onChange={handleChange}
+        shape="circle"
         className={classNames(
           'border-r-0',
           'rounded-tr-none',

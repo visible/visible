@@ -5,14 +5,33 @@ import React from 'react';
 import { useTranslation } from '../../utils/i18next';
 import { Tag } from '../ui';
 
+const KeywordPlaceholder = () => {
+  return (
+    <div
+      aria-hidden
+      className="bg-gray-300 rounded w-20 h-4 mb-2 mr-2 animate-pulse"
+    />
+  );
+};
+
 export interface KeywordListProps {
   keywords: string[];
   wrap?: boolean;
+  loading: boolean;
 }
 
-export const KeywordList = (props: KeywordListProps) => {
+export const KeywordList = ({ keywords, wrap, loading }: KeywordListProps) => {
   const { t } = useTranslation();
-  const { keywords, wrap } = props;
+
+  if (loading) {
+    return (
+      <div className="flex flex-wrap">
+        {Array.from({ length: 8 }, (_, i) => (
+          <KeywordPlaceholder key={`item-${i}`} />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <ul className={classNames('inline-flex', wrap && 'flex-wrap')}>
@@ -27,4 +46,8 @@ export const KeywordList = (props: KeywordListProps) => {
       ))}
     </ul>
   );
+};
+
+KeywordList.defaultProps = {
+  loading: false,
 };

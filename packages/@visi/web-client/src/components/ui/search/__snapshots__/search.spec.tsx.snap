@@ -6,11 +6,13 @@ exports[`Search matches snapshot 1`] = `
   role="search"
 >
   <input
-    class="border-gray-500 bg-gray-100 border placeholder-gray-600 text-sm py-2 px-4 w-64 focus:outline-none focus:shadow-outline focus:border-primary-500 focus:bg-white disabled:opacity-75 disabled:cursor-not-allowed rounded-full border-r-0 rounded-tr-none rounded-br-none"
+    class="border-gray-400 border placeholder-gray-600 text-sm w-64 focus:outline-none focus:shadow-outline focus:border-primary-500 focus:bg-white disabled:opacity-75 disabled:cursor-not-allowed rounded py-2 px-4 rounded-full border-r-0 rounded-tr-none rounded-br-none"
     value=""
   />
   <button
     class="rounded-full px-4 py-2 text-sm flex transition-colors duration-100 ease-in focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-75 bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700 border-l-0 rounded-tl-none rounded-bl-none"
+    rel="noreferrer"
+    target="_blank"
   >
     <span>
       Search
