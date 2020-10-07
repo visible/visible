@@ -14,6 +14,10 @@ describe('HTML', () => {
     const newNode = oldNode.clone();
     expect(oldNode.text).toBe(newNode.text);
     expect(oldNode.value).not.toBe(newNode.value);
+    console.log(oldNode.value.startIndex, oldNode.value.endIndex);
+    console.log(newNode.value.startIndex, newNode.value.endIndex);
+    expect(oldNode.value.startIndex).toBe(newNode.value.startIndex);
+    expect(oldNode.value.endIndex).toBe(newNode.value.endIndex);
   });
 });
 

@@ -41,11 +41,7 @@ export class HTMLNode implements BaseNode<DomNode> {
   }
 
   clone(): HTMLNode {
-    const [newNode] = parseDOM(this.text);
-    // Pretend as if it was in original HTML
-    newNode.startIndex = this.value.startIndex;
-    newNode.endIndex = this.value.endIndex;
-    return new HTMLNode(newNode);
+    return new HTMLNode(this.value.cloneNode(true));
   }
 }
 
