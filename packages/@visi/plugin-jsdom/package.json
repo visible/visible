@@ -16,13 +16,13 @@
     "access": "public"
   },
   "dependencies": {
-    "domhandler": "^3.0.0",
-    "htmlparser2": "^4.1.0",
+    "domhandler": "^3.3.0",
+    "htmlparser2": "^5.0.0",
     "jsdom": "^16.4.0"
   },
   "devDependencies": {
-    "@visi/core": "^0.2.0",
     "@types/jsdom": "^16.2.4",
+    "@visi/core": "^0.2.0",
     "typescript": "^4.0.3"
   },
   "peerDependencies": {

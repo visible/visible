@@ -17,15 +17,15 @@
   },
   "dependencies": {
     "devtools-protocol": "^0.0.795450",
-    "domhandler": "^3.0.0",
-    "htmlparser2": "^4.1.0",
+    "domhandler": "^3.3.0",
+    "htmlparser2": "^5.0.0",
     "postcss": "^7.0.32",
     "puppeteer": "^5.2.1",
     "xpath-analyzer": "^3.0.1"
   },
   "devDependencies": {
-    "@visi/core": "^0.2.1",
-    "@types/puppeteer": "^3.0.1"
+    "@types/puppeteer": "^3.0.1",
+    "@visi/core": "^0.2.1"
   },
   "peerDependencies": {
     "@visi/core": "*"

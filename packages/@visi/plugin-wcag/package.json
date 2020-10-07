@@ -16,18 +16,18 @@
     "access": "public"
   },
   "dependencies": {
-    "domelementtype": "^2.0.1",
-    "domhandler": "^3.0.0",
-    "domutils": "^2.2.0",
+    "domelementtype": "^2.0.2",
+    "domhandler": "^3.3.0",
+    "domutils": "^2.4.2",
     "polished": "^3.6.6"
   },
   "devDependencies": {
-    "@visi/core": "^0.2.1",
-    "@visi/jest": "^0.0.0",
-    "@visi/plugin-jsdom": "^0.2.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
+    "@visi/core": "^0.2.1",
+    "@visi/jest": "^0.0.0",
+    "@visi/plugin-jsdom": "^0.2.0",
     "outdent": "^0.7.1",
     "rollup": "^2.23.1",
     "rollup-plugin-node-builtins": "^2.1.2",
