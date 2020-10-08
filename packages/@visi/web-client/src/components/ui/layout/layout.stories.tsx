@@ -11,10 +11,10 @@ export const Normal = () => (
   <div>
     <Layout.Header>header</Layout.Header>
 
-    <Layout.Content>
+    <Layout.Page>
       <Layout.Main>main</Layout.Main>
       <Layout.Aside>aside</Layout.Aside>
-    </Layout.Content>
+    </Layout.Page>
 
     <Layout.Footer>footer</Layout.Footer>
   </div>

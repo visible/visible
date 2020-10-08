@@ -7,8 +7,8 @@ exports[`Layout matches snapshot 1`] = `
   >
     header
   </header>
-  <article
-    class="flex-1"
+  <div
+    class="w-full"
   >
     <main
       class="w-full"
@@ -16,11 +16,11 @@ exports[`Layout matches snapshot 1`] = `
       main
     </main>
     <aside
-      class="w-full lg:ml-8 lg:w-3/12 space-y-8"
+      class="w-full border-box lg:pl-8 lg:w-3/12 space-y-8"
     >
       aside
     </aside>
-  </article>
+  </div>
   <footer
     class="border-t border-gray-300 bg-gray-200"
   >

@@ -10,7 +10,7 @@ const Rules: NextPage = () => {
   const { t } = useTranslation();
 
   return (
-    <Layout.Main>
+    <Layout.Page>
       <NextSeo
         title={t('rules.title', 'Rules')}
         description={t(
@@ -20,11 +20,11 @@ const Rules: NextPage = () => {
       />
 
       <Layout.Container>
-        <Layout.Content>
+        <Layout.Main>
           <PagePlaceholder />
-        </Layout.Content>
+        </Layout.Main>
       </Layout.Container>
-    </Layout.Main>
+    </Layout.Page>
   );
 };
 

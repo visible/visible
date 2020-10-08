@@ -3,7 +3,7 @@
 exports[`Nav matches snapshot 1`] = `
 <nav>
   <ul
-    class="flex flex-row space-x-4"
+    class="flex space-x-4"
   >
     <li>
       <a

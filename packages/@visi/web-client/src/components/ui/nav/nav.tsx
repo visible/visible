@@ -4,12 +4,10 @@ import { useRouter } from 'next/router';
 import React, { createContext, useContext } from 'react';
 
 export type NavVariant = 'normal' | 'invert';
-export type NavDirection = 'horizontal' | 'vertical';
 export type NavSpace = 'lg' | 'md' | 'sm';
 
 const NavContext = createContext<{
   variant?: NavVariant;
-  direction?: NavDirection;
 }>({});
 
 const useVariant = () => {
@@ -70,33 +68,28 @@ const Item = (props: NavItem) => {
   );
 };
 
-export interface NavProps {
+const mapSpace = (space: NavSpace) => {
+  switch (space) {
+    case 'lg':
+      return 'space-x-8';
+    case 'md':
+      return 'space-x-4';
+    case 'sm':
+      return 'space-x-2';
+  }
+};
+
+export type NavProps = JSX.IntrinsicElements['nav'] & {
   items: NavItem[];
   variant: NavVariant;
-  direction: NavDirection;
   space: NavSpace;
-}
+};
 
-export const Nav = (props: NavProps) => {
-  const { items, variant, direction, space } = props;
-
-  const infix = {
-    lg: '8',
-    md: '4',
-    sm: '2',
-  }[space];
-
+export const Nav = ({ items, variant, space, ...rest }: NavProps) => {
   return (
-    <NavContext.Provider value={{ variant, direction }}>
-      <nav>
-        <ul
-          className={classNames(
-            'flex',
-            direction === 'horizontal'
-              ? ['flex-row', `space-x-${infix}`]
-              : ['flex-col', `space-y-${infix}`],
-          )}
-        >
+    <NavContext.Provider value={{ variant }}>
+      <nav {...rest}>
+        <ul className={classNames('flex', mapSpace(space))}>
           {items.map((item, i) => (
             <li key={`${item.href}-${i}`}>
               <Item {...item} />
@@ -111,5 +104,4 @@ export const Nav = (props: NavProps) => {
 Nav.defaultProps = {
   space: 'md',
   variant: 'normal',
-  direction: 'horizontal',
 };

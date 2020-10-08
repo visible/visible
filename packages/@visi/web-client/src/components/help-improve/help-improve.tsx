@@ -13,7 +13,7 @@ export const HelpImprove = ({ withImage }: HelpImproveProps) => {
 
   return (
     <div className="flex justify-between items-center w-full">
-      <div className="md:max-w-screen-md">
+      <section className="md:max-w-screen-md">
         <Typography variant="h2" fontSize="2xl" className="mb-1">
           {t('help-improve.title', 'How to improve this page')}
         </Typography>
@@ -41,7 +41,7 @@ export const HelpImprove = ({ withImage }: HelpImproveProps) => {
             {t('help-improve.email', 'Email')}
           </Button>
         </div>
-      </div>
+      </section>
 
       {withImage && (
         <div className="hidden flex-shrink-0 md:block">

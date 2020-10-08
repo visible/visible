@@ -5,6 +5,7 @@ import { Button } from '../button';
 import { Input } from '../input';
 
 export type SearchProps = {
+  id: string;
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
@@ -14,8 +15,15 @@ export type SearchProps = {
   onSubmit?(value: string): void;
 };
 
-export const Search = (props: SearchProps) => {
-  const { children, type, placeholder, onChange, onSubmit, ...rest } = props;
+export const Search = ({
+  id,
+  children,
+  type,
+  placeholder,
+  onChange,
+  onSubmit,
+  ...rest
+}: SearchProps) => {
   const [query, setQuery] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,13 +38,9 @@ export const Search = (props: SearchProps) => {
   };
 
   return (
-    <form
-      role="search"
-      className="inline-flex"
-      onSubmit={handleSubmit}
-      {...rest}
-    >
+    <form role="search" className="inline-flex" onSubmit={handleSubmit}>
       <Input
+        id={id}
         value={query}
         type={type}
         placeholder={placeholder}
@@ -49,6 +53,7 @@ export const Search = (props: SearchProps) => {
           'rounded-tr-none',
           'rounded-br-none',
         )}
+        {...rest}
       />
 
       <Button

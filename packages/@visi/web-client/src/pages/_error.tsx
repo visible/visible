@@ -17,9 +17,9 @@ const Error: NextPage<ErrorProps> = (props) => {
   const { t } = useTranslation();
 
   return (
-    <Layout.Main>
+    <Layout.Page>
       <Layout.Container>
-        <Layout.Content>
+        <Layout.Main>
           <Typography variant="h1">
             {statusCode && `${statusCode}: `}
             {name ??
@@ -31,9 +31,9 @@ const Error: NextPage<ErrorProps> = (props) => {
           </Typography>
 
           {stack && <samp>{stack}</samp>}
-        </Layout.Content>
+        </Layout.Main>
       </Layout.Container>
-    </Layout.Main>
+    </Layout.Page>
   );
 };
 

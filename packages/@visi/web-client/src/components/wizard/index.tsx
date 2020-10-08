@@ -51,8 +51,13 @@ export const Wizard = () => {
         </Typography>
       </div>
 
+      <label htmlFor="wizard-input" className="sr-only">
+        {t('home.wizard-label', 'URL of your website')}
+      </label>
+
       <Search
         type="url"
+        id="wizard-input"
         placeholder={t('home.placeholder', 'Type URL of the website')}
         onChange={(v: string) => void setValue(v)}
         onSubmit={handleSubmit}
@@ -64,9 +69,11 @@ export const Wizard = () => {
 
       <div>
         {error && (
-          <Typography fontStyle="italic" color="invert">
-            {error.message}
-          </Typography>
+          <div aria-live="assertive">
+            <Typography fontStyle="italic" color="invert">
+              {error.message}
+            </Typography>
+          </div>
         )}
 
         <Typography color="invert">

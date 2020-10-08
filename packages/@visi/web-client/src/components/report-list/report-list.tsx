@@ -34,12 +34,6 @@ export interface ReportListProps {
   loading: boolean;
 }
 
-// TODO: Move to backend
-const filename = (url: string) => {
-  const names = url.split('/');
-  return '/' + names[names.length - 1];
-};
-
 // prettier-ignore
 const order = (outcome: Outcome) =>
   outcome === Outcome.Fail ? 0
@@ -138,7 +132,7 @@ export const ReportList = ({
                   diagnosisId={diagnosisId}
                   report={report}
                   original={sourceMap[report.id].content}
-                  title={filename(sourceMap[report.id].url)}
+                  url={sourceMap[report.id].url}
                   withKeywords
                   withEditor
                 />

@@ -51,10 +51,10 @@ export const SelectMock = ({
           'ease-in',
           'text-left',
           'cursor-pointer',
+          'truncate',
           'select-none',
         )}
         onClick={handleClick}
-        onBlur={() => setOpen(false)}
       >
         {icon && <span className="mr-1 text-xs text-gray-500">{icon}</span>}
         <span>{children}</span>

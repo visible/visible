@@ -21,14 +21,14 @@ const Index: NextPage = () => {
   );
 
   return (
-    <Layout.Main>
+    <Layout.Page>
       <NextSeo
         title={title}
         description={description}
         openGraph={{ title, description }}
       />
 
-      <Layout.Content>
+      <Layout.Main>
         <div
           className="pb-40 pt-10"
           style={{
@@ -69,8 +69,8 @@ const Index: NextPage = () => {
             <Newsletter withImage />
           </Layout.Container>
         </div>
-      </Layout.Content>
-    </Layout.Main>
+      </Layout.Main>
+    </Layout.Page>
   );
 };
 

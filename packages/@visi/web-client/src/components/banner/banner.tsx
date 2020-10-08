@@ -63,7 +63,11 @@ export const Banner = () => {
           </div>
 
           <div>
-            <Nav items={navItems} variant="invert" />
+            <Nav
+              items={navItems}
+              variant="invert"
+              aria-label={t('banner.description', 'Site navigation')}
+            />
           </div>
         </div>
       </Layout.Container>

@@ -5,7 +5,7 @@ import { Search } from '.';
 
 describe('Search', () => {
   it('matches snapshot', () => {
-    const { container } = render(<Search>Search</Search>);
+    const { container } = render(<Search id="foo">Search</Search>);
     expect(container.firstChild).toMatchSnapshot();
   });
 });

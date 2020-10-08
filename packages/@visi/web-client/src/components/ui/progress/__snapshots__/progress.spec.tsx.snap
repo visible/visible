@@ -6,18 +6,23 @@ exports[`Progress matches snapshot 1`] = `
 >
   <div
     class="rounded-full h-2 bg-gray-100 flex-grow mr-2 shadow-xs"
+    role="presentation"
   >
     <div
-      aria-hidden="true"
       class="bg-primary-500 animate-pulse transition-all duration-100 ease-out rounded-full h-full"
       style="width: 50%;"
     />
-    <progress
-      class="sr-only"
-      max="10"
-      value="5"
-    />
   </div>
+  <label
+    class="sr-only"
+  >
+    foo
+  </label>
+  <progress
+    class="sr-only"
+    max="100"
+    value="50"
+  />
   <span
     aria-hidden="true"
     class="text-sm text-gray-600"

@@ -1,17 +1,19 @@
 import React from 'react';
 
-import { Trans } from '../../utils/i18next';
+import { Trans, useTranslation } from '../../utils/i18next';
 import { Typography } from '../ui';
 
 export const Imprint = () => {
+  const { t } = useTranslation();
+
   return (
     <div>
       <Typography variant="h3" fontSize="2xl" className="mb-1">
-        Who created Visible?
+        {t('imprint.title', 'Who created Visible?')}
       </Typography>
 
       <Typography variant="p">
-        <Trans>
+        <Trans i18nKey="imprint.description">
           Visible is developed by a high schooler{' '}
           <a
             href="https://twitter.com/thegodofneet"
@@ -21,9 +23,9 @@ export const Imprint = () => {
           >
             Ryō Igarashi
           </a>{' '}
-          for groping and enhancing the possibility of Web and assistive
-          technology since December 2019. As of May 2020, Visible was accepted
-          by{' '}
+          in open source for groping and enhancing the possibility of Web and
+          assistive technology since December 2019. As of May 2020, Visible was
+          accepted by{' '}
           <a
             href="https://www.mitou.org/"
             target="_blank"
