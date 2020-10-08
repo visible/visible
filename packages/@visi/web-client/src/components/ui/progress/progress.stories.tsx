@@ -9,5 +9,5 @@ export default {
 };
 
 export const normal = () => (
-  <Progress max={number('max', 100)} value={number('value', 50)} />
+  <Progress max={number('max', 100)} value={number('value', 50)} label="foo" />
 );

@@ -31,7 +31,7 @@ export const Badge = ({
   ...rest
 }: BadgeProps) => {
   const wrapper = classNames('inline-flex', 'items-center', _className);
-  const text = classNames('text-sm', 'text-gray-800', 'leading-none');
+  const text = classNames('text-sm', 'text-gray-700', 'leading-none');
   const dot = classNames(
     'w-2',
     'h-2',

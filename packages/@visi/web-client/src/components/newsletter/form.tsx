@@ -32,13 +32,14 @@ export const NewsletterForm = ({ className }: NewsletterProps) => {
           )}
         </Typography>
 
-        <div className="space-y-2 mt-4">
+        <fieldset className="space-y-2 mt-4">
           <div className="flex justify-between items-center">
-            <label htmlFor="EMAIL">
+            <label htmlFor="newsletter-form-email">
               {t('newsletter-form.email', 'Email address')}
               <span className="text-red-500">*</span>
             </label>
             <Input
+              id="newsletter-form-email"
               type="email"
               name="EMAIL"
               placeholder="you@example.com"
@@ -48,12 +49,12 @@ export const NewsletterForm = ({ className }: NewsletterProps) => {
           </div>
 
           <div className="flex justify-between items-center">
-            <label htmlFor="MERGE1">
+            <label htmlFor="newsletter-form-role">
               {t('newsletter-form.role', "I'm a...")}
               <span className="text-red-500">*</span>
             </label>
 
-            <Select name="MERGE1" required>
+            <Select name="MERGE1" id="newsletter-form-role" required>
               <Select.Option value="Developer">
                 {t('newsletter-form.developer', 'Developer')}
               </Select.Option>
@@ -73,7 +74,7 @@ export const NewsletterForm = ({ className }: NewsletterProps) => {
               {t('newsletter-form.subscribe', 'Subscribe')}
             </Button>
           </div>
-        </div>
+        </fieldset>
       </Card>
     </form>
   );

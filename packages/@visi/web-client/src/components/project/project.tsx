@@ -5,13 +5,13 @@ import React from 'react';
 
 import { DiagnosisLargeFragment, Status } from '../../generated/graphql';
 import { useTranslation } from '../../utils/i18next';
-import { Badge, Image, Typography } from '../ui';
+import { Badge, BadgeVariant, Image, Typography } from '../ui';
 
 export interface ProjectProps {
   diagnosis: DiagnosisLargeFragment;
 }
 
-const mapVariant = (status: Status) => {
+const mapVariant = (status: Status): BadgeVariant => {
   switch (status) {
     case Status.Done:
       return 'green';
@@ -32,19 +32,43 @@ const ImagePlaceholder = () => {
   );
 };
 
+type StatusBadgeProps = {
+  status: Status;
+};
+
+const StatusBadge = ({ status }: StatusBadgeProps) => {
+  const { t } = useTranslation();
+  const variant = mapVariant(status);
+
+  const text = {
+    [Status.Done]: t('status.done', 'Done'),
+    [Status.Failed]: t('status.failed', 'Failed'),
+    [Status.Processing]: t('status.processing', 'Processing'),
+    [Status.Queued]: t('status.queued', 'Queued'),
+    [Status.Started]: t('status.started', 'Started'),
+  }[status];
+
+  return (
+    <Badge
+      role="status"
+      aria-live="polite"
+      aria-label={t('status.description', 'Diagnosis status: {{status}}', {
+        status: text,
+      })}
+      variant={variant}
+    >
+      {text}
+    </Badge>
+  );
+};
+
 const Statuses = ({ diagnosis }: { diagnosis: DiagnosisLargeFragment }) => {
   const { t } = useTranslation();
   const createdAt = new Date(diagnosis.createdAt);
 
   return (
     <div className="flex flex-col space-y-2 mb-4 md:flex-row md:space-x-8 md:space-y-0">
-      <Badge
-        role="status"
-        aria-live="polite"
-        variant={mapVariant(diagnosis.status)}
-      >
-        {t(`status.${diagnosis.status.toLowerCase()}`)}
-      </Badge>
+      <StatusBadge status={diagnosis.status} />
 
       <Typography
         color="wash"
@@ -70,7 +94,12 @@ const Statuses = ({ diagnosis }: { diagnosis: DiagnosisLargeFragment }) => {
       >
         <FontAwesomeIcon icon={faClock} />
 
-        <time dateTime={createdAt.toISOString()}>
+        <time
+          dateTime={createdAt.toISOString()}
+          aria-label={t('diagnoses.created_at', 'Created at {{date}}', {
+            date: createdAt.toLocaleString(),
+          })}
+        >
           {createdAt.toLocaleString()}
         </time>
       </Typography>
@@ -80,6 +109,7 @@ const Statuses = ({ diagnosis }: { diagnosis: DiagnosisLargeFragment }) => {
 
 export const Project = (props: ProjectProps) => {
   const { diagnosis } = props;
+  const { t } = useTranslation();
 
   const domain = new URL(diagnosis.url).hostname;
 
@@ -104,7 +134,9 @@ export const Project = (props: ProjectProps) => {
       {diagnosis.screenshot != null ? (
         <Image
           src={diagnosis.screenshot}
-          alt={diagnosis.id}
+          alt={t('diagnoses.screenshot', 'Screenshot for {{title}}', {
+            title: domain,
+          })}
           width="300px"
           variant="shadow"
         />

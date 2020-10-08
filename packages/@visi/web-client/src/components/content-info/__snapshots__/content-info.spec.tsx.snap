@@ -14,9 +14,11 @@ exports[`ContentInfo matches to the snapshot 1`] = `
         <div
           class="flex justify-between"
         >
-          <nav>
+          <nav
+            aria-label="Contact information and links to external websites"
+          >
             <ul
-              class="flex flex-row space-x-4"
+              class="flex space-x-4"
             >
               <li>
                 <a

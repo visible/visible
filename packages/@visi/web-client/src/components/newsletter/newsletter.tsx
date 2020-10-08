@@ -13,7 +13,7 @@ export const Newsletter = ({ withImage }: NewsletterProps) => {
 
   return (
     <div className="flex justify-between items-center w-full">
-      <div className="flex-1">
+      <section className="flex-1">
         <Typography variant="h2" fontSize="2xl" className="mb-1">
           {t('newsletter.title', 'Sign up for beta, now!')}
         </Typography>
@@ -26,7 +26,7 @@ export const Newsletter = ({ withImage }: NewsletterProps) => {
         </Typography>
 
         <NewsletterForm className="mt-8 m-auto max-w-screen-md" />
-      </div>
+      </section>
 
       {withImage && (
         <div className="hidden flex-shrink-0 md:block">

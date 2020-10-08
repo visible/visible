@@ -9,7 +9,7 @@ exports[`Badge matches snapshot 1`] = `
     role="presentation"
   />
   <span
-    class="text-sm text-gray-800 leading-none"
+    class="text-sm text-gray-700 leading-none"
   >
     test
   </span>

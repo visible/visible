@@ -1,0 +1,278 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CodeFrame matches snapshot 1`] = `
+<div
+  class="box-border border border-gray-400 rounded-md max-w-full"
+>
+  <header
+    class="flex box-border border-b p-2 border-gray-400 bg-gray-100 space-x-4"
+  >
+    <h4
+      class="font-bold text-sm text-gray-700"
+    >
+      <a
+        class="hover:underline"
+        href="/test.html"
+        rel="noreferrer"
+        target="_blank"
+      >
+        foo
+      </a>
+    </h4>
+    <h4
+      aria-label="Filename"
+      class="text-xs text-gray-700 font-mono"
+    >
+      /test.html
+    </h4>
+  </header>
+  <div
+    class="flex w-full"
+  >
+    <div
+      aria-hidden="true"
+      class="flex flex-col border-r border-gray-400 text-gray-600 font-mono py-1 px-1"
+    >
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        1
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        2
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        3
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        4
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        5
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        6
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        7
+      </span>
+    </div>
+    <div
+      class="font-mono text-xs text-gray-800 py-1 w-full overflow-scroll"
+    >
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre"
+      >
+        import fs from 'fs';
+      </span>
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre"
+      />
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre"
+      >
+        const files = fs.readdir('.');
+      </span>
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre"
+      />
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre"
+      >
+        for (const file of files) {
+      </span>
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre"
+      >
+          console.log(file)
+      </span>
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre"
+      >
+        }
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DiffCodeFrame matches snapshot 1`] = `
+<div
+  class="box-border border border-gray-400 rounded-md max-w-full"
+>
+  <header
+    class="flex box-border border-b p-2 border-gray-400 bg-gray-100 space-x-4"
+  >
+    <h4
+      class="font-bold text-sm text-gray-700"
+    >
+      <a
+        class="hover:underline"
+        href="#"
+        rel="noreferrer"
+        target="_blank"
+      >
+        foo
+      </a>
+    </h4>
+    <h4
+      aria-label="Filename"
+      class="text-xs text-gray-700 font-mono"
+    >
+      untitled.txt
+    </h4>
+  </header>
+  <div
+    class="flex w-full"
+  >
+    <div
+      aria-hidden="true"
+      class="flex flex-col border-r border-gray-400 text-gray-600 font-mono py-1 px-1"
+    >
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        1
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        2
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        3
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        4
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        5
+      </span>
+      <span
+        class="leading-5 text-xs w-6 text-right"
+      >
+        6
+      </span>
+    </div>
+    <div
+      class="font-mono text-xs text-gray-800 py-1 w-full overflow-scroll"
+    >
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre"
+      />
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre"
+      >
+             hello world
+      </span>
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        aria-label="Removed line"
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre bg-red-200"
+      >
+        -    my name is john
+      </span>
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        aria-label="Removed line"
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre bg-red-200"
+      >
+        -    nice to see you
+      </span>
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        aria-label="Added line"
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre bg-green-200"
+      >
+        +    my name is joseph
+      </span>
+      <span
+        class="sr-only"
+      >
+        Line number: {{number}}
+      </span>
+      <span
+        aria-label="Added line"
+        class="block whitespace-no-wrap leading-5 px-2 whitespace-pre bg-green-200"
+      >
+        +    nice to see you guys
+      </span>
+    </div>
+  </div>
+</div>
+`;

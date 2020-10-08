@@ -1,25 +1,38 @@
 {
   "banner": {
+    "description": "Site navigation",
     "home": "Home",
     "rules": "Rules"
   },
+  "code-frame": {
+    "filename": "Filename",
+    "line-number": "Line number: {{number}}"
+  },
   "content-info": {
+    "description": "Contact information and links to external websites",
     "email": "Contact",
     "github": "GitHub",
     "twitter": "Twitter"
   },
   "diagnoses": {
+    "created_at": "Created at {{date}}",
     "description": "Accessibility issues and suggestions for {{domain}} provided by Visible",
     "error": "Error occurred",
     "files": "Files",
-    "keywords": "Keywords",
+    "header": {
+      "description": "Summary for this website"
+    },
+    "keywords": "Related Keywords",
     "loading": "Loading...",
+    "nav": "Diagnosis Navigation",
     "processing": {
       "description": "Running diagnostics program on the server. This process takes a while to complete...",
+      "label": "Progress",
       "title": "Processing diagnostics"
     },
     "reports": "Reports",
     "rules": "Rules",
+    "screenshot": "Screenshot for {{title}}",
     "sources": "Files",
     "title": "Reports: {{domain}}"
   },
@@ -35,6 +48,10 @@
     "description": "Rules that are raised issues on {{domain}}",
     "title": "Rules: {{domain}}"
   },
+  "diff-code-frame": {
+    "added": "Added line",
+    "removed": "Removed line"
+  },
   "difficulty": {
     "difficult": "Difficult",
     "easy": "Easy",
@@ -43,18 +60,6 @@
   "error": {
     "default-message": "No error message given",
     "default-title": "An unexpected error has occurred"
-  },
-  "help-improve": {
-    "description": "Let us know about any of your ideas, suggestions, or comments by reporting issues or creating pull requests on GitHub. You can also send messages via Twitter or Email.",
-    "email": "Email",
-    "new-issue": "Create an issue on GitHub",
-    "title": "How to improve this page",
-    "twitter": "Twitter"
-  },
-  "synopsis": {
-    "description": "Visible is not just a linter, we also provide information on how to make your website accessible. We indicate which part you need to fix, give you patches of codes, give you references to the standards — to help you to learn and improve the accessibility of your website.",
-    "image": "Book",
-    "title": "Less pain, more accessible"
   },
   "features": {
     "automation": {
@@ -71,17 +76,29 @@
     },
     "title": "Features"
   },
+  "help-improve": {
+    "description": "Let us know about any of your ideas, suggestions, or comments by reporting issues or creating pull requests on GitHub. You can also send messages via Twitter or Email.",
+    "email": "Email",
+    "new-issue": "Create an issue on GitHub",
+    "title": "How to improve this page",
+    "twitter": "Twitter"
+  },
   "home": {
     "description": "Visible is a tool-chain that helps developers to build websites in the perspective of accessibility",
     "introduction": "Introduction",
     "placeholder": "Type URL of the website",
     "submit": "Diagnose",
-    "title": "Is your website visible?"
+    "title": "Is your website visible?",
+    "wizard-label": "URL of your website"
   },
   "impact": {
     "critical": "Critical",
     "minor": "Minor",
     "serious": "Serious"
+  },
+  "imprint": {
+    "description": "Visible is developed by a high schooler <2>Ryō Igarashi</2> in open source for groping and enhancing the possibility of Web and assistive technology since December 2019. As of May 2020, Visible was accepted by <6>Mitou Foundation</6> as a project of <10>Mitou Junior</10> and is receiving technical/financial supports.",
+    "title": "Who created Visible?"
   },
   "keyword": {
     "description": "Documentation and related information for {{keywordId}}",
@@ -126,9 +143,14 @@
     "title": "You are too early..."
   },
   "report": {
+    "code-frame": "Code frame",
     "difficulty": "Difficulty: {{difficulty}}",
     "filename": "Found at <1>{{filename}}</1>",
     "impact": "Impact: {{impact}}",
+    "list": {
+      "filter": "Filter",
+      "sort": "Sort"
+    },
     "no-desc": "no description provided",
     "outcome": {
       "fail": "Fail",
@@ -136,7 +158,8 @@
       "passed": "Passed"
     },
     "reference": "Reference: ",
-    "rule-id": "Reported by <1>{{ruleId}}</1>"
+    "rule-id": "Reported by <1>{{ruleId}}</1>",
+    "suggestion": "Suggested change"
   },
   "report-list": {
     "description": "{{count}} issue was reported from this website. Click to show the details including impacts and patches",
@@ -153,11 +176,21 @@
   "select": {
     "placeholder": "This feature not implemented yet"
   },
+  "source": {
+    "report-count": "Report count: {{count}}",
+    "report-count_plural": "Report count: {{count}}"
+  },
   "status": {
+    "description": "Diagnosis status: {{status}}",
     "done": "Done",
     "failed": "Failed",
     "processing": "Processing",
     "queued": "Queued",
     "started": "Started"
+  },
+  "synopsis": {
+    "description": "Visible is not just a linter, we also provide information on how to make your website accessible. We indicate which part you need to fix, give you patches of codes, give you references to the standards — to help you to learn and improve the accessibility of your website.",
+    "image": "Book",
+    "title": "Less pain, more accessible"
   }
 }

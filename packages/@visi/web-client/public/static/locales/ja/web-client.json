@@ -1,26 +1,38 @@
 {
   "banner": {
+    "description": "サイトメニュー",
     "home": "ホーム",
     "rules": "ルール"
   },
+  "code-frame": {
+    "filename": "Filename",
+    "line-number": "{{number}}行目"
+  },
   "content-info": {
+    "description": "Contact information and links to external websites",
     "email": "お問い合わせ",
     "github": "GitHub",
     "twitter": "Twitter"
   },
   "diagnoses": {
+    "created_at": "{{date}}に作成",
     "description": "Visibleによるあなたの診断結果",
     "error": "エラーが発生しました",
     "files": "ファイル",
-    "keywords": "キーワード",
+    "header": {
+      "description": "このサイトの概要"
+    },
+    "keywords": "関連するキーワード",
     "loading": "読み込み中...",
-    "no-reports": "Awesome! No issue found for this website",
+    "nav": "診断結果メニュー",
     "processing": {
       "description": "サーバーで診断プログラムを実行しています。このプロセスはしばらく時間がかかる場合があります。",
+      "label": "状況",
       "title": "診断を実行中"
     },
     "reports": "レポート",
     "rules": "ルール",
+    "screenshot": "{{title}}のスクリーンショット",
     "sources": "ファイル",
     "title": "{{domain}}の診断結果"
   },
@@ -36,6 +48,10 @@
     "description": "Rules that are raised issues on {{domain}}",
     "title": "Rules: {{domain}}"
   },
+  "diff-code-frame": {
+    "added": "追加された行",
+    "removed": "削除された行"
+  },
   "difficulty": {
     "difficult": "難しい",
     "easy": "簡単",
@@ -44,18 +60,6 @@
   "error": {
     "default-message": "エラーメッセージがありません",
     "default-title": "予期せぬエラーが発生しました"
-  },
-  "help-improve": {
-    "description": "意見、アイデア、提案はGitHubにissueを報告またはpull requestを作成してお聞かせください。EメールまたはTwitterでご連絡していただくことも可能です。",
-    "email": "Email",
-    "new-issue": "GitHubでissueを作成",
-    "title": "このページを改善する",
-    "twitter": "Twitter"
-  },
-  "synopsis": {
-    "description": "Visibleはただ警告を表示するリンターやテストと異なり、アクセシビリティーについて学び修正するために、ソースコードのどこに問題があるかをお知らせし、パッチを提供し、参考になる情報も提供します。",
-    "image": "本",
-    "title": "簡単に、もっとアクセシブルに"
   },
   "features": {
     "automation": {
@@ -72,17 +76,29 @@
     },
     "title": "機能"
   },
+  "help-improve": {
+    "description": "意見、アイデア、提案はGitHubにissueを報告またはpull requestを作成してお聞かせください。EメールまたはTwitterでご連絡していただくことも可能です。",
+    "email": "Email",
+    "new-issue": "GitHubでissueを作成",
+    "title": "このページを改善する",
+    "twitter": "Twitter"
+  },
   "home": {
     "description": "Visibleはウェブサイト開発者にアクセシビリティーに配慮したウェブサイトを開発する手助けをするツールです",
     "introduction": "紹介",
     "placeholder": "ウェブサイトのURLを入力",
     "submit": "診断",
-    "title": "あなたのサイト、見えますか？"
+    "title": "あなたのサイト、見えますか？",
+    "wizard-label": "サイトURL"
   },
   "impact": {
     "critical": "深刻",
     "minor": "軽微",
     "serious": "重要"
+  },
+  "imprint": {
+    "description": "VisibleはWeb支援技術の可能性を模索し可用性を広げるために、日本の高校生の<2>五十嵐　涼</2>によって2019年12月から開発されているオープンソースソフトウェアです。2020年5月には<6>一般社団法人未踏</6>によって<10>未踏ジュニア</10>のプロジェクトとして採択され、技術的・金銭的支援を受けています。",
+    "title": "開発者"
   },
   "keyword": {
     "description": "Documentation and related information for {{keywordId}}",
@@ -127,9 +143,14 @@
     "title": "実装中"
   },
   "report": {
+    "code-frame": "該当箇所",
     "difficulty": "難易度: {{difficulty}}",
     "filename": "<1>{{filename}}</1>で発見",
     "impact": "重要度: {{impact}}",
+    "list": {
+      "filter": "フィルター",
+      "sort": "ソート"
+    },
     "no-desc": "説明は提供されていません",
     "outcome": {
       "fail": "失敗",
@@ -137,7 +158,8 @@
       "passed": "合格"
     },
     "reference": "参考",
-    "rule-id": "<1>{{ruleId}}</1>によって報告"
+    "rule-id": "<1>{{ruleId}}</1>によって報告",
+    "suggestion": "提案された変更"
   },
   "report-list": {
     "description": "{{count}}件の問題が報告されました。クリックで重要度や修正方法を含む詳細を表示できます。",
@@ -153,11 +175,20 @@
   "select": {
     "placeholder": "この機能は現在実装中です"
   },
+  "source": {
+    "report-count": "レポート数: {{count}}"
+  },
   "status": {
+    "description": "診断状況: {{status}}",
     "done": "完了",
     "failed": "エラー",
     "processing": "処理中",
     "queued": "待機中",
     "started": "開始中"
+  },
+  "synopsis": {
+    "description": "Visibleはただ警告を表示するリンターやテストと異なり、アクセシビリティーについて学び修正するために、ソースコードのどこに問題があるかをお知らせし、パッチを提供し、参考になる情報も提供します。",
+    "image": "本",
+    "title": "簡単に、もっとアクセシブルに"
   }
 }

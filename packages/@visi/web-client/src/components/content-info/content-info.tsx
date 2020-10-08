@@ -34,7 +34,13 @@ export const ContentInfo = ({ ref: _ref }: ContentInfoProps) => {
       <Layout.Container>
         <div className="space-y-4">
           <div className="flex justify-between">
-            <Nav items={navItems} />
+            <Nav
+              aria-label={t(
+                'content-info.description',
+                'Contact information and links to external websites',
+              )}
+              items={navItems}
+            />
           </div>
 
           <Typography variant="p" fontSize="sm" color="wash">

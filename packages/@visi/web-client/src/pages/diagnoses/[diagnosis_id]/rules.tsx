@@ -14,7 +14,7 @@ const DiagnosisRules: NextPage = () => {
   const diagnosisId = router.query.diagnosis_id;
 
   return (
-    <Layout.Main>
+    <Layout.Page>
       <NextSeo
         title={t('diagnosis-rules.title', 'Rules: {{domain}}', {
           domain: diagnosisId,
@@ -27,11 +27,11 @@ const DiagnosisRules: NextPage = () => {
       />
 
       <Layout.Container>
-        <Layout.Content>
+        <Layout.Main>
           <PagePlaceholder />
-        </Layout.Content>
+        </Layout.Main>
       </Layout.Container>
-    </Layout.Main>
+    </Layout.Page>
   );
 };
 

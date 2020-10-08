@@ -21,6 +21,7 @@ module.exports = {
     'focus',
     'first',
     'last',
+    'odd',
     'active',
   ],
 };

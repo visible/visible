@@ -5,18 +5,25 @@ import ReactGA from 'react-ga';
 import {
   Difficulty,
   Impact,
+  Outcome,
   ReportLargeFragment,
 } from '../../generated/graphql';
 import { useTranslation } from '../../utils/i18next';
-import { Badge, BadgeVariant, Image, Typography } from '../ui';
-import { Editor } from './editor';
+import {
+  Badge,
+  BadgeVariant,
+  CodeFrame,
+  DiffCodeFrame,
+  Image,
+  Typography,
+} from '../ui';
 import { OutcomeIcon } from './outcome';
 import { Reference } from './reference';
 import { Status } from './status';
 
 export interface ReportProps {
   original: string;
-  title: string;
+  url: string;
   report: ReportLargeFragment;
   diagnosisId: string;
   withEditor?: boolean;
@@ -49,12 +56,7 @@ const mapDifficulty = (difficulty?: Difficulty | null): BadgeVariant => {
   }
 };
 
-export const Report = ({
-  report,
-  original,
-  title,
-  withEditor,
-}: ReportProps) => {
+export const Report = ({ report, original, url, withEditor }: ReportProps) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
@@ -99,6 +101,7 @@ export const Report = ({
               className="group-hover:text-primary-500 mb-1"
               variant="h4"
               fontSize="lg"
+              lang="en"
             >
               {report.rule.name}
             </Typography>
@@ -106,6 +109,7 @@ export const Report = ({
             <Typography
               fontStyle={report.message == null ? 'italic' : 'normal'}
               color="wash"
+              lang="en"
             >
               {report.message ?? 'No message'}
             </Typography>
@@ -156,14 +160,22 @@ export const Report = ({
         </div>
       </summary>
 
-      <Status report={report} title={title} />
+      <Status report={report} title={url} />
 
-      {withEditor && (
-        <Editor
+      {withEditor && report.diffHunk ? (
+        <DiffCodeFrame
+          hunk={report.diffHunk}
+          filename={url}
+          title={t('report.suggestion', 'Suggested change')}
+        />
+      ) : (
+        <CodeFrame
+          title={t('report.code-frame', 'Code frame')}
           value={original}
-          patch={report.diffHunk ?? undefined}
-          message={report.message ?? undefined}
-          location={report.location ?? undefined}
+          filename={url}
+          highlightColor={report.outcome === Outcome.Fail ? 'red' : 'green'}
+          highlightStart={report.location?.startLine}
+          highlightEnd={report.location?.endLine}
         />
       )}
 

@@ -32,13 +32,13 @@ const Footer = ({ children, className, ...rest }: FooterProps) => {
   );
 };
 
-export type MainProps = JSX.IntrinsicElements['main'];
+export type PageProps = JSX.IntrinsicElements['div'];
 
-const Main = ({ children, className, ...rest }: MainProps) => {
+const Page = ({ children, className, ...rest }: PageProps) => {
   return (
-    <main className={classNames('w-full', className)} {...rest}>
+    <div className={classNames('w-full', className)} {...rest}>
       {children}
-    </main>
+    </div>
   );
 };
 
@@ -70,14 +70,29 @@ const Container = ({ children, className, ...rest }: ContainerProps) => {
 //   padding: true,
 // };
 
-export type ContentProps = JSX.IntrinsicElements['div'];
+export type MainSize = 'single' | 'two-column';
 
-const Content = ({ children, className, ...rest }: ContentProps) => {
+export type MainProps = JSX.IntrinsicElements['main'] & {
+  size: MainSize;
+};
+
+const Main = ({ children, className, size, ...rest }: MainProps) => {
   return (
-    <article className={classNames('flex-1', className)} {...rest}>
+    <main
+      className={classNames(
+        'w-full',
+        size === 'two-column' && 'lg:w-9/12',
+        className,
+      )}
+      {...rest}
+    >
       {children}
-    </article>
+    </main>
   );
+};
+
+Main.defaultProps = {
+  size: 'single',
 };
 
 export type AsideProps = JSX.IntrinsicElements['aside'];
@@ -87,7 +102,8 @@ const Aside = ({ children, className, ...rest }: AsideProps) => {
     <aside
       className={classNames(
         'w-full',
-        'lg:ml-8',
+        'border-box',
+        'lg:pl-8',
         'lg:w-3/12',
         'space-y-8',
         className,
@@ -101,9 +117,9 @@ const Aside = ({ children, className, ...rest }: AsideProps) => {
 
 export const Layout = {
   Header,
-  Main,
+  Page,
   Container,
-  Content,
+  Main,
   Aside,
   Footer,
 };

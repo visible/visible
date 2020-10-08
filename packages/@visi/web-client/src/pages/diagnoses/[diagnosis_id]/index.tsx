@@ -25,7 +25,11 @@ import {
   Typography,
   Widget,
 } from '../../../components/ui';
-import { DiagnosisLargeFragment, Status } from '../../../generated/graphql';
+import {
+  DiagnosisLargeFragment,
+  Outcome,
+  Status,
+} from '../../../generated/graphql';
 import { useDiagnosis } from '../../../hooks/use-diagnosis';
 import { useTranslation } from '../../../utils/i18next';
 import { withApollo } from '../../../utils/with-apollo';
@@ -52,7 +56,14 @@ const LoadingIndicator = ({
             'Running diagnostics program on the server. This process takes a while to complete...',
           )}
         </Typography>
-        <Progress max={diagnosis.totalCount} value={diagnosis.doneCount} />
+
+        <Progress
+          id="diagnosis-progress"
+          max={diagnosis.totalCount}
+          value={diagnosis.doneCount}
+          label={t('diagnoses.processing.label', 'Progress')}
+          aria-live="polite"
+        />
       </Card.Body>
     </Card>
   );
@@ -73,6 +84,7 @@ const Diagnoses: NextPage = () => {
     ...new Set(
       data?.diagnosis.sources
         .flatMap((source) => source.reports)
+        .filter((report) => report.outcome === Outcome.Fail)
         .flatMap((report) => report.rule.keywords),
     ).values(),
   ].filter((v): v is string => v != null), [data?.diagnosis]);
@@ -99,7 +111,7 @@ const Diagnoses: NextPage = () => {
   );
 
   return (
-    <Layout.Main className="space-y-4 mb-12">
+    <Layout.Page className="space-y-4 mb-12">
       <NextSeo
         title={title}
         description={description}
@@ -112,11 +124,18 @@ const Diagnoses: NextPage = () => {
         }}
       />
 
-      <div className={classNames('border-b', 'border-gray-200', 'bg-gray-100')}>
+      <section
+        aria-label={t(
+          'diagnoses.header.description',
+          'Summary for this website',
+        )}
+        className={classNames('border-b', 'border-gray-200', 'bg-gray-100')}
+      >
         <Layout.Container>
           <Project diagnosis={diagnosis} />
 
           <Nav
+            aria-label={t('diagnoses.nav', 'Diagnosis Navigation')}
             items={[
               {
                 href: '/diagnoses/[diagnosis_id]',
@@ -139,13 +158,10 @@ const Diagnoses: NextPage = () => {
             ]}
           />
         </Layout.Container>
-      </div>
+      </section>
 
       <Layout.Container>
-        <Layout.Content
-          aria-busy={diagnosis.status !== Status.Done}
-          aria-live="polite"
-        >
+        <Layout.Main size="two-column">
           {diagnosis.status !== Status.Done && (
             <LoadingIndicator diagnosis={diagnosis} />
           )}
@@ -154,8 +170,9 @@ const Diagnoses: NextPage = () => {
             sources={diagnosis.sources}
             diagnosisId={diagnosis.id}
             loading={diagnosis.sources.length === 0}
+            aria-busy={diagnosis.status !== Status.Done}
           />
-        </Layout.Content>
+        </Layout.Main>
 
         <Layout.Aside>
           <Widget id="sources">
@@ -178,7 +195,7 @@ const Diagnoses: NextPage = () => {
           <Widget id="keywords">
             <Widget.Title>
               <Typography variant="h3" fontSize="xl">
-                {t('diagnoses.keywords', 'Keywords')}
+                {t('diagnoses.keywords', 'Related Keywords')}
               </Typography>
             </Widget.Title>
 
@@ -198,7 +215,7 @@ const Diagnoses: NextPage = () => {
         <HelpImprove withImage />
         <Newsletter withImage />
       </Layout.Container>
-    </Layout.Main>
+    </Layout.Page>
   );
 };
 

@@ -5,7 +5,7 @@ import { Progress } from '.';
 
 describe('Progress', () => {
   it('matches snapshot', () => {
-    const { container } = render(<Progress max={10} value={5} />);
+    const { container } = render(<Progress max={10} value={5} label="foo" />);
     expect(container.firstChild).toMatchSnapshot();
   });
 });

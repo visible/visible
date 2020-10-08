@@ -24,6 +24,6 @@ export const WithProgressBar = () => (
       <Typography variant="h6">Hello world</Typography>
     </Card.Heading>
     <Card.Body>singing somewhere in the internet</Card.Body>
-    <Progress max={10} value={5} />
+    <Progress max={10} value={5} label="foo" />
   </Card>
 );
