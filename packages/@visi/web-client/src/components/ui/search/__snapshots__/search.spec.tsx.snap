@@ -11,7 +11,7 @@ exports[`Search matches snapshot 1`] = `
     value=""
   />
   <button
-    class="rounded-full px-4 py-2 text-sm flex transition-colors duration-100 ease-in focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-75 bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700 border-l-0 rounded-tl-none rounded-bl-none"
+    class="flex rounded-full transition-colors duration-100 ease-in focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-75 px-4 py-2 text-sm bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700 border-l-0 rounded-tl-none rounded-bl-none"
     rel="noreferrer"
     target="_blank"
   >

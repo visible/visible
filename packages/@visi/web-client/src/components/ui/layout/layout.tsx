@@ -50,6 +50,8 @@ const Container = ({ children, className, ...rest }: ContainerProps) => {
       className={classNames(
         'flex',
         'flex-wrap',
+        'items-start',
+        'relative',
         'w-full',
         'mx-auto',
         'box-border',
@@ -103,11 +105,14 @@ const Aside = ({ children, className, ...rest }: AsideProps) => {
       className={classNames(
         'w-full',
         'border-box',
+        'sticky',
+        'right-0',
         'lg:pl-8',
         'lg:w-3/12',
         'space-y-8',
         className,
       )}
+      style={{ top: '0.75rem' }}
       {...rest}
     >
       {children}

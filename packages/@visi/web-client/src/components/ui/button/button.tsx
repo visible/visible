@@ -2,10 +2,12 @@ import classNames from 'classnames';
 import React from 'react';
 
 export type ButtonVariant = 'primary' | 'secondary';
+export type ButtonSize = 'normal' | 'large';
 
 export type ButtonProps = JSX.IntrinsicElements['button'] & {
   children: React.ReactNode;
   variant: ButtonVariant;
+  size: ButtonSize;
   icon?: React.ReactNode;
   href?: string;
   disabled?: boolean;
@@ -14,6 +16,7 @@ export type ButtonProps = JSX.IntrinsicElements['button'] & {
 
 export const Button = ({
   children,
+  size,
   icon,
   variant,
   href,
@@ -23,11 +26,8 @@ export const Button = ({
   ...rest
 }: ButtonProps) => {
   const _class = classNames(
-    'rounded-full',
-    'px-4',
-    'py-2',
-    'text-sm',
     'flex',
+    'rounded-full',
     'transition-colors',
     'duration-100',
     'ease-in',
@@ -35,6 +35,8 @@ export const Button = ({
     'focus:shadow-outline',
     'disabled:cursor-not-allowed',
     'disabled:opacity-75',
+    size === 'normal' && ['px-4', 'py-2', 'text-sm'],
+    size === 'large' && ['px-5', 'py-3', 'text-base'],
     variant === 'primary' && [
       'bg-primary-500',
       'text-white',
@@ -67,4 +69,9 @@ export const Button = ({
     icon != null && <div className="mr-2">{icon}</div>,
     <span>{children}</span>,
   );
+};
+
+Button.defaultProps = {
+  variant: 'secondary',
+  size: 'normal',
 };

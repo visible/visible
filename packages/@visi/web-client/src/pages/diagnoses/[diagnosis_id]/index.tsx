@@ -15,6 +15,7 @@ import { KeywordList } from '../../../components/keyword-list/keyword-list';
 import { Newsletter } from '../../../components/newsletter';
 import { Project } from '../../../components/project';
 import { ReportList } from '../../../components/report-list';
+import { Rerun } from '../../../components/rerun';
 import { SourceList } from '../../../components/source-list';
 import {
   Card,
@@ -99,6 +100,8 @@ const Diagnoses: NextPage = () => {
 
   const { diagnosis } = data;
   const domain = new URL(diagnosis.url).hostname;
+  const isSettled =
+    diagnosis.status !== Status.Done && diagnosis.status !== Status.Failed;
 
   const title = t('diagnoses.title', 'Reports: {{domain}}', {
     domain,
@@ -134,29 +137,31 @@ const Diagnoses: NextPage = () => {
         <Layout.Container>
           <Project diagnosis={diagnosis} />
 
-          <Nav
-            aria-label={t('diagnoses.nav', 'Diagnosis Navigation')}
-            items={[
-              {
-                href: '/diagnoses/[diagnosis_id]',
-                as: `/diagnoses/${diagnosis.id}`,
-                icon: <FontAwesomeIcon icon={faFlag} />,
-                children: t('diagnoses.reports', 'Reports'),
-              },
-              {
-                href: '/diagnoses/[diagnosis_id]/files',
-                as: `/diagnoses/${diagnosis.id}/files`,
-                icon: <FontAwesomeIcon icon={faFile} />,
-                children: t('diagnoses.files', 'Files'),
-              },
-              {
-                href: '/diagnoses/[diagnosis_id]/rules',
-                as: `/diagnoses/${diagnosis.id}/rules`,
-                icon: <FontAwesomeIcon icon={faUniversalAccess} />,
-                children: t('diagnoses.rules', 'Rules'),
-              },
-            ]}
-          />
+          <div className="flex justify-between items-center w-full mt-4">
+            <Nav
+              aria-label={t('diagnoses.nav', 'Diagnosis Navigation')}
+              items={[
+                {
+                  href: '/diagnoses/[diagnosis_id]',
+                  as: `/diagnoses/${diagnosis.id}`,
+                  icon: <FontAwesomeIcon icon={faFlag} />,
+                  children: t('diagnoses.reports', 'Reports'),
+                },
+                {
+                  href: '/diagnoses/[diagnosis_id]/files',
+                  as: `/diagnoses/${diagnosis.id}/files`,
+                  icon: <FontAwesomeIcon icon={faFile} />,
+                  children: t('diagnoses.files', 'Files'),
+                },
+                {
+                  href: '/diagnoses/[diagnosis_id]/rules',
+                  as: `/diagnoses/${diagnosis.id}/rules`,
+                  icon: <FontAwesomeIcon icon={faUniversalAccess} />,
+                  children: t('diagnoses.rules', 'Rules'),
+                },
+              ]}
+            />
+          </div>
         </Layout.Container>
       </section>
 
@@ -175,6 +180,12 @@ const Diagnoses: NextPage = () => {
         </Layout.Main>
 
         <Layout.Aside>
+          <Rerun
+            url={diagnosis.url}
+            className="w-full flex justify-center"
+            disabled={isSettled}
+          />
+
           <Widget id="sources">
             <Widget.Title>
               <Typography variant="h3" fontSize="xl">

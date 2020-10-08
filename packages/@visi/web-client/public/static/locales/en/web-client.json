@@ -166,6 +166,9 @@
     "description_plural": "{{count}} issues were reported from this website. Click to show the details including impacts and patches",
     "title": "Reports"
   },
+  "rerun": {
+    "title": "Rerun"
+  },
   "rule": {
     "title": "Rule"
   },

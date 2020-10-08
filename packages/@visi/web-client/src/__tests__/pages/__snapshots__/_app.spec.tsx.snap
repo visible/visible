@@ -9,7 +9,7 @@ exports[`App matches to the snapshot 1`] = `
       class="bg-primary-500 shadow z-10"
     >
       <div
-        class="flex flex-wrap w-full mx-auto box-border p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
+        class="flex flex-wrap items-start relative w-full mx-auto box-border p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
       >
         <div
           class="flex w-full justify-between"
@@ -114,7 +114,7 @@ exports[`App matches to the snapshot 1`] = `
       class="border-t border-gray-300 bg-gray-200"
     >
       <div
-        class="flex flex-wrap w-full mx-auto box-border p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
+        class="flex flex-wrap items-start relative w-full mx-auto box-border p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
       >
         <div
           class="space-y-4"
