@@ -32,7 +32,7 @@ export class VisiblePoolImpl implements VisiblePool {
     format: true,
     screenshot: 'only-fail',
     delay: 3000,
-    headless: false,
+    headless: true,
     maxReportsCountPerRule: 10,
   };
 

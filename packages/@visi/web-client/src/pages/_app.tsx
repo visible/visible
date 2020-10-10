@@ -1,9 +1,10 @@
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import '../style.css';
 
+import { ApolloProvider } from '@apollo/client';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { DefaultSeo } from 'next-seo';
-import { AppProps } from 'next/app';
+import App, { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
 import React from 'react';
 
@@ -11,21 +12,22 @@ import tailwind from '../../tailwind.config';
 import { Banner } from '../components/banner';
 import { ContentInfo } from '../components/content-info';
 import { useGoogleAnalytics } from '../hooks/use-google-analytics';
+import { useApollo } from '../utils/apollo';
 import { appWithTranslation, useTranslation } from '../utils/i18next';
 
 config.autoAddCss = false;
 
 type CustomAppProps = AppProps;
 
-const CustomApp = (props: CustomAppProps) => {
-  useGoogleAnalytics();
+const CustomApp = ({ Component, pageProps }: CustomAppProps) => {
   const { t, i18n } = useTranslation();
+  const apolloClient = useApollo(pageProps.initialApolloState);
+  useGoogleAnalytics();
 
-  const { Component, pageProps } = props;
   const title = t('meta.title', 'Visible');
 
   return (
-    <>
+    <ApolloProvider client={apolloClient}>
       <DefaultSeo
         titleTemplate={'%s - Visible'}
         title={title}
@@ -69,8 +71,12 @@ const CustomApp = (props: CustomAppProps) => {
         </div>
         <ContentInfo />
       </div>
-    </>
+    </ApolloProvider>
   );
 };
+
+CustomApp.getInitialProps = async (ctx: AppContext) => ({
+  ...(await App.getInitialProps(ctx)),
+});
 
 export default appWithTranslation(CustomApp);

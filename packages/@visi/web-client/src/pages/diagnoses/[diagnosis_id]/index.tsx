@@ -28,12 +28,13 @@ import {
 } from '../../../components/ui';
 import {
   DiagnosisLargeFragment,
+  FetchDiagnosisLargeDocument,
   Outcome,
   Status,
 } from '../../../generated/graphql';
 import { useDiagnosis } from '../../../hooks/use-diagnosis';
+import { initializeApollo } from '../../../utils/apollo';
 import { useTranslation } from '../../../utils/i18next';
-import { withApollo } from '../../../utils/with-apollo';
 
 const LoadingIndicator = ({
   diagnosis,
@@ -95,7 +96,12 @@ const Diagnoses: NextPage = () => {
   }
 
   if (error != null || data == null) {
-    return <p>{t('diagnoses.error', 'Error occurred')}</p>;
+    return (
+      <>
+        <p>{t('diagnoses.error', 'Error occurred')}</p>
+        <samp>{error?.message}</samp>
+      </>
+    );
   }
 
   const { diagnosis } = data;
@@ -230,8 +236,20 @@ const Diagnoses: NextPage = () => {
   );
 };
 
-Diagnoses.getInitialProps = async () => ({
-  namespacesRequired: ['web-client'],
-});
+Diagnoses.getInitialProps = async (ctx) => {
+  const apolloClient = initializeApollo();
 
-export default withApollo({ ssr: true })(Diagnoses);
+  await apolloClient.query({
+    query: FetchDiagnosisLargeDocument,
+    variables: {
+      id: ctx.query.diagnosis_id,
+    },
+  });
+
+  return {
+    namespacesRequired: ['web-client'],
+    initialApolloState: apolloClient.cache.extract(),
+  };
+};
+
+export default Diagnoses;

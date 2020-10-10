@@ -14,4 +14,5 @@ interface TransProps {
   children?: React.ReactNode;
 }
 
-export const Trans = (props: TransProps) => <>{props.children}</>;
+export const Trans = (props: TransProps): React.ReactNode =>
+  React.createElement(React.Fragment, props.children);

@@ -37,7 +37,7 @@ const DiagnosisFiles: NextPage = () => {
   );
 };
 
-DiagnosisFiles.getInitialProps = async () => ({
+export const getInitialProps = async () => ({
   namespacesRequired: ['web-client'],
 });
 

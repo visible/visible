@@ -25,7 +25,7 @@ const Rule: NextPage = () => {
   );
 };
 
-Rule.getInitialProps = async () => ({
+export const getInitialProps = async () => ({
   namespacesRequired: ['web-client'],
 });
 

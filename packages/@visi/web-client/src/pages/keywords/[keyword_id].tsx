@@ -32,4 +32,8 @@ const Keyword: NextPage = () => {
   );
 };
 
+export const getInitialProps = async () => ({
+  namespacesRequired: ['web-client'],
+});
+
 export default Keyword;
