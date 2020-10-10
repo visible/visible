@@ -1,13 +1,13 @@
 {
-  "name": "@visi/plugin-gcp-vision-api",
-  "version": "0.2.1",
+  "name": "@visi/prelude",
+  "version": "0.0.0",
   "repository": "https://github.com/visible/visible.git",
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "exit 0"
+    "test": "jest"
   },
   "files": [
     "./dist"
@@ -15,14 +15,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@google-cloud/vision": "^2.1.1",
-    "@visi/prelude": "^0.0.0"
+  "peerDependencies": {
+    "rxjs": "^6.6.3"
   },
   "devDependencies": {
-    "@visi/core": "^0.2.1"
-  },
-  "peerDependencies": {
-    "@visi/core": "*"
+    "rxjs": "^6.6.3"
   }
 }
