@@ -41,6 +41,7 @@ export interface Config {
   static: StaticConfig;
   db: DbConfig;
   redis: RedisConfig;
+  diagnosisConcurrency: number;
   getUrl(): string;
   getSocketUrl(): string;
   getStaticUrl(): string;
@@ -53,6 +54,7 @@ export class ConfigImpl implements Config {
   static: StaticConfig;
   db: DbConfig;
   redis: RedisConfig;
+  diagnosisConcurrency: number;
 
   constructor(envPath = path.resolve('../../../.env')) {
     dotenv.config({ path: envPath });
@@ -90,6 +92,8 @@ export class ConfigImpl implements Config {
       port: Number(e.REDIS_PORT) ?? 6379,
       password: e.REDIS_PASSWORD ?? '',
     };
+
+    this.diagnosisConcurrency = Number(e.DIAGNOSIS_CONCURRENCY) ?? 1;
   }
 
   getUrl(): string {

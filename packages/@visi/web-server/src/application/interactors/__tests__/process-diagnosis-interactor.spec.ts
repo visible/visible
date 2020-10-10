@@ -2,7 +2,7 @@ import { diagnosis } from '../../../__fixtures__/diagnosis';
 import { progress } from '../../../__fixtures__/progress';
 import { source } from '../../../__fixtures__/source';
 // eslint-disable-next-line
-import { stream$ } from '../../../frameworks/services/analyzer/mock-analyzer';
+import { MockAnalyzer,stream$ } from '../../../frameworks/services/analyzer/mock-analyzer';
 import { createContainer } from '../../../tests/container';
 import { TYPES } from '../../../types';
 import { DiagnosisRepository } from '../../repositories';

@@ -21,7 +21,7 @@ export class ProcessDiagnosisWorker extends Worker {
           this.diagnosisController.process(job.name);
         } catch (error) {
           // eslint-disable-next-line
-        console.error(JSON.stringify(error, null, 2));
+          console.error(JSON.stringify(error, null, 2));
         }
       },
       {
@@ -30,6 +30,7 @@ export class ProcessDiagnosisWorker extends Worker {
           port: config.redis.port,
           password: config.redis.password,
         },
+        concurrency: config.diagnosisConcurrency,
       },
     );
   }

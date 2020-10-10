@@ -8,7 +8,7 @@ export const TYPES = {
   Connection: Symbol.for('Connection'),
   Context: Symbol.for('Context'),
   Config: Symbol.for('Config'),
-  Visible: Symbol.for('Visible'),
+  VisiblePool: Symbol.for('VisiblePool'),
 
   DiagnosisRepository: Symbol.for('DiagnosisRepository'),
   RuleRepository: Symbol.for('RuleRepository'),
