@@ -43,4 +43,8 @@ const NotFound: NextPage = () => {
   );
 };
 
+export const getInitialProps = async () => ({
+  namespacesRequired: ['web-client'],
+});
+
 export default NotFound;

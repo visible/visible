@@ -16,7 +16,7 @@
   },
   "gitHead": "e8b8afb38a79a92c14588f70b11fa849663aad0d",
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.17.8",
+    "@graphql-codegen/cli": "^1.17.10",
     "@graphql-codegen/schema-ast": "^1.17.8"
   }
 }

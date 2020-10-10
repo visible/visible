@@ -58,10 +58,10 @@
   },
   "devDependencies": {
     "@graphql-codegen/add": "^2.0.0",
-    "@graphql-codegen/cli": "^1.17.7",
+    "@graphql-codegen/cli": "^1.17.10",
     "@graphql-codegen/schema-ast": "^1.17.7",
-    "@graphql-codegen/typescript": "^1.17.7",
-    "@graphql-codegen/typescript-resolvers": "^1.17.7",
+    "@graphql-codegen/typescript": "^1.17.10",
+    "@graphql-codegen/typescript-resolvers": "^1.17.10",
     "@types/cors": "^2.8.7",
     "@types/diff": "^4.0.2",
     "@types/dotenv": "^8.2.0",

@@ -9,7 +9,6 @@ import { Synopsis } from '../components/synopsis';
 import { Hidden, Layout, Typography } from '../components/ui';
 import { Wizard } from '../components/wizard';
 import { useTranslation } from '../utils/i18next';
-import { withApollo } from '../utils/with-apollo';
 
 const Index: NextPage = () => {
   const { t } = useTranslation();
@@ -74,8 +73,8 @@ const Index: NextPage = () => {
   );
 };
 
-Index.getInitialProps = async () => ({
+export const getInitialProps = async () => ({
   namespacesRequired: ['web-client'],
 });
 
-export default withApollo({ ssr: true })(Index);
+export default Index;
