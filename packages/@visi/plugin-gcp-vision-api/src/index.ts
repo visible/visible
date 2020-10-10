@@ -1,19 +1,12 @@
 import vision from '@google-cloud/vision';
 import { Plugin } from '@visi/core';
+import { timeout } from '@visi/prelude';
 
 enum FeatureType {
   LANDMARK_DETECTION = 2,
   LABEL_DETECTION = 4,
   TEXT_DETECTION = 5,
 }
-
-const timeout = <T>(fn: Promise<T>, ms: number): Promise<T> =>
-  Promise.race([
-    fn,
-    new Promise<never>((_, reject) =>
-      setTimeout(() => reject(new Error('Evaluation timed out')), ms),
-    ),
-  ]);
 
 export default {
   provider: {

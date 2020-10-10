@@ -1,6 +1,6 @@
 import { from, Subject } from 'rxjs';
 
-import { toAsyncIterator } from '../to-async-iterator';
+import { toAsyncIterator } from '../observable';
 
 it('coverts observable to an async iterator', async () => {
   const ob$ = new Subject<number>();

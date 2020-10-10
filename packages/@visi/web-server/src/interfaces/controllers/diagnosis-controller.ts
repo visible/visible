@@ -1,3 +1,4 @@
+import { toAsyncIterator } from '@visi/prelude';
 import { inject, injectable } from 'inversify';
 import { map, tap } from 'rxjs/operators';
 
@@ -10,7 +11,6 @@ import {
 } from '../../application/use-cases';
 import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
-import { toAsyncIterator } from '../../utils/to-async-iterator';
 import { API, DiagnosisPresenter } from '../presenters';
 
 @injectable()

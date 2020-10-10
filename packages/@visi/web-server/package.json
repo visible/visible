@@ -24,6 +24,7 @@
     "@visi/plugin-gcp-vision-api": "^0.2.1",
     "@visi/plugin-puppeteer": "^0.2.1",
     "@visi/plugin-wcag": "^0.2.1",
+    "@visi/prelude": "^0.0.0",
     "@visi/web-schema": "^0.2.1",
     "apollo": "^2.31.0",
     "apollo-link": "^1.2.14",
@@ -51,7 +52,7 @@
     "outdent": "^0.7.1",
     "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "6.6.2",
+    "rxjs": "6.6.3",
     "type-fest": "^0.16.0",
     "typeorm": "^0.2.25",
     "uuid": "^8.3.0"
