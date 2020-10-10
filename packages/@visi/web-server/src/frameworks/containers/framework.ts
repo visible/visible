@@ -6,16 +6,14 @@ import { createConnection } from '../connection';
 import { ProcessDiagnosisQueueImpl } from '../queues';
 import { ContextImpl } from '../server';
 import { TranslatorImpl } from '../services/analyzer/translator';
+import { VisiblePoolImpl } from '../services/analyzer/visible-pool';
 import { ProcessDiagnosisWorker } from '../workers';
-import { factory } from './visible-factory';
 
 export const framework = new AsyncContainerModule(async (bind) => {
-  const visible = await factory();
-
   bind(TYPES.Config).to(ConfigImpl);
   bind(TYPES.Connection).toConstantValue(await createConnection());
   bind(TYPES.ProcessDiagnosisQueue).to(ProcessDiagnosisQueueImpl);
-  bind(TYPES.Visible).toConstantValue(visible);
+  bind(TYPES.VisiblePool).to(VisiblePoolImpl).inSingletonScope();
   bind(TranslatorImpl).toSelf();
   bind(ProcessDiagnosisWorker).toSelf();
 

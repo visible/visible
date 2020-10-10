@@ -15,7 +15,7 @@ export class Visible {
 
   constructor(
     settings: Settings,
-    driver: Driver,
+    readonly driver: Driver,
     rules: Rule[],
     provider: Provider,
   ) {
@@ -29,5 +29,10 @@ export class Visible {
 
   capture(url: string): Promise<Website> {
     return this.capturer.capture(url);
+  }
+
+  /** @experimental */
+  async quit(): Promise<void> {
+    await this.driver.quit();
   }
 }
