@@ -5,7 +5,7 @@
 
 # Visible
 
-Visible is a tool-chain that helps developers to build websites in the perspective of accessibility.
+Visible is a tool-chain that helps developers to build better websites from the perspective of accessibility.
 
 ![Visible ― Web Accessibility, Validate & Fix](https://i.imgur.com/biUgesU.png)
 
