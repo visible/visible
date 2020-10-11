@@ -1,54 +1,41 @@
-# Configuration (Draft)
+# Config
 
-Visible のルール、プラグインなどの設定は、CLI 引数及び `.visiblerc.json` で設定することができます。
+You can configure the settings of rules and plugins of visible through CLI argument or `.visiblerc`.
 
-You can configure the settings of rules and plugins of visible through CLI argument or `.visiblerc.json`.
+| key        | type       | description                                |
+| :--------- | :--------- | :----------------------------------------- |
+| `extends`  | `string[]` | See extends section below                  |
+| `plugins`  | `string[]` | See plugins section below                  |
+| `driver`   | `string`   | Name of driver to use                      |
+| `rules`    | `string[]` | Name of rules to use                       |
+| `provider` | `string[]` | Name of providers to use                   |
+| `settings` | `Setting`  | Setting object. See Settings section below |
 
-スキーマは以下のようになっています。
+### `extends`
 
-The schema is looked as following:
+With extends, you can configure file to extend from the name of the module or path. When you extend configuration, you current configuration will inherit all of the configurations on the file.
 
-```json
-{
-  "extends": [
-    "@visi/config-recommended",
-  ],
-  "plugins": [
-    "@visi/plugin-wcag"
-  ],
-  "rules": {
-    "@visi/plugin-wcag/img-alt": {
-      "use": true,
-      "level": "error",
-      "options": {
-        ...
-      }
-    },
-    "@visi/plugin-wcag/button-alt": {
-      "use": false,
-    }
-  }
-}
-```
+### `plugins`
 
-## `extends`
+With plugins, you can configure plugins to use from the name of the module or path. Make sure that rules will not be applied just by specifying plugins.
 
-extends では、モジュール名から継承する設定を設定することができます。設定を継承すると、設定にあるルールが全て引き継がれます。
+## Settings
 
-With `extends`, you can configure file to extend from the name of the module or path. When you extend configuration, you current configuration will inherit all of the configurations on the file.
+[execpath]: https://pptr.dev/#?product=Puppeteer&version=v5.3.1&show=api-puppeteerexecutablepath
+[sandbox]: https://chromium.googlesource.com/chromium/src/+/master/docs/design/sandbox.md
+[prettier]: https://prettier.io
 
-## `plugins`
-
-plugins では、有効にするプラグインを指定することができます。プラグインを指定したのみではルールは設定されないことに注意してください。
-
-With `plugins`, you can configure plugins to use from the name of the module or path. Make sure that **rules will not be applied just by specifying plugins**.
-
-## `rules`
-
-With `rules`, you can configure which rules to enable, and its detailed options.
-
-| Property  | Type                      | Description                           |
-| :-------- | :------------------------ | :------------------------------------ |
-| `use`     | `boolean`                 | Whether use this rule or not          |
-| `level`   | `"ok" | "error" | "warn"` | The level of this rule to be reported |
-| `options` | Depends on the rule       | Option for this rule                  |
+| key                     | type                             | description                                                                                       | default                    |
+| :---------------------- | :------------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------- |
+| `delay`                 | `number`                         | Milliseconds of delay after opening websites                                                      | `0`                        |
+| `format`                | `boolean`                        | Whether format HTML / CSS fetched from the website using [Prettier][prettier]                     | `false`                    |
+| `language`              | `string`                         | A language of the browser. You can also control `Accept-Language` with this property.             | `en`                       |
+| `userAgent`             | `string`                         | `User-Agent` string. You can pretend as if you're using Firefox or other browser by this property | `null`                     |
+| `width`                 | `number`                         | Screen width of the browser                                                                       | `null`                     |
+| `height`                | `number`                         | Screen height of the browser                                                                      | `null`                     |
+| `executablePath`        | `string`                         | [Executable path][execpath] of puppeteer                                                          | `null`                     |
+| `screenshot`            | `'always'\|'only-fail'\|'never'` | Screenshot usage                                                                                  | `only-fail`                |
+| `screenshotDir`         | `string`                         | Directory of screenshots                                                                          | `os.tmpdir() + '/visible'` |
+| `noSandbox`             | `boolean`                        | Disable Chromium's [sandbox][sandbox] feature                                                     | `false`                    |
+| `headless`              | `boolean`                        | Whether use headless mode or render website                                                       | `false`                    |
+| `maxReportCountPerRule` | `number`                         | Maximum reports to accept from single rule                                                        | `Infinity`                 |
