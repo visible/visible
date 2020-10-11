@@ -4,5 +4,6 @@ export * from './logger/logger-console-impl';
 export * from './logger/logger-log4js-impl';
 export * from './storage/storage-fs-impl';
 export * from './storage/storage-mock';
+export * from './storage/storage-google-cloud-storage-impl';
 export * from './analyzer/analyzer-visible';
 export * from './analyzer/mock-analyzer';

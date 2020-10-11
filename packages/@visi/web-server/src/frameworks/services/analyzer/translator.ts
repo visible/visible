@@ -1,7 +1,6 @@
 import * as Core from '@visi/core';
 import { immutableFix } from '@visi/core';
 import { createTwoFilesPatch } from 'diff';
-import fs from 'fs';
 import { inject, injectable } from 'inversify';
 
 import { RuleRepository } from '../../../application/repositories';
@@ -78,8 +77,7 @@ export class TranslatorImpl implements Translator {
 
     const screenshot =
       report.screenshot != null
-        ? (await this.storage.create(fs.createReadStream(report.screenshot)))
-            .file
+        ? (await this.storage.create(report.screenshot)).file
         : undefined;
 
     return App.Report.from({
@@ -128,9 +126,7 @@ export class TranslatorImpl implements Translator {
   }
 
   async createWebsite(website: Core.Website): Promise<App.Website> {
-    const screenshot = (
-      await this.storage.create(fs.createReadStream(website.screenshot))
-    ).file;
+    const screenshot = (await this.storage.create(website.screenshot)).file;
 
     return App.Website.from({
       url: website.url,

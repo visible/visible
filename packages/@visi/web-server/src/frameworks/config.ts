@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import { injectable } from 'inversify';
 import path from 'path';
 
@@ -35,12 +34,17 @@ export interface RedisConfig {
   password: string;
 }
 
+export interface CloudStorageConfig {
+  bucket?: string;
+}
+
 export interface Config {
   app: AppConfig;
   socket: SocketConfig;
   static: StaticConfig;
   db: DbConfig;
   redis: RedisConfig;
+  cloudStorage: CloudStorageConfig;
   diagnosisConcurrency: number;
   getUrl(): string;
   getSocketUrl(): string;
@@ -49,52 +53,44 @@ export interface Config {
 
 @injectable()
 export class ConfigImpl implements Config {
-  app: AppConfig;
-  socket: SocketConfig;
-  static: StaticConfig;
-  db: DbConfig;
-  redis: RedisConfig;
-  diagnosisConcurrency: number;
+  static = {
+    route: '/static',
+    dir: path.join(process.cwd(), 'static'),
+  };
 
-  constructor(envPath = path.resolve('../../../.env')) {
-    dotenv.config({ path: envPath });
-    const e = process.env;
+  app = {
+    protocol: 'http',
+    host: process.env.APP_HOST ?? 'localhost',
+    port: Number(process.env.APP_PORT) ?? 3000,
+    url: process.env.API_URL ?? 'http://localhost',
+  };
 
-    this.app = {
-      protocol: 'http',
-      host: e.APP_HOST ?? 'localhost',
-      port: Number(e.APP_PORT) ?? 3000,
-      url: e.API_URL ?? 'http://localhost',
-    };
+  socket = {
+    protocol: 'ws',
+    host: process.env.APP_HOST ?? 'localhost',
+    port: Number(process.env.APP_PORT) ?? 3000,
+    url: process.env.STREAMING_API_URL ?? 'ws://localhost',
+  };
 
-    this.socket = {
-      protocol: 'ws',
-      host: e.APP_HOST ?? 'localhost',
-      port: Number(e.APP_PORT) ?? 3000,
-      url: e.STREAMING_API_URL ?? 'ws://localhost',
-    };
+  db = {
+    host: process.env.DB_HOST ?? 'localhost',
+    name: process.env.DB_NAME ?? 'visible',
+    port: Number(process.env.DB_PORT) ?? 5432,
+    username: process.env.DB_USERNAME ?? 'visible',
+    password: process.env.DB_PASSWORD ?? '',
+  };
 
-    this.static = {
-      route: '/static',
-      dir: path.join(process.cwd(), 'static'),
-    };
+  redis = {
+    host: process.env.REDIS_HOST ?? 'localhost',
+    port: Number(process.env.REDIS_PORT) ?? 6379,
+    password: process.env.REDIS_PASSWORD ?? '',
+  };
 
-    this.db = {
-      host: e.DB_HOST ?? 'localhost',
-      name: e.DB_NAME ?? 'visible',
-      port: Number(e.DB_PORT) ?? 5432,
-      username: e.DB_USERNAME ?? 'visible',
-      password: e.DB_PASSWORD ?? '',
-    };
+  cloudStorage = {
+    bucket: process.env.CLOUD_STORAGE_BUCKET,
+  };
 
-    this.redis = {
-      host: e.REDIS_HOST ?? 'localhost',
-      port: Number(e.REDIS_PORT) ?? 6379,
-      password: e.REDIS_PASSWORD ?? '',
-    };
-
-    this.diagnosisConcurrency = Number(e.DIAGNOSIS_CONCURRENCY) ?? 1;
-  }
+  diagnosisConcurrency = Number(process.env.DIAGNOSIS_CONCURRENCY) ?? 1;
 
   getUrl(): string {
     return this.app.url;

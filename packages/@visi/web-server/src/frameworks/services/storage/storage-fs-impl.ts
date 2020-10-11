@@ -1,4 +1,4 @@
-import { createWriteStream, ReadStream } from 'fs';
+import { createReadStream, createWriteStream } from 'fs';
 import { inject, injectable } from 'inversify';
 import path from 'path';
 import { fromEvent } from 'rxjs';
@@ -14,8 +14,10 @@ export class StorageFsImpl implements Storage {
     private readonly config: Config,
   ) {}
 
-  create(stream: ReadStream): Promise<StorageCreateResponse> {
+  create(source: string): Promise<StorageCreateResponse> {
     return new Promise((resolve) => {
+      const stream = createReadStream(source);
+
       // TODO: file extension support
       const fileName = Date.now().toString() + '.png';
       const pathName = path.join(this.config.static.dir, fileName);
