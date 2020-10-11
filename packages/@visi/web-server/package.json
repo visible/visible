@@ -10,6 +10,7 @@
     "build": "yarn run generate:graphql && tsc",
     "test": "jest --coverage",
     "typeorm": "DOTENV_CONFIG_PATH=../../../.env node -r dotenv/config -r ts-node/register $(yarn bin typeorm)",
+    "populate-rules": "DOTENV_CONFIG_PATH=../../../.env node -r dotenv/config ./dist/frameworks/server/populate-rules.js",
     "generate:graphql": "graphql-codegen -s --config codegen.js"
   },
   "files": [

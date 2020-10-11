@@ -4,10 +4,11 @@ import { PluginResolver } from '@visi/core';
 import pluginStandard from '@visi/plugin-wcag';
 import { Container } from 'inversify';
 
-import { CreateRuleUseCase } from '../application/use-cases/create-rule-use-case';
-import { Logger } from '../domain/services';
-import { TYPES } from '../types';
-import { application, framework, interfaces, services } from './containers';
+import { CreateRuleUseCase } from '../../application/use-cases/create-rule-use-case';
+import { Logger } from '../../domain/services';
+import { TYPES } from '../../types';
+import { application, framework, interfaces, services } from '../containers';
+import { VisiblePool } from '../services/analyzer/visible-pool';
 
 (async () => {
   const container = new Container({ skipBaseClassChecks: true });
@@ -33,5 +34,9 @@ import { application, framework, interfaces, services } from './containers';
   }
 
   const logger = container.get<Logger>(TYPES.Logger);
-  logger.info('Populating rules successfully completed');
+  logger.log('Populating rules successfully completed');
+
+  const pool = container.get<VisiblePool>(TYPES.VisiblePool);
+  await pool.drain();
+  await pool.clear();
 })();
