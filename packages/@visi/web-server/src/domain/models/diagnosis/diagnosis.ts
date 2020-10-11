@@ -27,11 +27,11 @@ export class Diagnosis extends Model {
   @IsEnum(Status)
   readonly status!: Status;
 
-  @IsUrl({ require_tld: false })
+  @IsUrl()
   @IsOptional()
   readonly screenshot?: string;
 
-  @IsUrl({ require_tld: false })
+  @IsUrl()
   readonly url!: string;
 
   @Min(0)

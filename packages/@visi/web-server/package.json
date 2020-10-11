@@ -6,10 +6,10 @@
   "license": "AGPL-3.0",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
+    "start": "DOTENV_CONFIG_PATH=../../../.env node -r dotenv/config ./dist/index.js",
     "build": "yarn run generate:graphql && tsc",
     "test": "jest --coverage",
-    "typeorm": "node --require ts-node/register $(yarn bin typeorm)",
+    "typeorm": "DOTENV_CONFIG_PATH=../../../.env node -r dotenv/config -r ts-node/register $(yarn bin typeorm)",
     "generate:graphql": "graphql-codegen -s --config codegen.js"
   },
   "files": [
@@ -19,6 +19,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@google-cloud/storage": "^5.3.0",
     "@visi/core": "^0.2.1",
     "@visi/plugin-gcp-translation-api": "^0.2.1",
     "@visi/plugin-gcp-vision-api": "^0.2.1",
