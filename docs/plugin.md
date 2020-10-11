@@ -1,83 +1,109 @@
-# Plugins (Draft)
+# Plugins
 
-Guid for developing a Visible plugin.
+Plugin must export object that satisfies following interface.
 
-### TL;DR
+```js
+export default {
+  rules: [
+    /* .. */
+  ],
+  provider: {
+    /* .. */
+  },
+  driver: {
+    /* .. */
+  },
+};
+```
+
+## Rule
+
+[rule-ts]: https://github.com/visible/visible/blob/feature%2Fdocs/packages/%40visi/core/src/rule/rule.ts
+
+Rule must be a object or a constructor that implements [Rule][rule-ts] interface.
+
+### Example
 
 ```ts
-import { Rule, Context, Report } from '@visi/core';
+import { Rule, RuleType, Outcome, Impact, Difficulty } from '@visi/core';
 
-class NoAlt implements Rule {
-  static meta = {
-    name: 'no-alt',
-    description: 'My first rule!',
-    url: 'https://exmaple.com/my-rule',
-    fixable: true,
-    deprecated: false,
-  };
+class MyRule implements Rule {
+  id = '@visi/plugin-of-mine/my-rule';
+  type = RuleType.ATOMIC,
+  name = 'My Rule';
+  description = 'My 1st rule';
 
-  async audit(context: Context): Promise<Report> {
-    const elements = Array.from(document.getElementByTagName('IMG'));
-    return elements.map(element => this.reportNoAlt(element));
+  async create(ctx) {
+    await ctx.reportHTML({
+      message: 'You have issue here!',
+      xpath: '/html/body/h1',
+      outcome: Outcome.FAIL,
+      impact: Impact.CRITICAL,
+      difficulty: Difficulty.EASY,
+    });
   }
-
-  private reportNoAlt(element: Element) {
-    if (element.getAttribute('alt')) {
-      return;
-    }
-
-    // Report
-    return {
-      rule: 'no-alt',
-      type: 'no-alt/no-alt',
-      level: 'ERROR',
-      message: 'IMG element must have alt attribute',
-      content: {
-        html: element.outerHTML,
-        xpath: createXPath(element),
-      }
-    }
-  }
-}
-
-export default {
-  rules: [NoAlt],
 }
 ```
 
-## `Plugin`
+[rule-type]: https://www.w3.org/TR/act-rules-format/#rule-type
 
-Visible plugin is an object resolved as a Node.js module, exporting following names as `default`. The identity of the plugin is determined by the `name` field of `package.json` at its root.
+Rule interface containing the following properties.
 
-| Property | Type     | Description |
-| :------- | :------- | :---------- |
-| `rules`  | `Rule[]` | Rules       |
+| key           | type                                  | description                                                       |
+| :------------ | :------------------------------------ | :---------------------------------------------------------------- |
+| `id`          | `string`                              | ID of the rule                                                    |
+| `type`        | `'atomic'/'composite'`                | [Rule type][rule-type]                                            |
+| `name`        | `string`                              | Name of the rule                                                  |
+| `description` | `string`                              | Description of the rule                                           |
+| `create()`    | `(context: Context) => Promise<void>` | A method for creating reports. See also the context section below |
 
-## `Rule`
+### Context
 
-For reproducing the behaviour of browsers precisely, and to allow rule developers to use DOM APIs without pain, rules are executed on the real browser and then be reported to Node.js main process. And thus, they needs be transpiled to work properly on the browser. Which ECMAScript version you should use, is depending on the version of Visible.
+Context is a set of utilities for rules to report issues.
 
-Rule is a class that has following methods / properties.
+[settings]: https://github.com/visible/visible/blob/develop/docs/config.md#settings
 
-- `static meta` - Metadata of the rule
-- `audit(context: Context): Promise<Report>` - Method to invoke audit
+| key         | type       | description                                                                          |
+| :---------- | :--------- | :----------------------------------------------------------------------------------- |
+| `session`   | `Session`  | Session instance, containing `runScript` or `findHTML`                               |
+| `settings`  | `Settings` | Current settings. See also [Settings][settings] documentation                        |
+| `provider`  | `Provider` | Providers                                                                            |
+| `report*()` | `Function` | Method for reporting issues belongs to HTML file. See Report section below. |
 
-## `Report`
+### Report
 
-`Report` is an object to tell main process about a result of the rule, containing an information such as whether the website satisfied the rule or not. More concrete, following properties should be provided.
+`reportHTML()` and `reportCSS()` accepts following object as an argument.
 
-| Property  | Type                | Description                                 |
-| :-------- | :------------------ | :------------------------------------------ |
-| `rule`    | `string`            | Unique name of the rule                     |
-| `type`    | `string`            | Unique name of the report                   |
-| `level`   | `OK | ERROR | WARN` | Level of seriousness of the report          |
-| `message` | `string`            | User-readable explanation of the report     |
-| `content` | `ReportContent`     | Content which thrown affected to the report |
+| key          | type         | description                                          |
+| :----------- | :----------- | :--------------------------------------------------- |
+| `target`     | `string`     | XPath of node that raised the issue.                 |
+| `outcome`    | `Outcome`    | Outcome of report                                    |
+| `message`    | `string`     | Message that describes the report                    |
+| `impact`     | `Impact`     | Impact of the report                                 |
+| `difficulty` | `Difficulty` | Difficulty of the report                             |
+| `fix()`      | `Function`   | Method for fixing this issue that mutates AST object |
 
-### `ReportContent`
+### Fix
 
-| Property | Type     | Description               |
-| :------- | :------- | :------------------------ |
-| `xpath`  | `string` | XPath for the element     |
-| `html`   | `string` | Outer HTML of the element |
-| `css`    | `string` | CSS of the element        |
+By providing `fix` to the `report*()`'s argument, you can indicate the way to fix the problem.
+
+```ts
+await ctx.reportHTML({
+  // ...
+  fix(node) {
+    node.values.attribs.alt = 'foo':
+  },
+});
+```
+
+[node]: https://github.com/visible/visible/blob/develop/packages/%40visi/core/src/source/node.ts
+
+The shape of `node` object is depending on the language of source. See [node.ts][node] for the detail.
+
+## Driver
+
+(working in progress)
+
+## Provider
+
+(working in progress)
