@@ -47,7 +47,8 @@ export class VisiblePoolImpl implements VisiblePool {
       },
       {
         min: 1,
-        max: config.diagnosisConcurrency,
+        // TODO: Duplicated config with bull worker :(
+        max: config.diagnosisWorker.concurrency,
       },
     );
   }

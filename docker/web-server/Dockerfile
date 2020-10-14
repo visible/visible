@@ -3,9 +3,7 @@ ENV NODE_ENV=production
 WORKDIR /home/visible/app
 
 RUN apk add --no-cache git yarn
-
 COPY . /home/visible/app
-
 RUN yarn --frozen-lockfile --production false \
   && yarn cache clean \
   && yarn run build
@@ -17,14 +15,14 @@ RUN mv node_modules/@visi node_modules/.tmp \
 
 FROM node:12-alpine AS production
 ENV NODE_ENV=production \
-  PROJECT=/home/visible/app \
+  ROOT=/home/visible/app \
   SERVER=/home/visible/app/packages/@visi/web-server \
-  CLIENT=/home/visible/app/packages/@visi/web-client \
   GOOGLE_APPLICATION_CREDENTIALS=/home/visible/credentials/google-application.json \
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
   PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-EXPOSE ${CLIENT_PORT} ${SERVER_PORT}
-WORKDIR /home/visible/app
+
+EXPOSE ${PORT}
+WORKDIR ${SERVER}
 
 RUN apk add --no-cache \
   chromium \
@@ -45,11 +43,11 @@ RUN addgroup -S visible \
   && chown -R visible:visible /home/visible/
 
 COPY --from=build \
-  ${PROJECT}/package.json \
-  ${PROJECT}/yarn.lock \
-  ${PROJECT}/lerna.json \
-  ${PROJECT}/
-COPY --from=build ${PROJECT}/node_modules ${PROJECT}/node_modules
+  ${ROOT}/package.json \
+  ${ROOT}/yarn.lock \
+  ${ROOT}/lerna.json \
+  ${ROOT}/
+COPY --from=build ${ROOT}/node_modules ${ROOT}/node_modules
 
 COPY --from=build \
   ${SERVER}/package.json \
@@ -57,10 +55,6 @@ COPY --from=build \
   ${SERVER}/
 COPY --from=build ${SERVER}/dist ${SERVER}/dist
 
-COPY --from=build ${CLIENT}/package.json ${CLIENT}/next.config.js ${CLIENT}/
-COPY --from=build ${CLIENT}/public ${CLIENT}/public
-COPY --from=build ${CLIENT}/.next ${CLIENT}/.next
-
 USER visible
 VOLUME ["/home/visible/app/packages/@visi/web-server/logs", "/home/visible/app/packages/@visi/web-server/static", "/home/visible/credentials" ]
-ENTRYPOINT [ "yarn", "start" ]
+ENTRYPOINT [ "node", "./dist/index.js" ]

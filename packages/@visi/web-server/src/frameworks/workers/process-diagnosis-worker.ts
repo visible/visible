@@ -30,7 +30,7 @@ export class ProcessDiagnosisWorker extends Worker {
           port: config.redis.port,
           password: config.redis.password,
         },
-        concurrency: config.diagnosisConcurrency,
+        concurrency: config.diagnosisWorker.concurrency,
       },
     );
   }

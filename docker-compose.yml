@@ -1,24 +1,35 @@
 version: '3'
 
 services:
-  web:
-    build: .
-    image: visiblehq/web:latest
+  web-server:
+    build:
+      context: .
+      dockerfile: ./docker/web-server/Dockerfile
+    image: visiblehq/web-server:latest
     restart: always
-    env_file: .env
+    env_file: ./packages/@visi/web-server/.env
     privileged: true
     # https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#tips
     shm_size: '2gb'
     ports:
       - '3000:3000'
-      - '4000:4000'
     depends_on:
       - postgres
       - redis
     volumes:
-      - ./logs:/home/visible/app/packages/@visi/web-server/logs
-      - ./static:/home/visible/app/packages/@visi/web-server/static
-      - ./credentials:/home/visible/credentials
+      - ./volumes/logs:/home/visible/app/packages/@visi/web-server/logs
+      - ./volumes/static:/home/visible/app/packages/@visi/web-server/static
+      - ./volumes/credentials:/home/visible/credentials
+
+  web-client:
+    build:
+      context: .
+      dockerfile: ./docker/web-client/Dockerfile
+    image: visiblehq/web-client:latest
+    restart: always
+    env_file: ./packages/@visi/web-client/.env
+    ports:
+      - '4000:4000'
 
   postgres:
     image: postgres:12.2
@@ -26,9 +37,9 @@ services:
       POSTGRES_USER: visible
       POSTGRES_PASSWORD: visible
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - ./volumes/postgres:/var/lib/postgresql/data
 
   redis:
     image: redis:6.0
     volumes:
-      - ./redis:/data
+      - ./volumes/redis:/data

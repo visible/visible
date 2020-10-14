@@ -69,9 +69,6 @@ generated
 tmp
 
 # Docker volumes
-/credentials
-/postgres
-/redis
-/logs
+/volumes
 
 !.keep
