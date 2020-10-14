@@ -32,6 +32,8 @@ RUN apk add --no-cache \
   harfbuzz \
   ca-certificates \
   ttf-freefont \
+  fontconfig \
+  font-noto-cjk \
   yarn
 
 RUN addgroup -S visible \
