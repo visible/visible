@@ -19,10 +19,14 @@ import introspectionResult from '../generated/introspection-result';
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 const createLink = () => {
-  const { publicRuntimeConfig } = getConfig();
+  const { publicRuntimeConfig, serverRuntimeConfig } = getConfig();
+
+  const httpApiUrl =
+    serverRuntimeConfig.httpApiUrl ?? publicRuntimeConfig.httpApiUrl;
+  const wsApiUrl = serverRuntimeConfig.wsApiUrl ?? publicRuntimeConfig.wsApiUrl;
 
   const httpLink = new HttpLink({
-    uri: `${publicRuntimeConfig.apiUrl}/api/v1`,
+    uri: `${httpApiUrl}/api/v1`,
     credentials: 'same-origin',
   });
 
@@ -32,7 +36,7 @@ const createLink = () => {
   // https://github.com/apollographql/subscriptions-transport-ws/issues/333
   if (typeof window !== 'undefined') {
     const wsLink = new WebSocketLink({
-      uri: `${publicRuntimeConfig.streamingApiUrl}/api/v1`,
+      uri: `${wsApiUrl}/api/v1`,
       options: {
         reconnect: true,
       },
