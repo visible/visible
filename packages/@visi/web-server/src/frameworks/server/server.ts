@@ -40,7 +40,7 @@ export class Server {
     app
       .use(cors())
       .use(i18nMiddleware)
-      .use(this.config.static.route, staticMiddleware);
+      .use(this.config.static.pathname, staticMiddleware);
 
     const apollo = new ApolloServer({
       typeDefs: await this.loadSchema(),
@@ -50,18 +50,18 @@ export class Server {
       },
       validationRules: [depthLimit(5)],
       subscriptions: {
-        path: '/api/v1',
+        path: this.config.graphql.pathname,
       },
     });
 
-    apollo.applyMiddleware({ app, path: '/api/v1' });
+    apollo.applyMiddleware({ app, path: this.config.graphql.pathname });
     apollo.installSubscriptionHandlers(server);
 
-    server.listen({ port: this.config.app.port }, () => {
+    server.listen({ port: this.config.port }, () => {
       this.logger.info(outdent`
         🎉 Visible GraphQL server is running at:
-        ${this.config.getUrl()}${apollo.graphqlPath}
-        ${this.config.getSocketUrl()}${apollo.subscriptionsPath}
+        ${this.config.getGraphqlUrl()}
+        ${this.config.getGraphqlSubscriptionUrl()}
       `);
     });
   }

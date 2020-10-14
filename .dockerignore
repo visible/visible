@@ -9,10 +9,7 @@ generated
 .eslintcache
 .stylelintcache
 
-/postgres
-/redis
-/logs
-/credentials
+/volumes
 
 /packages/@visi/web-server/static
 /packages/@visi/web-client/.next
