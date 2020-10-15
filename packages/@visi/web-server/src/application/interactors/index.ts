@@ -5,3 +5,5 @@ export * from './find-diagnosis-interactor';
 export * from './find-rule-by-report-id-interactor';
 export * from './process-diagnosis-interactor';
 export * from './subscribe-diagnosis-interactor';
+export * from './find-stats-interactor';
+export * from './subscribe-stats-interactor';

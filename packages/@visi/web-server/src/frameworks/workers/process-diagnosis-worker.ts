@@ -1,6 +1,8 @@
 import { Worker } from 'bullmq';
 import { inject, injectable } from 'inversify';
+import { Redis } from 'ioredis';
 
+import { Logger } from '../../domain/services';
 import { DiagnosisController } from '../../interfaces/controllers';
 import { TYPES } from '../../types';
 import { Config } from '../config';
@@ -13,23 +15,24 @@ export class ProcessDiagnosisWorker extends Worker {
 
     @inject(TYPES.Config)
     private readonly config: Config,
+
+    @inject(TYPES.Redis)
+    private readonly redis: Redis,
+
+    @inject(TYPES.Logger)
+    private readonly logger: Logger,
   ) {
     super(
       'ProcessDiagnosis',
       async (job) => {
         try {
-          this.diagnosisController.process(job.name);
+          await this.diagnosisController.process(job.name);
         } catch (error) {
-          // eslint-disable-next-line
-          console.error(JSON.stringify(error, null, 2));
+          this.logger.error(error);
         }
       },
       {
-        connection: {
-          host: config.redis.host,
-          port: config.redis.port,
-          password: config.redis.password,
-        },
+        connection: redis,
         concurrency: config.diagnosisWorker.concurrency,
       },
     );

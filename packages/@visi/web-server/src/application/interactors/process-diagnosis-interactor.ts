@@ -30,7 +30,9 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
   }: ProcessDiagnosisRequest): Promise<ProcessDiagnosisResponse> {
     this.logger.info(`Processing diagnosis`, id);
     let [diagnosis] = await this.diagnosisRepository.find([id]);
-    diagnosis = await this.handleStart(diagnosis);
+    const res = await this.handleStart(diagnosis);
+    if (res == null) return;
+    diagnosis = res;
 
     return new Promise((resolve, reject) => {
       this.analyzer
@@ -49,12 +51,12 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
           ),
         )
         .subscribe({
-          complete: () => {
-            this.handleComplete(diagnosis);
+          complete: async () => {
+            await this.handleComplete(diagnosis);
             resolve();
           },
-          error: (error) => {
-            this.handleError(diagnosis, error);
+          error: async (error) => {
+            await this.handleError(diagnosis, error);
             reject();
           },
         });
@@ -64,19 +66,23 @@ export class ProcessDiagnosisInteractor implements ProcessDiagnosisUseCase {
   private async handleStart(base: Diagnosis) {
     this.logger.info(`Taking screenshot for ${base.url}`);
 
-    const website = await this.analyzer.capture({ url: base.url });
-
-    const diagnosis = base
-      .setScreenshot(website.screenshot)
-      .setURL(website.url)
-      .setStatus(Status.STARTED);
-
     try {
+      const website = await this.analyzer.capture({ url: base.url });
+
+      const diagnosis = base
+        .setScreenshot(website.screenshot)
+        .setURL(website.url)
+        .setUpdatedAt(new Date())
+        .setStatus(Status.STARTED);
+
       await this.diagnosisRepository.save(diagnosis);
       return diagnosis;
     } catch (error) {
       this.logger.error(error);
-      return diagnosis.setStatus(Status.FAILED);
+      const diagnosis = base.setStatus(Status.FAILED).setUpdatedAt(new Date());
+      await this.diagnosisRepository
+        .save(diagnosis)
+        .catch((e) => this.logger.error(e));
     }
   }
 

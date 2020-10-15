@@ -24,7 +24,7 @@ export class ReportDBEntity {
   @Column('varchar', { length: 255, nullable: true })
   difficulty?: Difficulty;
 
-  @Column('varchar', { length: 255, nullable: true })
+  @Column('text', { nullable: true })
   target?: string;
 
   @Column('varchar', { length: 255, nullable: true })

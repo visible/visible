@@ -5,7 +5,7 @@ import * as uuid from 'uuid';
 import { Diagnosis, Status } from '../../domain/models';
 import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
-import { DiagnosisRepository } from '../repositories';
+import { DiagnosisRepository, StatsRepository } from '../repositories';
 import {
   CreateDiagnosisRequest,
   CreateDiagnosisResponse,
@@ -19,7 +19,10 @@ export class CreateDiagnosisInteractor implements CreateDiagnosisUseCase {
     private readonly logger: Logger,
 
     @inject(TYPES.DiagnosisRepository)
-    private readonly repository: DiagnosisRepository,
+    private readonly diagnosisRepository: DiagnosisRepository,
+
+    @inject(TYPES.StatsRepository)
+    private readonly statsRepository: StatsRepository,
   ) {}
 
   async run(params: CreateDiagnosisRequest): Promise<CreateDiagnosisResponse> {
@@ -28,6 +31,8 @@ export class CreateDiagnosisInteractor implements CreateDiagnosisUseCase {
     if (!isURL(params.url, { require_protocol: true })) {
       throw new Error(`Invalid URL ${params.url} given`);
     }
+
+    const stats = await this.statsRepository.fetch();
 
     const diagnosis = Diagnosis.from({
       id: uuid.v4(),
@@ -38,12 +43,14 @@ export class CreateDiagnosisInteractor implements CreateDiagnosisUseCase {
       doneCount: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
+      waitingCountAtCreation: stats.diagnosisWaitingCount,
+      completeCountAtCreation: stats.diagnosisCompleteCount,
     });
 
     this.logger.debug(diagnosis.toString());
 
-    await this.repository.save(diagnosis);
-    await this.repository.queue(diagnosis);
+    await this.diagnosisRepository.save(diagnosis);
+    await this.diagnosisRepository.queue(diagnosis);
     this.logger.info(`Diagnosis ${diagnosis.id} were created and queued`);
 
     return { diagnosis };

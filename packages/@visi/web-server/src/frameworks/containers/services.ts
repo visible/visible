@@ -1,6 +1,7 @@
 import { ContainerModule } from 'inversify';
 
 import { TYPES } from '../../types';
+import { ConfigImpl } from '../config';
 import {
   AnalyzerVisibleImpl,
   I18nI18nextImpl,
@@ -11,6 +12,7 @@ import {
 } from '../services';
 
 export const services = new ContainerModule((bind) => {
+  bind(TYPES.Config).to(ConfigImpl);
   bind(TYPES.I18n).to(I18nI18nextImpl);
 
   if (process.env.LOGGER === 'console') {

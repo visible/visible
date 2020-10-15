@@ -27,8 +27,7 @@ exports[`Progress matches snapshot 1`] = `
     aria-hidden="true"
     class="text-sm text-gray-600"
   >
-    50
-    %
+    50%
   </span>
 </div>
 `;

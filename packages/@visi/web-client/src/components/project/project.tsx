@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { DiagnosisLargeFragment, Status } from '../../generated/graphql';
+import { useRelativeDate } from '../../hooks/use-relative-date';
 import { useTranslation } from '../../utils/i18next';
 import { Badge, BadgeVariant, Image, Typography } from '../ui';
 
@@ -65,6 +66,7 @@ const StatusBadge = ({ status }: StatusBadgeProps) => {
 const Statuses = ({ diagnosis }: { diagnosis: DiagnosisLargeFragment }) => {
   const { t } = useTranslation();
   const createdAt = new Date(diagnosis.createdAt);
+  const { relativeDate } = useRelativeDate(createdAt);
 
   return (
     <div className="flex flex-col space-y-2 mb-4 md:flex-row md:space-x-8 md:space-y-0">
@@ -97,10 +99,10 @@ const Statuses = ({ diagnosis }: { diagnosis: DiagnosisLargeFragment }) => {
         <time
           dateTime={createdAt.toISOString()}
           aria-label={t('diagnoses.created_at', 'Created at {{date}}', {
-            date: createdAt.toLocaleString(),
+            date: relativeDate,
           })}
         >
-          {createdAt.toLocaleString()}
+          {relativeDate}
         </time>
       </Typography>
     </div>
