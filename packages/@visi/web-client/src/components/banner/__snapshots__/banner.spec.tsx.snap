@@ -6,6 +6,22 @@ exports[`Banner matches to the snapshot 1`] = `
     class="bg-primary-500 shadow z-10"
   >
     <div
+      class="bg-purple-700 text-white"
+    >
+      <div
+        class="flex flex-wrap items-start relative w-full mx-auto box-border p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl justify-center"
+      >
+        <a
+          class="hover:underline"
+          href="https://forms.gle/H72ddXy16X6KZf1T6"
+          rel="noreferrer"
+          target="_blank"
+        >
+          📝 Answer a survey to report issues or request a feature! It's brief that takes about 3 min!
+        </a>
+      </div>
+    </div>
+    <div
       class="flex flex-wrap items-start relative w-full mx-auto box-border p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
     >
       <div
