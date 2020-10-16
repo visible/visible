@@ -152,7 +152,9 @@
   },
   "report": {
     "code-frame": "Code frame",
+    "collapsed": "Click to hide the detail",
     "difficulty": "Difficulty: {{difficulty}}",
+    "expand": "Click to show the detail",
     "filename": "Found at <1>{{filename}}</1>",
     "impact": "Impact: {{impact}}",
     "list": {

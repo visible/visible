@@ -41,6 +41,7 @@ const Line = ({
           appearance === 'red' && ['bg-red-200'],
           appearance === 'green' && ['bg-green-200'],
         )}
+        style={{ width: 'max-content' }}
         {...rest}
       >
         {value}
