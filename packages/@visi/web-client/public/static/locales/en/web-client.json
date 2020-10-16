@@ -199,6 +199,9 @@
     "queued": "Queued",
     "started": "Started"
   },
+  "survey": {
+    "title": "📝 Answer a survey to report issues or request a feature! It's brief that takes about 3 min!"
+  },
   "synopsis": {
     "description": "Visible is not just a linter, we also provide information on how to make your website accessible. We indicate which part you need to fix, give you patches of codes, give you references to the standards — to help you to learn and improve the accessibility of your website.",
     "image": "Book",
