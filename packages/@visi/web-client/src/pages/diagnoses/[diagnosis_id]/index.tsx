@@ -10,6 +10,7 @@ import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 
+import { DiagnosisProgress } from '../../../components/diagnosis-progress';
 import { HelpImprove } from '../../../components/help-improve/help-improve';
 import { KeywordList } from '../../../components/keyword-list/keyword-list';
 import { Newsletter } from '../../../components/newsletter';
@@ -18,16 +19,13 @@ import { ReportList } from '../../../components/report-list';
 import { Rerun } from '../../../components/rerun';
 import { SourceList } from '../../../components/source-list';
 import {
-  Card,
   Divider,
   Layout,
   Nav,
-  Progress,
   Typography,
   Widget,
 } from '../../../components/ui';
 import {
-  DiagnosisLargeFragment,
   FetchDiagnosisLargeDocument,
   Outcome,
   Status,
@@ -35,41 +33,6 @@ import {
 import { useDiagnosis } from '../../../hooks/use-diagnosis';
 import { initializeApollo } from '../../../utils/apollo';
 import { useTranslation } from '../../../utils/i18next';
-
-const LoadingIndicator = ({
-  diagnosis,
-}: {
-  diagnosis: DiagnosisLargeFragment;
-}) => {
-  const { t } = useTranslation();
-
-  return (
-    <Card variant="solid" className="w-2/3 mx-auto my-8">
-      <Card.Heading>
-        <Typography variant="h3" fontSize="lg">
-          {t('diagnoses.processing.title', 'Processing diagnostics')}
-        </Typography>
-      </Card.Heading>
-
-      <Card.Body>
-        <Typography color="wash">
-          {t(
-            'diagnoses.processing.description',
-            'Running diagnostics program on the server. This process takes a while to complete...',
-          )}
-        </Typography>
-
-        <Progress
-          id="diagnosis-progress"
-          max={diagnosis.totalCount}
-          value={diagnosis.doneCount}
-          label={t('diagnoses.processing.label', 'Progress')}
-          aria-live="polite"
-        />
-      </Card.Body>
-    </Card>
-  );
-};
 
 const Diagnoses: NextPage = () => {
   const { t } = useTranslation();
@@ -173,9 +136,7 @@ const Diagnoses: NextPage = () => {
 
       <Layout.Container>
         <Layout.Main size="two-column">
-          {diagnosis.status !== Status.Done && (
-            <LoadingIndicator diagnosis={diagnosis} />
-          )}
+          <DiagnosisProgress diagnosis={diagnosis} />
 
           <ReportList
             sources={diagnosis.sources}

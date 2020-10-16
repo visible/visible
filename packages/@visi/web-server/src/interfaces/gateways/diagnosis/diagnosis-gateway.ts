@@ -8,17 +8,10 @@ import { DiagnosisRepository } from '../../../application/repositories';
 import { Diagnosis, Report } from '../../../domain/models';
 import { Logger } from '../../../domain/services';
 import { TYPES } from '../../../types';
+import { ProcessDiagnosisQueue } from '../queues';
 import { DiagnosisDBEntity } from './diagnosis-db-entity';
 import { ReportDBEntity } from './report-db-entity';
 import { SourceDBEntity } from './source-db-entity';
-
-export interface PublishDiagnosisQueue {
-  add(id: string, data: null): Promise<unknown>;
-}
-
-export interface ProcessDiagnosisQueue {
-  add(id: string, data: null): Promise<unknown>;
-}
 
 @injectable()
 export class DiagnosisGateway implements DiagnosisRepository {

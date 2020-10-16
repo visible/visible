@@ -30,6 +30,14 @@
       "label": "Progress",
       "title": "Processing diagnostics"
     },
+    "queue": {
+      "description": "This website has been added to the queue and waiting for other diagnoses to complete."
+    },
+    "queued": {
+      "ready": "Diagnosis will start soon...",
+      "title": "Waiting for other {{count}} diagnoses to complete",
+      "title_plural": "Waiting for other {{count}} diagnosis to complete"
+    },
     "reports": "Reports",
     "rules": "Rules",
     "screenshot": "Screenshot for {{title}}",

@@ -7,13 +7,15 @@ import { Container } from 'inversify';
 import { CreateRuleUseCase } from '../../application/use-cases/create-rule-use-case';
 import { Logger } from '../../domain/services';
 import { TYPES } from '../../types';
+import { RedisConnector } from '../connection';
 import { application, framework, interfaces, services } from '../containers';
 import { VisiblePool } from '../services/analyzer/visible-pool';
 
 (async () => {
   const container = new Container({ skipBaseClassChecks: true });
   container.load(application, interfaces, services);
-  await container.loadAsync(framework);
+  container.bind(RedisConnector).toSelf();
+  await container.loadAsync(framework(container.get(RedisConnector)));
 
   const resolver = new PluginResolver(
     new Map([['@visi/plugin-wcag', pluginStandard]]),

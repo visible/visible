@@ -5,9 +5,17 @@ export type ProgressProps = JSX.IntrinsicElements['progress'] & {
   max: number;
   value: number;
   label: string;
+  message?: string;
 };
 
-export const Progress = ({ label, value, max, id, ...rest }: ProgressProps) => {
+export const Progress = ({
+  label,
+  value,
+  max,
+  id,
+  message,
+  ...rest
+}: ProgressProps) => {
   const percentage =
     max !== 0 ? Math.min(100, Math.round((value / max) * 100)) : 0;
 
@@ -51,7 +59,7 @@ export const Progress = ({ label, value, max, id, ...rest }: ProgressProps) => {
       />
 
       <span aria-hidden className="text-sm text-gray-600">
-        {percentage}%
+        {message ?? `${percentage}%`}
       </span>
     </div>
   );

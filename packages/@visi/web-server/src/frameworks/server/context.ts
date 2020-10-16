@@ -4,6 +4,7 @@ import { inject, injectable } from 'inversify';
 import {
   DiagnosisController,
   RuleController,
+  StatsController,
 } from '../../interfaces/controllers';
 import { API } from '../../interfaces/presenters';
 
@@ -11,6 +12,7 @@ export interface Context {
   diagnosisLoader: DataLoader<string, API.Diagnosis>;
   diagnosisController: DiagnosisController;
   ruleController: RuleController;
+  statsController: StatsController;
 }
 
 @injectable()
@@ -25,5 +27,8 @@ export class ContextImpl implements Context {
 
     @inject(RuleController)
     readonly ruleController: RuleController,
+
+    @inject(StatsController)
+    readonly statsController: StatsController,
   ) {}
 }

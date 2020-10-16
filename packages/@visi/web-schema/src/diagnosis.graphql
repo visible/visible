@@ -20,4 +20,8 @@ type Diagnosis implements Node {
   totalCount: Int!
   createdAt: Date!
   updatedAt: Date!
+  # experimental
+  waitingCountAtCreation: Int!
+  # experimental
+  completeCountAtCreation: Int!
 }
