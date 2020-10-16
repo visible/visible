@@ -10,6 +10,7 @@ export type SearchProps = {
   required?: boolean;
   disabled?: boolean;
   type?: string;
+  role?: string;
   children: React.ReactNode;
   onChange?(value: string): void;
   onSubmit?(value: string): void;
@@ -20,6 +21,7 @@ export const Search = ({
   children,
   type,
   placeholder,
+  role,
   onChange,
   onSubmit,
   ...rest
@@ -38,7 +40,7 @@ export const Search = ({
   };
 
   return (
-    <form role="search" className="inline-flex" onSubmit={handleSubmit}>
+    <form role={role} className="inline-flex" onSubmit={handleSubmit}>
       <Input
         id={id}
         value={query}
