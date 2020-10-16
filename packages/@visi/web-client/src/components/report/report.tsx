@@ -98,12 +98,12 @@ export const Report = ({ report, original, url, withEditor }: ReportProps) => {
 
           <button
             className="hover:text-primary-500 hover:underline w-full text-left"
+            onClick={handleClick}
             title={
               open
-                ? t('report.collapsed', 'Click to hide the detail')
-                : t('report.expand', 'Click to show the detail')
+                ? t('report.collapsed', 'Show details')
+                : t('report.expand', 'Hide details')
             }
-            onClick={handleClick}
             aria-controls={detailsId}
             aria-expanded={open}
           >
@@ -119,6 +119,19 @@ export const Report = ({ report, original, url, withEditor }: ReportProps) => {
           >
             {report.message ?? 'No message'}
           </Typography>
+
+          <button
+            className="text-primary-500 hover:underline w-full text-left"
+            onClick={handleClick}
+            aria-controls={detailsId}
+            aria-expanded={open}
+          >
+            <Typography fontSize="sm">
+              {open
+                ? t('report.expanded', 'Hide details')
+                : t('report.collapsed', 'Show details')}
+            </Typography>
+          </button>
         </div>
 
         <div

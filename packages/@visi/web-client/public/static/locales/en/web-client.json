@@ -165,9 +165,9 @@
   },
   "report": {
     "code-frame": "Code frame",
-    "collapsed": "Click to hide the detail",
+    "collapsed": "Show details",
     "difficulty": "Difficulty: {{difficulty}}",
-    "expand": "Click to show the detail",
+    "expanded": "Hide details",
     "filename": "Found at <1>{{filename}}</1>",
     "impact": "Impact: {{impact}}",
     "list": {
