@@ -9,10 +9,23 @@
     "line-number": "Line number: {{number}}"
   },
   "content-info": {
-    "description": "Contact information and links to external websites",
-    "email": "Contact",
-    "github": "GitHub",
-    "twitter": "Twitter"
+    "contact": {
+      "email": "Email",
+      "github-issues": "Report Bugs",
+      "title": "Contact",
+      "twitter": "Twitter"
+    },
+    "product": {
+      "get-started": "Get started",
+      "newsletter": "Newsletter",
+      "press-kit": "Press kit",
+      "title": "Product"
+    },
+    "resources": {
+      "docs": "Documentation",
+      "github": "GitHub",
+      "title": "Resources"
+    }
   },
   "diagnoses": {
     "created_at": "Created at {{date}}",

@@ -94,7 +94,7 @@ export const ContentInfo = ({ ref: _ref }: ContentInfoProps) => {
       items: [
         {
           href: 'mailto:n33t5hin@gmail.com',
-          children: t('content-info.contact.email', 'Contact'),
+          children: t('content-info.contact.email', 'Email'),
         },
         {
           href: 'https://twitter.com/visible_hq',

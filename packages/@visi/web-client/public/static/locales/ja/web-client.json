@@ -9,10 +9,23 @@
     "line-number": "{{number}}行目"
   },
   "content-info": {
-    "description": "Contact information and links to external websites",
-    "email": "お問い合わせ",
-    "github": "GitHub",
-    "twitter": "Twitter"
+    "contact": {
+      "email": "メール",
+      "github-issues": "バグを報告",
+      "title": "お問い合わせ",
+      "twitter": "Twitter"
+    },
+    "product": {
+      "get-started": "使い方",
+      "newsletter": "ニュースレター",
+      "press-kit": "プレスキット",
+      "title": "プロダクト"
+    },
+    "resources": {
+      "docs": "ドキュメント",
+      "github": "GitHub",
+      "title": "リソース"
+    }
   },
   "diagnoses": {
     "created_at": "{{date}}に作成",
