@@ -63,6 +63,7 @@ export const Report = ({ report, original, url, withEditor }: ReportProps) => {
   const impactVariant = mapImpact(report.impact);
   const difficultyVariant = mapDifficulty(report.difficulty);
 
+  const detailsId = `${report.id}-details`;
   const wrapper = classNames('space-y-2');
 
   const content = classNames(
@@ -90,98 +91,112 @@ export const Report = ({ report, original, url, withEditor }: ReportProps) => {
   };
 
   return (
-    <details className={wrapper} open={open}>
-      <summary className="block" onClick={handleClick}>
-        {/* Wrap by div due to Safari's bug */}
-        <div className={content}>
-          <div className="flex-1 relative">
-            <OutcomeIcon outcome={report.outcome} />
+    <div className={wrapper}>
+      <div className={content}>
+        <div className="flex-1 relative">
+          <OutcomeIcon outcome={report.outcome} />
 
-            <Typography
-              className="group-hover:text-primary-500 mb-1"
-              variant="h4"
-              fontSize="lg"
-              lang="en"
-            >
+          <button
+            className="hover:text-primary-500 hover:underline w-full text-left"
+            onClick={handleClick}
+            title={
+              open
+                ? t('report.collapsed', 'Show details')
+                : t('report.expand', 'Hide details')
+            }
+            aria-controls={detailsId}
+            aria-expanded={open}
+          >
+            <Typography className="mb-1" variant="h4" fontSize="lg" lang="en">
               {report.rule.name}
             </Typography>
+          </button>
 
-            <Typography
-              fontStyle={report.message == null ? 'italic' : 'normal'}
-              color="wash"
-              lang="en"
-            >
-              {report.message ?? 'No message'}
-            </Typography>
-          </div>
-
-          <div
-            className={classNames(
-              'inline-flex',
-              'flex-col',
-              'space-y-3',
-              'w-40',
-            )}
+          <Typography
+            fontStyle={report.message == null ? 'italic' : 'normal'}
+            color="wash"
+            lang="en"
           >
-            {report.impact && (
-              <Badge variant={impactVariant} className="flex-shrink-0">
-                {t('report.impact', 'Impact: {{impact}}', {
-                  impact: t(`impact.${report.impact.toLowerCase()}`),
-                })}
-              </Badge>
-            )}
+            {report.message ?? 'No message'}
+          </Typography>
 
-            {report.difficulty && (
-              <Badge variant={difficultyVariant} className="flex-shrink-0">
-                {t('report.difficulty', 'Difficulty: {{difficulty}}', {
-                  difficulty: t(
-                    `difficulty.${report.difficulty.toLowerCase()}`,
-                  ),
-                })}
-              </Badge>
-            )}
-          </div>
+          <button
+            className="text-primary-500 hover:underline w-full text-left"
+            onClick={handleClick}
+            aria-controls={detailsId}
+            aria-expanded={open}
+          >
+            <Typography fontSize="sm">
+              {open
+                ? t('report.expanded', 'Hide details')
+                : t('report.collapsed', 'Show details')}
+            </Typography>
+          </button>
+        </div>
 
-          {report.screenshot && (
-            <div className="flex-shrink-0 ml-5">
-              <Image
-                src={report.screenshot}
-                alt={
-                  report.target ??
-                  t('report.no-desc', 'no description provided')
-                }
-                className="bg-black"
-                variant="shadow"
-                width="100px"
-                height="100px"
-              />
-            </div>
+        <div
+          className={classNames('inline-flex', 'flex-col', 'space-y-3', 'w-40')}
+        >
+          {report.impact && (
+            <Badge variant={impactVariant} className="flex-shrink-0">
+              {t('report.impact', 'Impact: {{impact}}', {
+                impact: t(`impact.${report.impact.toLowerCase()}`),
+              })}
+            </Badge>
+          )}
+
+          {report.difficulty && (
+            <Badge variant={difficultyVariant} className="flex-shrink-0">
+              {t('report.difficulty', 'Difficulty: {{difficulty}}', {
+                difficulty: t(`difficulty.${report.difficulty.toLowerCase()}`),
+              })}
+            </Badge>
           )}
         </div>
-      </summary>
 
-      <Status report={report} title={url} />
+        {report.screenshot && (
+          <div className="flex-shrink-0 ml-5">
+            <Image
+              src={report.screenshot}
+              alt={
+                report.target ?? t('report.no-desc', 'no description provided')
+              }
+              className="bg-black"
+              variant="shadow"
+              width="100px"
+              height="100px"
+            />
+          </div>
+        )}
+      </div>
 
-      {withEditor && report.diffHunk ? (
-        <DiffCodeFrame
-          hunk={report.diffHunk}
-          filename={url}
-          title={t('report.suggestion', 'Suggested change')}
-        />
-      ) : (
-        <CodeFrame
-          title={t('report.code-frame', 'Code frame')}
-          value={original}
-          filename={url}
-          highlightColor={report.outcome === Outcome.Fail ? 'red' : 'green'}
-          highlightStart={report.location?.startLine}
-          highlightEnd={report.location?.endLine}
-        />
+      {open && (
+        <div
+          id={detailsId}
+          className={classNames('space-y-2', { hidden: !open })}
+        >
+          <Status report={report} title={url} />
+          {withEditor && report.diffHunk ? (
+            <DiffCodeFrame
+              hunk={report.diffHunk}
+              filename={url}
+              title={t('report.suggestion', 'Suggested change')}
+            />
+          ) : (
+            <CodeFrame
+              title={t('report.code-frame', 'Code frame')}
+              value={original}
+              filename={url}
+              highlightColor={report.outcome === Outcome.Fail ? 'red' : 'green'}
+              highlightStart={report.location?.startLine}
+              highlightEnd={report.location?.endLine}
+            />
+          )}
+          {report.rule.mapping?.[0] && (
+            <Reference name={report.rule.mapping?.[0]} />
+          )}
+        </div>
       )}
-
-      {report.rule.mapping?.[0] && (
-        <Reference name={report.rule.mapping?.[0]} />
-      )}
-    </details>
+    </div>
   );
 };

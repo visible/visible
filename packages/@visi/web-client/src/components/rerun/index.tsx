@@ -1,7 +1,7 @@
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactGA from 'react-ga';
 
 import { useCreateDiagnosisMutation } from '../../generated/graphql';
@@ -16,22 +16,23 @@ export interface RerunProps {
 
 export const Rerun = ({ url, className, disabled }: RerunProps) => {
   const { t } = useTranslation();
-  const router = useRouter();
+  const _router = useRouter();
   const [
     createDiagnosis,
     { data, loading, error },
   ] = useCreateDiagnosisMutation({
     variables: { url },
   });
+  const router = useRef(_router);
 
   useEffect(() => {
-    if (data != null) {
-      router.push(
+    if (data?.createDiagnosis.id != null) {
+      router.current.push(
         '/diagnoses/[diagnosis_id]',
         `/diagnoses/${data.createDiagnosis.id}`,
       );
     }
-  }, [data, router]);
+  }, [data?.createDiagnosis.id]);
 
   const handleClick = () => {
     ReactGA.event({

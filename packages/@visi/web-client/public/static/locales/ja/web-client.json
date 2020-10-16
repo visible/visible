@@ -9,10 +9,23 @@
     "line-number": "{{number}}行目"
   },
   "content-info": {
-    "description": "Contact information and links to external websites",
-    "email": "お問い合わせ",
-    "github": "GitHub",
-    "twitter": "Twitter"
+    "contact": {
+      "email": "メール",
+      "github-issues": "バグを報告",
+      "title": "お問い合わせ",
+      "twitter": "Twitter"
+    },
+    "product": {
+      "get-started": "使い方",
+      "newsletter": "ニュースレター",
+      "press-kit": "プレスキット",
+      "title": "プロダクト"
+    },
+    "resources": {
+      "docs": "ドキュメント",
+      "github": "GitHub",
+      "title": "リソース"
+    }
   },
   "diagnoses": {
     "created_at": "{{date}}に作成",
@@ -151,7 +164,9 @@
   },
   "report": {
     "code-frame": "該当箇所",
+    "collapsed": "詳細を表示",
     "difficulty": "難易度: {{difficulty}}",
+    "expanded": "詳細を非表示",
     "filename": "<1>{{filename}}</1>で発見",
     "impact": "重要度: {{impact}}",
     "list": {
@@ -195,6 +210,9 @@
     "processing": "処理中",
     "queued": "待機中",
     "started": "開始中"
+  },
+  "survey": {
+    "title": "📝 3分で終わります！アンケートに答えてフィードバックにご協力ください！"
   },
   "synopsis": {
     "description": "Visibleはただ警告を表示するリンターやテストと異なり、アクセシビリティーについて学び修正するために、ソースコードのどこに問題があるかをお知らせし、パッチを提供し、参考になる情報も提供します。",
