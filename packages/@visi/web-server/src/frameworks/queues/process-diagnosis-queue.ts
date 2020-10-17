@@ -21,7 +21,8 @@ export class ProcessDiagnosisQueueImpl extends Queue
     private readonly redis: Redis,
   ) {
     super('ProcessDiagnosis', {
-      connection: redis,
+      // TODO: I should've not need this
+      connection: redis.duplicate(),
     });
   }
 

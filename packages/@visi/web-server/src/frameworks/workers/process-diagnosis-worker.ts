@@ -32,7 +32,8 @@ export class ProcessDiagnosisWorker extends Worker {
         }
       },
       {
-        connection: redis,
+        // TODO: I should've not need this
+        connection: redis.duplicate(),
         concurrency: config.diagnosisWorker.concurrency,
       },
     );
