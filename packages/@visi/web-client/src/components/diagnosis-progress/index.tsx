@@ -14,7 +14,7 @@ export type DiagnosisProgressProps = {
   diagnosis: DiagnosisLargeFragment;
 };
 
-const AVG_TIME = 1000 * 60 * 3;
+const AVG_TIME = 1000 * 60 * 1;
 
 const QueueProgress = ({
   stats,
