@@ -1,6 +1,6 @@
 {
   "name": "@visi/cli",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "main": "index.js",
   "license": "AGPL-3.0",
   "bin": {
@@ -37,7 +37,7 @@
     "@types/i18next-node-fs-backend": "^2.1.0",
     "@types/mkdirp": "^1.0.1",
     "@types/yargs": "^15.0.5",
-    "@visi/core": "^0.2.1",
+    "@visi/core": "^0.3.0",
     "typescript": "^3.9.7"
   },
   "peerDependencies": {

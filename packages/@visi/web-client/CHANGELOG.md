@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/visible/visible/compare/v0.2.1...v0.3.0) (2020-10-17)
+
+
+### Bug Fixes
+
+* Clarify label for expand button ([c340bbd](https://github.com/visible/visible/commit/c340bbdee18b6b6e1b728167ffd0ec8c05da70f9))
+* Fix infinite redirect by rerun ([f4b95d5](https://github.com/visible/visible/commit/f4b95d58df6f94cfdce947e3cbf5005a3e1d8beb))
+* Make subscribeToMore a ref ([2cca52a](https://github.com/visible/visible/commit/2cca52aac55e37f451f0db2c534fb5830f00069c))
+* Remove search role ([d5d77ea](https://github.com/visible/visible/commit/d5d77ea8a8b581df9e67fef16242cbbccebfb212))
+* Use asPath ([1cbef51](https://github.com/visible/visible/commit/1cbef515ed1a1a2df14af5be407f18b73676a153))
+* Use semantic elements for report ([0baebe1](https://github.com/visible/visible/commit/0baebe11b3ed9122852b358fd6b24e50b0636db5))
+* Use serverRuntimeConfig ([e2195a2](https://github.com/visible/visible/commit/e2195a2e5d18d5e95f662173006178a9085d2e3a))
+* Workaround for Safari's flexbox bug with summary ([ee1bb76](https://github.com/visible/visible/commit/ee1bb762e1247b403222b2d17cdf5d153e80af16))
+
+
+### Features
+
+* Add format option ([8a092e3](https://github.com/visible/visible/commit/8a092e366aefbe1c6be458b6cdce242c1e4e2328))
+* Add newsletter form ([ef09dd8](https://github.com/visible/visible/commit/ef09dd88bc2b77438beeb7183fcbfcc66ab9b4a8))
+* Add queue count ([7e5b782](https://github.com/visible/visible/commit/7e5b782ae100b3981fcfaeb1a1b2c82de8e4d390))
+* Add re-run feature ([2ed252a](https://github.com/visible/visible/commit/2ed252ab47f2cef87b6962be3af86118ed731b00))
+* Add reference to W3C website ([072952c](https://github.com/visible/visible/commit/072952c5ce5b8a05d2381a1b49ffe1549b9e189b))
+* Add survey link ([81a54e4](https://github.com/visible/visible/commit/81a54e435865177a9f028fb4b12bb084c538f501))
+
+
+
+
+
 ## [0.2.1](https://github.com/visible/visible/compare/v0.2.0...v0.2.1) (2020-09-26)
 
 

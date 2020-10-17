@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/visible/visible/compare/v0.2.1...v0.3.0) (2020-10-17)
+
+
+### Bug Fixes
+
+* Add event handler for worker exception ([201f32f](https://github.com/visible/visible/commit/201f32f0a65f6443f8a62944c97a6f97c79bfb2f))
+* Duplicate redis client on worker and queue ([c9aed65](https://github.com/visible/visible/commit/c9aed658d77c4e384be53f51f268e299b97269f7))
+* Make subscribeToMore a ref ([2cca52a](https://github.com/visible/visible/commit/2cca52aac55e37f451f0db2c534fb5830f00069c))
+
+
+### Features
+
+* Add Cloud Storage Impl ([0a577e4](https://github.com/visible/visible/commit/0a577e4841a97dbc082312b362e4c13c7fe580e9))
+* Add format option ([8a092e3](https://github.com/visible/visible/commit/8a092e366aefbe1c6be458b6cdce242c1e4e2328))
+* Add queue count ([7e5b782](https://github.com/visible/visible/commit/7e5b782ae100b3981fcfaeb1a1b2c82de8e4d390))
+* Add reference to W3C website ([072952c](https://github.com/visible/visible/commit/072952c5ce5b8a05d2381a1b49ffe1549b9e189b))
+
+
+
+
+
 ## [0.2.1](https://github.com/visible/visible/compare/v0.2.0...v0.2.1) (2020-09-26)
 
 
