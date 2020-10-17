@@ -36,5 +36,11 @@ export class ProcessDiagnosisWorker extends Worker {
         concurrency: config.diagnosisWorker.concurrency,
       },
     );
+    this.on('error', this.handleMissingFailed);
   }
+
+  // https://github.com/taskforcesh/bullmq/issues/215
+  handleMissingFailed = (error: unknown): void => {
+    this.logger.error(error);
+  };
 }
