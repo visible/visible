@@ -1,9 +1,3 @@
-import {
-  faCheck,
-  faQuestion,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import ReactGA from 'react-ga';
@@ -15,13 +9,21 @@ import {
   ReportLargeFragment,
 } from '../../generated/graphql';
 import { useTranslation } from '../../utils/i18next';
-import { Badge, BadgeVariant, Image, Typography } from '../ui';
-import { Editor } from './editor';
+import {
+  Badge,
+  BadgeVariant,
+  CodeFrame,
+  DiffCodeFrame,
+  Image,
+  Typography,
+} from '../ui';
+import { OutcomeIcon } from './outcome';
+import { Reference } from './reference';
 import { Status } from './status';
 
 export interface ReportProps {
   original: string;
-  title: string;
+  url: string;
   report: ReportLargeFragment;
   diagnosisId: string;
   withEditor?: boolean;
@@ -54,52 +56,18 @@ const mapDifficulty = (difficulty?: Difficulty | null): BadgeVariant => {
   }
 };
 
-const OutcomeIcon = ({ outcome }: { outcome: Outcome }) => {
-  const baseClass = classNames(
-    'text-xl',
-    'absolute',
-    'top-0',
-    'left-0',
-    '-ml-8',
-  );
-
-  switch (outcome) {
-    case Outcome.Fail:
-      return (
-        <span className={classNames('text-red-600', baseClass)}>
-          <FontAwesomeIcon icon={faTimes} />
-        </span>
-      );
-    case Outcome.Passed:
-      return (
-        <span className={classNames('text-green-600', baseClass)}>
-          <FontAwesomeIcon icon={faCheck} />
-        </span>
-      );
-    case Outcome.Inapplicable:
-      return (
-        <span className={classNames('text-gray-800', baseClass)}>
-          <FontAwesomeIcon icon={faQuestion} />
-        </span>
-      );
-  }
-};
-
-export const Report = ({
-  report,
-  original,
-  title,
-  withEditor,
-}: ReportProps) => {
+export const Report = ({ report, original, url, withEditor }: ReportProps) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const impactVariant = mapImpact(report.impact);
   const difficultyVariant = mapDifficulty(report.difficulty);
 
-  const wrapper = classNames('space-y-4');
+  const detailsId = `${report.id}-details`;
+  const wrapper = classNames('space-y-2');
 
   const content = classNames(
+    'group',
     'flex',
     'items-center',
     'p-2',
@@ -123,22 +91,47 @@ export const Report = ({
   };
 
   return (
-    <details className={wrapper} open={open}>
-      <summary className={content} onClick={handleClick}>
+    <div className={wrapper}>
+      <div className={content}>
         <div className="flex-1 relative">
           <OutcomeIcon outcome={report.outcome} />
 
-          <Typography variant="h4" fontSize="lg">
-            {report.rule.name}
-          </Typography>
+          <button
+            className="hover:text-primary-500 hover:underline w-full text-left"
+            onClick={handleClick}
+            title={
+              open
+                ? t('report.collapsed', 'Show details')
+                : t('report.expand', 'Hide details')
+            }
+            aria-controls={detailsId}
+            aria-expanded={open}
+          >
+            <Typography className="mb-1" variant="h4" fontSize="lg" lang="en">
+              {report.rule.name}
+            </Typography>
+          </button>
 
           <Typography
-            variant="p"
             fontStyle={report.message == null ? 'italic' : 'normal'}
             color="wash"
+            lang="en"
           >
             {report.message ?? 'No message'}
           </Typography>
+
+          <button
+            className="text-primary-500 hover:underline w-full text-left"
+            onClick={handleClick}
+            aria-controls={detailsId}
+            aria-expanded={open}
+          >
+            <Typography fontSize="sm">
+              {open
+                ? t('report.expanded', 'Hide details')
+                : t('report.collapsed', 'Show details')}
+            </Typography>
+          </button>
         </div>
 
         <div
@@ -175,18 +168,35 @@ export const Report = ({
             />
           </div>
         )}
-      </summary>
+      </div>
 
-      <Status report={report} title={title} />
-
-      {withEditor && (
-        <Editor
-          value={original}
-          patch={report.diffHunk ?? undefined}
-          message={report.message ?? undefined}
-          location={report.location ?? undefined}
-        />
+      {open && (
+        <div
+          id={detailsId}
+          className={classNames('space-y-2', { hidden: !open })}
+        >
+          <Status report={report} title={url} />
+          {withEditor && report.diffHunk ? (
+            <DiffCodeFrame
+              hunk={report.diffHunk}
+              filename={url}
+              title={t('report.suggestion', 'Suggested change')}
+            />
+          ) : (
+            <CodeFrame
+              title={t('report.code-frame', 'Code frame')}
+              value={original}
+              filename={url}
+              highlightColor={report.outcome === Outcome.Fail ? 'red' : 'green'}
+              highlightStart={report.location?.startLine}
+              highlightEnd={report.location?.endLine}
+            />
+          )}
+          {report.rule.mapping?.[0] && (
+            <Reference name={report.rule.mapping?.[0]} />
+          )}
+        </div>
       )}
-    </details>
+    </div>
   );
 };

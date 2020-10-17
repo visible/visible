@@ -5,17 +5,27 @@ import { Button } from '../button';
 import { Input } from '../input';
 
 export type SearchProps = {
+  id: string;
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
   type?: string;
+  role?: string;
   children: React.ReactNode;
   onChange?(value: string): void;
   onSubmit?(value: string): void;
 };
 
-export const Search = (props: SearchProps) => {
-  const { children, type, placeholder, onChange, onSubmit, ...rest } = props;
+export const Search = ({
+  id,
+  children,
+  type,
+  placeholder,
+  role,
+  onChange,
+  onSubmit,
+  ...rest
+}: SearchProps) => {
   const [query, setQuery] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,24 +40,22 @@ export const Search = (props: SearchProps) => {
   };
 
   return (
-    <form
-      role="search"
-      className="inline-flex"
-      onSubmit={handleSubmit}
-      {...rest}
-    >
+    <form role={role} className="inline-flex" onSubmit={handleSubmit}>
       <Input
+        id={id}
         value={query}
         type={type}
         placeholder={placeholder}
         disabled={rest.disabled}
         required={rest.required}
         onChange={handleChange}
+        shape="circle"
         className={classNames(
           'border-r-0',
           'rounded-tr-none',
           'rounded-br-none',
         )}
+        {...rest}
       />
 
       <Button

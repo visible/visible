@@ -14,6 +14,7 @@ export interface Rule extends Node {
   readonly type: RuleType;
   readonly description: string;
   readonly keywords?: readonly string[];
+  readonly mapping?: readonly string[];
 }
 
 export interface Source extends Node {
@@ -63,6 +64,10 @@ export type Report = {
   // readonly source: Source;
 };
 
+export interface Stats {
+  readonly diagnosisCompleteCount: number;
+}
+
 export enum Status {
   Queued = 'QUEUED',
   Started = 'STARTED',
@@ -81,4 +86,6 @@ export interface Diagnosis {
   readonly createdAt: Date;
   readonly updatedAt: Date;
   readonly screenshot?: string;
+  readonly waitingCountAtCreation: number;
+  readonly completeCountAtCreation: number;
 }

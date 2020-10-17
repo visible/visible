@@ -1,25 +1,23 @@
 import {
   AddScriptParams,
+  BaseSession,
   CSSNode,
-  findASTByXPath,
+  format,
   HTMLRootNode,
-  RunScriptParams,
   ScreenshotParams,
   Session,
   Settings,
   Source,
+  SourceType,
 } from '@visi/core';
 import { Protocol } from 'devtools-protocol/types/protocol';
-import { Node } from 'domhandler';
-import { promises as fs } from 'fs';
 import { parseDOM } from 'htmlparser2';
 import * as postcss from 'postcss';
 import { CDPSession, Page } from 'puppeteer';
-import { URL } from 'url';
 
 import { findNodeByXPath } from './find-node-by-xpath';
 
-export class SessionImpl implements Session {
+export class SessionImpl extends BaseSession implements Session {
   readonly sources = new Map<string, Source>();
   private readonly htmlIdsMap = new Map<string, string>();
   private readonly cssIdsMap = new Map<string, string>();
@@ -28,29 +26,28 @@ export class SessionImpl implements Session {
     private readonly settings: Settings,
     private readonly page: Page,
     private readonly cdp: CDPSession,
-  ) {}
+  ) {
+    super();
+  }
+
+  async render(html: string): Promise<void> {
+    this.connectCDP();
+    await this.page.setContent(html);
+    await this.storeHTML(await this.page.content());
+  }
+
+  getActiveHTML(): Source {
+    const id = this.htmlIdsMap.get('main');
+    if (id == null) throw new Error('No HTML stored with key main');
+    const source = this.sources.get(id);
+    if (source == null) throw new Error(`No source stored with id ${id}`);
+    return source;
+  }
 
   async goto(url: string): Promise<void> {
-    // Create CDP session
-    await this.cdp.send('DOM.enable');
-    await this.cdp.send('CSS.enable');
-    this.cdp.on('CSS.styleSheetAdded', this.handleStyleSheetAdded);
-
-    // navigate
+    this.connectCDP();
     await this.page.goto(url);
-
-    // Parse HTML as an AST and cache
-    const content = await this.page.content();
-    const ast = parseDOM(content, {
-      withEndIndices: true,
-      withStartIndices: true,
-    });
-    const source = new Source({
-      url: this.page.url(),
-      node: new HTMLRootNode(ast),
-    });
-    this.htmlIdsMap.set('main', source.id);
-    this.sources.set(source.id, source);
+    await this.storeHTML(await this.page.content());
   }
 
   getTitle(): Promise<string> {
@@ -61,11 +58,6 @@ export class SessionImpl implements Session {
     return this.page.url();
   }
 
-  async resolveURL(path: string): Promise<string> {
-    if (/.+?:\/\//.test(path)) return path;
-    return new URL(path, await this.getURL()).href;
-  }
-
   async close(): Promise<void> {
     await this.page.close();
   }
@@ -74,22 +66,8 @@ export class SessionImpl implements Session {
     await this.page.addScriptTag(params);
   }
 
-  async runScript<T>(params: string): Promise<T>;
-  async runScript<T>(params: RunScriptParams): Promise<T>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  async runScript<T>(params: any): Promise<T> {
-    const content = typeof params === 'string' ? params : params.content;
-
-    if (content != null) {
-      return this.page.evaluate(content) as Promise<T>;
-    }
-
-    if (params.path != null) {
-      const code = await fs.readFile(params.path, 'utf-8');
-      return this.page.evaluate(code) as Promise<T>;
-    }
-
-    throw new Error(`You must provide either content or path`);
+  async eval<T>(script: string): Promise<T> {
+    return this.page.evaluate(script) as Promise<T>;
   }
 
   async waitFor(ms: number): Promise<void> {
@@ -117,24 +95,6 @@ export class SessionImpl implements Session {
 
     await elementHandle.screenshot(params);
     return params.path ?? process.cwd();
-  }
-
-  async findHTML(xpath: string): Promise<[string, Node] | undefined> {
-    const sourceId = this.htmlIdsMap.get('main');
-    if (sourceId == null) {
-      throw new Error(`No source found for html id main`);
-    }
-
-    const html = this.sources.get(sourceId);
-
-    if (html == null || !(html.node instanceof HTMLRootNode)) {
-      throw new Error(`No html source stored`);
-    }
-
-    const node = findASTByXPath(html.node.value, xpath);
-    if (node == null) return;
-
-    return [sourceId, node];
   }
 
   async findCSS(
@@ -230,22 +190,54 @@ export class SessionImpl implements Session {
   ) => {
     const { styleSheetId, sourceURL } = e.header;
 
-    // StyleSheetHeader doesn't contain the text so we fetch it separately.
-    const res = await this.cdp
-      .send('CSS.getStyleSheetText', {
+    try {
+      const res = await this.cdp.send('CSS.getStyleSheetText', {
         styleSheetId,
-      })
-      // TODO: fix this error
-      .catch(() => undefined);
+      });
 
-    if (res == null) return;
+      if (res == null) return;
 
-    const source = new Source({
-      url: sourceURL,
-      node: new CSSNode(postcss.parse(res.text)),
-    });
+      const text = this.settings.format
+        ? format(SourceType.CSS, res.text)
+        : res.text;
 
-    this.sources.set(source.id, source);
-    this.cssIdsMap.set(styleSheetId, source.id);
+      const source = new Source({
+        type: SourceType.CSS,
+        url: sourceURL,
+        node: new CSSNode(postcss.parse(text)),
+      });
+
+      this.sources.set(source.id, source);
+      this.cssIdsMap.set(styleSheetId, source.id);
+    } catch (error) {
+      // eslint-disable-next-line
+      console.error(error);
+    }
   };
+
+  private async connectCDP() {
+    // Create CDP session
+    await this.cdp.send('DOM.enable');
+    await this.cdp.send('CSS.enable');
+    this.cdp.on('CSS.styleSheetAdded', this.handleStyleSheetAdded);
+  }
+
+  private async storeHTML(rawContent: string) {
+    // Parse HTML as an AST and cache
+    const content = this.settings.format
+      ? format(SourceType.HTML, rawContent)
+      : rawContent;
+
+    const ast = parseDOM(content, {
+      withEndIndices: true,
+      withStartIndices: true,
+    });
+    const source = new Source({
+      type: SourceType.HTML,
+      url: this.page.url(),
+      node: new HTMLRootNode(ast),
+    });
+    this.htmlIdsMap.set('main', source.id);
+    this.sources.set(source.id, source);
+  }
 }

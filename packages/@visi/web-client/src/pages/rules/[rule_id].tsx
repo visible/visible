@@ -10,22 +10,22 @@ const Rule: NextPage = () => {
   const { t } = useTranslation();
 
   return (
-    <Layout.Main>
+    <Layout.Page>
       <NextSeo
         title={t('rule.title', 'Rule')}
         description={'' /* rule description comes here */}
       />
 
       <Layout.Container>
-        <Layout.Content>
+        <Layout.Main>
           <PagePlaceholder />
-        </Layout.Content>
+        </Layout.Main>
       </Layout.Container>
-    </Layout.Main>
+    </Layout.Page>
   );
 };
 
-Rule.getInitialProps = async () => ({
+export const getInitialProps = async () => ({
   namespacesRequired: ['web-client'],
 });
 

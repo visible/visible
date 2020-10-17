@@ -19,6 +19,9 @@ module.exports = {
     },
     './src/generated/introspection-result.ts': {
       plugins: ['fragment-matcher'],
+      config: {
+        apolloClientVersion: 3,
+      },
     },
   },
 };

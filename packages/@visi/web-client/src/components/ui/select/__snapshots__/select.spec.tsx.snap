@@ -1,20 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Select matches snapshot 1`] = `
-<details
-  class="relative"
+<div
+  class="relative text-sm text-gray-700"
 >
-  <summary
-    class="text-sm border border-gray-400 rounded text-gray-700 py-1 px-3 w-24 hover:bg-gray-100 active:bg-gray-200 transition-all duration-75 ease-in text-left cursor-pointer select-none"
+  <select
+    class="appearance-none py-1 px-2 border rounded w-64 text-left border-gray-400 cursor-pointer"
   >
-    <span>
-      foo
-    </span>
-  </summary>
-  <div
-    class="absolute border border-gray-400 bg-white p-2 shadow z-10"
+    foo
+  </select>
+  <svg
+    aria-hidden="true"
+    class="svg-inline--fa fa-chevron-down fa-w-14 absolute top-0 right-0 bottom-0 m-auto mr-2"
+    data-icon="chevron-down"
+    data-prefix="fas"
+    focusable="false"
+    role="img"
+    viewBox="0 0 448 512"
+    xmlns="http://www.w3.org/2000/svg"
   >
-    This feature not implemented yet
-  </div>
-</details>
+    <path
+      d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
+      fill="currentColor"
+    />
+  </svg>
+</div>
 `;

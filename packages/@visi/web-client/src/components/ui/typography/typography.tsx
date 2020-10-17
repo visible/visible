@@ -26,6 +26,7 @@ export type TypographyFontSize =
   | 'sm'
   | 'xs';
 export type TypographyColor = 'wash' | 'normal' | 'invert';
+export type TypographyFont = 'mono' | 'normal';
 
 export interface TypographyProps {
   variant: TypographyVariant;
@@ -34,9 +35,20 @@ export interface TypographyProps {
   fontStyle?: TypographyFontStyle;
   fontWeight?: TypographyFontWeight;
   fontSize?: TypographyFontSize;
+  font?: TypographyFont;
   align?: TypographyAlign;
+  lang?: string;
   className?: string;
 }
+
+const mapFont = (font: TypographyFont) => {
+  switch (font) {
+    case 'mono':
+      return 'font-mono';
+    default:
+      return;
+  }
+};
 
 const mapFontSizeToClassName = (fontSize: TypographyFontSize) => {
   switch (fontSize) {
@@ -109,40 +121,46 @@ const mapColorPropToClassName = (color: TypographyColor) => {
 
 const isHeading = (variant: TypographyVariant) => /^h/.test(variant);
 
-export const Typography = (props: TypographyProps) => {
-  const {
-    color,
+export const Typography = ({
+  color,
+  variant,
+  fontSize,
+  fontStyle,
+  fontWeight,
+  font,
+  children,
+  align,
+  className,
+  ...rest
+}: TypographyProps) => {
+  return React.createElement(
     variant,
-    fontSize,
-    fontStyle,
-    fontWeight,
-    children,
-    align,
-    className: _class,
-  } = props;
-
-  const className = classNames(
     {
-      italic: fontStyle === 'italic',
-      'font-bold':
-        (isHeading(variant) && fontWeight === undefined) ||
-        fontWeight === 'bold',
-      'font-mono': variant === 'code',
+      className: classNames(
+        {
+          italic: fontStyle === 'italic',
+          'font-bold':
+            (isHeading(variant) && fontWeight === undefined) ||
+            fontWeight === 'bold',
+          'font-mono': variant === 'code',
+        },
+        variant === 'code' && [
+          'rounded-sm',
+          'bg-gray-300',
+          'px-1',
+          'leading-relaxed',
+          'text-indigo-900',
+        ],
+        mapFontSizeToClassName(fontSize ?? inferFontSizeFromVariant(variant)),
+        color && mapColorPropToClassName(color),
+        align && mapAlign(align),
+        font && mapFont(font),
+        className,
+      ),
+      ...rest,
     },
-    variant === 'code' && [
-      'rounded',
-      'bg-gray-300',
-      'p-1',
-      // 'mx-2',
-      'text-indigo-900',
-    ],
-    mapFontSizeToClassName(fontSize ?? inferFontSizeFromVariant(variant)),
-    color && mapColorPropToClassName(color),
-    align && mapAlign(align),
-    _class,
+    children,
   );
-
-  return React.createElement(variant, { className }, children);
 };
 
 Typography.defaultProps = {

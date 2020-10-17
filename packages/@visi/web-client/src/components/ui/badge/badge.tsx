@@ -3,12 +3,6 @@ import React from 'react';
 
 export type BadgeVariant = 'red' | 'green' | 'grey' | 'purple' | 'yellow';
 
-export interface BadgeProps {
-  variant: BadgeVariant;
-  children: React.ReactNode;
-  className?: string;
-}
-
 const mapVariant = (variant: BadgeVariant) => {
   switch (variant) {
     case 'red':
@@ -24,13 +18,20 @@ const mapVariant = (variant: BadgeVariant) => {
   }
 };
 
+export type BadgeProps = JSX.IntrinsicElements['div'] & {
+  variant: BadgeVariant;
+  children: React.ReactNode;
+  className?: string;
+};
+
 export const Badge = ({
   children,
   variant,
   className: _className,
+  ...rest
 }: BadgeProps) => {
   const wrapper = classNames('inline-flex', 'items-center', _className);
-  const text = classNames('text-sm', 'text-gray-800', 'leading-none');
+  const text = classNames('text-sm', 'text-gray-700', 'leading-none');
   const dot = classNames(
     'w-2',
     'h-2',
@@ -41,7 +42,7 @@ export const Badge = ({
   );
 
   return (
-    <div className={wrapper}>
+    <div className={wrapper} {...rest}>
       <div role="presentation" className={dot} />
       <span className={text}>{children}</span>
     </div>

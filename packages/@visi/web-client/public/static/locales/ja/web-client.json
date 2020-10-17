@@ -1,26 +1,58 @@
 {
   "banner": {
+    "description": "サイトメニュー",
     "home": "ホーム",
     "rules": "ルール"
   },
+  "code-frame": {
+    "filename": "Filename",
+    "line-number": "{{number}}行目"
+  },
   "content-info": {
-    "email": "お問い合わせ",
-    "github": "GitHub",
-    "twitter": "Twitter"
+    "contact": {
+      "email": "メール",
+      "github-issues": "バグを報告",
+      "title": "お問い合わせ",
+      "twitter": "Twitter"
+    },
+    "product": {
+      "get-started": "使い方",
+      "newsletter": "ニュースレター",
+      "press-kit": "プレスキット",
+      "title": "プロダクト"
+    },
+    "resources": {
+      "docs": "ドキュメント",
+      "github": "GitHub",
+      "title": "リソース"
+    }
   },
   "diagnoses": {
+    "created_at": "{{date}}に作成",
     "description": "Visibleによるあなたの診断結果",
     "error": "エラーが発生しました",
     "files": "ファイル",
-    "keywords": "キーワード",
+    "header": {
+      "description": "このサイトの概要"
+    },
+    "keywords": "関連するキーワード",
     "loading": "読み込み中...",
-    "no-reports": "Awesome! No issue found for this website",
+    "nav": "診断結果メニュー",
     "processing": {
       "description": "サーバーで診断プログラムを実行しています。このプロセスはしばらく時間がかかる場合があります。",
+      "label": "状況",
       "title": "診断を実行中"
+    },
+    "queue": {
+      "description": "このサイトはキューに追加され、他のサイトの診断が終わり次第診断されます。"
+    },
+    "queued": {
+      "ready": "間もなく開始します...",
+      "title": "他の{{count}}件の診断が終わるのを待っています"
     },
     "reports": "レポート",
     "rules": "ルール",
+    "screenshot": "{{title}}のスクリーンショット",
     "sources": "ファイル",
     "title": "{{domain}}の診断結果"
   },
@@ -36,6 +68,10 @@
     "description": "Rules that are raised issues on {{domain}}",
     "title": "Rules: {{domain}}"
   },
+  "diff-code-frame": {
+    "added": "追加された行",
+    "removed": "削除された行"
+  },
   "difficulty": {
     "difficult": "難しい",
     "easy": "簡単",
@@ -45,41 +81,44 @@
     "default-message": "エラーメッセージがありません",
     "default-title": "予期せぬエラーが発生しました"
   },
+  "features": {
+    "automation": {
+      "description": "他のツールとは異なり、Visibleは警告とともに問題を修正するためのパッチも提供するため、今以上にコーディングに集中できます。",
+      "title": "修正提案"
+    },
+    "ci": {
+      "description": "Visibleはコマンドラインでも実行可能なため、継続的インテグレーションで実行してウェブサイトのアクセシビリティーを監視できます。",
+      "title": "コマンドライン"
+    },
+    "learn": {
+      "description": "Visible はコードのどの箇所がa11yに違反するかを常にお知らせするので、コードを書けば書くほどa11yに詳しくなります。",
+      "title": "A11yに詳しくなる"
+    },
+    "title": "機能"
+  },
+  "help-improve": {
+    "description": "意見、アイデア、提案はGitHubにissueを報告またはpull requestを作成してお聞かせください。EメールまたはTwitterでご連絡していただくことも可能です。",
+    "email": "Email",
+    "new-issue": "GitHubでissueを作成",
+    "title": "このページを改善する",
+    "twitter": "Twitter"
+  },
   "home": {
-    "agenda": {
-      "description": "Visibleはただ警告を表示するリンターやテストと異なり、アクセシビリティーについて学び修正するために、ソースコードのどこに問題があるかをお知らせし、パッチを提供し、参考になる情報も提供します。",
-      "image": "本",
-      "title": "簡単に、もっとアクセシブルに"
-    },
     "description": "Visibleはウェブサイト開発者にアクセシビリティーに配慮したウェブサイトを開発する手助けをするツールです",
-    "features": {
-      "automation": {
-        "description": "他のツールとは異なり、Visibleは警告とともに問題を修正するためのパッチも提供するため、今以上にコーディングに集中できます。",
-        "title": "自動化"
-      },
-      "beta": {
-        "description": "今年の11月までにVisibleの安定版をリリースすべく開発に励んでいます。もしVisibleやアクセシビリティーにご興味を持たれた場合は、ぜひお試しください。プログラムはまだ開発中であり、正常に動作する保証はございません。",
-        "title": "ベータを試用してください！"
-      },
-      "ci": {
-        "description": "Visibleはコマンドラインでも実行可能なため、継続的インテグレーションで実行してウェブサイトのアクセシビリティーを監視できます。",
-        "title": "継続的インテグレーション"
-      },
-      "learn": {
-        "description": "Visible はコードのどの箇所がa11yに違反するかを常にお知らせするので、コードを書けば書くほどa11yに詳しくなります。",
-        "title": "A11yに詳しくなる"
-      },
-      "title": "機能"
-    },
     "introduction": "紹介",
     "placeholder": "ウェブサイトのURLを入力",
     "submit": "診断",
-    "title": "みんなが見れるウェブサイトを作ろう"
+    "title": "あなたのサイト、見えますか？",
+    "wizard-label": "サイトURL"
   },
   "impact": {
     "critical": "深刻",
     "minor": "軽微",
     "serious": "重要"
+  },
+  "imprint": {
+    "description": "VisibleはWeb支援技術の可能性を模索し可用性を広げるために、日本の高校生の<2>五十嵐　涼</2>によって2019年12月から開発されているオープンソースソフトウェアです。2020年5月には<6>一般社団法人未踏</6>によって<10>未踏ジュニア</10>のプロジェクトとして採択され、技術的・金銭的支援を受けています。",
+    "title": "開発者"
   },
   "keyword": {
     "description": "Documentation and related information for {{keywordId}}",
@@ -101,6 +140,20 @@
     "description": "🦉 VisibleはNode.js及びCI上で動作するオープンソースのアクセシビリティーテストツールです",
     "title": "Visible"
   },
+  "newsletter": {
+    "description": "今年の11月までにVisibleの安定版をリリースすべく開発に励んでいます。もしVisibleやアクセシビリティーにご興味を持たれた場合はぜひ以下のフォームからニュースレターに登録してください。今後ベータ版のテストにご招待し、フィードバックにご協力いただく場合がございます。",
+    "title": "今すぐベータ登録！"
+  },
+  "newsletter-form": {
+    "a11y-pro": "アクセシビリティー担当者",
+    "description": "月に一度程度のEメールを送信します。購読はいつでも解除できます。",
+    "designer": "デザイナー",
+    "developer": "開発者",
+    "email": "Eメールアドレス",
+    "role": "役職",
+    "subscribe": "購読",
+    "title": "ニュースレター"
+  },
   "not-found": {
     "title": "ページが見つかりません"
   },
@@ -110,15 +163,32 @@
     "title": "実装中"
   },
   "report": {
+    "code-frame": "該当箇所",
+    "collapsed": "詳細を表示",
     "difficulty": "難易度: {{difficulty}}",
-    "filename": "Found at",
+    "expanded": "詳細を非表示",
+    "filename": "<1>{{filename}}</1>で発見",
     "impact": "重要度: {{impact}}",
-    "no-desc": "no description provided",
-    "rule-id": "Reported by"
+    "list": {
+      "filter": "フィルター",
+      "sort": "ソート"
+    },
+    "no-desc": "説明は提供されていません",
+    "outcome": {
+      "fail": "失敗",
+      "inapplicable": "診断不能",
+      "passed": "合格"
+    },
+    "reference": "参考",
+    "rule-id": "<1>{{ruleId}}</1>によって報告",
+    "suggestion": "提案された変更"
   },
   "report-list": {
     "description": "{{count}}件の問題が報告されました。クリックで重要度や修正方法を含む詳細を表示できます。",
     "title": "レポート"
+  },
+  "rerun": {
+    "title": "再実行"
   },
   "rule": {
     "title": "Rule"
@@ -130,11 +200,23 @@
   "select": {
     "placeholder": "この機能は現在実装中です"
   },
+  "source": {
+    "report-count": "レポート数: {{count}}"
+  },
   "status": {
+    "description": "診断状況: {{status}}",
     "done": "完了",
     "failed": "エラー",
     "processing": "処理中",
     "queued": "待機中",
     "started": "開始中"
+  },
+  "survey": {
+    "title": "📝 3分で終わります！アンケートに答えてフィードバックにご協力ください！"
+  },
+  "synopsis": {
+    "description": "Visibleはただ警告を表示するリンターやテストと異なり、アクセシビリティーについて学び修正するために、ソースコードのどこに問題があるかをお知らせし、パッチを提供し、参考になる情報も提供します。",
+    "image": "本",
+    "title": "簡単に、もっとアクセシブルに"
   }
 }

@@ -6,14 +6,17 @@ export const TYPES = {
   Analyzer: Symbol.for('Analyzer'),
 
   Connection: Symbol.for('Connection'),
+  Redis: Symbol.for('Redis'),
   Context: Symbol.for('Context'),
   Config: Symbol.for('Config'),
-  Visible: Symbol.for('Visible'),
+  VisiblePool: Symbol.for('VisiblePool'),
 
   DiagnosisRepository: Symbol.for('DiagnosisRepository'),
   RuleRepository: Symbol.for('RuleRepository'),
+  StatsRepository: Symbol.for('StatsRepository'),
 
   ProcessDiagnosisQueue: Symbol.for('ProcessDiagnosisQueue'),
+  ProcessDiagnosisQueueEvents: Symbol.for('ProcessDiagnosisQueueEvents'),
 
   CreateDiagnosisUseCase: Symbol.for('CreateDiagnosisUseCase'),
   CreateRuleUseCase: Symbol.for('CreateRuleUseCase'),
@@ -22,4 +25,6 @@ export const TYPES = {
   DeleteDiagnosisUseCase: Symbol.for('DeleteDiagnosisUseCase'),
   ProcessDiagnosisUseCase: Symbol.for('ProcessDiagnosisUseCase'),
   SubscribeDiagnosisUseCase: Symbol.for('SubscribeDiagnosisUseCase'),
+  FindStatsUseCase: Symbol.for('FindStatsUseCase'),
+  SubscribeStatsUseCase: Symbol.for('SubscribeStatsUseCase'),
 };

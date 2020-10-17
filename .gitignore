@@ -54,18 +54,21 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
+# Added
 .env
-
-# next.js build output
-.next
-
 .DS_Store
-dist
-credentials
-generated
-postgres
-redis
-tmp
-.cache
+/packages/@visi/web-server/static/*
+/packages/@visi/web-client/.next
+
+# Optional stylelint cache
 .stylelintcache
+
+# Special dir names
+dist
+generated
+tmp
+
+# Docker volumes
+/volumes
+
+!.keep

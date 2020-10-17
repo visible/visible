@@ -5,7 +5,8 @@ import Link from 'next/link';
 import React from 'react';
 
 import { Outcome, SourceLargeFragment } from '../../generated/graphql';
-import { Hidden, Typography } from '../ui';
+import { useTranslation } from '../../utils/i18next';
+import { Typography } from '../ui';
 
 // TODO: Add Type field
 const mapIcon = (url: string) => {
@@ -23,8 +24,14 @@ export interface SourceProps {
   withFailCount?: boolean;
 }
 
-export const Source = (props: SourceProps) => {
-  const { source, withFailCount, withFileIcon, diagnosisId } = props;
+export const Source = ({
+  source,
+  withFailCount,
+  withFileIcon,
+  diagnosisId,
+}: SourceProps) => {
+  const { t } = useTranslation();
+
   const icon = mapIcon(source.url);
   const count = source.reports.filter(
     (report) => report.outcome === Outcome.Fail,
@@ -44,6 +51,9 @@ export const Source = (props: SourceProps) => {
 
       {withFailCount && (
         <div
+          aria-label={t('source.report-count', 'Report count: {{count}}', {
+            count,
+          })}
           className={classNames(
             'rounded-full',
             'flex',
@@ -57,7 +67,6 @@ export const Source = (props: SourceProps) => {
               : ['text-gray-700', 'bg-gray-200'],
           )}
         >
-          <Hidden>Reports count:</Hidden>
           {count}
         </div>
       )}

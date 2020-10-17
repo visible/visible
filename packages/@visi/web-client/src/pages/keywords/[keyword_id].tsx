@@ -13,7 +13,7 @@ const Keyword: NextPage = () => {
   const keywordId = router.query.keyword_id;
 
   return (
-    <Layout.Main>
+    <Layout.Page>
       <NextSeo
         title={t('keyword.title', 'Keyword: {{keywordId}}', { keywordId })}
         description={t(
@@ -24,12 +24,16 @@ const Keyword: NextPage = () => {
       />
 
       <Layout.Container>
-        <Layout.Content>
+        <Layout.Main>
           <PagePlaceholder />
-        </Layout.Content>
+        </Layout.Main>
       </Layout.Container>
-    </Layout.Main>
+    </Layout.Page>
   );
 };
+
+export const getInitialProps = async () => ({
+  namespacesRequired: ['web-client'],
+});
 
 export default Keyword;

@@ -7,10 +7,14 @@ export default {
   component: Search,
 };
 
-export const normal = () => <Search placeholder="Type the text">Search</Search>;
+export const normal = () => (
+  <Search id="foo" placeholder="Type the text">
+    Search
+  </Search>
+);
 
 export const disabled = () => (
-  <Search disabled placeholder="type the text">
+  <Search disabled id="foo" placeholder="type the text">
     Search
   </Search>
 );

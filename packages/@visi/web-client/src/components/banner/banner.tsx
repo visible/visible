@@ -31,7 +31,7 @@ const Logography = () => {
 };
 
 export const Banner = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const navItems: NavItem[] = [
     {
@@ -48,9 +48,29 @@ export const Banner = () => {
     },
   ];
 
+  const surveyLink =
+    i18n.language === 'en'
+      ? 'https://forms.gle/H72ddXy16X6KZf1T6'
+      : 'https://forms.gle/SvSkkKMs1NDbm4vn9';
+
   return (
     <Layout.Header>
-      <Layout.Container padding={false}>
+      <div className="bg-purple-700 text-white">
+        <Layout.Container className="justify-center">
+          <a
+            href={surveyLink}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline"
+          >
+            {t(
+              'survey.title',
+              "📝 Answer a survey to report issues or request a feature! It's brief that takes about 3 min!",
+            )}
+          </a>
+        </Layout.Container>
+      </div>
+      <Layout.Container>
         <div className="flex w-full justify-between">
           <div>
             <Typography variant="h1" fontWeight="normal">
@@ -63,7 +83,11 @@ export const Banner = () => {
           </div>
 
           <div>
-            <Nav items={navItems} variant="invert" />
+            <Nav
+              items={navItems}
+              variant="invert"
+              aria-label={t('banner.description', 'Site navigation')}
+            />
           </div>
         </div>
       </Layout.Container>

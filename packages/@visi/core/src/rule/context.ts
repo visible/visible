@@ -22,6 +22,7 @@ export interface InapplicableReportParams {
 export interface PassedReportParams {
   outcome: Outcome.PASSED;
   target: string;
+  message: string;
 }
 
 export interface FailReportParams<T> {

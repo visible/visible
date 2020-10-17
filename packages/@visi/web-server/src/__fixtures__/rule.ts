@@ -7,4 +7,5 @@ export const rule = Rule.from({
   type: RuleType.ATOMIC,
   description: 'foo',
   keywords: ['foo', 'bar'],
+  mapping: ['WCAG21:foo-bar'],
 });

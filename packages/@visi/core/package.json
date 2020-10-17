@@ -1,6 +1,6 @@
 {
   "name": "@visi/core",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "license": "AGPL-3.0",
   "main": "./dist/main/index.js",
   "scripts": {
@@ -21,8 +21,10 @@
     "htmlparser2": "^4.1.0",
     "i18next": "^19.6.3",
     "immer": "^7.0.7",
+    "node-fetch": "^2.6.1",
     "postcss": "^7.0.32",
-    "rxjs": "^6.6.2",
+    "prettier": "^2.1.2",
+    "rxjs": "^6.6.3",
     "uuid": "^8.3.0",
     "xpath-analyzer": "^3.0.1"
   },
@@ -31,6 +33,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@types/node": "^14.0.27",
+    "@types/node-fetch": "^2.5.7",
     "@types/uuid": "^8.3.0",
     "rollup": "^2.23.1",
     "rollup-plugin-node-builtins": "^2.1.2",

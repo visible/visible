@@ -1,25 +1,33 @@
 import { AsyncContainerModule } from 'inversify';
 
 import { TYPES } from '../../types';
-import { ConfigImpl } from '../config';
-import { createConnection } from '../connection';
-import { ProcessDiagnosisQueueImpl } from '../queues';
+import { createConnection, RedisConnector } from '../connection';
+import {
+  ProcessDiagnosisQueueEventsImpl,
+  ProcessDiagnosisQueueImpl,
+} from '../queues';
 import { ContextImpl } from '../server';
 import { TranslatorImpl } from '../services/analyzer/translator';
+import { VisiblePoolImpl } from '../services/analyzer/visible-pool';
 import { ProcessDiagnosisWorker } from '../workers';
-import { factory } from './visible-factory';
 
-export const framework = new AsyncContainerModule(async (bind) => {
-  const visible = await factory();
+export const framework = (
+  redisConnector: RedisConnector,
+): AsyncContainerModule =>
+  new AsyncContainerModule(async (bind) => {
+    bind(TYPES.Connection).toConstantValue(await createConnection());
+    bind(TYPES.Redis).toConstantValue(await redisConnector.connect());
 
-  bind(TYPES.Config).to(ConfigImpl);
-  bind(TYPES.Connection).toConstantValue(await createConnection());
-  bind(TYPES.ProcessDiagnosisQueue).to(ProcessDiagnosisQueueImpl);
-  bind(TYPES.Visible).toConstantValue(visible);
-  bind(TranslatorImpl).toSelf();
-  bind(ProcessDiagnosisWorker).toSelf();
+    // @visi/core
+    bind(TYPES.VisiblePool).to(VisiblePoolImpl).inSingletonScope();
+    bind(TranslatorImpl).toSelf();
 
-  // Context must be initialized for each request
-  // https://www.apollographql.com/docs/graphql-tools/connectors
-  bind(TYPES.Context).to(ContextImpl).inRequestScope();
-});
+    // Bull
+    bind(ProcessDiagnosisWorker).toSelf();
+    bind(TYPES.ProcessDiagnosisQueue).to(ProcessDiagnosisQueueImpl);
+    bind(TYPES.ProcessDiagnosisQueueEvents).to(ProcessDiagnosisQueueEventsImpl);
+
+    // Context must be initialized for each request
+    // https://www.apollographql.com/docs/graphql-tools/connectors
+    bind(TYPES.Context).to(ContextImpl).inRequestScope();
+  });

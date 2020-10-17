@@ -5,7 +5,7 @@ import { Provider } from '../provider';
 import { Progress, Rule } from '../rule';
 import { Settings } from '../settings';
 import { Capturer } from './capturer';
-import { Validator } from './validator';
+import { DiagnoseParam, Validator } from './validator';
 import { Website } from './website';
 
 // Facade
@@ -15,7 +15,7 @@ export class Visible {
 
   constructor(
     settings: Settings,
-    driver: Driver,
+    readonly driver: Driver,
     rules: Rule[],
     provider: Provider,
   ) {
@@ -23,11 +23,16 @@ export class Visible {
     this.capturer = new Capturer(settings, driver);
   }
 
-  diagnose(url: string): Observable<Progress> {
-    return this.validator.diagnose(url);
+  diagnose(params: DiagnoseParam): Observable<Progress> {
+    return this.validator.diagnose(params);
   }
 
   capture(url: string): Promise<Website> {
     return this.capturer.capture(url);
+  }
+
+  /** @experimental */
+  async quit(): Promise<void> {
+    await this.driver.quit();
   }
 }

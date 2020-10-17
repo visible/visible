@@ -21,11 +21,11 @@ const NotFound: NextPage = () => {
   const title = t('not-found.title', 'You hit the void!');
 
   return (
-    <Layout.Main>
+    <Layout.Page>
       <NextSeo title={title} description={'foobar'} />
 
       <Layout.Container>
-        <Layout.Content>
+        <Layout.Main>
           <Typography variant="h1">{title}</Typography>
 
           <Typography variant="p" className="mb-4">
@@ -37,10 +37,14 @@ const NotFound: NextPage = () => {
           </Typography>
 
           <Image src="/static/404.png" alt={title} className="w-1/6 m-auto" />
-        </Layout.Content>
+        </Layout.Main>
       </Layout.Container>
-    </Layout.Main>
+    </Layout.Page>
   );
 };
+
+export const getInitialProps = async () => ({
+  namespacesRequired: ['web-client'],
+});
 
 export default NotFound;

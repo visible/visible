@@ -1,9 +1,14 @@
+import { inject, injectable } from 'inversify';
+import IORedis from 'ioredis';
 import path from 'path';
 import {
   Connection,
   ConnectionOptionsReader,
   createConnection as defaultCreateConnection,
 } from 'typeorm';
+
+import { TYPES } from '../types';
+import { Config } from './config';
 
 // Workaround for TypeORM + Monorepo issue:
 // https://github.com/inxilpro/node-app-root-path/issues/31#issuecomment-439739607
@@ -27,3 +32,20 @@ export const createConnection = async (): Promise<Connection> => {
 
   return connection;
 };
+
+@injectable()
+export class RedisConnector {
+  constructor(
+    @inject(TYPES.Config)
+    private readonly config: Config,
+  ) {}
+
+  async connect(): Promise<IORedis.Redis> {
+    const ioredis = new IORedis(
+      this.config.redis.port,
+      this.config.redis.host,
+      { password: this.config.redis.password },
+    );
+    return ioredis;
+  }
+}

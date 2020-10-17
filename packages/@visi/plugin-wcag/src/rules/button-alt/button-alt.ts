@@ -6,7 +6,10 @@ import {
   Rule,
   RuleType,
 } from '@visi/core';
+import { outdent } from 'outdent';
 
+import { isAccessibleName } from '../../utils/is-accessible-name';
+import { truncate } from '../../utils/truncate';
 import { BLINDNESS, BOT, LOW_VISION } from '../keywords';
 
 export class ButtonAlt implements Rule {
@@ -15,48 +18,46 @@ export class ButtonAlt implements Rule {
   name = 'Button Alternative Text';
   description = 'Check if button has text content';
   keywords = [BLINDNESS, LOW_VISION, BOT];
+  mapping = ['WCAG21:text-alternatives'];
 
   async create(ctx: Context): Promise<void> {
-    const [isApplicable, xpaths] = await ctx.session.runScript<
-      [boolean, string[]]
-    >(`
-      (() => {
-        const buttons = visible.$$('button');
-
-        const violations = buttons
-          .filter(elm => {
-            const alt = elm.textContent;
-            return alt == null || alt === '';
-          })
-          .map(elm => visible.createXPath(elm));
-
-        return [buttons.length !== 0, violations];
-      })();
+    const dto = await ctx.session.runScript<[string, string][]>(`
+      visible
+        .$$('button')
+        .map((elm) => [visible.createXPath(elm), elm.textContent]);
     `);
 
-    if (!isApplicable) {
+    if (dto.length === 0) {
       return ctx.reportHTML({
         outcome: Outcome.INAPPLICABLE,
         target: '/html',
       });
     }
 
-    if (xpaths.length === 0) {
-      return ctx.reportHTML({
-        outcome: Outcome.PASSED,
-        target: '/html',
-      });
-    }
+    for (const [xpath, textContent] of dto) {
+      if (isAccessibleName(textContent)) {
+        const truncatedText = truncate(textContent);
 
-    for (const xpath of xpaths) {
+        await ctx.reportHTML({
+          target: xpath,
+          outcome: Outcome.PASSED,
+          message: outdent({ newline: ' ' })`
+            The name "${truncatedText}" is used for describing the role of
+            the button by user-agents where images are not available.
+          `,
+        });
+        continue;
+      }
+
       await ctx.reportHTML({
         outcome: Outcome.FAIL,
         target: xpath,
         impact: Impact.CRITICAL,
         difficulty: Difficulty.EASY,
-        message:
-          'You must include texts to describe the role of the button ' +
-          'for user agents where icons or images are not available.',
+        message: outdent({ newline: ' ' })`
+          You must include texts to describe the role of the button
+          for user agents where icons or images are not available.
+        `,
       });
     }
   }

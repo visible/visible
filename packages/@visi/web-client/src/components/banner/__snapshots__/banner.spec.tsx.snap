@@ -6,7 +6,23 @@ exports[`Banner matches to the snapshot 1`] = `
     class="bg-primary-500 shadow z-10"
   >
     <div
-      class="flex flex-wrap w-full mx-auto p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
+      class="bg-purple-700 text-white"
+    >
+      <div
+        class="flex flex-wrap items-start relative w-full mx-auto box-border p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl justify-center"
+      >
+        <a
+          class="hover:underline"
+          href="https://forms.gle/H72ddXy16X6KZf1T6"
+          rel="noreferrer"
+          target="_blank"
+        >
+          📝 Answer a survey to report issues or request a feature! It's brief that takes about 3 min!
+        </a>
+      </div>
+    </div>
+    <div
+      class="flex flex-wrap items-start relative w-full mx-auto box-border p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
     >
       <div
         class="flex w-full justify-between"
@@ -31,20 +47,22 @@ exports[`Banner matches to the snapshot 1`] = `
                   class="border rounded p-1 font-mono text-xs border-white text-white"
                 >
                   preview - 
-                  0.2.0
+                  0.0.1
                 </span>
               </div>
             </a>
           </h1>
         </div>
         <div>
-          <nav>
+          <nav
+            aria-label="Site navigation"
+          >
             <ul
-              class="flex flex-row space-x-4"
+              class="flex space-x-4"
             >
               <li>
                 <a
-                  class="p-2 rounded text-sm font-semibold space-x-2 text-white hover:bg-primary-600"
+                  class="py-2 px-3 rounded-md text-sm font-semibold space-x-2 transition-colors duration-75 text-white hover:bg-primary-600"
                   href="/"
                 >
                   <span>
@@ -71,7 +89,7 @@ exports[`Banner matches to the snapshot 1`] = `
               </li>
               <li>
                 <a
-                  class="p-2 rounded text-sm font-semibold space-x-2 text-white hover:bg-primary-600"
+                  class="py-2 px-3 rounded-md text-sm font-semibold space-x-2 transition-colors duration-75 text-white hover:bg-primary-600"
                   href="/rules"
                 >
                   <span>

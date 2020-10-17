@@ -25,6 +25,9 @@ export class RuleDBEntity {
   @Column('json', { nullable: true })
   keywords?: readonly string[];
 
+  @Column('json', { nullable: true })
+  mapping?: readonly string[];
+
   static fromDomain(rule: Rule): RuleDBEntity {
     const entity = new RuleDBEntity();
     entity.id = rule.id;
@@ -33,6 +36,7 @@ export class RuleDBEntity {
     entity.type = rule.type;
     entity.description = rule.description;
     entity.keywords = rule.keywords;
+    entity.mapping = rule.mapping;
     return entity;
   }
 
@@ -44,6 +48,7 @@ export class RuleDBEntity {
       type: this.type,
       description: this.description,
       keywords: this.keywords,
+      mapping: this.mapping,
     });
   }
 }

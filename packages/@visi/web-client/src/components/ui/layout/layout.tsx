@@ -32,35 +32,30 @@ const Footer = ({ children, className, ...rest }: FooterProps) => {
   );
 };
 
-export type MainProps = JSX.IntrinsicElements['main'];
+export type PageProps = JSX.IntrinsicElements['div'];
 
-const Main = ({ children, className, ...rest }: MainProps) => {
+const Page = ({ children, className, ...rest }: PageProps) => {
   return (
-    <main className={classNames('w-full', className)} {...rest}>
+    <div className={classNames('w-full', className)} {...rest}>
       {children}
-    </main>
+    </div>
   );
 };
 
-export type ContainerProps = JSX.IntrinsicElements['div'] & {
-  padding: boolean;
-};
+export type ContainerProps = JSX.IntrinsicElements['div'];
 
-const Container = ({
-  children,
-  padding,
-  className,
-  ...rest
-}: ContainerProps) => {
+const Container = ({ children, className, ...rest }: ContainerProps) => {
   return (
     <div
       className={classNames(
         'flex',
         'flex-wrap',
+        'items-start',
+        'relative',
         'w-full',
         'mx-auto',
+        'box-border',
         'p-3',
-        padding && 'lg:py-8',
         'md:max-w-screen-md',
         'lg:max-w-screen-lg',
         'xl:max-w-screen-xl',
@@ -73,18 +68,33 @@ const Container = ({
   );
 };
 
-Container.defaultProps = {
-  padding: true,
+// Container.defaultProps = {
+//   padding: true,
+// };
+
+export type MainSize = 'single' | 'two-column';
+
+export type MainProps = JSX.IntrinsicElements['main'] & {
+  size: MainSize;
 };
 
-export type ContentProps = JSX.IntrinsicElements['div'];
-
-const Content = ({ children, className, ...rest }: ContentProps) => {
+const Main = ({ children, className, size, ...rest }: MainProps) => {
   return (
-    <article className={classNames('flex-1', className)} {...rest}>
+    <main
+      className={classNames(
+        'w-full',
+        size === 'two-column' && 'lg:w-9/12',
+        className,
+      )}
+      {...rest}
+    >
       {children}
-    </article>
+    </main>
   );
+};
+
+Main.defaultProps = {
+  size: 'single',
 };
 
 export type AsideProps = JSX.IntrinsicElements['aside'];
@@ -94,11 +104,15 @@ const Aside = ({ children, className, ...rest }: AsideProps) => {
     <aside
       className={classNames(
         'w-full',
-        'box-border',
+        'border-box',
+        'sticky',
+        'right-0',
         'lg:pl-8',
         'lg:w-3/12',
+        'space-y-8',
         className,
       )}
+      style={{ top: '0.75rem' }}
       {...rest}
     >
       {children}
@@ -108,9 +122,9 @@ const Aside = ({ children, className, ...rest }: AsideProps) => {
 
 export const Layout = {
   Header,
-  Main,
+  Page,
   Container,
-  Content,
+  Main,
   Aside,
   Footer,
 };

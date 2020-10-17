@@ -13,7 +13,7 @@ const DiagnosisFile: NextPage = () => {
   const fileId = router.query.file_id;
 
   return (
-    <Layout.Main>
+    <Layout.Page>
       <NextSeo
         title={t('diagnosis-file.title', 'File: {{name}}', { name: fileId })}
         description={t(
@@ -24,15 +24,15 @@ const DiagnosisFile: NextPage = () => {
       />
 
       <Layout.Container>
-        <Layout.Content>
+        <Layout.Main>
           <PagePlaceholder />
-        </Layout.Content>
+        </Layout.Main>
       </Layout.Container>
-    </Layout.Main>
+    </Layout.Page>
   );
 };
 
-DiagnosisFile.getInitialProps = async () => ({
+export const getInitialProps = async () => ({
   namespacesRequired: ['web-client'],
 });
 

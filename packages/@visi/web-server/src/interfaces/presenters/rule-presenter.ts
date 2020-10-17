@@ -22,6 +22,7 @@ export class RulePresenter {
       type: this.transformRuleType(rule.type),
       description: rule.description,
       keywords: rule.keywords,
+      mapping: rule.mapping,
     };
   }
 }

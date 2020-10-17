@@ -1,7 +1,6 @@
-import { Visible } from '@visi/core';
 import { inject, injectable } from 'inversify';
-import { from, Observable } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { defer, from, Observable } from 'rxjs';
+import { concatMap, finalize, mergeAll } from 'rxjs/operators';
 
 import { Progress, Website } from '../../../domain/models';
 import {
@@ -11,29 +10,38 @@ import {
 } from '../../../domain/services';
 import { TYPES } from '../../../types';
 import { Translator, TranslatorImpl } from './translator';
+import { VisiblePool } from './visible-pool';
 
 @injectable()
 export class AnalyzerVisibleImpl implements Analyzer {
   constructor(
-    @inject(TYPES.Visible)
-    private readonly visible: Visible,
-
     @inject(TranslatorImpl)
     private readonly translator: Translator,
+
+    @inject(TYPES.VisiblePool)
+    private readonly visiblePool: VisiblePool,
   ) {}
 
   async capture({ url }: CaptureParams): Promise<Website> {
-    const website = await this.visible.capture(url);
-    return this.translator.createWebsite(website);
+    const visible = await this.visiblePool.acquire();
+    const data = await visible.capture(url);
+    const website = await this.translator.createWebsite(data);
+    await this.visiblePool.release(visible);
+    return website;
   }
 
   validate({ url, diagnosisId }: ValidateParams): Observable<Progress> {
-    return this.visible
-      .diagnose(url)
-      .pipe(
+    return defer(async () => {
+      const visible = await this.visiblePool.acquire();
+
+      return visible.diagnose({ url }).pipe(
         concatMap((progress) =>
           from(this.translator.createProgress(progress, diagnosisId)),
         ),
+        finalize(() => {
+          this.visiblePool.release(visible);
+        }),
       );
+    }).pipe(mergeAll());
   }
 }

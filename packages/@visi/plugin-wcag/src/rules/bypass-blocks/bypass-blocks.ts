@@ -9,6 +9,7 @@ import {
 } from '@visi/core';
 import { ElementType } from 'domelementtype';
 import { DataNode, Element } from 'domhandler';
+import { outdent } from 'outdent';
 
 import { ADHD, BLINDNESS, ESSENTIAL_TREMOR, RSI } from '../keywords';
 
@@ -19,6 +20,7 @@ export class BypassBlocks implements Rule {
   description =
     'Check if the webpage has either landmark elements or bypass links';
   keywords = [BLINDNESS, RSI, ADHD, ESSENTIAL_TREMOR];
+  mapping = ['WCAG21:bypass-blocks'];
 
   async create(ctx: Context): Promise<void> {
     const hasLandmarks = await ctx.session.runScript(`
@@ -38,6 +40,10 @@ export class BypassBlocks implements Rule {
       return ctx.reportHTML({
         target: '/html',
         outcome: Outcome.PASSED,
+        message: outdent({ newline: ' ' })`
+          This website uses anchor elements or landmarks so
+          users who use screen readers can jump to the body without hearing the repeated content.
+        `,
       });
     }
 
@@ -46,10 +52,11 @@ export class BypassBlocks implements Rule {
       target: '/html/body',
       impact: Impact.CRITICAL,
       difficulty: Difficulty.MEDIUM,
-      message:
-        'You must use landmarks in markups or provide a bypass to prevent' +
-        'screen readers from reading repeated content in multiple pages. ' +
-        'Landmarks are also used for indicating the role of elements to crawlers',
+      message: outdent({ newline: ' ' })`
+        You must use landmarks in markups or provide a bypass to prevent
+        screen readers from reading repeated content in multiple pages.
+        Landmarks are also used for indicating the role of elements to crawlers
+      `,
       async fix(node: HTMLNode) {
         const body = node.value;
         if (!(body instanceof Element)) return node;
@@ -63,7 +70,7 @@ export class BypassBlocks implements Rule {
 
         const id = firstElm.attribs.id;
         const anchor = new Element('a', { href: `#${id}` });
-        const text = new DataNode(ElementType.Text, 'Jump to content');
+        const text = new DataNode(ElementType.Text, 'Jump to the content');
         anchor.children.push(text);
         body.children.unshift(anchor);
 
