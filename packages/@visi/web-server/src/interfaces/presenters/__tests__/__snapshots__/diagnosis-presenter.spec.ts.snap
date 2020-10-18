@@ -2,6 +2,7 @@
 
 exports[`DiagnosisPresenter transforms diagnosis into API response 1`] = `
 Object {
+  "completeCountAtCreation": 0,
   "createdAt": 2020-05-17T08:28:59.186Z,
   "doneCount": 1,
   "id": "08eecb12-75a1-4798-aca2-f9e919b1fd56",
@@ -30,5 +31,6 @@ Object {
   "totalCount": 1,
   "updatedAt": 2020-05-17T08:28:59.186Z,
   "url": "https://exmaple.com",
+  "waitingCountAtCreation": 0,
 }
 `;

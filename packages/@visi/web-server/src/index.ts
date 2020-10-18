@@ -12,6 +12,7 @@ import {
 } from './frameworks/containers';
 import { Server } from './frameworks/server';
 import { ProcessDiagnosisWorker } from './frameworks/workers';
+import { TYPES } from './types';
 
 (async () => {
   decorate(injectable(), Queue);
@@ -30,6 +31,7 @@ import { ProcessDiagnosisWorker } from './frameworks/workers';
   try {
     server.start();
     container.get(ProcessDiagnosisWorker);
+    container.get(TYPES.ProcessDiagnosisQueueEvents);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(JSON.stringify(error, null, 2));

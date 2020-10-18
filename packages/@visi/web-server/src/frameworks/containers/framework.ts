@@ -2,7 +2,10 @@ import { AsyncContainerModule } from 'inversify';
 
 import { TYPES } from '../../types';
 import { createConnection, RedisConnector } from '../connection';
-import { ProcessDiagnosisQueueImpl } from '../queues';
+import {
+  ProcessDiagnosisQueueEventsImpl,
+  ProcessDiagnosisQueueImpl,
+} from '../queues';
 import { ContextImpl } from '../server';
 import { TranslatorImpl } from '../services/analyzer/translator';
 import { VisiblePoolImpl } from '../services/analyzer/visible-pool';
@@ -22,6 +25,7 @@ export const framework = (
     // Bull
     bind(ProcessDiagnosisWorker).toSelf();
     bind(TYPES.ProcessDiagnosisQueue).to(ProcessDiagnosisQueueImpl);
+    bind(TYPES.ProcessDiagnosisQueueEvents).to(ProcessDiagnosisQueueEventsImpl);
 
     // Context must be initialized for each request
     // https://www.apollographql.com/docs/graphql-tools/connectors

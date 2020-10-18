@@ -43,17 +43,18 @@
       "label": "Progress",
       "title": "Processing diagnostics"
     },
+    "queue": {
+      "description": "This website has been added to the queue and waiting for other diagnoses to complete."
+    },
     "queued": {
-      "description": "This website has been added to the queue and waiting for other process to complete",
-      "title": "Waiting for other diagnoses to complete"
+      "ready": "Diagnosis will start soon...",
+      "title": "Waiting for other {{count}} diagnoses to complete",
+      "title_plural": "Waiting for other {{count}} diagnosis to complete"
     },
     "reports": "Reports",
     "rules": "Rules",
     "screenshot": "Screenshot for {{title}}",
     "sources": "Files",
-    "started": {
-      "title": "Diagnosis will start soon..."
-    },
     "title": "Reports: {{domain}}"
   },
   "diagnosis-file": {
@@ -166,7 +167,6 @@
     "code-frame": "Code frame",
     "collapsed": "Show details",
     "difficulty": "Difficulty: {{difficulty}}",
-    "expand": "Hide details",
     "expanded": "Hide details",
     "filename": "Found at <1>{{filename}}</1>",
     "impact": "Impact: {{impact}}",

@@ -13,8 +13,10 @@ export const TYPES = {
 
   DiagnosisRepository: Symbol.for('DiagnosisRepository'),
   RuleRepository: Symbol.for('RuleRepository'),
+  StatsRepository: Symbol.for('StatsRepository'),
 
   ProcessDiagnosisQueue: Symbol.for('ProcessDiagnosisQueue'),
+  ProcessDiagnosisQueueEvents: Symbol.for('ProcessDiagnosisQueueEvents'),
 
   CreateDiagnosisUseCase: Symbol.for('CreateDiagnosisUseCase'),
   CreateRuleUseCase: Symbol.for('CreateRuleUseCase'),
@@ -23,4 +25,6 @@ export const TYPES = {
   DeleteDiagnosisUseCase: Symbol.for('DeleteDiagnosisUseCase'),
   ProcessDiagnosisUseCase: Symbol.for('ProcessDiagnosisUseCase'),
   SubscribeDiagnosisUseCase: Symbol.for('SubscribeDiagnosisUseCase'),
+  FindStatsUseCase: Symbol.for('FindStatsUseCase'),
+  SubscribeStatsUseCase: Symbol.for('SubscribeStatsUseCase'),
 };
