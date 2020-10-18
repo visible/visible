@@ -15,8 +15,6 @@ describe('Diagnosis', () => {
         totalCount: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
-        waitingCountAtCreation: 0,
-        completeCountAtCreation: 0,
       }),
     );
 
@@ -35,8 +33,6 @@ describe('Diagnosis', () => {
         totalCount: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
-        waitingCountAtCreation: 0,
-        completeCountAtCreation: 0,
       }),
     );
 

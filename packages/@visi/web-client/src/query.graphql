@@ -49,27 +49,15 @@ fragment DiagnosisLarge on Diagnosis {
   doneCount
   totalCount
   createdAt
-  waitingCountAtCreation
-  completeCountAtCreation
   sources {
     ...SourceLarge
   }
-}
-
-fragment StatsLarge on Stats {
-  diagnosisCompleteCount
 }
 
 query fetchDiagnosisLarge($id: ID!) {
 	diagnosis(id: $id) {
 		...DiagnosisLarge
 	}
-}
-
-query fetchStats {
-  stats {
-    ...StatsLarge
-  }
 }
 
 mutation createDiagnosis($url: String!) {
@@ -81,11 +69,5 @@ mutation createDiagnosis($url: String!) {
 subscription subscribeDiagnosis($id: ID!) {
   diagnosis(id: $id) {
     ...DiagnosisLarge
-  }
-}
-
-subscription subscribeToStats {
-  stats {
-    ...StatsLarge
   }
 }

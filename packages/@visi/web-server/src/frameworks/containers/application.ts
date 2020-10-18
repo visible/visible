@@ -6,10 +6,8 @@ import {
   DeleteDiagnosisInteractor,
   FindDiagnosisInteractor,
   FindRuleByReportIdInteractor,
-  FindStatsInteractor,
   ProcessDiagnosisInteractor,
   SubscribeDiagnosisInteractor,
-  SubscribeStatsInteractor,
 } from '../../application/interactors';
 import { TYPES } from '../../types';
 
@@ -21,6 +19,4 @@ export const application = new ContainerModule((bind) => {
   bind(TYPES.ProcessDiagnosisUseCase).to(ProcessDiagnosisInteractor);
   bind(TYPES.CreateRuleUseCase).to(CreateRulesInteractor);
   bind(TYPES.FindRuleByReportIdUseCase).to(FindRuleByReportIdInteractor);
-  bind(TYPES.FindStatsUseCase).to(FindStatsInteractor);
-  bind(TYPES.SubscribeStatsUseCase).to(SubscribeStatsInteractor);
 });
