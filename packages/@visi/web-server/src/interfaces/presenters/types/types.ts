@@ -64,10 +64,6 @@ export type Report = {
   // readonly source: Source;
 };
 
-export interface Stats {
-  readonly diagnosisCompleteCount: number;
-}
-
 export enum Status {
   Queued = 'QUEUED',
   Started = 'STARTED',
@@ -86,6 +82,4 @@ export interface Diagnosis {
   readonly createdAt: Date;
   readonly updatedAt: Date;
   readonly screenshot?: string;
-  readonly waitingCountAtCreation: number;
-  readonly completeCountAtCreation: number;
 }

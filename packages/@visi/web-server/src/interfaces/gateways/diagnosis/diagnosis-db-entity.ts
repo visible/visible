@@ -32,12 +32,6 @@ export class DiagnosisDBEntity {
   @Column('timestamp')
   updatedAt!: Date;
 
-  @Column('int', { default: 0 })
-  waitingCountAtCreation!: number;
-
-  @Column('int', { default: 0 })
-  completeCountAtCreation!: number;
-
   @OneToMany(() => SourceDBEntity, (source) => source.diagnosis)
   readonly sources?: SourceDBEntity[];
 
@@ -51,8 +45,6 @@ export class DiagnosisDBEntity {
     entity.totalCount = diagnosis.totalCount;
     entity.createdAt = diagnosis.createdAt;
     entity.updatedAt = diagnosis.updatedAt;
-    entity.waitingCountAtCreation = diagnosis.waitingCountAtCreation;
-    entity.completeCountAtCreation = diagnosis.completeCountAtCreation;
     return entity;
   }
 
@@ -73,8 +65,6 @@ export class DiagnosisDBEntity {
       sources: this.sources.map((sources) => sources.toDomain()),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
-      waitingCountAtCreation: this.waitingCountAtCreation,
-      completeCountAtCreation: this.completeCountAtCreation,
     });
   }
 }

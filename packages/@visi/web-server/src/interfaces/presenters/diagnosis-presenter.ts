@@ -37,8 +37,6 @@ export class DiagnosisPresenter {
       ),
       doneCount: diagnosis.doneCount,
       totalCount: diagnosis.totalCount,
-      waitingCountAtCreation: diagnosis.waitingCountAtCreation,
-      completeCountAtCreation: diagnosis.completeCountAtCreation,
       createdAt: diagnosis.createdAt,
       updatedAt: diagnosis.updatedAt,
     };

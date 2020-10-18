@@ -43,17 +43,17 @@
       "label": "状況",
       "title": "診断を実行中"
     },
-    "queue": {
-      "description": "このサイトはキューに追加され、他のサイトの診断が終わり次第診断されます。"
-    },
     "queued": {
-      "ready": "間もなく開始します...",
-      "title": "他の{{count}}件の診断が終わるのを待っています"
+      "description": "このサイトはキューに追加され、他のサイトの診断が終わり次第診断されます。",
+      "title": "他の診断が終わるのを待っています"
     },
     "reports": "レポート",
     "rules": "ルール",
     "screenshot": "{{title}}のスクリーンショット",
     "sources": "ファイル",
+    "started": {
+      "title": "間もなく開始します..."
+    },
     "title": "{{domain}}の診断結果"
   },
   "diagnosis-file": {
@@ -166,6 +166,7 @@
     "code-frame": "該当箇所",
     "collapsed": "詳細を表示",
     "difficulty": "難易度: {{difficulty}}",
+    "expand": "Hide details",
     "expanded": "詳細を非表示",
     "filename": "<1>{{filename}}</1>で発見",
     "impact": "重要度: {{impact}}",
