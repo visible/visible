@@ -2,14 +2,16 @@ import classNames from 'classnames';
 import React from 'react';
 
 export type InputShape = 'rounded' | 'circle';
-export type InputSize = 'small' | 'middle';
+export type InputSize = 'small' | 'normal' | 'large';
 
 const mapSize = (size: InputSize) => {
   switch (size) {
     case 'small':
-      return ['py-1', 'px-2'];
-    case 'middle':
-      return ['py-2', 'px-4'];
+      return ['py-1', 'px-2', 'text-sm'];
+    case 'normal':
+      return ['py-2', 'px-4', 'text-sm'];
+    case 'large':
+      return ['py-3', 'px-5', 'text-base'];
   }
 };
 
@@ -34,8 +36,6 @@ export const Input = ({ shape, size, className, ...rest }: InputProps) => {
         'border-gray-400',
         'border',
         'placeholder-gray-600',
-        'text-sm',
-        'w-64',
         'focus:outline-none',
         'focus:shadow-outline',
         'focus:border-primary-500',
@@ -54,5 +54,5 @@ export const Input = ({ shape, size, className, ...rest }: InputProps) => {
 
 Input.defaultProps = {
   shape: 'rounded',
-  size: 'middle',
+  size: 'normal',
 };

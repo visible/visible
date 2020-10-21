@@ -4,11 +4,15 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Button } from '../button';
 import { Input } from '../input';
 
+export type SearchSize = 'normal' | 'large';
+
 export type SearchProps = {
   id: string;
+  className?: string;
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
+  size?: SearchSize;
   type?: string;
   role?: string;
   children: React.ReactNode;
@@ -18,8 +22,10 @@ export type SearchProps = {
 
 export const Search = ({
   id,
+  className,
   children,
   type,
+  size,
   placeholder,
   role,
   onChange,
@@ -40,10 +46,15 @@ export const Search = ({
   };
 
   return (
-    <form role={role} className="inline-flex" onSubmit={handleSubmit}>
+    <form
+      role={role}
+      className={classNames('inline-flex', className)}
+      onSubmit={handleSubmit}
+    >
       <Input
         id={id}
         value={query}
+        size={size}
         type={type}
         placeholder={placeholder}
         disabled={rest.disabled}
@@ -51,6 +62,7 @@ export const Search = ({
         onChange={handleChange}
         shape="circle"
         className={classNames(
+          'flex-1',
           'border-r-0',
           'rounded-tr-none',
           'rounded-br-none',
@@ -61,7 +73,9 @@ export const Search = ({
       <Button
         variant="primary"
         disabled={rest.disabled}
+        size={size}
         className={classNames(
+          'flex-shrink-0',
           'border-l-0',
           'rounded-tl-none',
           'rounded-bl-none',

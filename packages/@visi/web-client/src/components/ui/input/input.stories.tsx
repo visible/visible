@@ -7,8 +7,16 @@ export default {
   component: Input,
 };
 
-export const text = () => <Input type="text" placeholder="type text here" />;
+export const Text = () => <Input type="text" placeholder="type text here" />;
 
-export const password = () => (
+export const Password = () => (
   <Input type="password" placeholder="type text here" />
+);
+
+export const Small = () => (
+  <Input type="text" size="small" placeholder="type text here" />
+);
+
+export const Large = () => (
+  <Input type="text" size="large" placeholder="type text here" />
 );

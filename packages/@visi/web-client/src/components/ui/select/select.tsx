@@ -5,11 +5,12 @@ import React from 'react';
 
 export type SelectProps = JSX.IntrinsicElements['select'] & {
   children: React.ReactNode;
+  className?: string;
   onOpen?(): void;
   onClose?(): void;
 };
 
-export const Select = ({ children, ...rest }: SelectProps) => {
+export const Select = ({ children, className, ...rest }: SelectProps) => {
   return (
     <div className={classNames('relative', 'text-sm', 'text-gray-700')}>
       <select
@@ -19,10 +20,10 @@ export const Select = ({ children, ...rest }: SelectProps) => {
           'px-2',
           'border',
           'rounded',
-          'w-64',
           'text-left',
           'border-gray-400',
           'cursor-pointer',
+          className,
         )}
         {...rest}
       >

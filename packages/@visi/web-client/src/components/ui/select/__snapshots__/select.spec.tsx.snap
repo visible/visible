@@ -5,7 +5,7 @@ exports[`Select matches snapshot 1`] = `
   class="relative text-sm text-gray-700"
 >
   <select
-    class="appearance-none py-1 px-2 border rounded w-64 text-left border-gray-400 cursor-pointer"
+    class="appearance-none py-1 px-2 border rounded text-left border-gray-400 cursor-pointer"
   >
     foo
   </select>

@@ -42,6 +42,7 @@ export const NewsletterForm = ({ className }: NewsletterProps) => {
               id="newsletter-form-email"
               type="email"
               name="EMAIL"
+              className="w-64"
               placeholder="you@example.com"
               size="small"
               required
@@ -54,7 +55,12 @@ export const NewsletterForm = ({ className }: NewsletterProps) => {
               <span className="text-red-500">*</span>
             </label>
 
-            <Select name="MERGE1" id="newsletter-form-role" required>
+            <Select
+              className="w-64"
+              name="MERGE1"
+              id="newsletter-form-role"
+              required
+            >
               <Select.Option value="Developer">
                 {t('newsletter-form.developer', 'Developer')}
               </Select.Option>
