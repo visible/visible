@@ -24,10 +24,14 @@ export class AnalyzerVisibleImpl implements Analyzer {
 
   async capture({ url }: CaptureParams): Promise<Website> {
     const visible = await this.visiblePool.acquire();
-    const data = await visible.capture(url);
-    const website = await this.translator.createWebsite(data);
-    await this.visiblePool.release(visible);
-    return website;
+
+    try {
+      const data = await visible.capture(url);
+      const website = await this.translator.createWebsite(data);
+      return website;
+    } finally {
+      await this.visiblePool.release(visible);
+    }
   }
 
   validate({ url, diagnosisId }: ValidateParams): Observable<Progress> {
