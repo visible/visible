@@ -1,7 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Input matches snapshot 1`] = `
+exports[`Input large 1`] = `
 <input
-  class="border-gray-400 border placeholder-gray-600 text-sm w-64 focus:outline-none focus:shadow-outline focus:border-primary-500 focus:bg-white disabled:opacity-75 disabled:cursor-not-allowed rounded py-2 px-4 rounded"
+  class="border-gray-400 border placeholder-gray-600 focus:outline-none focus:shadow-outline focus:border-primary-500 focus:bg-white disabled:opacity-75 disabled:cursor-not-allowed rounded py-3 px-5 text-base rounded"
+  placeholder="type text here"
+  type="text"
+/>
+`;
+
+exports[`Input password 1`] = `
+<input
+  class="border-gray-400 border placeholder-gray-600 focus:outline-none focus:shadow-outline focus:border-primary-500 focus:bg-white disabled:opacity-75 disabled:cursor-not-allowed rounded py-2 px-4 text-sm rounded"
+  placeholder="type text here"
+  type="password"
+/>
+`;
+
+exports[`Input small 1`] = `
+<input
+  class="border-gray-400 border placeholder-gray-600 focus:outline-none focus:shadow-outline focus:border-primary-500 focus:bg-white disabled:opacity-75 disabled:cursor-not-allowed rounded py-1 px-2 text-sm rounded"
+  placeholder="type text here"
+  type="text"
+/>
+`;
+
+exports[`Input text 1`] = `
+<input
+  class="border-gray-400 border placeholder-gray-600 focus:outline-none focus:shadow-outline focus:border-primary-500 focus:bg-white disabled:opacity-75 disabled:cursor-not-allowed rounded py-2 px-4 text-sm rounded"
+  placeholder="type text here"
+  type="text"
 />
 `;

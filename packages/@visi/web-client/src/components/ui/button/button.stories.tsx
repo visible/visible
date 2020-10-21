@@ -7,17 +7,23 @@ export default {
   component: Button,
 };
 
-export const primary = () => <Button variant="primary">text</Button>;
+export const Primary = () => <Button variant="primary">text</Button>;
 
-export const primaryDisabled = () => (
+export const PrimaryLarge = () => (
+  <Button variant="primary" size="large">
+    text
+  </Button>
+);
+
+export const PrimaryDisabled = () => (
   <Button variant="primary" disabled>
     text
   </Button>
 );
 
-export const secondary = () => <Button variant="secondary">text</Button>;
+export const Secondary = () => <Button variant="secondary">text</Button>;
 
-export const secondaryDisabled = () => (
+export const SecondaryDisabled = () => (
   <Button variant="secondary" disabled>
     text
   </Button>

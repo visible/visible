@@ -1,5 +1,5 @@
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import '../style.css';
+import '../styles/index.css';
 
 import { ApolloProvider } from '@apollo/client';
 import { config } from '@fortawesome/fontawesome-svg-core';

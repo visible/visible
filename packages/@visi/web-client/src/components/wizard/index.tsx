@@ -58,6 +58,8 @@ export const Wizard = () => {
       <Search
         type="url"
         id="wizard-input"
+        size="large"
+        className="w-full md:w-1/2"
         placeholder={t('home.placeholder', 'Type URL of the website')}
         onChange={(v: string) => void setValue(v)}
         onSubmit={handleSubmit}

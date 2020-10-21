@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input primary 1`] = `
+<button
+  class="flex rounded-full transition-all font-semibold duration-200 ease-in shadow hover:shadow-md focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-75 px-4 py-2 text-sm bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700"
+  rel="noreferrer"
+  target="_blank"
+>
+  <span>
+    text
+  </span>
+</button>
+`;
+
+exports[`Input primary disabled 1`] = `
+<button
+  class="flex rounded-full transition-all font-semibold duration-200 ease-in shadow hover:shadow-md focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-75 px-4 py-2 text-sm bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700"
+  disabled=""
+  rel="noreferrer"
+  target="_blank"
+>
+  <span>
+    text
+  </span>
+</button>
+`;
+
+exports[`Input primary large 1`] = `
+<button
+  class="flex rounded-full transition-all font-semibold duration-200 ease-in shadow hover:shadow-md focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-75 px-5 py-3 text-base bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700"
+  rel="noreferrer"
+  target="_blank"
+>
+  <span>
+    text
+  </span>
+</button>
+`;
+
+exports[`Input primary large 2`] = `
+<button
+  class="flex rounded-full transition-all font-semibold duration-200 ease-in shadow hover:shadow-md focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-75 px-5 py-3 text-base bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700"
+  rel="noreferrer"
+  target="_blank"
+>
+  <span>
+    text
+  </span>
+</button>
+`;
+
+exports[`Input secondary 1`] = `
+<button
+  class="flex rounded-full transition-all font-semibold duration-200 ease-in shadow hover:shadow-md focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-75 px-4 py-2 text-sm border bg-white border-primary-500 text-primary-500 hover:bg-base-200 active:bg-base-300"
+  rel="noreferrer"
+  target="_blank"
+>
+  <span>
+    text
+  </span>
+</button>
+`;
+
+exports[`Input secondary disabled 1`] = `
+<button
+  class="flex rounded-full transition-all font-semibold duration-200 ease-in shadow hover:shadow-md focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-75 px-4 py-2 text-sm border bg-white border-primary-500 text-primary-500 hover:bg-base-200 active:bg-base-300"
+  disabled=""
+  rel="noreferrer"
+  target="_blank"
+>
+  <span>
+    text
+  </span>
+</button>
+`;
