@@ -48,6 +48,12 @@ export class Diagnosis extends Model {
   @IsDate()
   readonly updatedAt!: Date;
 
+  @IsInt()
+  readonly waitingCountAtCreation!: number;
+
+  @IsInt()
+  readonly completeCountAtCreation!: number;
+
   readonly sources!: readonly Source[];
   private readonly [immerable] = true;
 
@@ -91,5 +97,17 @@ export class Diagnosis extends Model {
     return produce(this, (draft) => {
       draft.sources = castDraft(sources);
     });
+  }
+
+  getWaitingCountAhead(completeCount: number): number {
+    /*
+      [ completed ] [       waiting    ] ... 1
+      [ completed      ] [    waiting  ] ... 2
+      ==> n(queuesAhead) = waiting_1 - (completed_2 - completed_1)
+    */
+    const result =
+      this.waitingCountAtCreation -
+      (completeCount - this.completeCountAtCreation);
+    return Math.max(0, result);
   }
 }

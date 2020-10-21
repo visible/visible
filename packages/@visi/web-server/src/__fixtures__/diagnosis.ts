@@ -11,6 +11,8 @@ export const diagnosis = Diagnosis.from({
   totalCount: 1,
   createdAt: new Date('2020-05-17T08:28:59.186Z'),
   updatedAt: new Date('2020-05-17T08:28:59.186Z'),
+  waitingCountAtCreation: 0,
+  completeCountAtCreation: 0,
 });
 
 export const minimalDiagnosis = Diagnosis.from({
@@ -23,4 +25,6 @@ export const minimalDiagnosis = Diagnosis.from({
   totalCount: 0,
   createdAt: new Date('2020-05-17T08:28:59.186Z'),
   updatedAt: new Date('2020-05-17T08:28:59.186Z'),
+  waitingCountAtCreation: 0,
+  completeCountAtCreation: 0,
 });
