@@ -34,7 +34,7 @@ const NavColumn = ({ title, items }: NavColumnProps) => {
 
 const Nav = ({ columns }: { columns: NavColumnProps[] }) => {
   return (
-    <div className="flex flex-wrap space-x-4">
+    <div className="flex flex-col space-y-2 md:flex-row md:space-x-12 md:space-y-0">
       {columns.map((column, i) => (
         <NavColumn key={`item-${i}`} {...column} />
       ))}
@@ -44,7 +44,7 @@ const Nav = ({ columns }: { columns: NavColumnProps[] }) => {
 
 const Copyright = () => {
   return (
-    <div className="flex justify-center space-x-24">
+    <div className="flex justify-between space-x-24">
       <div>
         <Typography fontSize="sm" color="wash">
           Copyright 2020 Ryō Igarashi
@@ -142,8 +142,8 @@ export const ContentInfo = ({ ref: _ref }: ContentInfoProps) => {
   return (
     <Layout.Footer ref={_ref}>
       <Layout.Container>
-        <div className="w-full space-y-8 my-6">
-          <div className="flex space-x-24 justify-center">
+        <div className="w-full space-y-8 my-6 mx-auto lg:max-w-screen-md">
+          <div className="flex flex-col md:flex-row md:space-x-24 md:justify-between">
             <img src="/static/logo-gray.svg" alt="Visible" />
             <Nav columns={columns} />
           </div>

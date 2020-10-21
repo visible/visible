@@ -9,17 +9,17 @@ exports[`ContentInfo matches to the snapshot 1`] = `
       class="flex flex-wrap items-start relative w-full mx-auto box-border p-3 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl"
     >
       <div
-        class="w-full space-y-8 my-6"
+        class="w-full space-y-8 my-6 mx-auto lg:max-w-screen-md"
       >
         <div
-          class="flex space-x-24 justify-center"
+          class="flex flex-col md:flex-row md:space-x-24 md:justify-between"
         >
           <img
             alt="Visible"
             src="/static/logo-gray.svg"
           />
           <div
-            class="flex flex-wrap space-x-4"
+            class="flex flex-col space-y-2 md:flex-row md:space-x-12 md:space-y-0"
           >
             <div>
               <h4
@@ -137,7 +137,7 @@ exports[`ContentInfo matches to the snapshot 1`] = `
           </div>
         </div>
         <div
-          class="flex justify-center space-x-24"
+          class="flex justify-between space-x-24"
         >
           <div>
             <p
