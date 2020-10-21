@@ -1,7 +1,12 @@
 const { colors, boxShadow } = require('tailwindcss/defaultTheme');
 
+// https://github.com/vercel/next.js/blob/canary/examples/with-tailwindcss/tailwind.config.js
 module.exports = {
-  purge: ['./src/**/*.tsx'],
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
+  purge: ['./src/components/**/*.{ts,tsx}', './src/pages/**/*.{ts,tsx}'],
   theme: {
     colors: {
       ...colors,
