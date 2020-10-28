@@ -166,6 +166,7 @@
     "code-frame": "該当箇所",
     "collapsed": "詳細を表示",
     "difficulty": "難易度: {{difficulty}}",
+    "expand": "Hide details",
     "expanded": "詳細を非表示",
     "filename": "<1>{{filename}}</1>で発見",
     "impact": "重要度: {{impact}}",
@@ -202,6 +203,12 @@
   },
   "source": {
     "report-count": "レポート数: {{count}}"
+  },
+  "sponsor": {
+    "description": "このサイトは<6>さくらインターネット株式会社</6>の提供により<2>「さくらのVPS」</2>のインフラ上で公開されています",
+    "sakura-no-vps": "さくらのVPS",
+    "sakura-no-vps-logo": "さくらのVPSのロゴ",
+    "title": "スポンサードリンク"
   },
   "status": {
     "description": "診断状況: {{status}}",

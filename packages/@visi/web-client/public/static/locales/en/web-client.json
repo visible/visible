@@ -167,6 +167,7 @@
     "code-frame": "Code frame",
     "collapsed": "Show details",
     "difficulty": "Difficulty: {{difficulty}}",
+    "expand": "Hide details",
     "expanded": "Hide details",
     "filename": "Found at <1>{{filename}}</1>",
     "impact": "Impact: {{impact}}",
@@ -205,6 +206,11 @@
   "source": {
     "report-count": "Report count: {{count}}",
     "report-count_plural": "Report count: {{count}}"
+  },
+  "sponsor": {
+    "sakura-no-vps": "Sakura no VPS",
+    "sakura-no-vps-logo": "Logo of Sakura no VPS",
+    "title": "Sponsored link"
   },
   "status": {
     "description": "Diagnosis status: {{status}}",
