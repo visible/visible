@@ -84,14 +84,17 @@
   },
   "features": {
     "automation": {
+      "alt": "Robot using keyboard",
       "description": "Unlike other tools, Visible also provides patches to fix the a11y issues so you don’t need to search for information of the error and helps you to focus more on coding",
       "title": "Suggestion"
     },
     "ci": {
+      "alt": "Rounding cogs",
       "description": "Visible is also available on command-line, so you can use it on continuous integrations services and monitor the website is fine.",
       "title": "Command-line"
     },
     "learn": {
+      "alt": "Paper and pen",
       "description": "Visible always inform you which exact codes are violating rules which means you can learn more about accessibility as you code",
       "title": "Learn about A11y"
     },
