@@ -15,7 +15,7 @@ export const Features = () => {
 
       <Feature
         imageUrl="/static/robot.png"
-        imageDescription="Robot"
+        imageDescription={t('features.automation.alt', 'Robot using keyboard')}
         title={t('features.automation.title', 'Suggestion')}
         description={t(
           'features.automation.description',
@@ -25,7 +25,7 @@ export const Features = () => {
 
       <Feature
         imageUrl="/static/contract.png"
-        imageDescription="Documentation"
+        imageDescription={t('features.learn.alt', 'Paper and pen')}
         title={t('features.learn.title', 'Learn about A11y')}
         description={t(
           'features.learn.description',
@@ -35,7 +35,7 @@ export const Features = () => {
 
       <Feature
         imageUrl="/static/cog.png"
-        imageDescription="Documentation"
+        imageDescription={t('features.ci.alt', 'Rounding cogs')}
         title={t('features.ci.title', 'Command-line')}
         description={t(
           'features.ci.description',

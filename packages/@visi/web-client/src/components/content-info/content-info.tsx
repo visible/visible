@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useTranslation } from '../../utils/i18next';
-import { Layout, NavItem, Typography } from '../ui';
+import { Trans, useTranslation } from '../../utils/i18next';
+import { Divider, Layout, NavItem, Typography } from '../ui';
 
 type NavColumnProps = {
   title: string;
@@ -83,6 +83,62 @@ const Copyright = () => {
   );
 };
 
+export const Sponsor = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="flex flex-col items-center w-full space-y-8">
+      <Typography variant="h4" fontSize="base" color="wash">
+        {t('sponsor.title', 'Sponsored link')}
+      </Typography>
+
+      <a
+        href="https://vps.sakura.ad.jp/"
+        target="_blank"
+        rel="noreferrer"
+        className="hover:opacity-75 transition-all duration-75"
+      >
+        <figure className="flex items-center space-x-4">
+          <img
+            src="/static/sakura-no-vps.png"
+            alt={t('sponsor.sakura-no-vps-logo', 'さくらのVPSのロゴ')}
+            width="130px"
+          />
+
+          <figcaption>
+            <Typography fontSize="3xl" fontWeight="bold">
+              {t('sponsor.sakura-no-vps', 'さくらのVPS')}
+            </Typography>
+          </figcaption>
+        </figure>
+      </a>
+
+      <Typography color="wash">
+        <Trans i18nKey="sponsor.description">
+          This website is powered the infrastructure of{' '}
+          <a
+            href="https://vps.sakura.ad.jp/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary-500 hover:underline"
+          >
+            さくらのVPS
+          </a>{' '}
+          by{' '}
+          <a
+            href="https://www.sakura.ad.jp/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary-500 hover:underline"
+          >
+            SAKURA internet
+          </a>
+        </Trans>
+      </Typography>
+    </div>
+  );
+};
+
 type ContentInfoProps = JSX.IntrinsicElements['footer'];
 
 export const ContentInfo = ({ ref: _ref }: ContentInfoProps) => {
@@ -140,11 +196,17 @@ export const ContentInfo = ({ ref: _ref }: ContentInfoProps) => {
   ];
 
   return (
-    <Layout.Footer ref={_ref}>
+    <Layout.Footer ref={_ref} className="py-6">
       <Layout.Container>
-        <div className="w-full space-y-8 my-6 mx-auto lg:max-w-screen-md">
+        <Sponsor />
+      </Layout.Container>
+
+      <Divider />
+
+      <Layout.Container>
+        <div className="w-full space-y-8 mx-auto lg:max-w-screen-md">
           <div className="flex flex-col md:flex-row md:space-x-24 md:justify-between">
-            <img src="/static/logo-gray.svg" alt="Visible" />
+            <img src="/static/logo-gray.svg" alt="Visible" width="100px" />
             <Nav columns={columns} />
           </div>
           <Copyright />

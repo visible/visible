@@ -60,6 +60,7 @@
     "postgres",
     "postgresql",
     "prefetch",
+    "sakura",
     "scaffdog",
     "schooler",
     "serializable",

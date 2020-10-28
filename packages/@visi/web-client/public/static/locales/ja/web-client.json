@@ -83,14 +83,17 @@
   },
   "features": {
     "automation": {
+      "alt": "キーボードを使っているロボット",
       "description": "他のツールとは異なり、Visibleは警告とともに問題を修正するためのパッチも提供するため、今以上にコーディングに集中できます。",
       "title": "修正提案"
     },
     "ci": {
+      "alt": "回転する歯車",
       "description": "Visibleはコマンドラインでも実行可能なため、継続的インテグレーションで実行してウェブサイトのアクセシビリティーを監視できます。",
       "title": "コマンドライン"
     },
     "learn": {
+      "alt": "紙とペン",
       "description": "Visible はコードのどの箇所がa11yに違反するかを常にお知らせするので、コードを書けば書くほどa11yに詳しくなります。",
       "title": "A11yに詳しくなる"
     },
@@ -166,6 +169,7 @@
     "code-frame": "該当箇所",
     "collapsed": "詳細を表示",
     "difficulty": "難易度: {{difficulty}}",
+    "expand": "Hide details",
     "expanded": "詳細を非表示",
     "filename": "<1>{{filename}}</1>で発見",
     "impact": "重要度: {{impact}}",
@@ -202,6 +206,12 @@
   },
   "source": {
     "report-count": "レポート数: {{count}}"
+  },
+  "sponsor": {
+    "description": "このサイトは<6>さくらインターネット株式会社</6>の提供により<2>「さくらのVPS」</2>のインフラ上で公開されています",
+    "sakura-no-vps": "さくらのVPS",
+    "sakura-no-vps-logo": "さくらのVPSのロゴ",
+    "title": "スポンサードリンク"
   },
   "status": {
     "description": "診断状況: {{status}}",
