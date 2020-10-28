@@ -105,7 +105,7 @@ export const Sponsor = () => {
             width="130px"
           />
 
-          <figcaption>
+          <figcaption lang="ja">
             <Typography fontSize="3xl" fontWeight="bold">
               {t('sponsor.sakura-no-vps', 'さくらのVPS')}
             </Typography>

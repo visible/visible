@@ -211,8 +211,8 @@
     "report-count_plural": "Report count: {{count}}"
   },
   "sponsor": {
-    "sakura-no-vps": "Sakura no VPS",
-    "sakura-no-vps-logo": "Logo of Sakura no VPS",
+    "sakura-no-vps": "さくらのVPS",
+    "sakura-no-vps-logo": "Logo of さくらのVPS",
     "title": "Sponsored link"
   },
   "status": {
