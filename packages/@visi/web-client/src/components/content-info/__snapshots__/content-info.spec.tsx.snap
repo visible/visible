@@ -30,7 +30,9 @@ exports[`ContentInfo matches to the snapshot 1`] = `
               src="/static/sakura-no-vps.png"
               width="130px"
             />
-            <figcaption>
+            <figcaption
+              lang="ja"
+            >
               <p
                 class="font-bold text-3xl"
               >
