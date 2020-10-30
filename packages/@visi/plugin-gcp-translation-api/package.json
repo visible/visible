@@ -10,7 +10,7 @@
     "test": "exit 0"
   },
   "files": [
-    "./dist"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"

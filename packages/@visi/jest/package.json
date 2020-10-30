@@ -10,8 +10,8 @@
     "test": "exit 0"
   },
   "files": [
-    "./dist",
-    "./extend-expect"
+    "dist",
+    "extend-expect"
   ],
   "publishConfig": {
     "access": "public"
