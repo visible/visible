@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/visible/visible/compare/v0.2.1...v0.3.1) (2020-10-30)
+
+
+### Bug Fixes
+
+* Add event handler for worker exception ([201f32f](https://github.com/visible/visible/commit/201f32f0a65f6443f8a62944c97a6f97c79bfb2f))
+* Duplicate redis client on worker and queue ([c9aed65](https://github.com/visible/visible/commit/c9aed658d77c4e384be53f51f268e299b97269f7))
+* Fix files paths ([572af46](https://github.com/visible/visible/commit/572af4602302ca95074dbc4ec654bed86e29ea1c))
+* Make subscribeToMore a ref ([2cca52a](https://github.com/visible/visible/commit/2cca52aac55e37f451f0db2c534fb5830f00069c))
+* Release visible instance in finally [#250](https://github.com/visible/visible/issues/250) ([aedf6b9](https://github.com/visible/visible/commit/aedf6b9cf4b52012b1ffabb557c5bfc27ccbb385))
+* Remove stats API temporarily ([2442c47](https://github.com/visible/visible/commit/2442c4760719a68bdc7291319de7be49f6e29f4f))
+* Revert "Merge pull request [#249](https://github.com/visible/visible/issues/249) from visible/hotfix/remove-stats" ([9dfb3af](https://github.com/visible/visible/commit/9dfb3af7be43a42a8b30d093f2a6d4597b2a7923))
+
+
+### Features
+
+* Add Cloud Storage Impl ([0a577e4](https://github.com/visible/visible/commit/0a577e4841a97dbc082312b362e4c13c7fe580e9))
+* Add format option ([8a092e3](https://github.com/visible/visible/commit/8a092e366aefbe1c6be458b6cdce242c1e4e2328))
+* Add queue count ([7e5b782](https://github.com/visible/visible/commit/7e5b782ae100b3981fcfaeb1a1b2c82de8e4d390))
+* Add reference to W3C website ([072952c](https://github.com/visible/visible/commit/072952c5ce5b8a05d2381a1b49ffe1549b9e189b))
+
+
+
+
+
 # [0.3.0](https://github.com/visible/visible/compare/v0.2.1...v0.3.0) (2020-10-17)
 
 

@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/visible/visible/compare/v0.2.1...v0.3.1) (2020-10-30)
+
+
+### Bug Fixes
+
+* Add CJK font ([f3f8439](https://github.com/visible/visible/commit/f3f84393af92ea8b928c9324dc67671b8ff9722d))
+* Add event handler for worker exception ([201f32f](https://github.com/visible/visible/commit/201f32f0a65f6443f8a62944c97a6f97c79bfb2f))
+* Clarify label for expand button ([c340bbd](https://github.com/visible/visible/commit/c340bbdee18b6b6e1b728167ffd0ec8c05da70f9))
+* Duplicate redis client on worker and queue ([c9aed65](https://github.com/visible/visible/commit/c9aed658d77c4e384be53f51f268e299b97269f7))
+* Fix files paths ([572af46](https://github.com/visible/visible/commit/572af4602302ca95074dbc4ec654bed86e29ea1c))
+* Fix infinite redirect by rerun ([f4b95d5](https://github.com/visible/visible/commit/f4b95d58df6f94cfdce947e3cbf5005a3e1d8beb))
+* Keep the service name Japanese ([f97bd66](https://github.com/visible/visible/commit/f97bd66f812ac4244180d85a591e9cbeb57397da))
+* Make subscribeToMore a ref ([2cca52a](https://github.com/visible/visible/commit/2cca52aac55e37f451f0db2c534fb5830f00069c))
+* Release visible instance in finally [#250](https://github.com/visible/visible/issues/250) ([aedf6b9](https://github.com/visible/visible/commit/aedf6b9cf4b52012b1ffabb557c5bfc27ccbb385))
+* Remove search role ([d5d77ea](https://github.com/visible/visible/commit/d5d77ea8a8b581df9e67fef16242cbbccebfb212))
+* Remove stats API temporarily ([2442c47](https://github.com/visible/visible/commit/2442c4760719a68bdc7291319de7be49f6e29f4f))
+* Revert "Merge pull request [#249](https://github.com/visible/visible/issues/249) from visible/hotfix/remove-stats" ([9dfb3af](https://github.com/visible/visible/commit/9dfb3af7be43a42a8b30d093f2a6d4597b2a7923))
+* Use asPath ([1cbef51](https://github.com/visible/visible/commit/1cbef515ed1a1a2df14af5be407f18b73676a153))
+* Use semantic elements for report ([0baebe1](https://github.com/visible/visible/commit/0baebe11b3ed9122852b358fd6b24e50b0636db5))
+* Use serverRuntimeConfig ([e2195a2](https://github.com/visible/visible/commit/e2195a2e5d18d5e95f662173006178a9085d2e3a))
+* Workaround for Safari's flexbox bug with summary ([ee1bb76](https://github.com/visible/visible/commit/ee1bb762e1247b403222b2d17cdf5d153e80af16))
+
+
+### Features
+
+* Add Cloud Storage Impl ([0a577e4](https://github.com/visible/visible/commit/0a577e4841a97dbc082312b362e4c13c7fe580e9))
+* Add format option ([8a092e3](https://github.com/visible/visible/commit/8a092e366aefbe1c6be458b6cdce242c1e4e2328))
+* Add messages to passed reports too ([7798d68](https://github.com/visible/visible/commit/7798d68e33462122bff50f6977be13aa337eea7f))
+* Add newsletter form ([ef09dd8](https://github.com/visible/visible/commit/ef09dd88bc2b77438beeb7183fcbfcc66ab9b4a8))
+* Add queue count ([7e5b782](https://github.com/visible/visible/commit/7e5b782ae100b3981fcfaeb1a1b2c82de8e4d390))
+* Add re-run feature ([2ed252a](https://github.com/visible/visible/commit/2ed252ab47f2cef87b6962be3af86118ed731b00))
+* Add reference to W3C website ([072952c](https://github.com/visible/visible/commit/072952c5ce5b8a05d2381a1b49ffe1549b9e189b))
+* Add sponsored link ([de917e7](https://github.com/visible/visible/commit/de917e7c0813f25e39c0ce7e619044be448c6691))
+* Add survey link ([81a54e4](https://github.com/visible/visible/commit/81a54e435865177a9f028fb4b12bb084c538f501))
+
+
+
+
+
 # [0.3.0](https://github.com/visible/visible/compare/v0.2.1...v0.3.0) (2020-10-17)
 
 

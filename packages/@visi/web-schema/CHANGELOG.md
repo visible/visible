@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/visible/visible/compare/v0.2.1...v0.3.1) (2020-10-30)
+
+
+### Bug Fixes
+
+* Remove stats API temporarily ([2442c47](https://github.com/visible/visible/commit/2442c4760719a68bdc7291319de7be49f6e29f4f))
+* Revert "Merge pull request [#249](https://github.com/visible/visible/issues/249) from visible/hotfix/remove-stats" ([9dfb3af](https://github.com/visible/visible/commit/9dfb3af7be43a42a8b30d093f2a6d4597b2a7923))
+
+
+### Features
+
+* Add queue count ([7e5b782](https://github.com/visible/visible/commit/7e5b782ae100b3981fcfaeb1a1b2c82de8e4d390))
+* Add reference to W3C website ([072952c](https://github.com/visible/visible/commit/072952c5ce5b8a05d2381a1b49ffe1549b9e189b))
+
+
+
+
+
 # [0.3.0](https://github.com/visible/visible/compare/v0.2.1...v0.3.0) (2020-10-17)
 
 
