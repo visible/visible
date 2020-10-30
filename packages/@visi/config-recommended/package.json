@@ -9,7 +9,7 @@
     "build": "exit 0"
   },
   "files": [
-    "./index.json"
+    "index.json"
   ],
   "publishConfig": {
     "access": "public"

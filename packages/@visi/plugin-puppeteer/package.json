@@ -10,7 +10,7 @@
     "test": "exit 0"
   },
   "files": [
-    "./dist"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
@@ -25,7 +25,8 @@
   },
   "devDependencies": {
     "@types/puppeteer": "^3.0.1",
-    "@visi/core": "^0.3.0"
+    "@visi/core": "^0.3.0",
+    "typescript": "^4.0.5"
   },
   "peerDependencies": {
     "@visi/core": "*"

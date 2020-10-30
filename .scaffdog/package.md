@@ -20,9 +20,6 @@ ignore: []
     "build": "tsc",
     "test": "jest"
   },
-  "files": [
-    "./dist"
-  ],
   "publishConfig": {
     "access": "public"
   }

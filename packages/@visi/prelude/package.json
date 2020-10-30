@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "files": [
-    "./dist"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
