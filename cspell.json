@@ -11,6 +11,7 @@
   "words": [
     "Affero",
     "AGPL",
+    "Acot",
     "ADHD",
     "antialiased",
     "appenders",
@@ -19,11 +20,13 @@
     "bullmq",
     "camelcase",
     "codegen",
+    "codecov",
     "cosmiconfig",
     "dataclass",
     "dataloader",
     "deepmerge",
     "dequelabs",
+    "Deque",
     "devtool",
     "devtools",
     "docgen",
@@ -72,6 +75,7 @@
     "semibold",
     "SMACSS",
     "stylelint",
+    "Siteimprove",
     "stylelintcache",
     "tailwindcss",
     "theming",
@@ -85,6 +89,7 @@
     "visiblehq",
     "visiblerc",
     "WCAG",
+    "Webhint",
     "WOFF",
     "xpaths"
   ]
