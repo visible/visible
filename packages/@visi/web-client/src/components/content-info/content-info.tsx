@@ -157,7 +157,7 @@ export const ContentInfo = ({ ref: _ref }: ContentInfoProps) => {
           children: t('content-info.contact.twitter', 'Twitter'),
         },
         {
-          href: 'https://github.com/visible/visible/issues/news',
+          href: 'https://github.com/visible/visible/issues/new',
           children: t('content-info.contact.github-issues', 'Report Bugs'),
         },
       ],

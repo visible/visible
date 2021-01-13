@@ -98,7 +98,7 @@ exports[`ContentInfo matches to the snapshot 1`] = `
                 <li>
                   <a
                     class="hover:underline text-gray-600"
-                    href="https://github.com/visible/visible/issues/news"
+                    href="https://github.com/visible/visible/issues/new"
                     rel="noreferrer"
                     target="_blank"
                   >
