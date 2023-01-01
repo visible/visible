@@ -29,7 +29,7 @@ jobs:
       #   id: yarn-cache-dir-path
       #   run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      # - uses: actions/cache@v2.1.7
+      # - uses: actions/cache@v3.2.2
       #   id: yarn-cache
       #   with:
       #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -39,13 +39,13 @@ jobs:
 
       # https://dev.to/mpocock1/how-to-cache-nodemodules-in-github-actions-with-yarn-24e
       - name: Restore Yarn dependencies
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.2.2
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Restore Linter Caches
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.2.2
         with:
           path: |
             .eslintcache
@@ -54,7 +54,7 @@ jobs:
 
       # https://github.com/zeit/next.js/blob/master/errors/no-cache.md
       - name: Restore .next/cache
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.2.2
         with:
           path: ${{ github.workspace }}/packages/@visi/web-client/.next/cache
           key: ${{ runner.os }}-next-${{ hashFiles('**/yarn.lock') }}
