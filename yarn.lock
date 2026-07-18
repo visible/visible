@@ -13479,9 +13479,9 @@ i18next-http-backend@^1.0.17:
     node-fetch "2.6.0"
 
 i18next-http-middleware@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/i18next-http-middleware/-/i18next-http-middleware-3.0.2.tgz#69b24e81f134c67d9a356fea43c2c09a507edcc4"
-  integrity sha512-h6n6+4k6EbYjtACPSslEkpf3Qf404QpENGb87auMSA77QBna9dUBWNAzG3jmqzK9cV4p8ZjsQTrwMzu+xyYaXw==
+  version "3.9.7"
+  resolved "https://registry.yarnpkg.com/i18next-http-middleware/-/i18next-http-middleware-3.9.7.tgz#2cc8973e8c210767ae45e141ee54878b527dd0d3"
+  integrity sha512-k4Aa39thnQXGox5ZeKvlOwbDsFz+iGxtPJITWm6xmmErNZOeGMXIoH9XwK3ITUq7lqHaywnIH9gLwOraU4jJvQ==
 
 i18next-node-fs-backend@^2.1.3:
   version "2.1.3"
